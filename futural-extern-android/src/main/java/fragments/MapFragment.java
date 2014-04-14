@@ -75,8 +75,7 @@ public class MapFragment extends LKFragment  {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        //setTitle(getString(R.string.karta));
-        setTitle("KARTA");
+        setTitle(getString(R.string.map));
     }
 
     @Override

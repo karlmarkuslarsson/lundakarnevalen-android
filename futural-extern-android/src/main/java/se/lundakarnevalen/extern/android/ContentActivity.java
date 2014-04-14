@@ -1,20 +1,32 @@
 package se.lundakarnevalen.extern.android;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import fragments.LKFragment;
 import fragments.MapFragment;
+import widget.LKRightMenuArrayAdapter;
+import widget.LKRightMenuArrayAdapter.*;
 
 public class ContentActivity extends ActionBarActivity implements LKFragment.Messanger {
     private FragmentManager fragmentMgr;
-
+    private LKRightMenuArrayAdapter adapter;
+    private ListView bottomMenuList;
+    private DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +34,11 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
         setContentView(R.layout.activity_content);
         fragmentMgr = getSupportFragmentManager();
         loadFragment(new MapFragment(), false);
+        bottomMenuList = (ListView) findViewById(R.id.right_menu_list);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerLayout.setScrimColor(Color.TRANSPARENT);
+        populateMenu();
+
     }
 
 
@@ -66,6 +83,34 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
     @Override
     public void popFragmentStack() {
         fragmentMgr.popBackStack();
+    }
+
+    /**
+     * Sets up the ListView in the navigationdrawer menu.
+     */
+    private void populateMenu() {
+        // Create logo and sigill objects.
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        //View menuBottom = inflater.inflate(R.layout., null);
+
+
+        List<LKRightMenuListItem> listItems = new ArrayList<LKRightMenuListItem>();
+
+        listItems.add(new LKRightMenuListItem(getString(R.string.food),
+                0, new MapFragment(), fragmentMgr, this, true).closeDrawerOnClick(true, drawerLayout));
+
+        listItems.add(new LKRightMenuListItem(getString(R.string.entertainment), 0,
+                new MapFragment(), fragmentMgr, this, true).closeDrawerOnClick(true, drawerLayout));
+
+        listItems.add(new LKRightMenuListItem(getString(R.string.help), 0,
+                new MapFragment(), fragmentMgr, this, true).closeDrawerOnClick(true, drawerLayout));
+
+        listItems.add(new LKRightMenuListItem(getString(R.string.wc), 0,
+                new MapFragment(), fragmentMgr, this, true).closeDrawerOnClick(true, drawerLayout));
+
+        adapter = new LKRightMenuArrayAdapter(this, listItems);
+        bottomMenuList.setAdapter(adapter);
+        bottomMenuList.setOnItemClickListener(adapter);
     }
 
 }

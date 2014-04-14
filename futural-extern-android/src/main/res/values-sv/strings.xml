@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Lundakarnevalen</string>
+    <string name="action_settings">Settings</string>
+    <string name="map">OMRÅDESKARTA</string>
+
+    <!-- right_list -->
+    <string name="food">MAT</string>
+    <string name="entertainment">NÖJEN</string>
+    <string name="help">HJÄLP</string>
+    <string name="wc">WC</string>
+
+
+
+</resources>
