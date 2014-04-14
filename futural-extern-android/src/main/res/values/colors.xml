@@ -3,6 +3,7 @@
     <color name="blue_purple">#5D617F</color>
     <color name="red">#F0533E</color>
     <color name="white">#FFF</color>
+    <color name="white_unselected">#F8B7B0</color>
     <color name="blue_light">#C1D3EE</color>
     <color name="yellow">#f5d408</color>
     <color name="black">#000</color>
@@ -10,5 +11,7 @@
     <color name="right_menu_button_shadow">#464B62</color>
     <color name="right_menu_background">#5D607F</color>
     <color name="bottom_menu_shadow">#BE4233</color>
+    <color name="bottom_menu_background_selected">#BF4635</color>
+
 
 </resources>
