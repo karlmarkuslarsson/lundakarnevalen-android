@@ -9,5 +9,6 @@
     <color name="right_menu_button">#73779A</color>
     <color name="right_menu_button_shadow">#464B62</color>
     <color name="right_menu_background">#5D607F</color>
+    <color name="bottom_menu_shadow">#BE4233</color>
 
 </resources>

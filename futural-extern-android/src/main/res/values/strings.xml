@@ -6,14 +6,17 @@
     <string name="action_settings">Settings</string>
     <string name="hello_blank_fragment">Hello blank </string>
     <string name="map">MAP</string>
+    <string name="map2">MAP</string>
 
     <!-- right_list -->
     <string name="food">FOOD</string>
-    <string name="entertainment">ENTERTAINMENT</string>
+    <string name="fun">FUN</string>
     <string name="help">HELP</string>
     <string name="wc">WC</string>
     <string name="show_all">SHOW ALL</string>
     <string name="show_only">SHOW ONLY</string>
+    <string name="scheme">SCHEME</string>
+    <string name="other">OTHER</string>
 
 
 </resources>

@@ -104,7 +104,7 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
         listItems.add(new LKRightMenuListItem(getString(R.string.food),
                 0, new MapFragment(), fragmentMgr, this, true).closeDrawerOnClick(true, drawerLayout));
 
-        listItems.add(new LKRightMenuListItem(getString(R.string.entertainment), 0,
+        listItems.add(new LKRightMenuListItem(getString(R.string.fun), 0,
                 new MapFragment(), fragmentMgr, this, true).closeDrawerOnClick(true, drawerLayout));
 
         listItems.add(new LKRightMenuListItem(getString(R.string.help), 0,

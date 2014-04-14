@@ -7,11 +7,15 @@
 
     <!-- right_list -->
     <string name="food">MAT</string>
-    <string name="entertainment">NÖJEN</string>
+    <string name="fun">NÖJEN</string>
     <string name="help">HJÄLP</string>
     <string name="wc">WC</string>
     <string name="show_all">VISA ALLT</string>
     <string name="show_only">VISA ENBART</string>
+    <string name="scheme">SCHEMA</string>
+    <string name="other">ÖVRIGT</string>
+    <string name="map2">KARTA</string>
+
 
 
 
