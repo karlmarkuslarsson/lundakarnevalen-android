@@ -96,6 +96,11 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
 
         List<LKRightMenuListItem> listItems = new ArrayList<LKRightMenuListItem>();
 
+
+
+        listItems.add(new LKRightMenuListItem().isStatic(true).showView(inflater.inflate(R.layout.menu_header, null)));
+
+
         listItems.add(new LKRightMenuListItem(getString(R.string.food),
                 0, new MapFragment(), fragmentMgr, this, true).closeDrawerOnClick(true, drawerLayout));
 
@@ -107,6 +112,11 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
 
         listItems.add(new LKRightMenuListItem(getString(R.string.wc), 0,
                 new MapFragment(), fragmentMgr, this, true).closeDrawerOnClick(true, drawerLayout));
+
+        listItems.add(new LKRightMenuListItem(getString(R.string.show_all), 0,
+                new MapFragment(), fragmentMgr, this, true).closeDrawerOnClick(true, drawerLayout));
+
+
 
         adapter = new LKRightMenuArrayAdapter(this, listItems);
         bottomMenuList.setAdapter(adapter);

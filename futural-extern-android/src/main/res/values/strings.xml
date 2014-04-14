@@ -12,6 +12,8 @@
     <string name="entertainment">ENTERTAINMENT</string>
     <string name="help">HELP</string>
     <string name="wc">WC</string>
+    <string name="show_all">SHOW ALL</string>
+    <string name="show_only">SHOW ONLY</string>
 
 
 </resources>

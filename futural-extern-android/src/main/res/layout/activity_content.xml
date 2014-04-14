@@ -38,7 +38,7 @@
         android:divider="@null"
         android:dividerHeight="0dp"
         android:footerDividersEnabled="true"
-        android:background="@color/blue_light"
+        android:background="@color/right_menu_background"
         android:layout_above="@id/bottomFrameMenu" />
 
 </android.support.v4.widget.DrawerLayout>

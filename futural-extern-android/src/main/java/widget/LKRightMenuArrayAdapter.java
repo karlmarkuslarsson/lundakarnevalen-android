@@ -45,8 +45,12 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
         if(item.isStatic) {
             return item.staticView;
         }
-
-        RelativeLayout wrapper = (RelativeLayout) inflater.inflate(R.layout.menu_element, null);
+        RelativeLayout wrapper = null;
+        if(item.title.equals(getContext().getString(R.string.show_all))) {
+            wrapper = (RelativeLayout) inflater.inflate(R.layout.menu_bottom, null);
+        } else {
+           wrapper = (RelativeLayout) inflater.inflate(R.layout.menu_element, null);
+        }
         if(item.isActive){
             wrapper.setSelected(true);
             Log.d(LOG_TAG, "was selecete");
@@ -106,8 +110,6 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
         boolean isInboxRow = false;
         boolean isMapRow = false;
         boolean isActive = false;
-        boolean pressedMap = false;
-
 
         public RelativeLayout rowLayout;
 
@@ -203,6 +205,8 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
             this.enable = enabled;
 
 
+
+
             this.listener = new OnClickListener() {
 
                 @Override
@@ -235,5 +239,6 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
             this.navDrawer = layout;
             return this;
         }
+
     }
 }
