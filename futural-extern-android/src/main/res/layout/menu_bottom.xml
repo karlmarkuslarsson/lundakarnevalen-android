@@ -10,7 +10,7 @@
     >
 
     <RelativeLayout
-        android:id="@+id/buttom"
+        android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/right_menu_button"
@@ -34,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="4dp"
         android:background="@color/right_menu_button_shadow"
-        android:layout_below="@id/buttom"
+        android:layout_below="@id/button"
         >
 
     </RelativeLayout>

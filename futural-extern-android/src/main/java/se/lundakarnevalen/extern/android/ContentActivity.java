@@ -1,6 +1,9 @@
 package se.lundakarnevalen.extern.android;
 
 import android.content.Context;
+import android.content.DialogInterface;
+
+import android.view.View.OnClickListener;
 import android.graphics.Color;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -12,7 +15,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +33,10 @@ import se.lundakarnevalen.extern.widget.LKRightMenuArrayAdapter.*;
 public class ContentActivity extends ActionBarActivity implements LKFragment.Messanger {
     private FragmentManager fragmentMgr;
     private LKRightMenuArrayAdapter adapter;
-    private ListView bottomMenuList;
+    private ListView rightMenuList;
+    private ListView boMenuList;
     private DrawerLayout drawerLayout;
+    private RelativeLayout currentSelectedBottomMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +44,26 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
         setContentView(R.layout.activity_content);
         fragmentMgr = getSupportFragmentManager();
         loadFragment(new MapFragment(), false);
-        bottomMenuList = (ListView) findViewById(R.id.right_menu_list);
+        rightMenuList = (ListView) findViewById(R.id.right_menu_list);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerLayout.setScrimColor(Color.TRANSPARENT);
         populateMenu();
+        generateLowerMenu();
+    }
 
+    private void generateLowerMenu() {
+        LinearLayout bottomMenu = (LinearLayout) findViewById(R.id.bottomFrameMenu);
+        RelativeLayout fun = (RelativeLayout) bottomMenu.findViewById(R.id.button1);
+        fun.setOnClickListener(new BottomMenuClickListener());
+        RelativeLayout food = (RelativeLayout) bottomMenu.findViewById(R.id.button2);
+        food.setOnClickListener(new BottomMenuClickListener());
+        RelativeLayout map = (RelativeLayout) bottomMenu.findViewById(R.id.button3);
+        map.setOnClickListener(new BottomMenuClickListener());
+        currentSelectedBottomMenu = map;
+        RelativeLayout scheme = (RelativeLayout) bottomMenu.findViewById(R.id.button4);
+        scheme.setOnClickListener(new BottomMenuClickListener());
+        RelativeLayout other = (RelativeLayout) bottomMenu.findViewById(R.id.button5);
+        other.setOnClickListener(new BottomMenuClickListener());
     }
 
 
@@ -93,31 +118,77 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
 
         List<LKRightMenuListItem> listItems = new ArrayList<LKRightMenuListItem>();
 
-
-
         listItems.add(new LKRightMenuListItem().isStatic(true).showView(inflater.inflate(R.layout.menu_header, null)));
 
-
-        listItems.add(new LKRightMenuListItem(getString(R.string.food),
-                0, new MapFragment(), fragmentMgr, this, true).closeDrawerOnClick(true, drawerLayout));
-
-        listItems.add(new LKRightMenuListItem(getString(R.string.fun), 0,
-                new MapFragment(), fragmentMgr, this, true).closeDrawerOnClick(true, drawerLayout));
-
-        listItems.add(new LKRightMenuListItem(getString(R.string.help), 0,
-                new MapFragment(), fragmentMgr, this, true).closeDrawerOnClick(true, drawerLayout));
-
-        listItems.add(new LKRightMenuListItem(getString(R.string.wc), 0,
-                new MapFragment(), fragmentMgr, this, true).closeDrawerOnClick(true, drawerLayout));
-
-        listItems.add(new LKRightMenuListItem(getString(R.string.show_all), 0,
-                new MapFragment(), fragmentMgr, this, true).closeDrawerOnClick(true, drawerLayout));
+        LKRightMenuListItem foodItem = new LKRightMenuListItem(getString(R.string.food),0);
+        foodItem.setOnClickListener(new MenuClickSelector(foodItem));
+        listItems.add(foodItem);
 
 
+        LKRightMenuListItem funItem = new LKRightMenuListItem(getString(R.string.fun),0);
+        funItem.setOnClickListener(new MenuClickSelector(funItem));
+        listItems.add(funItem);
+
+
+        LKRightMenuListItem helpItem = new LKRightMenuListItem(getString(R.string.help),0);
+        helpItem.setOnClickListener(new MenuClickSelector(helpItem));
+        listItems.add(helpItem);
+
+        LKRightMenuListItem wcItem = new LKRightMenuListItem(getString(R.string.wc),0);
+        wcItem.setOnClickListener(new MenuClickSelector(wcItem));
+        listItems.add(wcItem);
+
+        LKRightMenuListItem showItem = new LKRightMenuListItem(getString(R.string.show_all),0);
+        showItem.setOnClickListener(new MenuClickSelector(showItem));
+        listItems.add(showItem);
 
         adapter = new LKRightMenuArrayAdapter(this, listItems);
-        bottomMenuList.setAdapter(adapter);
-        bottomMenuList.setOnItemClickListener(adapter);
+        rightMenuList.setAdapter(adapter);
+        rightMenuList.setOnItemClickListener(adapter);
     }
+
+    private class MenuClickSelector implements OnClickListener {
+        LKRightMenuListItem item;
+        MenuClickSelector(LKRightMenuListItem item) {
+            this.item = item;
+        }
+
+
+        @Override
+        public void onClick(View v) {
+            // need later
+            RelativeLayout button = (RelativeLayout) v.findViewById(R.id.button);
+            if(item.isOn) {
+                button.setBackgroundColor(getResources().getColor(R.color.right_menu_button_selected));
+                item.isOn = false;
+            } else {
+                button.setBackgroundColor(getResources().getColor(R.color.right_menu_button));
+                item.isOn = true;
+            }
+            Log.d("Click", "CLICK" + v);
+
+        }
+
+
+    }
+    private class BottomMenuClickListener implements OnClickListener {
+
+
+
+        @Override
+        public void onClick(View v) {
+            if(v.equals(currentSelectedBottomMenu)) {
+                return;
+            }
+            currentSelectedBottomMenu.setBackgroundColor(getResources().getColor(R.color.red));
+            ((TextView)currentSelectedBottomMenu.findViewById(R.id.text)).setTextColor(getResources().getColor(R.color.white_unselected));
+            v.setBackgroundColor(getResources().getColor(R.color.bottom_menu_background_selected));
+            ((TextView)v.findViewById(R.id.text)).setTextColor(getResources().getColor(R.color.white));
+            currentSelectedBottomMenu = (RelativeLayout) v;
+            Log.d("Click", "CLICK" + v);
+
+        }
+    }
+
 
 }

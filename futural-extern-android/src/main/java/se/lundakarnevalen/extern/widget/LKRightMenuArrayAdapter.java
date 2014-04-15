@@ -18,6 +18,7 @@ package se.lundakarnevalen.extern.widget;
         import android.widget.RelativeLayout;
         import android.widget.TextView;
 
+        import se.lundakarnevalen.extern.android.ContentActivity;
         import se.lundakarnevalen.extern.android.R;
 
 /**
@@ -72,8 +73,9 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
         if(listener != null){
             listener.onClick(view);
             view.setSelected(true);
-            if(item.navDrawer != null && item.closeDrawerOnClick)
+            if(item.navDrawer != null && item.closeDrawerOnClick){
                 item.navDrawer.closeDrawers();
+            }
             Log.d(LOG_TAG, "click");
         }
         else
@@ -102,9 +104,12 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
         boolean closeDrawerOnClick = false;
         boolean isMapRow = false;
         boolean isActive = false;
+        public boolean isOn = true;
+
 
         public TextView text;
-        public boolean enable;
+        public boolean enable = true;
+
 
         /**
          * std. constr.
@@ -147,7 +152,6 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
         }
 
 
-        // Used later...
         /**
          * Creates list item with custom click listener that is called when list item is clicked.
          * @param title Text in menu to show
@@ -160,6 +164,18 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
             this.listener = listener;
             this.enable = enabled;
         }
+
+        /**
+         * Creates list item..
+         * @param title Text in menu to show
+         * @param icon Icon next to text
+         */
+        public LKRightMenuListItem(String title, int icon){
+            this.title = title;
+            this.icon = icon;
+        }
+
+
 
         /**
          * Creates list item with click listener that starts a fragment.
@@ -208,5 +224,8 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
             return this;
         }
 
+        public void setOnClickListener(OnClickListener listener) {
+            this.listener = listener;
+        }
     }
 }
