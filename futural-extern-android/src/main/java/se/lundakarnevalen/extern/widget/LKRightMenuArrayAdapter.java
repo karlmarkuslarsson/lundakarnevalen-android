@@ -1,4 +1,4 @@
-package widget;
+package se.lundakarnevalen.extern.widget;
 
 
         import java.util.List;
@@ -34,9 +34,6 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public void deleteItem(LKRightMenuListItem item) {
-        remove(item);
-    }
 
     @Override
     public View getView(int pos, View convertView, ViewGroup parent){
@@ -45,23 +42,20 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
         if(item.isStatic) {
             return item.staticView;
         }
-        RelativeLayout wrapper = null;
+        RelativeLayout wrapper;
         if(item.title.equals(getContext().getString(R.string.show_all))) {
             wrapper = (RelativeLayout) inflater.inflate(R.layout.menu_bottom, null);
         } else {
            wrapper = (RelativeLayout) inflater.inflate(R.layout.menu_element, null);
         }
-        if(item.isActive){
+        if(item.isActive && wrapper != null){
             wrapper.setSelected(true);
             Log.d(LOG_TAG, "was selecete");
         }
 
-        item.text = (TextView) wrapper.findViewById(R.id.text);
-        item.text.setText(item.title);
-
-
-        if(item.isActive) {
-            wrapper.setSelected(true);
+        if(wrapper != null) {
+            item.text = (TextView) wrapper.findViewById(R.id.text);
+            item.text.setText(item.title);
         }
 
         return wrapper;
@@ -99,7 +93,6 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
      *
      */
     public static class LKRightMenuListItem {
-        public RelativeLayout buttonLayout;
         public int icon;
         public String title;
         OnClickListener listener;
@@ -107,14 +100,9 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
         boolean isStatic = false;
         View staticView;
         boolean closeDrawerOnClick = false;
-        boolean isInboxRow = false;
         boolean isMapRow = false;
         boolean isActive = false;
 
-        public RelativeLayout rowLayout;
-
-        public RelativeLayout inboxCounterWrapper;
-        public TextView inboxCounter;
         public TextView text;
         public boolean enable;
 
@@ -126,26 +114,11 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
         }
 
 
-        /**
-         * Creates list item with no click listener.
-         * @param title
-         * @param icon
-         */
-        public LKRightMenuListItem(String title, int icon){
-            this.title = title;
-            this.icon = icon;
-        }
-
-        public LKRightMenuListItem isActive(boolean isActive){
-            this.isActive = isActive;
-            return this;
-        }
-
 
         /**
          * To be used with statics in listview.
-         * @param isStatic
-         * @return
+         * @param isStatic true if static
+         * @return list item
          */
         public LKRightMenuListItem isStatic(boolean isStatic){
             this.isStatic = isStatic;
@@ -154,23 +127,16 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
 
         /**
          * If isStatic is true, this view will be shown.
-         * @param view
-         * @return
+         * @param view set the view to view.
+         * @return list item
          */
         public LKRightMenuListItem showView(View view){
             this.staticView = view;
             return this;
         }
 
-        /**
-         * Only to use with inbox fragment
-         * @param isInboxRow sets to show the inbox counter.
-         */
-        public LKRightMenuListItem isInboxRow(boolean isInboxRow){
-            this.isInboxRow = isInboxRow;
-            return this;
-        }
 
+// TODO Maybe used later
         /**
          * Only to use with map fragment
          * @param isMapRow sets to show the map !.
@@ -180,6 +146,8 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
             return this;
         }
 
+
+        // Used later...
         /**
          * Creates list item with custom click listener that is called when list item is clicked.
          * @param title Text in menu to show
