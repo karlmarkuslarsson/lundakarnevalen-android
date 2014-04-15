@@ -17,6 +17,6 @@
     <string name="show_only">SHOW ONLY</string>
     <string name="scheme">SCHEME</string>
     <string name="other">OTHER</string>
-
+    <string name="title_activity_splash_sceen">SplashSceenActivity</string>
 
 </resources>
