@@ -28,6 +28,7 @@ import fragments.FoodFragment;
 import fragments.FunFragment;
 import fragments.LKFragment;
 import fragments.MapFragment;
+import fragments.MusicFragment;
 import fragments.OtherFragment;
 import fragments.SchemeFragment;
 import se.lundakarnevalen.extern.Map.MarkerType;
