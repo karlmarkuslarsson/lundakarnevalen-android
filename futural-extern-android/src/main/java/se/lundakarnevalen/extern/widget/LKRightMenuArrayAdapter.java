@@ -49,6 +49,7 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
         } else {
            wrapper = (RelativeLayout) inflater.inflate(R.layout.menu_element, null);
         }
+        item.button = wrapper.findViewById(R.id.button);
         if(item.isActive && wrapper != null){
             wrapper.setSelected(true);
             Log.d(LOG_TAG, "was selecete");
@@ -106,10 +107,12 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
         boolean isActive = false;
         public boolean isOn = true;
 
+        public int markerType;
 
         public TextView text;
         public boolean enable = true;
 
+        public View button;
 
         /**
          * std. constr.
@@ -170,9 +173,11 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
          * @param title Text in menu to show
          * @param icon Icon next to text
          */
-        public LKRightMenuListItem(String title, int icon){
+        public LKRightMenuListItem(String title, int icon, int markerType){
             this.title = title;
             this.icon = icon;
+            this.markerType = markerType;
+
         }
 
 

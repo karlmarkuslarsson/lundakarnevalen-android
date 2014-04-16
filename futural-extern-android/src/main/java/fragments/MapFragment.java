@@ -14,7 +14,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.*;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,7 +23,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import se.lundakarnevalen.extern.Map.MarkerType;
 import se.lundakarnevalen.extern.android.R;
 
 import static android.location.LocationManager.*;
@@ -83,15 +84,25 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
     private float diffLon = endLonMap - startLonMap;
     private float diffLat = endLatMap - startLatMap;
 
+    private HashMap<Integer,Boolean> active = new HashMap<Integer,Boolean>();
 
     // Every time you switch to this fragment.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_map, null);
 
+        if(active.size()==0) {
+            active.put(MarkerType.FOOD,true);
+            active.put(MarkerType.FUN,true);
+            active.put(MarkerType.HELP,true);
+            active.put(MarkerType.WC,true);
+        }
 
         context = getContext();
 
+        if(markers.size()==0) {
+            addMarkers();
+        }
 
         if(imageWidth == 0) {
             DisplayMetrics metrics = context.getResources().getDisplayMetrics();
@@ -113,6 +124,10 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
         return rootView;
     }
 
+    private void addMarkers() {
+        markers.add(new Marker((float)55.7,(float)13.2,R.drawable.ic_launcher, MarkerType.FOOD));
+    }
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -128,7 +143,7 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
         super.onResume();
     }
 
-    private void updatePositions() {
+    public void updatePositions() {
         Bitmap mapBitmap = null;
             mapBitmap = decodeSampledBitmapFromResource(getResources(), R.drawable.test_map, imageWidth , imageHeight);
         //Bitmap mapBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.test_map);
@@ -152,13 +167,19 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
 
         canvas.drawCircle(x, y, 10, paintRed);
             for(Marker m : markers) {
+
+                if(active.get(m.type) != null && active.get(m.type)) {
                 lat = (m.lat - startLatMap) / diffLat;
                 lon = (m.lng - startLonMap) / diffLon;
                 x = lon * mapBitmap.getWidth();
                 y = mapBitmap.getHeight() - lat * mapBitmap.getHeight();
                     // draw canvas..
+                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), m.picture);
+                canvas.drawBitmap(bitmap, x, y, null);
+                }
                 //canvas.dra(x, y, 10, paintRed);
             }
+
             img.setImageBitmap(bmOverlay);
 
     }
@@ -344,10 +365,12 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
         private float lat;
         private float lng;
         private int picture;
-        public Marker(float lat, float lng, int picture) {
+        private int type;
+        public Marker(float lat, float lng, int picture, int type) {
             this.lat = lat;
             this.lng = lng;
             this.picture = picture;
+            this.type = type;
         }
 
     }
@@ -371,6 +394,11 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
 
             super.onPostExecute(result);
         }
+    }
+
+    public void changeActive(int i, boolean activated) {
+        Log.d("here","set: "+i+" activated:"+activated);
+        active.put(i, activated);
     }
 }
 
