@@ -125,7 +125,46 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
     }
 
     private void addMarkers() {
-        markers.add(new Marker((float)55.7,(float)13.2,R.drawable.ic_launcher, MarkerType.FOOD));
+
+        //Barnevalen - Pappas onda tand:
+        //Krafts Torg
+        //Lat: 55°42'13.64"N Long: 13°11'40.73"O
+        markers.add(new Marker((float)55.7037889,(float)13.194647222222223,R.drawable.ic_launcher,MarkerType.FUN));
+
+
+
+       // Cirkusen - Cirkus 40 minuter:
+       // Tegnérsplatsen
+       // Lat: 55°42'17.40"N Long: 13°11'43.27"O
+        markers.add(new Marker((float)55.7048333,(float)13.195352777777778,R.drawable.ic_launcher,MarkerType.FUN));
+
+        // Spexet Atlantis:
+        // Stora Scenen AF (GPS-pos ingången AF)
+        //Lat: 55°42'19.48"N Long: 13°11'43.77"O
+        markers.add(new Marker((float)55.7054111,(float)13.195491666666667,R.drawable.ic_launcher,MarkerType.FUN));
+
+        //Showen - Ljuset och Lyktan:
+        //Tegnérs Matsalar
+        //Lat: 55°42'19.96"N Long: 13°11'44.12"O
+        markers.add(new Marker((float)55.7055444,(float)13.195588888888889,R.drawable.ic_launcher,MarkerType.FUN));
+
+        //Kabarén - Cabaret Apocalyptica:
+        //Norr om domkyrkan
+        //Lat: 55°42'15.36"N Long: 13°11'37.80"O
+        markers.add(new Marker((float)55.7042667,(float)13.193833333333334,R.drawable.ic_launcher,MarkerType.FUN));
+
+        //Revyn - Kottar och nötter:
+        //Universitetshuset
+        //Lat: 55°42'20.79"N Long: 13°11'36.80"O
+        markers.add(new Marker((float)55.705775,(float)13.193555555555555,R.drawable.ic_launcher,MarkerType.FUN));
+
+        //Filmen - Överliggaren:
+        //Palaestra
+        //Lat: 55°42'21.38"N Long: 13°11'41.30"Omarkers.add()
+        markers.add(new Marker((float)55.7059389,(float)13.194805555555556,R.drawable.ic_launcher,MarkerType.FUN));
+
+
+      //  markers.add(new Marker((float)55.7,(float)13.2,R.drawable.ic_launcher, MarkerType.FOOD));
     }
 
     @Override
