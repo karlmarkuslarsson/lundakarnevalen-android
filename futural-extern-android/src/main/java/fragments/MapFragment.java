@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PointF;
+import android.graphics.RectF;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -35,7 +36,7 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
 
     private ArrayList<Marker> markers = new ArrayList<Marker>();
 
-    private Matrix matrix = new Matrix();
+    private Matrix matrix;
     private Matrix savedMatrix = new Matrix();
 
     // Save current dots
@@ -109,17 +110,26 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
             imageWidth = metrics.widthPixels;
             imageHeight = metrics.heightPixels;
         }
-        img = (ImageView)rootView.findViewById(R.id.map_id);
+        img = ((ImageView) rootView.findViewById(R.id.map_id));
 
-        if (bmOverlay != null) {
-          //  ((ImageView) rootView.findViewById(R.id.map_id)).setImageBitmap(bmOverlay);
+        if(matrix != null) {
+            if(bmOverlay != null) {
+                img.setImageBitmap(bmOverlay);
+            }
+            img.setScaleType(ImageView.ScaleType.MATRIX);
+            img.setImageMatrix(matrix);
+        } else{
+                matrix = new Matrix();
+                //img.setScaleType(ImageView.ScaleType.MATRIX);
+                // matrix = img.getImageMatrix();
+                firstTime = true;
+                //matrix.set(img.getImageMatrix());
         }
+
         img.setOnTouchListener(this);
-        firstTime = true;
 
         PositionTask positionTask = new PositionTask();
         positionTask.execute();
-
 
         return rootView;
     }
@@ -221,6 +231,7 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
 
             img.setImageBitmap(bmOverlay);
 
+
     }
 
     public void getPosition() {
@@ -311,8 +322,8 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-
         ImageView view = (ImageView) v;
+        matrix.set(view.getImageMatrix());
         view.setScaleType(ImageView.ScaleType.MATRIX);
         if(firstTime) {
             matrix.set(view.getImageMatrix());

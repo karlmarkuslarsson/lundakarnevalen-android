@@ -80,7 +80,7 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
         RelativeLayout food = (RelativeLayout) bottomMenu.findViewById(R.id.button2);
         food.setOnClickListener(new BottomMenuClickListener(new FoodFragment()));
         mapLayout = (RelativeLayout) bottomMenu.findViewById(R.id.button3);
-        mapLayout.setOnClickListener(new BottomMenuClickListener(new MapFragment()));
+        mapLayout.setOnClickListener(new BottomMenuClickListener(mapFragment));
         currentSelectedBottomMenu = mapLayout;
         RelativeLayout scheme = (RelativeLayout) bottomMenu.findViewById(R.id.button4);
         scheme.setOnClickListener(new BottomMenuClickListener(new SchemeFragment()));
