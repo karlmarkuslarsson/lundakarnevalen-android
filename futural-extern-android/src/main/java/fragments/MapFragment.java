@@ -9,12 +9,12 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PointF;
-import android.graphics.RectF;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,12 +32,16 @@ import se.lundakarnevalen.extern.android.R;
 import static android.location.LocationManager.*;
 
 public class MapFragment extends LKFragment implements View.OnTouchListener {
-    private final String TAG = "MAP";
+
+    private Handler handler;
+
 
     private ArrayList<Marker> markers = new ArrayList<Marker>();
 
     private Matrix matrix;
     private Matrix savedMatrix = new Matrix();
+
+    private boolean isActive;
 
     // Save current dots
     private Bitmap bmOverlay;
@@ -120,16 +124,29 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
             img.setImageMatrix(matrix);
         } else{
                 matrix = new Matrix();
-                //img.setScaleType(ImageView.ScaleType.MATRIX);
-                // matrix = img.getImageMatrix();
                 firstTime = true;
-                //matrix.set(img.getImageMatrix());
+                isActive = true;
+                PositionTask positionTask = new PositionTask();
+                positionTask.execute();
+
+        }
+        if(handler == null) {
+            handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    if (isActive) {
+                        getPosition();
+                        updatePositions();
+                        handler.postDelayed(this, 10000);
+                    } else {
+                        handler.postDelayed(this, 10000);
+                    }
+                }
+            }, 0);
         }
 
         img.setOnTouchListener(this);
 
-        PositionTask positionTask = new PositionTask();
-        positionTask.execute();
 
         return rootView;
     }
@@ -184,12 +201,15 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
 
     @Override
     public void onPause() {
+        isActive = false;
         super.onPause();
     }
 
+
     @Override
     public void onResume() {
-        super.onResume();
+        isActive = true;
+        super.onPause();
     }
 
     public void updatePositions() {
@@ -207,12 +227,10 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
             paintRed.setColor(getResources().getColor(R.color.red));
             paintGray.setColor(Color.GRAY);
 
-
                 float lat = (myLat - startLatMap) / diffLat;
                 float lon = (myLng - startLonMap) / diffLon;
                 float x = lon * mapBitmap.getWidth();
                 float y = mapBitmap.getHeight() - lat * mapBitmap.getHeight();
-
 
         canvas.drawCircle(x, y, 10, paintRed);
             for(Marker m : markers) {
@@ -317,6 +335,7 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
         options.inJustDecodeBounds = false;
         return BitmapFactory.decodeResource(res, resId, options);
     }
+
 
 
 
@@ -435,8 +454,24 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
         @Override
         protected void onProgressUpdate(Void... values) {
             super.onProgressUpdate(values);
-            getPosition();
-            updatePositions();
+            /*
+            final Handler handler;
+            handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                    public void run() {
+                        Log.d("isinactive","new position");
+                        if(isActive) {
+                            Log.d("isactive","new position");
+                            getPosition();
+                            updatePositions();
+
+                        }
+                        handler.postDelayed(this, 10000);
+                    }
+              }, 0);
+
+        */
+
         }
 
         @Override
@@ -447,7 +482,6 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
     }
 
     public void changeActive(int i, boolean activated) {
-        Log.d("here","set: "+i+" activated:"+activated);
         active.put(i, activated);
     }
 }
