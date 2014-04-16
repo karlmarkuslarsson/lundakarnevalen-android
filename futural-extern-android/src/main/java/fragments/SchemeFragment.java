@@ -26,6 +26,5 @@ public class SchemeFragment extends LKFragment{
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setTitle(getString(R.string.scheme));
     }
 }

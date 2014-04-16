@@ -2,6 +2,7 @@ package se.lundakarnevalen.extern.android;
 
 import android.content.Context;
 
+import android.support.v7.app.ActionBar;
 import android.view.View.OnClickListener;
 import android.graphics.Color;
 import android.support.v4.app.FragmentManager;
@@ -39,6 +40,7 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
     private DrawerLayout drawerLayout;
     private RelativeLayout currentSelectedBottomMenu;
     private RelativeLayout mapLayout;
+    private ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,18 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
         drawerLayout.setScrimColor(Color.TRANSPARENT);
         populateMenu();
         generateLowerMenu();
+        actionBar = getSupportActionBar();
+        setupActionbar();
+    }
+
+    private void setupActionbar() {
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View root = inflater.inflate(R.layout.action_bar_layout, null);
+        actionBar.setCustomView(root);
     }
 
     private void generateLowerMenu() {
