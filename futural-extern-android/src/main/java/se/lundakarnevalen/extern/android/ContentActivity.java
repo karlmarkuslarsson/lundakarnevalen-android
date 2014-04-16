@@ -1,7 +1,6 @@
 package se.lundakarnevalen.extern.android;
 
 import android.content.Context;
-import android.content.DialogInterface;
 
 import android.view.View.OnClickListener;
 import android.graphics.Color;
@@ -16,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -25,8 +23,12 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import fragments.FoodFragment;
+import fragments.FunFragment;
 import fragments.LKFragment;
 import fragments.MapFragment;
+import fragments.OtherFragment;
+import fragments.SchemeFragment;
 import se.lundakarnevalen.extern.widget.LKRightMenuArrayAdapter;
 import se.lundakarnevalen.extern.widget.LKRightMenuArrayAdapter.*;
 
@@ -34,9 +36,9 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
     private FragmentManager fragmentMgr;
     private LKRightMenuArrayAdapter adapter;
     private ListView rightMenuList;
-    private ListView boMenuList;
     private DrawerLayout drawerLayout;
     private RelativeLayout currentSelectedBottomMenu;
+    private RelativeLayout mapLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,16 +56,16 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
     private void generateLowerMenu() {
         LinearLayout bottomMenu = (LinearLayout) findViewById(R.id.bottomFrameMenu);
         RelativeLayout fun = (RelativeLayout) bottomMenu.findViewById(R.id.button1);
-        fun.setOnClickListener(new BottomMenuClickListener());
+        fun.setOnClickListener(new BottomMenuClickListener(new FunFragment()));
         RelativeLayout food = (RelativeLayout) bottomMenu.findViewById(R.id.button2);
-        food.setOnClickListener(new BottomMenuClickListener());
-        RelativeLayout map = (RelativeLayout) bottomMenu.findViewById(R.id.button3);
-        map.setOnClickListener(new BottomMenuClickListener());
-        currentSelectedBottomMenu = map;
+        food.setOnClickListener(new BottomMenuClickListener(new FoodFragment()));
+        mapLayout = (RelativeLayout) bottomMenu.findViewById(R.id.button3);
+        mapLayout.setOnClickListener(new BottomMenuClickListener(new MapFragment()));
+        currentSelectedBottomMenu = mapLayout;
         RelativeLayout scheme = (RelativeLayout) bottomMenu.findViewById(R.id.button4);
-        scheme.setOnClickListener(new BottomMenuClickListener());
+        scheme.setOnClickListener(new BottomMenuClickListener(new SchemeFragment()));
         RelativeLayout other = (RelativeLayout) bottomMenu.findViewById(R.id.button5);
-        other.setOnClickListener(new BottomMenuClickListener());
+        other.setOnClickListener(new BottomMenuClickListener(new OtherFragment()));
     }
 
 
@@ -172,20 +174,36 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
 
     }
     private class BottomMenuClickListener implements OnClickListener {
+        private LKFragment fragment;
 
 
+        public BottomMenuClickListener(LKFragment fragment) {
+            this.fragment = fragment;
+        }
 
         @Override
         public void onClick(View v) {
             if(v.equals(currentSelectedBottomMenu)) {
                 return;
             }
+            for(int i = 0; i < fragmentMgr.getBackStackEntryCount(); i++) {
+                Log.d("ContentActivity", "Removed from backstack");
+                fragmentMgr.popBackStack();
+            }
+
+            loadFragment(fragment,true);
+
             currentSelectedBottomMenu.setBackgroundColor(getResources().getColor(R.color.red));
             ((TextView)currentSelectedBottomMenu.findViewById(R.id.text)).setTextColor(getResources().getColor(R.color.white_unselected));
             v.setBackgroundColor(getResources().getColor(R.color.bottom_menu_background_selected));
             ((TextView)v.findViewById(R.id.text)).setTextColor(getResources().getColor(R.color.white));
             currentSelectedBottomMenu = (RelativeLayout) v;
-            Log.d("Click", "CLICK" + v);
+            if(v.equals(mapLayout)) {
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+            } else {
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                drawerLayout.closeDrawers();
+            }
 
         }
     }
