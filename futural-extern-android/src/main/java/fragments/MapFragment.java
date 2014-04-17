@@ -47,7 +47,6 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
 
     // Save current dots
     private Bitmap bmOverlay;
-    private Bitmap bmWithOutMyPos;
 
     private ImageView img;
     private int imageWidth;
@@ -77,7 +76,6 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
     // For gps and network
     private LocationManager locMan;
     private static final int TIME_INTERVAL = 1800000; // get gps location every 30 min
-    // private static final int TIME_INTERVAL = 10000; // get gps location every 10 sec
     private static final int GPS_DISTANCE = 0; // set the distance value in meter
 
     private float myLat;
