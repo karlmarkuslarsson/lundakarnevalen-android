@@ -147,7 +147,7 @@
                 android:paddingTop="3dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                />
+                /> 
             <se.lundakarnevalen.extern.widget.LKTextViewBold
                 android:id="@+id/text"
                 android:layout_width="match_parent"
