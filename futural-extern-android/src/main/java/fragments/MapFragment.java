@@ -200,7 +200,42 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
         markers.add(new Marker((float)55.7059389,(float)13.194805555555556,R.drawable.ic_launcher,MarkerType.FUN));
 
 
-      //  markers.add(new Marker((float)55.7,(float)13.2,R.drawable.ic_launcher, MarkerType.FOOD));
+        //Koordinater lilla scenen:
+        //Lat: 55°42'26.07"N  Long:  13°11'45.45"O
+
+        markers.add(new Marker((float)55.7072417,(float)13.195958333333333,R.drawable.ic_launcher,MarkerType.SHOW));
+
+
+        //Mat och Dryck
+
+        //Foodstock
+        //Cocktailbaren
+        //Betalning, kort och kontant. DOCK, cash is king!
+        //        Drinkar (drinkmeny om ca 10 st max), karnevöl, karnevale, cider, läsk, vin
+        //Ej mat
+        //55°42'22.9"N 13°11'42.6"E
+        //55.706362, 13.195165
+        markers.add(new Marker((float)55.706362,(float)13.195165,R.drawable.ic_launcher,MarkerType.FOOD));
+
+
+        //Hipp-i-baren:
+        //Betalning, kort och kontant. DOCK, cash is king!
+        //        karnevöl, cider, läsk, (ev vin)
+        //Ej mat
+        //55°42'23.5"N 13°11'43.5"E
+        //55.706521, 13.195431
+        markers.add(new Marker((float)55.706521,(float)13.195431,R.drawable.ic_launcher,MarkerType.FOOD));
+
+       // Folkan:
+        //Betalning, kort och kontant. DOCK, cash is king!
+        //        karnevöl, cider, läsk (ev vin)
+        //Ej mat
+        //55°42'24.6"N 13°11'45.7"E
+        //55.706841, 13.196030
+        markers.add(new Marker((float)55.706841,(float)13.196030,R.drawable.ic_launcher,MarkerType.FOOD));
+
+
+        //  markers.add(new Marker((float)55.7,(float)13.2,R.drawable.ic_launcher, MarkerType.FOOD));
     }
 
     @Override
