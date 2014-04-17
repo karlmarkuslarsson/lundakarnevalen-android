@@ -116,12 +116,14 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
         }
         img = ((ImageView) rootView.findViewById(R.id.map_id));
 
-        if(matrix != null) {
+        if(matrix != null ) {
             if(bmOverlay != null) {
                 img.setImageBitmap(bmOverlay);
             }
-            img.setScaleType(ImageView.ScaleType.MATRIX);
-            img.setImageMatrix(matrix);
+            if(!firstTime) { //test
+                img.setScaleType(ImageView.ScaleType.MATRIX);
+                img.setImageMatrix(matrix);
+            }
         } else{
                 matrix = new Matrix();
                 firstTime = true;
@@ -344,10 +346,7 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
         ImageView view = (ImageView) v;
         matrix.set(view.getImageMatrix());
         view.setScaleType(ImageView.ScaleType.MATRIX);
-        if(firstTime) {
-            matrix.set(view.getImageMatrix());
-            firstTime =false;
-        }
+        firstTime = false;
         float scale;
 
         // Handle touch events here...
