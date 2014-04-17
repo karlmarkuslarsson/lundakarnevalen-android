@@ -392,7 +392,7 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
                         float maxY = 0;
                         checkClick(relativeX, relativeY);
                     } else {
-                        Log.d(",,", "" + Math.abs((start.x - event.getX()) + (start.y - event.getY())));
+
                     }
                 }
                 mode = NONE;
@@ -503,11 +503,11 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
 
         // scale to??
         public boolean isClose(float relativeX, float relativeY) {
-            if((x-relativeX)*(x-relativeX)+(y-relativeY)*(y-relativeY)<250) {
+            if((x-relativeX)*(x-relativeX)+(y-relativeY)*(y-relativeY)<600) {
                 Log.d("realy close","yeah close");
                 return true;
             }
-            Log.d("dist:",""+(x-relativeX)*(x-relativeX)+(y-relativeY)*(y-relativeY));
+            Log.d("dist:",""+((x-relativeX)*(x-relativeX)+(y-relativeY)*(y-relativeY)));
             return false;
         }
     }
