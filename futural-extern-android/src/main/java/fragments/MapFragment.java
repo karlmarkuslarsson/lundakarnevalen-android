@@ -34,6 +34,8 @@ import static android.location.LocationManager.*;
 public class MapFragment extends LKFragment implements View.OnTouchListener {
 
     private Handler handler;
+    private float offX = 0;
+    private float offY = 0;
 
 
     private ArrayList<Marker> markers = new ArrayList<Marker>();
@@ -105,6 +107,8 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
 
         context = getContext();
 
+
+
         if(markers.size()==0) {
             addMarkers();
         }
@@ -115,6 +119,8 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
             imageHeight = metrics.heightPixels;
         }
         img = ((ImageView) rootView.findViewById(R.id.map_id));
+
+
 
         if(matrix != null ) {
             if(bmOverlay != null) {
@@ -132,6 +138,7 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
                 positionTask.execute();
 
         }
+
         if(handler == null) {
             handler = new Handler();
             handler.postDelayed(new Runnable() {
@@ -146,6 +153,7 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
                 }
             }, 0);
         }
+
 
         img.setOnTouchListener(this);
 
@@ -185,6 +193,7 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
         //Revyn - Kottar och nötter:
         //Universitetshuset
         //Lat: 55°42'20.79"N Long: 13°11'36.80"O
+
         markers.add(new Marker((float)55.705775,(float)13.193555555555555,R.drawable.ic_launcher,MarkerType.FUN));
 
         //Filmen - Överliggaren:
@@ -215,9 +224,7 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
     }
 
     public void updatePositions() {
-        Bitmap mapBitmap = null;
-            mapBitmap = decodeSampledBitmapFromResource(getResources(), R.drawable.test_map, imageWidth , imageHeight);
-        //Bitmap mapBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.test_map);
+        Bitmap mapBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.test_map);
             // Create an overlay bitmap
             bmOverlay = Bitmap.createBitmap(mapBitmap.getWidth(), mapBitmap.getHeight(), mapBitmap.getConfig());
             Canvas canvas = new Canvas();
@@ -238,13 +245,19 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
             for(Marker m : markers) {
 
                 if(active.get(m.type) != null && active.get(m.type)) {
-                lat = (m.lat - startLatMap) / diffLat;
-                lon = (m.lng - startLonMap) / diffLon;
-                x = lon * mapBitmap.getWidth();
-                y = mapBitmap.getHeight() - lat * mapBitmap.getHeight();
+
+                    if(m.x==-1) {
+                    lat = (m.lat - startLatMap) / diffLat;
+                    lon = (m.lng - startLonMap) / diffLon;
+                    x = lon * mapBitmap.getWidth();
+                    y = mapBitmap.getHeight() - lat * mapBitmap.getHeight();
                     // draw canvas..
-                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), m.picture);
-                canvas.drawBitmap(bitmap, x, y, null);
+                    m.x = x;
+                    m.y = y;
+                }
+                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(), m.picture);
+
+                    canvas.drawBitmap(bitmap, m.x-bitmap.getWidth()/2, m.y-bitmap.getHeight()/2, null);
                 }
                 //canvas.dra(x, y, 10, paintRed);
             }
@@ -363,8 +376,25 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
                 if(mode == ZOOM) {
                     this.scale = this.scale*newDist/oldDist;
                    // generateDots(this.scale);
-                }
+                } else {
 
+                    if ((start.x - event.getX()) * (start.x - event.getX()) + (start.y - event.getY()) * (start.y - event.getY()) < 10) {
+
+                        float[] values = new float[9];
+                        matrix.getValues(values);
+                        // values[2] and values[5] are the x,y coordinates of the top left corner of the drawable image, regardless of the zoom factor.
+                        // values[0] and values[4] are the zoom factors for the image's width and height respectively. If you zoom at the same factor, these should both be the same value.
+                        float relativeX = (event.getX() - values[2]) / values[0];
+                        float relativeY = (event.getY() - values[5]) / values[4];
+                        Log.d("rel x and y", "x: " + relativeX + " y: " + relativeY);
+                        // values[2] and values[5] are the x,y coordinates of the top left corner of the drawable image, regardless of the zoom factor.
+                        float maxX = 0;
+                        float maxY = 0;
+                        checkClick(relativeX, relativeY);
+                    } else {
+                        Log.d(",,", "" + Math.abs((start.x - event.getX()) + (start.y - event.getY())));
+                    }
+                }
                 mode = NONE;
                 // Uppdatera mapen...
 
@@ -410,8 +440,19 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
                 break;
         }
         view.setImageMatrix(matrix); // display the transformation on screen
+        // v.getLeft() = 0; v.getRight() = 480
+        /*
+        int []location = new int[10];
+        view.getLocationInWindow(location);
+        for(int i = 0;i<location.length;i++) {
+            Log.d("loc"+i,"get: "+location[i]+"");
+        }
+        */
         return true; // indicate event was handled
     }
+
+
+
     /**
      * Calculate the space between the two fingers on touch
      */
@@ -420,6 +461,23 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
         float y = event.getY(0) - event.getY(1);
         return (float)Math.sqrt(x * x + y * y);
     }
+
+    /**
+     *
+     * @param relativeX
+     * @param relativeY
+     */
+    private void checkClick(float relativeX, float relativeY) {
+        if(bmOverlay!=null) {
+            for(Marker m:markers) {
+                if(m.isClose(relativeX,relativeY)) {
+
+                    return;
+                }
+            }
+        }
+    }
+
     /**
      * Calculates the midpoint between the two fingers
      */
@@ -430,6 +488,8 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
     }
 
     private class Marker {
+        private float x = -1;
+        private float y = -1;
         private float lat;
         private float lng;
         private int picture;
@@ -439,8 +499,17 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
             this.lng = lng;
             this.picture = picture;
             this.type = type;
-        }
+          }
 
+        // scale to??
+        public boolean isClose(float relativeX, float relativeY) {
+            if((x-relativeX)*(x-relativeX)+(y-relativeY)*(y-relativeY)<250) {
+                Log.d("realy close","yeah close");
+                return true;
+            }
+            Log.d("dist:",""+(x-relativeX)*(x-relativeX)+(y-relativeY)*(y-relativeY));
+            return false;
+        }
     }
 
     private class PositionTask extends AsyncTask<Void, Void, Void> {
@@ -484,118 +553,3 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
         active.put(i, activated);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*
-    private void updatePositions() {
-        double startLonMap = 13;
-        double startLatMap = 55;
-        double endLonMap = 14;
-        double endLatMap = 56;
-        double diffLon = endLonMap - startLonMap;
-        double diffLat = endLatMap - startLatMap;
-
-        //Change this to the map.png..
-        Bitmap mBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.map_skane);
-
-        // Create an overlay bitmap
-        Bitmap bmOverlay = Bitmap.createBitmap(mBitmap.getWidth(), mBitmap.getHeight(), mBitmap.getConfig());
-        Canvas canvas = new Canvas();
-        canvas.setBitmap(bmOverlay);
-        canvas.drawBitmap(mBitmap, new Matrix(), null);
-
-        Paint p = new Paint();
-        p.setColor(Color.GREEN);
-
-        int a = (int)(30*scale);
-        int b =	(int)(30*scale);
-
-        HashMap<Marker,Marker> markers = new HashMap<Marker,Marker>();
-
-        for(Integer i:positions.keySet()) {
-            Position pos = positions.get(i);
-            //
-            //Modify color here and +1 for the given section matrix
-            // Check within range...
-            double lat = (pos.getLat()-startLatMap)/diffLat;
-            double lon = (pos.getLng()-startLonMap)/diffLon;
-            int x = (int)(a*lat);
-            int y = (int)(b*lon);
-            Marker temp = new Marker(x,y,pos.getSection());
-            Marker temp2 = markers.get(temp);
-            if(temp2 != null) {
-                temp2.sumX += pos.getLat();
-                temp2.sumY += pos.getLng();
-                ++temp2.counter;
-            } else {
-                markers.put(temp, temp);
-                temp.sumX += pos.getLat();
-                temp.sumY += pos.getLng();
-                ++temp.counter;
-            }
-            // Very sparse, change to map/double arrays
-            // I think HashMap
-            // Include x,y,counter,sumlat/counter,sumlng/counter..
-
-        }
-        for(Marker m: markers.keySet()) {
-            // TODO
-            // use sumX and sumY instead
-            canvas.drawCircle((float) (((float)m.x)/((double)a) * mBitmap.getWidth()), (float) (((float)m.y)/((double)b) * mBitmap.getHeight()), m.counter,p);
-        }
-
-
-        img.setImageBitmap(bmOverlay);
-    }
-
-
-
-
-      private void generateDots(float scale){
-        Bitmap mBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.map_skane);
-
-        Bitmap bmOverlay = Bitmap.createBitmap(mBitmap.getWidth(), mBitmap.getHeight(), mBitmap.getConfig());
-        Canvas canvas = new Canvas();
-        canvas.setBitmap(bmOverlay);
-        canvas.drawBitmap(mBitmap, new Matrix(), null);
-
-        Paint p = new Paint();
-        p.setColor(Color.GREEN);
-        int i = 0;
-        Random r = new Random();
-        int a = (int)(30*scale);
-        int b =	(int)(30*scale);
-        int counter[][] = new int[a][b];
-
-        while(i <2000) {
-            ++counter[r.nextInt(a)][r.nextInt(b)];
-            i++;
-        }
-        for(int j = 0;j<a;j++) {
-            for(int jj = 0;jj<b;jj++) {
-                if(counter[j][jj]!=0) {
-                    canvas.drawCircle((float) (((float)j)/((double)a) * mBitmap.getWidth()), (float) (((float)jj)/((double)b) * mBitmap.getHeight()), counter[j][jj],p);
-                }
-            }
-        }
-        img.setImageBitmap(bmOverlay);
-    }
-        */
-
-
-
-
-
-
