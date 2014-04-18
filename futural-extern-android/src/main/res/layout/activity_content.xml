@@ -184,7 +184,8 @@
             android:layout_above="@id/bottomFrameMenu"
             />
 
-        <ListView android:id="@+id/right_menu_list"
+        <ListView
+            android:id="@+id/right_menu_list"
             android:layout_width="130dp"
             android:layout_height="match_parent"
             android:layout_gravity="end"

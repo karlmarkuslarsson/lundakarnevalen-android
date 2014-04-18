@@ -57,7 +57,7 @@
             android:paddingBottom="8dp"
             android:paddingTop="8dp"
             android:gravity="center"
-            android:textSize="26dp"
+            android:textSize="34dp"
             android:textColor="@color/white"
             android:text="@string/saturday"
 
@@ -127,16 +127,23 @@
         >
         </RelativeLayout>
 
-<ScrollView
-        android:id="@+id/schemeContent"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+
+    <ListView android:id="@+id/list_scheme"
         android:layout_below="@id/day"
 
-    android:fillViewport="false">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:footerDividersEnabled="true"
 
 
-    </ScrollView>
+         />
+
+
+
+
 
 
 </RelativeLayout>
