@@ -57,17 +57,17 @@
         android:layout_marginLeft="10dp"
         >
         <TextView
-            android:id="@+id/palce"
+            android:id="@+id/place"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textSize="10dp"
             android:text="TÄLTET"/>
-        <se.lundakarnevalen.extern.widget.LKTextView
-            android:id="@+id/time2"
+  <se.lundakarnevalen.extern.widget.LKTextView
+            android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/palce"
+            android:layout_below="@+id/place"
             android:textColor="@color/white"
             android:textSize="18dp"
             android:text="SPEXET"/>
@@ -85,11 +85,12 @@
 
         >
         <ImageView
-            android:id="@+id/image"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginRight="50dp"
+            android:id="@+id/heart_image"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_marginRight="30dp"
             android:layout_alignParentRight="true"
+            android:padding="6dp"
             android:src="@android:drawable/star_big_on"
             />
 </RelativeLayout>
