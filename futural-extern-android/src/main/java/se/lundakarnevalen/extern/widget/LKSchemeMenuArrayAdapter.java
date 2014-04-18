@@ -2,12 +2,9 @@ package se.lundakarnevalen.extern.widget;
 
 
 import java.text.SimpleDateFormat;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -16,9 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationCompat.Builder;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,7 +45,7 @@ public class LKSchemeMenuArrayAdapter extends ArrayAdapter<LKSchemeMenuArrayAdap
         RelativeLayout wrapper;
         wrapper = (RelativeLayout) inflater.inflate(R.layout.scheme_element, null);
 
-        ImageView image = (ImageView) wrapper.findViewById(R.id.image);
+        ImageView image = (ImageView) wrapper.findViewById(R.id.bottom_menu_image);
         image.setImageResource(item.icon);
 
         TextView start = (TextView) wrapper.findViewById(R.id.time1);

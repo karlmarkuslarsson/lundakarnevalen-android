@@ -18,7 +18,6 @@ package se.lundakarnevalen.extern.widget;
         import android.widget.RelativeLayout;
         import android.widget.TextView;
 
-        import se.lundakarnevalen.extern.android.ContentActivity;
         import se.lundakarnevalen.extern.android.R;
 
 /**
@@ -56,7 +55,7 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
         }
 
         if(wrapper != null) {
-            item.text = (TextView) wrapper.findViewById(R.id.text);
+            item.text = (TextView) wrapper.findViewById(R.id.bottom_menu_item);
             item.text.setText(item.title);
         }
 

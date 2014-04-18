@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_weight="1"
+    android:id="@+id/bottom_menu_layout"
+    android:orientation="vertical"
+    android:layout_gravity="center_horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="63dp"
+    android:background="@color/red"
+    >
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/bottom_menu_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/bottom_menu_shadow" />
+
+    <ImageView
+        android:id="@+id/bottom_menu_image"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:paddingRight="4dp"
+        android:paddingLeft="4dp"
+        android:paddingTop="4dp"
+        android:src="@drawable/test_spexet"
+        />
+
+    <se.lundakarnevalen.extern.widget.LKTextView
+        android:id="@+id/bottom_menu_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="2dp"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
+        android:gravity="center"
+        android:textSize="10dp"
+        android:textColor="@color/white_unselected"
+        android:text="@string/fun"/>
+</LinearLayout>

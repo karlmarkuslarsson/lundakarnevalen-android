@@ -249,7 +249,7 @@
 
         <se.lundakarnevalen.extern.widget.LKTextView
             android:text="@string/ipsum"
-            android:id="@+id/text"
+            android:id="@+id/bottom_menu_item"
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

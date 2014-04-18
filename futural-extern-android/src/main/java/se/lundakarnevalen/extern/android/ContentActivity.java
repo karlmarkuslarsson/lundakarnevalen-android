@@ -2,6 +2,7 @@ package se.lundakarnevalen.extern.android;
 
 import android.content.Context;
 
+import android.content.res.Resources;
 import android.os.Build;
 import android.support.v7.app.ActionBar;
 import android.view.View.OnClickListener;
@@ -17,6 +18,8 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -29,7 +32,6 @@ import java.util.ArrayList;
 import se.lundakarnevalen.extern.fragments.FoodFragment;
 import se.lundakarnevalen.extern.fragments.FunFragment;
 import se.lundakarnevalen.extern.fragments.LKFragment;
-import se.lundakarnevalen.extern.fragments.LandingPageFragment;
 import se.lundakarnevalen.extern.fragments.MapFragment;
 import se.lundakarnevalen.extern.fragments.OtherFragment;
 import se.lundakarnevalen.extern.fragments.SchemeFragment;
@@ -37,18 +39,24 @@ import se.lundakarnevalen.extern.map.MarkerType;
 import se.lundakarnevalen.extern.widget.LKRightMenuArrayAdapter;
 import se.lundakarnevalen.extern.widget.LKRightMenuArrayAdapter.*;
 
+import static se.lundakarnevalen.extern.util.ViewUtil.*;
+
 public class ContentActivity extends ActionBarActivity implements LKFragment.Messanger {
+    public static final String TAG_MAP = "map";
     private FragmentManager fragmentMgr;
     private LKRightMenuArrayAdapter adapter;
     private ListView rightMenuList;
     private DrawerLayout drawerLayout;
-    private RelativeLayout currentSelectedBottomMenu;
-    private RelativeLayout mapLayout;
+
     private ActionBar actionBar;
     private MapFragment mapFragment;
     private ArrayList<LKRightMenuListItem> rightMenuItems = new ArrayList<LKRightMenuListItem>();
     private LKRightMenuListItem showAllItem;
     private boolean allItemsActivated = true;
+
+    public <T> T find(int id, Class<T> clz) {
+        return clz.cast(findViewById(id));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,44 +69,49 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerLayout.setScrimColor(Color.TRANSPARENT);
         populateMenu();
-        generateLowerMenu();
+        generateLowerMenu(find(R.id.bottom_frame_menu, LinearLayout.class));
         actionBar = getSupportActionBar();
         setupActionbar();
         setupTint();
     }
 
     private void setupTint() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            SystemBarTintManager tintManager = new SystemBarTintManager(this);
-            tintManager.setStatusBarTintEnabled(true);
-            tintManager.setStatusBarTintColor(getResources().getColor(R.color.red));
-        }
+        SystemBarTintManager tintManager = new SystemBarTintManager(this);
+        tintManager.setStatusBarTintEnabled(true);
+        tintManager.setStatusBarTintColor(getResources().getColor(R.color.red));
+        tintManager.setNavigationBarTintEnabled(true);
+        tintManager.setNavigationBarTintColor(getResources().getColor(R.color.red));
     }
 
-
     private void setupActionbar() {
+        LayoutInflater inflater = LayoutInflater.from(this);
+
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View root = inflater.inflate(R.layout.action_bar_layout, null);
-        actionBar.setCustomView(root);
+        actionBar.setCustomView(inflater.inflate(R.layout.action_bar_layout, null));
     }
 
-    private void generateLowerMenu() {
-        LinearLayout bottomMenu = (LinearLayout) findViewById(R.id.bottomFrameMenu);
-        RelativeLayout fun = (RelativeLayout) bottomMenu.findViewById(R.id.button1);
-        fun.setOnClickListener(new BottomMenuClickListener(new FunFragment()));
-        RelativeLayout food = (RelativeLayout) bottomMenu.findViewById(R.id.button2);
-        food.setOnClickListener(new BottomMenuClickListener(new FoodFragment()));
-        mapLayout = (RelativeLayout) bottomMenu.findViewById(R.id.button3);
-        mapLayout.setOnClickListener(new BottomMenuClickListener(mapFragment));
-        currentSelectedBottomMenu = mapLayout;
-        RelativeLayout scheme = (RelativeLayout) bottomMenu.findViewById(R.id.button4);
-        scheme.setOnClickListener(new BottomMenuClickListener(new SchemeFragment()));
-        RelativeLayout other = (RelativeLayout) bottomMenu.findViewById(R.id.button5);
-        other.setOnClickListener(new BottomMenuClickListener(new OtherFragment()));
+    private void generateLowerMenu( LinearLayout bottomMenu) {
+        BottomMenuClickListener list = new BottomMenuClickListener();
+        createBottomMenuItem(bottomMenu, list, new FunFragment(), R.id.button1, R.string.fun, R.drawable.test_nojen);
+        createBottomMenuItem(bottomMenu, list, new FoodFragment(), R.id.button2, R.string.food, R.drawable.test_spexet);
+        createBottomMenuItem(bottomMenu, list, new MapFragment(), R.id.button3, R.string.map, R.drawable.test_nojen);
+        createBottomMenuItem(bottomMenu, list, new SchemeFragment(), R.id.button4, R.string.scheme, R.drawable.test_spexet);
+        createBottomMenuItem(bottomMenu, list, new OtherFragment(), R.id.button5, R.string.other, R.drawable.test_nojen);
+        list.first(get(bottomMenu, R.id.button3, ViewGroup.class));
+    }
+
+    private void createBottomMenuItem(LinearLayout menu, BottomMenuClickListener listener, Fragment f, int itemId, int textId, int imageId) {
+        ViewGroup group = get(menu, itemId, ViewGroup.class);
+        get(group, R.id.bottom_menu_text, TextView.class).setText(textId);
+        get(group, R.id.bottom_menu_image, ImageView.class).setImageResource(imageId);
+        if(Build.VERSION.SDK_INT >= 11){
+            get(group, R.id.bottom_menu_image, ImageView.class).setAlpha(0.7f);
+        }
+        group.setTag(f);
+        group.setOnClickListener(listener);
     }
 
 
@@ -128,10 +141,11 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
      * Loads new fragment into the frame.
      */
     @Override
-    public void loadFragment(Fragment fragment, boolean addToBackstack) {
-        Log.d("ContentActivity", "loadFragment("+fragment+")");
-        FragmentTransaction transaction = fragmentMgr.beginTransaction()
-                .replace(R.id.content_frame, fragment);
+    public void loadFragment(Fragment f, boolean addToBackstack) {
+        Log.d("ContentActivity", "loadFragment("+f+")");
+        FragmentTransaction transaction = fragmentMgr
+                .beginTransaction()
+                .replace(R.id.content_frame, f);
         if (addToBackstack) {
             transaction.addToBackStack(null);
         }
@@ -139,10 +153,11 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
     }
 
     private void moveToFragment(Fragment f) {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.content_frame, f)
-                .commit();
+        Log.d("ContentActivity", "moveToFragment("+f+")");
+        fragmentMgr
+            .beginTransaction()
+            .replace(R.id.content_frame, f)
+            .commit();
     }
 
     @Override
@@ -154,14 +169,15 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
      * Sets up the ListView in the navigationdrawer menu.
      */
     private void populateMenu() {
-        // Create logo and sigill objects.
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        //View menuBottom = inflater.inflate(R.layout., null);
+        LayoutInflater inflater = LayoutInflater.from(this);
 
         ArrayList<LKRightMenuListItem> listItems = new ArrayList<LKRightMenuListItem>();
 
         rightMenuItems = new ArrayList<LKRightMenuListItem>();
-        LKRightMenuListItem header = new LKRightMenuListItem().isStatic(true).showView(inflater.inflate(R.layout.menu_header, null));
+
+        LKRightMenuListItem header = new LKRightMenuListItem()
+                .isStatic(true)
+                .showView(inflater.inflate(R.layout.menu_header, null));
         listItems.add(header);
 
         LKRightMenuListItem foodItem = new LKRightMenuListItem(getString(R.string.food),0, MarkerType.FOOD);
@@ -220,14 +236,14 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
 
                     }
                     allItemsActivated = true;
-                    RelativeLayout button = (RelativeLayout) v.findViewById(R.id.button);
+                    RelativeLayout button = get(v, R.id.button, RelativeLayout.class);
                     button.setBackgroundColor(getResources().getColor(R.color.right_menu_button_selected));
                     item.isOn = true;
                     mapFragment.updatePositions();
                 }
                     // show all..
             } else {
-                RelativeLayout button = (RelativeLayout) v.findViewById(R.id.button);
+                RelativeLayout button = get(v, R.id.button, RelativeLayout.class);
                 if(allItemsActivated) {
                     allItemsActivated = false;
                     for(LKRightMenuListItem i: rightMenuItems) {
@@ -252,32 +268,49 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
     }
 
     private class BottomMenuClickListener implements OnClickListener {
-        private LKFragment fragment;
+        private final Resources r = getResources();
+        private ViewGroup selected;
 
+        private BottomMenuClickListener() {}
 
-        public BottomMenuClickListener(LKFragment fragment) {
-            this.fragment = fragment;
+        public void first(ViewGroup first){
+            selected = first;
+            selectItem(first, r);
         }
 
         @Override
         public void onClick(View v) {
-            if(v.equals(currentSelectedBottomMenu)) {
-                return;
-            }
-            moveToFragment(fragment);
+            if(v == this.selected) return;
 
-            currentSelectedBottomMenu.setBackgroundColor(getResources().getColor(R.color.red));
-            ((TextView)currentSelectedBottomMenu.findViewById(R.id.text)).setTextColor(getResources().getColor(R.color.white_unselected));
-            v.setBackgroundColor(getResources().getColor(R.color.bottom_menu_background_selected));
-            ((TextView)v.findViewById(R.id.text)).setTextColor(getResources().getColor(R.color.white));
-            currentSelectedBottomMenu = (RelativeLayout) v;
-            if(v.equals(mapLayout)) {
+            ViewGroup newSelection = (ViewGroup) v;
+            Fragment f = (Fragment) v.getTag();
+
+            moveToFragment(f);
+            selectItem(newSelection, r);
+            deselectItem(r);
+            this.selected = newSelection;
+        }
+
+        private void selectItem(ViewGroup selected, Resources res) {
+            selected.setBackgroundColor(res.getColor(R.color.bottom_menu_background_selected));
+            get(selected, R.id.bottom_menu_text, TextView.class).setTextColor(res.getColor(R.color.white));
+            get(selected, R.id.bottom_menu_shadow, LinearLayout.class).setBackgroundColor(res.getColor(R.color.bottom_menu_shadow_selected));
+            get(selected, R.id.bottom_menu_image, ImageView.class).setAlpha(1.0f);
+            if(selected.getTag() instanceof MapFragment) {
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
             } else {
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 drawerLayout.closeDrawers();
             }
+        }
 
+        private void deselectItem(Resources res) {
+            if (selected != null) {
+                selected.setBackgroundColor(res.getColor(R.color.red));
+                get(selected, R.id.bottom_menu_text, TextView.class).setTextColor(res.getColor(R.color.white_unselected));
+                get(selected, R.id.bottom_menu_shadow, LinearLayout.class).setBackgroundColor(res.getColor(R.color.bottom_menu_shadow));
+                get(selected, R.id.bottom_menu_image, ImageView.class).setAlpha(0.7f);
+            }
         }
     }
 }
