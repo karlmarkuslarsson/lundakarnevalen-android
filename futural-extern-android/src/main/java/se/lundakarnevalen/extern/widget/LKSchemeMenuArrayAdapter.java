@@ -2,11 +2,23 @@ package se.lundakarnevalen.extern.widget;
 
 
 import java.text.SimpleDateFormat;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationCompat.Builder;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +30,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 
 public class LKSchemeMenuArrayAdapter extends ArrayAdapter<LKSchemeMenuArrayAdapter.LKSchemeMenuListItem> implements OnItemClickListener {
@@ -50,8 +64,82 @@ public class LKSchemeMenuArrayAdapter extends ArrayAdapter<LKSchemeMenuArrayAdap
         place.setText(item.place);
         name.setText(item.name);
 
-        // add heart..
+        ImageView heart = (ImageView) wrapper.findViewById(R.id.heart_image);
+        if(item.reminder) {
+            heart.setImageResource(android.R.drawable.star_big_on);
+        } else {
+            heart.setImageResource(android.R.drawable.star_big_off);
+        }
+        heart.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(item.reminder) {
+                    item.reminder = false;
+                    ((ImageView)view).setImageResource(android.R.drawable.star_big_off);
 
+                    NotificationManager notificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+
+
+                    SharedPreferences sharedPref = getContext().getSharedPreferences("lundkarnevalen",Context.MODE_PRIVATE);
+                    String set = sharedPref.getString("notifications", "");
+                    String split[] = set.split(";");
+                    set = "";
+                    for(int i = 0;i<split.length;i++) {
+                        Log.d(split[i],item.getStartTime()+item.place+item.name);
+                        if(!split[i].equals(item.getStartTime()+item.place+item.name)) {
+                            set+=split[i]+";";
+                        } else {
+                        }
+                    }
+
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putString("notifications", set);
+                    editor.apply();
+                    notificationManager.cancel(item.getStartTime()+item.place+item.name,0);
+
+                } else {
+                    item.reminder = true;
+                    ((ImageView)view).setImageResource(android.R.drawable.star_big_on);
+
+                    //Intent intent = new Intent(this, NotificationReceiverActivity.class);
+                    //PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, 0);
+
+                    // Build notification
+                    // Actions are just fake
+
+                    Intent intent = new Intent(getContext(), ContentActivity.class);
+                    PendingIntent pIntent = PendingIntent.getActivity(getContext(), 0, intent, 0);
+
+
+                    NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext());
+
+                    builder = builder
+                            .setContentIntent(pIntent)
+                            .setContentTitle(item.name)
+                            .setContentText(item.place+" "+item.getStartTime())
+                            .setAutoCancel(true)
+                            .setSmallIcon(R.drawable.test_spexet);
+
+                    builder.build();
+                    // .setWhen(item.startDate.getTime()-1000*60*60)
+                    // .setSound() add cool sound
+
+                    Notification notification = builder.getNotification();
+                    NotificationManager notificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+                    // hide the notification after its selected
+                    builder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
+                    notificationManager.notify(item.getStartTime()+item.place+item.name,0,notification);
+
+
+                    SharedPreferences sharedPref = getContext().getSharedPreferences("lundkarnevalen",Context.MODE_PRIVATE);
+                    String set = sharedPref.getString("notifications", "");
+                    set+=";"+item.getStartTime()+item.place+item.name;
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putString("notifications", set);
+                    editor.apply();
+                }
+            }
+        });
         return wrapper;
     }
 
