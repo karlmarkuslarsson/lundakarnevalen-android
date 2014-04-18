@@ -112,7 +112,6 @@
             android:layout_centerHorizontal="true"
             android:text="@string/scheme_right"
             android:textStyle="bold"
-            android:gravity="top|center_horizontal"
             android:textColor="#FFF"
             android:textSize="30sp"
             android:background="@drawable/bluegreen_bg_bottom_shadow"/>
