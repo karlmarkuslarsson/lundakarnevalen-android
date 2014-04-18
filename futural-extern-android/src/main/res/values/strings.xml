@@ -33,4 +33,9 @@
 Tenderloin ham hock brisket chicken andouille capicola, cow beef ribs sausage. Flank drumstick ham prosciutto, filet mignon chuck tail landjaeger chicken cow shankle. Sausage brisket pork chop, ham turducken chicken meatloaf filet mignon doner. \n\n Chicken leberkas frankfurter shank, jowl ground round spare ribs tri-tip andouille bresaola pastrami brisket ribeye prosciutto. Ground round cow tri-tip doner porchetta ham swine. Frankfurter ribeye shank leberkas, sirloin turducken swine jerky sausage pork loin biltong spare ribs bacon ground round meatloaf.
 
     </string>
+    <string name="open">OPEN</string>
+    <string name="closed">CLOSED</string>
+    <string name="card">CARD</string>
+    <string name="cash">CASH</string>
+    <string name="to_map">TO MAP</string>
 </resources>

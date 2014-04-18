@@ -85,5 +85,10 @@
     Filip. I sällskap av hennes nyfunne vän får vi följa våra hjältar genom hackerattacker,
     biljakter och slutligen i den avgörande kampen mot de onda i Sveriges första superhjältefilm...
     </string>
+    <string name="open">ÖPPET</string>
+    <string name="closed">STÄNGT</string>
+    <string name="card">KORT</string>
+    <string name="cash">CASH</string>
+    <string name="to_map">TILL KARTAN</string>
 
 </resources>

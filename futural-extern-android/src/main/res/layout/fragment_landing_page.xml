@@ -120,7 +120,7 @@
                         android:paddingTop="3dp"
                         android:background="@color/white"/>
                     <se.lundakarnevalen.extern.widget.LKTextView
-                        android:text="CASH"
+                        android:text="@string/cash"
                         android:id="@+id/open_info"
                         android:layout_marginTop="1dp"
                         android:layout_below="@id/cash_picture"
@@ -152,7 +152,7 @@
                         android:paddingTop="3dp"
                         android:background="@color/white"/>
                     <se.lundakarnevalen.extern.widget.LKTextView
-                        android:text="KORT"
+                        android:text="@string/card"
                         android:id="@+id/open_info"
                         android:layout_marginTop="1dp"
                         android:layout_below="@id/card_picture"
@@ -177,7 +177,7 @@
                     android:layout_marginRight="15dp"
                     >
                     <se.lundakarnevalen.extern.widget.LKTextView
-                        android:text="TILL KARTAN"
+                        android:text="@string/to_map"
                         android:id="@+id/map_info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -225,6 +225,7 @@
             >
 
             <ImageView
+                android:id="@+id/picture"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:src="@drawable/test_nojen"/>
