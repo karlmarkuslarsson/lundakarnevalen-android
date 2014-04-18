@@ -62,7 +62,7 @@ public class FunFragment extends LKFragment{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ContentActivity.class
                         .cast(getActivity())
-                        .loadFragment(LandingPageFragment.create(), true);
+                        .loadFragment(LandingPageFragment.create(getString(R.string.filmen_title),"Lindqvist",false,true,true,23,21,R.drawable.monk,R.drawable.monk,getString(R.string.filmen_title),getString(R.string.filmen_info)), true);
             }
         });
         return rootView;
