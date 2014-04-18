@@ -34,6 +34,10 @@ public class LandingPageFragment extends LKFragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_landing_page, null);
 
+        Bundle bundle = getArguments();
+//        rootView.findViewById(R.id.name).;
+        bundle.getString("name");
+
         ImageView mapView = (ImageView) rootView.findViewById(R.id.map_picture);
         mapView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,8 +55,21 @@ public class LandingPageFragment extends LKFragment{
         super.onActivityCreated(savedInstanceState);
     }
 
-    public static LandingPageFragment create() {
+    public static LandingPageFragment create(String name, String place, boolean open, boolean cash, boolean card, float lat, float lng, int picture, String question, String desc) {
         LandingPageFragment fragment = new LandingPageFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("name",name);
+        bundle.putString("place",place);
+        bundle.putBoolean("open",open);
+        bundle.putBoolean("cash",cash);
+        bundle.putBoolean("card",card);
+        bundle.putFloat("lat",lat);
+        bundle.putFloat("lng",lng);
+        bundle.putInt("picture",picture);
+        bundle.putString("question",question);
+        bundle.putString("desc",desc);
+
+        fragment.setArguments(bundle);
         // Add arguments
         return fragment;
     }
