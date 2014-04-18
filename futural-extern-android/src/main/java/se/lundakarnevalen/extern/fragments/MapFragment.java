@@ -1,4 +1,4 @@
-package fragments;
+package se.lundakarnevalen.extern.fragments;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -26,7 +26,7 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import se.lundakarnevalen.extern.Map.MarkerType;
+import se.lundakarnevalen.extern.map.MarkerType;
 import se.lundakarnevalen.extern.android.R;
 
 import static android.location.LocationManager.*;

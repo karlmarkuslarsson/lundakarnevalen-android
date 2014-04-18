@@ -22,15 +22,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import fragments.FoodFragment;
-import fragments.FunFragment;
-import fragments.LKFragment;
-import fragments.MapFragment;
-import fragments.OtherFragment;
-import fragments.SchemeFragment;
-import se.lundakarnevalen.extern.Map.MarkerType;
+import se.lundakarnevalen.extern.fragments.FoodFragment;
+import se.lundakarnevalen.extern.fragments.FunFragment;
+import se.lundakarnevalen.extern.fragments.LKFragment;
+import se.lundakarnevalen.extern.fragments.MapFragment;
+import se.lundakarnevalen.extern.fragments.OtherFragment;
+import se.lundakarnevalen.extern.fragments.SchemeFragment;
+import se.lundakarnevalen.extern.map.MarkerType;
 import se.lundakarnevalen.extern.widget.LKRightMenuArrayAdapter;
 import se.lundakarnevalen.extern.widget.LKRightMenuArrayAdapter.*;
 
