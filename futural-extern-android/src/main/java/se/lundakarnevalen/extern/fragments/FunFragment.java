@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -17,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 
 /**
@@ -55,6 +57,14 @@ public class FunFragment extends LKFragment{
             new String[]{ "title", "time" },
             new int[]{ android.R.id.text1, android.R.id.text2 }
         ));
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ContentActivity.class
+                        .cast(getActivity())
+                        .loadFragment(LandingPageFragment.create(), true);
+            }
+        });
         return rootView;
     }
 
