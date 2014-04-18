@@ -79,14 +79,13 @@ public class LKSchemeMenuArrayAdapter extends ArrayAdapter<LKSchemeMenuArrayAdap
 
                     NotificationManager notificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
 
-
                     SharedPreferences sharedPref = getContext().getSharedPreferences("lundkarnevalen",Context.MODE_PRIVATE);
                     String set = sharedPref.getString("notifications", "");
                     String split[] = set.split(";");
                     set = "";
                     for(int i = 0;i<split.length;i++) {
                         Log.d(split[i],item.getStartTime()+item.place+item.name);
-                        if(!split[i].equals(item.getStartTime()+item.place+item.name)) {
+                        if(!split[i].equals(item.getStartTime() + item.place + item.name)) {
                             set+=split[i]+";";
                         } else {
                         }
@@ -171,13 +170,18 @@ public class LKSchemeMenuArrayAdapter extends ArrayAdapter<LKSchemeMenuArrayAdap
          * Creates list item..
          * @param icon Icon next to text
          */
-        public LKSchemeMenuListItem(String place, String name, int icon, Date startDate, Date endDate, boolean reminder){
+        public LKSchemeMenuListItem(String place, String name, int icon, Date startDate, Date endDate, HashSet<String> activated) {
+
             this.place = place;
             this.name = name;
             this.icon = icon;
             this.startDate = startDate;
             this.endDate = endDate;
-            this.reminder = reminder;
+            if(activated.contains(getStartTime() + place + name)) {
+                reminder = true;
+            } else {
+                reminder = false;
+            }
             this.listener = new OnClickListener() {
 
                 @Override

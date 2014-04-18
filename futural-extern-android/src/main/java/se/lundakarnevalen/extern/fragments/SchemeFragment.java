@@ -1,6 +1,8 @@
 package se.lundakarnevalen.extern.fragments;
 
+import android.app.NotificationManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +12,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 
 import se.lundakarnevalen.extern.map.MarkerType;
 import se.lundakarnevalen.extern.android.R;
@@ -43,12 +46,31 @@ public class SchemeFragment extends LKFragment{
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         //View menuBottom = inflater.inflate(R.layout., null);
 
+
+        NotificationManager notificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+
+        SharedPreferences sharedPref = getContext().getSharedPreferences("lundkarnevalen",Context.MODE_PRIVATE);
+        String set = sharedPref.getString("notifications", "");
+        String split[] = set.split(";");
+        HashSet<String> activated = new HashSet<String>();
+
+        for(int i = 0;i<split.length;i++) {
+            activated.add(split[i]);
+        }
+
+        //
+        Date date = new Date();
+        date.setDate(20);
+        date.setHours(5);
+        date.setMinutes(5);
+        date.setSeconds(5);
+        date.setMonth(5);
+
         ArrayList<LKSchemeMenuArrayAdapter.LKSchemeMenuListItem> listItems = new ArrayList<LKSchemeMenuArrayAdapter.LKSchemeMenuListItem>();
 
-        LKSchemeMenuArrayAdapter.LKSchemeMenuListItem foodItem = new LKSchemeMenuArrayAdapter.LKSchemeMenuListItem("KUNGEN","BÄST",R.drawable.test_nojen,new Date(),new Date(),true);
+        LKSchemeMenuArrayAdapter.LKSchemeMenuListItem foodItem = new LKSchemeMenuArrayAdapter.LKSchemeMenuListItem("KUNGEN","BÄST",R.drawable.test_nojen,date,date,activated);
         listItems.add(foodItem);
-
-        LKSchemeMenuArrayAdapter.LKSchemeMenuListItem randomItem = new LKSchemeMenuArrayAdapter.LKSchemeMenuListItem("FILIP","HEJ",R.drawable.test_spexet,new Date(),new Date(),true);
+        LKSchemeMenuArrayAdapter.LKSchemeMenuListItem randomItem = new LKSchemeMenuArrayAdapter.LKSchemeMenuListItem("FILIP","HEJ",R.drawable.test_spexet,date,date,activated);
         listItems.add(randomItem);
 
         adapter = new LKSchemeMenuArrayAdapter(getContext(), listItems);
