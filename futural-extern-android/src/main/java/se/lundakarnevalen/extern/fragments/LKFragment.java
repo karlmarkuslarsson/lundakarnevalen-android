@@ -1,4 +1,4 @@
-        package fragments;
+        package se.lundakarnevalen.extern.fragments;
 
         import android.app.Activity;
         import android.content.Context;
@@ -91,7 +91,7 @@ public class LKFragment extends Fragment {
 
     /**
      *
-     * @see fragments.LKFragment.Messanger#popFragmentStack()
+     * @see se.lundakarnevalen.extern.fragments.LKFragment.Messanger#popFragmentStack()
      */
     public void popFragmentStack() {
         messanger.popFragmentStack();
