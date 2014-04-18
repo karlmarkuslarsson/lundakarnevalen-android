@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import se.lundakarnevalen.extern.fragments.FoodFragment;
 import se.lundakarnevalen.extern.fragments.FunFragment;
 import se.lundakarnevalen.extern.fragments.LKFragment;
+import se.lundakarnevalen.extern.fragments.LandingPageFragment;
 import se.lundakarnevalen.extern.fragments.MapFragment;
 import se.lundakarnevalen.extern.fragments.OtherFragment;
 import se.lundakarnevalen.extern.fragments.SchemeFragment;
@@ -97,7 +98,8 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
         RelativeLayout scheme = (RelativeLayout) bottomMenu.findViewById(R.id.button4);
         scheme.setOnClickListener(new BottomMenuClickListener(new SchemeFragment()));
         RelativeLayout other = (RelativeLayout) bottomMenu.findViewById(R.id.button5);
-        other.setOnClickListener(new BottomMenuClickListener(new OtherFragment()));
+        other.setOnClickListener(new BottomMenuClickListener(new LandingPageFragment()));
+        //other.setOnClickListener(new BottomMenuClickListener(new OtherFragment()));
     }
 
 
