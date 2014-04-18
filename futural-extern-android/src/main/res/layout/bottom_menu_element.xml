@@ -17,7 +17,7 @@ android:background="@color/red"
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
     />
-<se.lundakarnevalen.extern.widget.LKTextViewBold
+<se.lundakarnevalen.extern.widget.LKTextView
     android:id="@+id/text"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
