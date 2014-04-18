@@ -1,4 +1,4 @@
-package fragments;
+package se.lundakarnevalen.extern.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

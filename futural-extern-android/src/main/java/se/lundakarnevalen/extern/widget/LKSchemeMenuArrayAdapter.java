@@ -1,54 +1,54 @@
 package se.lundakarnevalen.extern.widget;
 
 
-        import java.util.List;
+import java.util.List;
 
-        import android.content.Context;
-        import android.support.v4.app.Fragment;
-        import android.support.v4.app.FragmentManager;
-        import android.support.v4.widget.DrawerLayout;
-        import android.util.Log;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.View.OnClickListener;
-        import android.view.ViewGroup;
-        import android.widget.AdapterView;
-        import android.widget.AdapterView.OnItemClickListener;
-        import android.widget.ArrayAdapter;
-        import android.widget.RelativeLayout;
-        import android.widget.TextView;
+import android.content.Context;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-        import se.lundakarnevalen.extern.android.ContentActivity;
-        import se.lundakarnevalen.extern.android.R;
+import se.lundakarnevalen.extern.android.ContentActivity;
+import se.lundakarnevalen.extern.android.R;
 
 /**
  *
  */
-public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapter.LKRightMenuListItem> implements OnItemClickListener {
+public class LKSchemeMenuArrayAdapter extends ArrayAdapter<LKSchemeMenuArrayAdapter.LKSchemeMenuListItem> implements OnItemClickListener {
 
     private final String LOG_TAG = "ArrayAdapter";
     private LayoutInflater inflater;
 
-    public LKRightMenuArrayAdapter(Context context, List<LKRightMenuListItem> items){
-      //  super(context, android.R.layout.simple_list_item_1, items);
-        super(context, android.R.layout.activity_list_item, items);
+
+    public LKSchemeMenuArrayAdapter(Context context, List<LKSchemeMenuListItem> items){
+        //  super(context, android.R.layout.simple_list_item_1, items);
+        super(context, android.R.layout.simple_list_item_1, items);
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
 
     @Override
     public View getView(int pos, View convertView, ViewGroup parent){
-        final LKRightMenuListItem item = getItem(pos);
-
+        final LKSchemeMenuListItem item = getItem(pos);
+        Log.d("here","here: "+pos);
+        /*
         if(item.isStatic) {
             return item.staticView;
         }
+        */
         RelativeLayout wrapper;
-        if(item.title.equals(getContext().getString(R.string.show_all))) {
-            wrapper = (RelativeLayout) inflater.inflate(R.layout.menu_bottom, null);
-        } else {
-           wrapper = (RelativeLayout) inflater.inflate(R.layout.menu_element, null);
-        }
+        wrapper = (RelativeLayout) inflater.inflate(R.layout.scheme_element, null);
+        /*
         item.button = wrapper.findViewById(R.id.button);
         if(item.isActive && wrapper != null){
             wrapper.setSelected(true);
@@ -59,13 +59,13 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
             item.text = (TextView) wrapper.findViewById(R.id.text);
             item.text.setText(item.title);
         }
-
+        */
         return wrapper;
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
-        final LKRightMenuListItem item = getItem(pos);
+        final LKSchemeMenuListItem item = getItem(pos);
         if(!item.enable) {
             return;
         }
@@ -95,7 +95,7 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
      * @author alexander
      *
      */
-    public static class LKRightMenuListItem {
+    public static class LKSchemeMenuListItem {
         public int icon;
         public String title;
         OnClickListener listener;
@@ -117,7 +117,7 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
         /**
          * std. constr.
          */
-        public LKRightMenuListItem(){
+        public LKSchemeMenuListItem(){
 
         }
 
@@ -128,7 +128,7 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
          * @param isStatic true if static
          * @return list item
          */
-        public LKRightMenuListItem isStatic(boolean isStatic){
+        public LKSchemeMenuListItem isStatic(boolean isStatic){
             this.isStatic = isStatic;
             return this;
         }
@@ -138,7 +138,7 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
          * @param view set the view to view.
          * @return list item
          */
-        public LKRightMenuListItem showView(View view){
+        public LKSchemeMenuListItem showView(View view){
             this.staticView = view;
             return this;
         }
@@ -149,7 +149,7 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
          * Only to use with map fragment
          * @param isMapRow sets to show the map !.
          */
-        public LKRightMenuListItem isMapRow(boolean isMapRow){
+        public LKSchemeMenuListItem isMapRow(boolean isMapRow){
             this.isMapRow = isMapRow;
             return this;
         }
@@ -161,7 +161,7 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
          * @param icon Icon next to text
          * @param listener Listener to use to handle click events.
          */
-        public LKRightMenuListItem(String title, int icon, OnClickListener listener, boolean enabled){
+        public LKSchemeMenuListItem(String title, int icon, OnClickListener listener, boolean enabled){
             this.title = title;
             this.icon = icon;
             this.listener = listener;
@@ -173,7 +173,7 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
          * @param title Text in menu to show
          * @param icon Icon next to text
          */
-        public LKRightMenuListItem(String title, int icon, int markerType){
+        public LKSchemeMenuListItem(String title, int icon, int markerType){
             this.title = title;
             this.icon = icon;
             this.markerType = markerType;
@@ -188,7 +188,7 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
          * @param icon Icon next to text
          * @param fragment Fragment to show
          */
-        public LKRightMenuListItem(final String title, int icon, final Fragment fragment, final FragmentManager fragmentMgr, final Context context, boolean enabled){
+        public LKSchemeMenuListItem(final String title, int icon, final Fragment fragment, final FragmentManager fragmentMgr, final Context context, boolean enabled){
             this.title = title;
             this.icon = icon;
             this.enable = enabled;
@@ -201,9 +201,9 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
                 @Override
                 public void onClick(View v) {
 
-                    clearBackStack(fragmentMgr);
+        //            clearBackStack(fragmentMgr);
 
-                    fragmentMgr.beginTransaction().replace(R.id.content_frame, fragment).commit();
+          //          fragmentMgr.beginTransaction().replace(R.id.content_frame, fragment).commit();
                 }
 
                 private void clearBackStack(FragmentManager fragmentMgr) {
@@ -218,16 +218,6 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
 
 
 
-        /**
-         * Call this to close the navigationdrawer when item is clicked.
-         * @param closeDrawerOnClick If true the drawer will close.
-         * @param layout The drawerlayout to be closed.
-         */
-        public LKRightMenuListItem closeDrawerOnClick(boolean closeDrawerOnClick, DrawerLayout layout){
-            this.closeDrawerOnClick = closeDrawerOnClick;
-            this.navDrawer = layout;
-            return this;
-        }
 
         public void setOnClickListener(OnClickListener listener) {
             this.listener = listener;

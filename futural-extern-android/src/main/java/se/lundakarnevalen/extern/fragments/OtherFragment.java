@@ -1,4 +1,4 @@
-package fragments;
+package se.lundakarnevalen.extern.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,16 +10,15 @@ import se.lundakarnevalen.extern.android.R;
 /**
  * Created by Markus on 2014-04-16.
  */
-public class FunFragment extends LKFragment{
+public class OtherFragment extends LKFragment{
 
     // Every time you switch to this fragment.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_fun, null);
+        View rootView = inflater.inflate(R.layout.fragment_other, null);
 
         return rootView;
     }
-
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {

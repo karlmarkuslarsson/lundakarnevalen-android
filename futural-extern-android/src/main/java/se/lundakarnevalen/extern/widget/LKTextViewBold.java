@@ -33,7 +33,7 @@ public class LKTextViewBold extends TextView {
 
     private void font(){
         try {
-            Typeface tf = Typeface.createFromAsset(context.getAssets(), "fonts/Futura-Bold.ttf");
+            Typeface tf = Typeface.createFromAsset(context.getAssets(), "src/main/assets2/fonts/Futura-Bold.ttf");
             setTypeface(tf);
 
         } catch (Exception e) {

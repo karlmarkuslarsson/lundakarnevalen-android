@@ -22,14 +22,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import fragments.FoodFragment;
-import fragments.FunFragment;
-import fragments.LKFragment;
-import fragments.MapFragment;
-import fragments.OtherFragment;
-import fragments.SchemeFragment;
+import se.lundakarnevalen.extern.fragments.FoodFragment;
+import se.lundakarnevalen.extern.fragments.FunFragment;
+import se.lundakarnevalen.extern.fragments.LKFragment;
+import se.lundakarnevalen.extern.fragments.MapFragment;
+import se.lundakarnevalen.extern.fragments.OtherFragment;
+import se.lundakarnevalen.extern.fragments.SchemeFragment;
+import se.lundakarnevalen.extern.map.MarkerType;
 import se.lundakarnevalen.extern.widget.LKRightMenuArrayAdapter;
 import se.lundakarnevalen.extern.widget.LKRightMenuArrayAdapter.*;
 
@@ -41,13 +41,18 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
     private RelativeLayout currentSelectedBottomMenu;
     private RelativeLayout mapLayout;
     private ActionBar actionBar;
+    private MapFragment mapFragment;
+    private ArrayList<LKRightMenuListItem> rightMenuItems = new ArrayList<LKRightMenuListItem>();
+    private LKRightMenuListItem showAllItem;
+    private boolean allItemsActivated = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content);
         fragmentMgr = getSupportFragmentManager();
-        loadFragment(new MapFragment(), false);
+        mapFragment = new MapFragment();
+        loadFragment(mapFragment, false);
         rightMenuList = (ListView) findViewById(R.id.right_menu_list);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerLayout.setScrimColor(Color.TRANSPARENT);
@@ -74,7 +79,7 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
         RelativeLayout food = (RelativeLayout) bottomMenu.findViewById(R.id.button2);
         food.setOnClickListener(new BottomMenuClickListener(new FoodFragment()));
         mapLayout = (RelativeLayout) bottomMenu.findViewById(R.id.button3);
-        mapLayout.setOnClickListener(new BottomMenuClickListener(new MapFragment()));
+        mapLayout.setOnClickListener(new BottomMenuClickListener(mapFragment));
         currentSelectedBottomMenu = mapLayout;
         RelativeLayout scheme = (RelativeLayout) bottomMenu.findViewById(R.id.button4);
         scheme.setOnClickListener(new BottomMenuClickListener(new SchemeFragment()));
@@ -87,8 +92,8 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
     public boolean onCreateOptionsMenu(Menu menu) {
         
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.content, menu);
-        return true;
+        //getMenuInflater().inflate(R.menu.content, menu);
+        return false;
     }
 
     @Override
@@ -131,37 +136,45 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         //View menuBottom = inflater.inflate(R.layout., null);
 
+        ArrayList<LKRightMenuListItem> listItems = new ArrayList<LKRightMenuListItem>();
 
-        List<LKRightMenuListItem> listItems = new ArrayList<LKRightMenuListItem>();
+        rightMenuItems = new ArrayList<LKRightMenuListItem>();
+        LKRightMenuListItem header = new LKRightMenuListItem().isStatic(true).showView(inflater.inflate(R.layout.menu_header, null));
+        listItems.add(header);
 
-        listItems.add(new LKRightMenuListItem().isStatic(true).showView(inflater.inflate(R.layout.menu_header, null)));
-
-        LKRightMenuListItem foodItem = new LKRightMenuListItem(getString(R.string.food),0);
+        LKRightMenuListItem foodItem = new LKRightMenuListItem(getString(R.string.food),0, MarkerType.FOOD);
         foodItem.setOnClickListener(new MenuClickSelector(foodItem));
         listItems.add(foodItem);
+        rightMenuItems.add(foodItem);
 
 
-        LKRightMenuListItem funItem = new LKRightMenuListItem(getString(R.string.fun),0);
+        LKRightMenuListItem funItem = new LKRightMenuListItem(getString(R.string.fun),0, MarkerType.FUN);
         funItem.setOnClickListener(new MenuClickSelector(funItem));
         listItems.add(funItem);
+        rightMenuItems.add(funItem);
 
 
-        LKRightMenuListItem helpItem = new LKRightMenuListItem(getString(R.string.help),0);
+        LKRightMenuListItem helpItem = new LKRightMenuListItem(getString(R.string.help),0, MarkerType.HELP);
         helpItem.setOnClickListener(new MenuClickSelector(helpItem));
         listItems.add(helpItem);
+        rightMenuItems.add(helpItem);
 
-        LKRightMenuListItem wcItem = new LKRightMenuListItem(getString(R.string.wc),0);
+        LKRightMenuListItem wcItem = new LKRightMenuListItem(getString(R.string.wc),0, MarkerType.WC);
         wcItem.setOnClickListener(new MenuClickSelector(wcItem));
         listItems.add(wcItem);
+        rightMenuItems.add(wcItem);
 
-        LKRightMenuListItem showItem = new LKRightMenuListItem(getString(R.string.show_all),0);
-        showItem.setOnClickListener(new MenuClickSelector(showItem));
-        listItems.add(showItem);
+        showAllItem = new LKRightMenuListItem(getString(R.string.show_all),0, MarkerType.SHOW);
+        showAllItem.setOnClickListener(new MenuClickSelector(showAllItem));
+        listItems.add(showAllItem);
 
         adapter = new LKRightMenuArrayAdapter(this, listItems);
         rightMenuList.setAdapter(adapter);
         rightMenuList.setOnItemClickListener(adapter);
+
     }
+
+
 
     private class MenuClickSelector implements OnClickListener {
         LKRightMenuListItem item;
@@ -169,20 +182,52 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
             this.item = item;
         }
 
-
+        // change direction
         @Override
         public void onClick(View v) {
             // need later
-            RelativeLayout button = (RelativeLayout) v.findViewById(R.id.button);
-            if(item.isOn) {
-                button.setBackgroundColor(getResources().getColor(R.color.right_menu_button_selected));
-                item.isOn = false;
-            } else {
-                button.setBackgroundColor(getResources().getColor(R.color.right_menu_button));
-                item.isOn = true;
-            }
-            Log.d("Click", "CLICK" + v);
+            if(item.markerType == MarkerType.SHOW) {
 
+                if(item.isOn) {
+
+                } else {
+                    for(LKRightMenuListItem i: rightMenuItems) {
+                        mapFragment.changeActive(i.markerType,true);
+
+                        Log.d("button:",""+i.button);
+                        i.button.setBackgroundColor(getResources().getColor(R.color.right_menu_button));
+                        i.isOn = true;
+
+                    }
+                    allItemsActivated = true;
+                    RelativeLayout button = (RelativeLayout) v.findViewById(R.id.button);
+                    button.setBackgroundColor(getResources().getColor(R.color.right_menu_button_selected));
+                    item.isOn = true;
+                    mapFragment.updatePositions();
+                }
+                    // show all..
+            } else {
+                RelativeLayout button = (RelativeLayout) v.findViewById(R.id.button);
+                if(allItemsActivated) {
+                    allItemsActivated = false;
+                    for(LKRightMenuListItem i: rightMenuItems) {
+                        mapFragment.changeActive(i.markerType, false);
+                        i.isOn = true;
+                    }
+                }
+                if(item.isOn) {
+                    mapFragment.changeActive(item.markerType,true);
+                    button.setBackgroundColor(getResources().getColor(R.color.right_menu_button_selected));
+                    item.isOn = false;
+                } else {
+                    mapFragment.changeActive(item.markerType,false);
+                    button.setBackgroundColor(getResources().getColor(R.color.right_menu_button));
+                    item.isOn = true;
+                }
+                showAllItem.isOn = false;
+                showAllItem.button.setBackgroundColor(getResources().getColor(R.color.right_menu_button));
+                mapFragment.updatePositions();
+            }
         }
 
 

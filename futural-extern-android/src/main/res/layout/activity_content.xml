@@ -27,22 +27,24 @@
             >
             <ImageView
                 android:id="@+id/image"
-                android:layout_width="20dp"
-                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:paddingRight="4dp"
                 android:paddingLeft="4dp"
-                android:paddingTop="3dp"
+                android:paddingTop="4dp"
                 android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
+                android:src="@drawable/test_spexet"
                 />
 
             <se.lundakarnevalen.extern.widget.LKTextViewBold
                 android:id="@+id/text"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_below="@id/image"
-                android:paddingBottom="2dp"
                 android:paddingTop="2dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:layout_centerHorizontal="true"
                 android:gravity="center"
                 android:textColor="@color/white_unselected"
                 android:text="@string/fun"/>
@@ -56,21 +58,24 @@
             >
             <ImageView
                 android:id="@+id/image"
-                android:layout_width="20dp"
-                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:paddingRight="4dp"
                 android:paddingLeft="4dp"
-                android:paddingTop="3dp"
+                android:paddingTop="4dp"
                 android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
+                android:src="@drawable/test_spexet"
                 />
+
             <se.lundakarnevalen.extern.widget.LKTextViewBold
                 android:id="@+id/text"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_below="@id/image"
-                android:paddingBottom="2dp"
                 android:paddingTop="2dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:layout_centerHorizontal="true"
                 android:gravity="center"
                 android:textColor="@color/white_unselected"
                 android:text="@string/food"/>
@@ -84,21 +89,24 @@
             >
             <ImageView
                 android:id="@+id/image"
-                android:layout_width="20dp"
-                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:paddingRight="4dp"
                 android:paddingLeft="4dp"
-                android:paddingTop="3dp"
+                android:paddingTop="4dp"
                 android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
+                android:src="@drawable/test_spexet"
                 />
+
             <se.lundakarnevalen.extern.widget.LKTextViewBold
                 android:id="@+id/text"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_below="@id/image"
-                android:paddingBottom="2dp"
                 android:paddingTop="2dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:layout_centerHorizontal="true"
                 android:gravity="center"
                 android:textColor="@color/white"
                 android:text="@string/map2"/>
@@ -112,21 +120,24 @@
             >
             <ImageView
                 android:id="@+id/image"
-                android:layout_width="20dp"
-                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:paddingRight="4dp"
                 android:paddingLeft="4dp"
-                android:paddingTop="3dp"
+                android:paddingTop="4dp"
                 android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
+                android:src="@drawable/test_spexet"
                 />
+
             <se.lundakarnevalen.extern.widget.LKTextViewBold
                 android:id="@+id/text"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_below="@id/image"
-                android:paddingBottom="2dp"
                 android:paddingTop="2dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:layout_centerHorizontal="true"
                 android:gravity="center"
                 android:textColor="@color/white_unselected"
                 android:text="@string/scheme"/>
@@ -140,21 +151,24 @@
             >
             <ImageView
                 android:id="@+id/image"
-                android:layout_width="20dp"
-                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:paddingRight="4dp"
                 android:paddingLeft="4dp"
-                android:paddingTop="3dp"
+                android:paddingTop="4dp"
                 android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                /> 
+                android:src="@drawable/test_spexet"
+                />
+
             <se.lundakarnevalen.extern.widget.LKTextViewBold
                 android:id="@+id/text"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_below="@id/image"
-                android:paddingBottom="2dp"
                 android:paddingTop="2dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:layout_centerHorizontal="true"
                 android:gravity="center"
                 android:textColor="@color/white_unselected"
                 android:text="@string/other"/>
@@ -184,7 +198,8 @@
             android:layout_above="@id/bottomFrameMenu"
             />
 
-        <ListView android:id="@+id/right_menu_list"
+        <ListView
+            android:id="@+id/right_menu_list"
             android:layout_width="130dp"
             android:layout_height="match_parent"
             android:layout_gravity="end"
