@@ -111,6 +111,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:text="@string/scheme_right"
+            android:gravity="center"
             android:textStyle="bold"
             android:textColor="#FFF"
             android:textSize="30sp"
