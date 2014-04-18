@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -30,6 +31,14 @@ public class LandingPageFragment extends LKFragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_landing_page, null);
 
+        ImageView mapView = (ImageView) rootView.findViewById(R.id.map_picture);
+        mapView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // Add something ...
+            }
+        });
 
         return rootView;
     }
