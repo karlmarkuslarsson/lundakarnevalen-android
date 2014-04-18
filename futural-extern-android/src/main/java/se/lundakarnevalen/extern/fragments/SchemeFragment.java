@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import se.lundakarnevalen.extern.map.MarkerType;
 import se.lundakarnevalen.extern.android.R;
@@ -44,9 +45,10 @@ public class SchemeFragment extends LKFragment{
 
         ArrayList<LKSchemeMenuArrayAdapter.LKSchemeMenuListItem> listItems = new ArrayList<LKSchemeMenuArrayAdapter.LKSchemeMenuListItem>();
 
-        LKSchemeMenuArrayAdapter.LKSchemeMenuListItem foodItem = new LKSchemeMenuArrayAdapter.LKSchemeMenuListItem(getString(R.string.food),0, MarkerType.FOOD);
+        LKSchemeMenuArrayAdapter.LKSchemeMenuListItem foodItem = new LKSchemeMenuArrayAdapter.LKSchemeMenuListItem("KUNGEN","BÄST",R.drawable.test_nojen,new Date(),new Date(),true);
         listItems.add(foodItem);
-        LKSchemeMenuArrayAdapter.LKSchemeMenuListItem randomItem = new LKSchemeMenuArrayAdapter.LKSchemeMenuListItem(getString(R.string.other),0, MarkerType.HELP);
+
+        LKSchemeMenuArrayAdapter.LKSchemeMenuListItem randomItem = new LKSchemeMenuArrayAdapter.LKSchemeMenuListItem("FILIP","HEJ",R.drawable.test_spexet,new Date(),new Date(),true);
         listItems.add(randomItem);
 
         adapter = new LKSchemeMenuArrayAdapter(getContext(), listItems);

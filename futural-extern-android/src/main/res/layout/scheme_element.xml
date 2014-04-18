@@ -57,17 +57,17 @@
         android:layout_marginLeft="10dp"
         >
         <TextView
-            android:id="@+id/palce"
+            android:id="@+id/place"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textSize="10dp"
             android:text="TÄLTET"/>
         <TextView
-            android:id="@+id/time2"
+            android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/palce"
+            android:layout_below="@+id/place"
             android:textColor="@color/white"
             android:textSize="18dp"
             android:text="SPEXET"/>
