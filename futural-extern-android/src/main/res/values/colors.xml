@@ -13,6 +13,10 @@
     <color name="right_menu_button_selected">#0D607F</color>
     <color name="bottom_menu_shadow">#BE4233</color>
     <color name="bottom_menu_background_selected">#BF4635</color>
+    <color name="blue_green">#7DC9AD</color>
+    <color name="blue_green_shadow">#63A08A</color>
+
+
 
 
 </resources>
