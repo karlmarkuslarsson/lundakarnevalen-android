@@ -6,8 +6,8 @@
     tools:context=".ContentActivity">
 
     <ListView
-        android:id="@+id/fragment_fun_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+    android:id="@+id/fragment_fun_list"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
 
 </FrameLayout>

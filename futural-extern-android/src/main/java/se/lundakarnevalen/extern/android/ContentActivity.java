@@ -98,8 +98,7 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
         RelativeLayout scheme = (RelativeLayout) bottomMenu.findViewById(R.id.button4);
         scheme.setOnClickListener(new BottomMenuClickListener(new SchemeFragment()));
         RelativeLayout other = (RelativeLayout) bottomMenu.findViewById(R.id.button5);
-        other.setOnClickListener(new BottomMenuClickListener(new LandingPageFragment()));
-        //other.setOnClickListener(new BottomMenuClickListener(new OtherFragment()));
+        other.setOnClickListener(new BottomMenuClickListener(new OtherFragment()));
     }
 
 
@@ -130,12 +129,20 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
      */
     @Override
     public void loadFragment(Fragment fragment, boolean addToBackstack) {
-        Log.d("ContentActivity", "loadFragment()");
-        FragmentTransaction transaction = fragmentMgr.beginTransaction().replace(R.id.content_frame, fragment);
+        Log.d("ContentActivity", "loadFragment("+fragment+")");
+        FragmentTransaction transaction = fragmentMgr.beginTransaction()
+                .replace(R.id.content_frame, fragment);
         if (addToBackstack) {
             transaction.addToBackStack(null);
         }
         transaction.commit();
+    }
+
+    private void moveToFragment(Fragment f) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.content_frame, f)
+                .commit();
     }
 
     @Override
@@ -188,8 +195,6 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
         rightMenuList.setOnItemClickListener(adapter);
 
     }
-
-
 
     private class MenuClickSelector implements OnClickListener {
         LKRightMenuListItem item;
@@ -244,9 +249,8 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
                 mapFragment.updatePositions();
             }
         }
-
-
     }
+
     private class BottomMenuClickListener implements OnClickListener {
         private LKFragment fragment;
 
@@ -260,12 +264,7 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
             if(v.equals(currentSelectedBottomMenu)) {
                 return;
             }
-            for(int i = 0; i < fragmentMgr.getBackStackEntryCount(); i++) {
-                Log.d("ContentActivity", "Removed from backstack");
-                fragmentMgr.popBackStack();
-            }
-
-            loadFragment(fragment,true);
+            moveToFragment(fragment);
 
             currentSelectedBottomMenu.setBackgroundColor(getResources().getColor(R.color.red));
             ((TextView)currentSelectedBottomMenu.findViewById(R.id.text)).setTextColor(getResources().getColor(R.color.white_unselected));
@@ -281,6 +280,4 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
 
         }
     }
-
-
 }

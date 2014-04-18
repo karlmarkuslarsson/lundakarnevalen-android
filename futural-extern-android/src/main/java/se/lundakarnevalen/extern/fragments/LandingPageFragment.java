@@ -4,6 +4,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,8 @@ public class LandingPageFragment extends LKFragment{
     private LKSchemeMenuArrayAdapter adapter;
     private ListView list;
 
+    public LandingPageFragment() {}
+
     // Every time you switch to this fragment.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,13 +46,14 @@ public class LandingPageFragment extends LKFragment{
         return rootView;
     }
 
-
-
-
-
-
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+    }
+
+    public static LandingPageFragment create() {
+        LandingPageFragment fragment = new LandingPageFragment();
+        // Add arguments
+        return fragment;
     }
 }
