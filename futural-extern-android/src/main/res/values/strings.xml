@@ -25,5 +25,5 @@
     <string name="scheme_left"><![CDATA[<]]></string>
     <string name="scheme_right"><![CDATA[>]]></string>
 
-
+    <string name="heart">\u2764</string>
 </resources>
