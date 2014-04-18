@@ -25,7 +25,7 @@
             android:layout_marginLeft="45dp"
             />
 
-        <TextView
+        <se.lundakarnevalen.extern.widget.LKTextView
             android:id="@+id/time1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
             android:layout_marginLeft="-20dp"
             android:textSize="10dp"
             android:text="16:00"/>
-        <TextView
+        <se.lundakarnevalen.extern.widget.LKTextView
             android:id="@+id/time2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
             android:textColor="@color/white"
             android:textSize="10dp"
             android:text="TÄLTET"/>
-        <TextView
+  <se.lundakarnevalen.extern.widget.LKTextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

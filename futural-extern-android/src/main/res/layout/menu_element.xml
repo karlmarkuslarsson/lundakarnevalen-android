@@ -24,7 +24,7 @@
         android:paddingTop="4dp"
         android:layout_centerVertical="true"
          />
-    <TextView
+    <se.lundakarnevalen.extern.widget.LKTextView
         android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

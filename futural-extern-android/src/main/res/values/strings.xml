@@ -22,7 +22,8 @@
     <!-- scheme -->
     <string name="my_scheme">MY SCHEME</string>
     <string name="saturday">SATURDAY</string>
-
+    <string name="scheme_left"><![CDATA[<]]></string>
+    <string name="scheme_right"><![CDATA[>]]></string>
 
 
 </resources>
