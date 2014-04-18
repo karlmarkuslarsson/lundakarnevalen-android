@@ -421,8 +421,6 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
                         float relativeY = (event.getY() - values[5]) / values[4];
                         Log.d("rel x and y", "x: " + relativeX + " y: " + relativeY);
                         // values[2] and values[5] are the x,y coordinates of the top left corner of the drawable image, regardless of the zoom factor.
-                        float maxX = 0;
-                        float maxY = 0;
                         checkClick(relativeX, relativeY);
                     } else {
 
