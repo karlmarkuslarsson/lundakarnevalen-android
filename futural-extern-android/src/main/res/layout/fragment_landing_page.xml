@@ -1,9 +1,121 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="se.lundakarnevalen.extern.fragments.LandingPageFragment"
+    tools:context=".ContentActivity"
+    android:background="@color/white"
     >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="180dp">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/blue_green"
+            android:id="@+id/header_background"
+            />
+        <se.lundakarnevalen.extern.widget.LKTextView
+            android:text="AF-BORGEN"
+            android:id="@+id/place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:textColor="@color/white"
+            android:layout_marginBottom="10dp"
+            android:shadowRadius="6"
+            android:shadowDy="4"
+            android:shadowColor="@color/black"
+            android:textSize="20dp"/>
+
+        <se.lundakarnevalen.extern.widget.LKTextView
+            android:text="REVYN"
+            android:id="@+id/name"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:textSize="50dp"
+            android:shadowRadius="6"
+            android:shadowDy="4"
+            android:shadowColor="@color/black"
+            android:textColor="@color/white"
+            android:layout_above="@id/place"
+            />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/header_background"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_below="@id/header"
+        android:background="@color/bottom_menu_shadow">
+</RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/middleLayout"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_below="@id/header_background"
+            android:background="@color/red">
+
 
 
 </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/middleLayoutShadow"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_below="@id/middleLayout"
+        android:background="@color/light_gray">
+
+</RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/bottom_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/middleLayoutShadow"
+
+        android:background="@color/white">
+        <se.lundakarnevalen.extern.widget.LKTextView
+            android:text="VAD ÄR REVYN?"
+            android:id="@+id/question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/blue_dark"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="20dp"
+            android:textSize="20dp"/>
+
+        <se.lundakarnevalen.extern.widget.LKTextView
+            android:text="@string/ipsum"
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/blue_dark"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_below="@id/question"
+            android:textStyle="italic"
+            android:textSize="12dp"
+            android:lineSpacingMultiplier="1.6"
+            />
+
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_below="@id/bottom_text"
+
+        android:background="@color/white">
+</RelativeLayout>
+
+    </RelativeLayout>
+</ScrollView>

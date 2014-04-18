@@ -15,6 +15,9 @@
     <color name="bottom_menu_background_selected">#BF4635</color>
     <color name="blue_green">#7DC9AD</color>
     <color name="blue_green_shadow">#63A08A</color>
+    <color name="light_gray">#D1CDCC</color>
+    <color name="blue_dark">#60617E</color>
+
 
     <color name="transparent">#0000</color>
 
