@@ -12,6 +12,8 @@ import android.graphics.PointF;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,6 +25,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -82,6 +87,15 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
     private float myLng;
 
     // Information about the map
+/*
+//55.7037889,(float)13.194647222222223
+   // (float)55.7054111,(float)13.195491666666667
+    // only fake, for next map...
+    private float startLonMap = (float) 13.190449839578941;
+    private float startLatMap = (float) 55.69015099913018;
+    private float endLonMap = (float) 13.200917368875816;
+    private float endLatMap = (float) 55.72300194685981;
+*/
     private float startLonMap = (float) 12.445449839578941;
     private float startLatMap = (float) 55.33715099913018;
     private float endLonMap = (float) 14.580917368875816;
@@ -129,10 +143,12 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
                 img.setImageMatrix(matrix);
             }
         } else{
+
                 matrix = new Matrix();
                 firstTime = true;
                 isActive = true;
-                PositionTask positionTask = new PositionTask();
+                //TODO fix bug with switch to another fragment and the back again to map...
+            PositionTask positionTask = new PositionTask();
                 positionTask.execute();
 
         }
@@ -546,6 +562,11 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
     private class PositionTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params) {
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             publishProgress();
             return null;
         }
@@ -553,6 +574,7 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
         @Override
         protected void onProgressUpdate(Void... values) {
             super.onProgressUpdate(values);
+
             /*
             final Handler handler;
             handler = new Handler();

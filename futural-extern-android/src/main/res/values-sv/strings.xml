@@ -17,6 +17,11 @@
     <string name="map2">KARTA</string>
 
 
+
+    <!-- scheme -->
+    <string name="my_scheme">MITT SCHEMA</string>
+    <string name="saturday">LÖRDAG</string>
+
     <!-- Information about the fun -->
     <string name="kabare_title">Kabaré</string>
     <string name="kabare_info">Vi befinner oss i den postapokalyptiska dystopin
