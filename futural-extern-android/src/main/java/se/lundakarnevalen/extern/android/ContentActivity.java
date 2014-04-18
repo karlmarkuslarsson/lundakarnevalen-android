@@ -2,6 +2,7 @@ package se.lundakarnevalen.extern.android;
 
 import android.content.Context;
 
+import android.os.Build;
 import android.support.v7.app.ActionBar;
 import android.view.View.OnClickListener;
 import android.graphics.Color;
@@ -20,6 +21,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.util.ArrayList;
 
@@ -60,7 +63,17 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
         generateLowerMenu();
         actionBar = getSupportActionBar();
         setupActionbar();
+        setupTint();
     }
+
+    private void setupTint() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            tintManager.setStatusBarTintEnabled(true);
+            tintManager.setStatusBarTintColor(getResources().getColor(R.color.red));
+        }
+    }
+
 
     private void setupActionbar() {
         actionBar.setDisplayShowHomeEnabled(false);

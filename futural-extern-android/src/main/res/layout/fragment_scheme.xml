@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="se.lundakarnevalen.extern.fragments.SchemeFragment"
-    android:background="@color/blue_purple">
+    android:background="@color/transparent">
 
         <RelativeLayout
             android:id="@+id/heartText"

@@ -21,18 +21,23 @@ public class LKTextView extends TextView {
 
     public LKTextView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        if (!isInEditMode()) {
-            switch (defStyle){
-                case Typeface.BOLD:
-                    setTypeface(Typeface.createFromAsset(context.getAssets(), "src/main/assets2/fonts/Futura-Bold.ttf"));
-                    break;
-                case Typeface.NORMAL:
-                    setTypeface(Typeface.createFromAsset(context.getAssets(), "src/main/assets2/fonts/FuturaStd-Medium.ttf"));
-                    break;
-                case Typeface.ITALIC:
-                    setTypeface(Typeface.createFromAsset(context.getAssets(), "src/main/assets2/fonts/FuturaStd-Light.ttf"));
-                    break;
-            }
+    }
+
+    @Override
+    public void setTypeface(Typeface tf, int style) {
+        if(isInEditMode()) return;
+        switch (style){
+            case Typeface.BOLD:
+                super.setTypeface(Typeface.createFromAsset(super.getContext().getAssets(), "fonts/Futura-Bold.ttf"));
+                break;
+            case Typeface.NORMAL:
+                super.setTypeface(Typeface.createFromAsset(super.getContext().getAssets(), "fonts/Futura-Bold.ttf"));
+                //super.setTypeface(Typeface.createFromAsset(super.getContext().getAssets(), "fonts/FuturaStd-Medium.ttf"));
+                break;
+            case Typeface.ITALIC:
+                super.setTypeface(Typeface.createFromAsset(super.getContext().getAssets(), "fonts/Futura-Bold.ttf"));
+                //super.setTypeface(Typeface.createFromAsset(super.getContext().getAssets(), "fonts/FuturaStd-Light.ttf"));
+                break;
         }
     }
 }
