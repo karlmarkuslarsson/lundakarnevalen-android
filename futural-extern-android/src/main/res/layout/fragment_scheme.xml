@@ -46,44 +46,12 @@
 
 
 
-    <RelativeLayout
-        android:id="@+id/day"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/heartText"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/bluegreen_bg_bottom_shadow"
-
-        >
-        <se.lundakarnevalen.extern.widget.LKTextView
-            android:layout_centerHorizontal="true"
-            android:id="@+id/dayText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp"
-            android:gravity="center"
-            android:textSize="34dp"
-            android:textColor="@color/white"
-            android:text="@string/saturday"
-
-            />
-
-
-
-    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/left_arrow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
         android:layout_below="@id/heartText"
-        android:layout_toLeftOf="@+id/day"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignBottom="@+id/day"
         android:background="@drawable/transparentbluegreen_bg_bottom_shadow">
 
         <se.lundakarnevalen.extern.widget.LKTextView
@@ -91,6 +59,7 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_alignParentBottom="true"
+            
             android:layout_centerHorizontal="true"
             android:text="@string/scheme_left"
             android:textStyle="normal"
@@ -103,13 +72,10 @@
 
     <RelativeLayout
         android:id="@+id/right_arrow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
         android:layout_below="@id/heartText"
-        android:layout_toRightOf="@+id/day"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignBottom="@+id/day"
         android:background="@drawable/transparentbluegreen_bg_bottom_shadow">
 
         <se.lundakarnevalen.extern.widget.LKTextView
@@ -126,7 +92,33 @@
             android:background="@drawable/bluegreen_bg_bottom_shadow"/>
 
     </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/day"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_toRightOf="@id/left_arrow"
+        android:layout_toLeftOf="@id/right_arrow"
+        android:layout_below="@id/heartText"
+        android:background="@drawable/bluegreen_bg_bottom_shadow"
+        >
 
+
+
+
+    <se.lundakarnevalen.extern.widget.LKTextView
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:id="@+id/dayText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:gravity="center"
+        android:textSize="32dp"
+        android:textColor="@color/white"
+        android:text="@string/saturday"
+
+        />
+    </RelativeLayout>
 
 
     <RelativeLayout

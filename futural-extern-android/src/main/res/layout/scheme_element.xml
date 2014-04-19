@@ -22,7 +22,7 @@
             android:layout_height="60dp"
             android:layout_centerVertical="true"
             android:src="@drawable/test_nojen"
-            android:layout_marginLeft="45dp"
+            android:layout_marginLeft="30dp"
             />
 
         <se.lundakarnevalen.extern.widget.LKTextView
@@ -32,7 +32,7 @@
             android:textColor="@color/white"
             android:layout_alignTop="@id/bottom_menu_image"
             android:layout_alignLeft="@id/bottom_menu_image"
-            android:layout_marginLeft="-20dp"
+            android:layout_marginLeft="-22dp"
             android:textSize="10dp"
             android:text="16:00"/>
         <se.lundakarnevalen.extern.widget.LKTextView
@@ -42,7 +42,7 @@
             android:layout_alignBottom="@id/bottom_menu_image"
             android:textColor="@color/white"
             android:layout_alignLeft="@id/bottom_menu_image"
-            android:layout_marginLeft="-20dp"
+            android:layout_marginLeft="-22dp"
             android:textSize="10dp"
             android:text="16:00"/>
 
