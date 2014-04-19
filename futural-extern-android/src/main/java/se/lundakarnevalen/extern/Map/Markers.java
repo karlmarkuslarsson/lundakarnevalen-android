@@ -58,7 +58,6 @@ public class Markers {
 
 
         //Mat och Dryck
-
         //Foodstock
         //Cocktailbaren
         //Betalning, kort och kontant. DOCK, cash is king!
@@ -84,5 +83,10 @@ public class Markers {
         //55°42'24.6"N 13°11'45.7"E
         //55.706841, 13.196030
         markers.add(new Marker(55.706841f, 13.196030f, R.drawable.ic_launcher, MarkerType.FOOD));
+
+
+
+
+
     }
 }

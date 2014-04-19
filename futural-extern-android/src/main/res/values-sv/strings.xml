@@ -112,4 +112,24 @@
     <string name="revy_place">UNIVERSITETSHUSET</string>
     <string name="revy_question">VAD ÄR REVYN?</string>
 
+
+    <string name="cocktail_question">VAD FINNS PÅ COCKTAILBAREN?</string>
+    <string name="cocktail_place">FOODSTOCK</string>
+    <string name="cocktail_title">COCKTAILBAREN</string>
+    <string name="cocktail_info">Drinkar: (drinkmeny om ca 10 st max), karnevöl, karnevale, cider, läsk och vin.\n\nMat: Ej mat\n\nBetalning: kort och kontant. DOCK, cash is king!</string>
+
+    <string name="hipp_baren_question">VAD FINNS PÅ HIPP I BAREN?</string>
+    <string name="hipp_baren_place">FOODSTOCK</string>
+    <string name="hipp_baren_title">HIPP I BAREN</string>
+    <string name="hipp_baren_info">Drinkar: karnevöl, cider, läsk och eventuellt vin.\n\nMat: Ej mat\n\nBetalning: kort och kontant. DOCK, cash is king!</string>
+
+    <string name="folkan_question">VAD FINNS PÅ FOLKAN?</string>
+    <string name="folkan_place">FOODSTOCK</string>
+    <string name="folkan_title">FOLKAN</string>
+    <string name="folkan_info">Drinkar: karnevöl, cider, läsk och eventuellt vin.\n\nMat: Ej mat\n\nBetalning: kort och kontant. DOCK, cash is king!</string>
+
+
+
+
+
 </resources>
