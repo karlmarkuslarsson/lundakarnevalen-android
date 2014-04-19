@@ -59,7 +59,7 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_alignParentBottom="true"
-            
+
             android:layout_centerHorizontal="true"
             android:text="@string/scheme_left"
             android:textStyle="normal"
