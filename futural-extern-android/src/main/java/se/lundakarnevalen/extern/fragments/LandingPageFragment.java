@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 
+import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.widget.LKSchemeMenuArrayAdapter;
 
@@ -71,7 +72,10 @@ public class LandingPageFragment extends LKFragment{
         mapView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Log.d("lat,lng","Lat: "+lat+"lng: "+lng);
+                ContentActivity.class
+                        .cast(getActivity())
+                        .loadFragment(MapFragment.create(true,lat,lng) ,true);
                 // Add something ...
             }
         });
