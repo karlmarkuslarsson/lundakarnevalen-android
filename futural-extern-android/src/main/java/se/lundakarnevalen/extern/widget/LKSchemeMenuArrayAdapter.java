@@ -198,13 +198,10 @@ public class LKSchemeMenuArrayAdapter extends ArrayAdapter<LKSchemeMenuArrayAdap
 
         }
 
-        public String getStartTime() {
-            return dateFormat.format(startDate);
-        }
+        public String getStartTime() {return dateFormat.format(endDate);}
         public String getEndTime() {
             return dateFormat.format(endDate);
         }
-
         public void setOnClickListener(OnClickListener listener) {
             this.listener = listener;
         }

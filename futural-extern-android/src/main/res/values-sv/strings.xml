@@ -92,5 +92,10 @@
     <string name="card">KORT</string>
     <string name="cash">CASH</string>
     <string name="to_map">TILL KARTAN</string>
+    <string name="big_scene">BIG SCENE</string>
+    <string name="invigning">INVIGNING</string>
+    <string name="orkester">ORKESTERKAMP</string>
+    <string name="train">TÅGET</string>
+    <string name="place_train" />
 
 </resources>
