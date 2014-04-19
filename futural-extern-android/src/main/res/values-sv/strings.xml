@@ -93,8 +93,8 @@
     <string name="cash">CASH</string>
     <string name="to_map">TILL KARTAN</string>
     <string name="big_scene">STORA SCENEN</string>
-    <string name="invigning">INVIGNING</string>
-    <string name="orkester">ORKESTERKAMP</string>
+    <string name="inauguration">INVIGNING</string>
+    <string name="orchestra">ORKESTERKAMP</string>
     <string name="train">TÅGET</string>
     <string name="place_train" />
     <string name="friday">FREDAG</string>

@@ -18,7 +18,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 
-import se.lundakarnevalen.extern.map.MarkerType;
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.widget.LKSchemeMenuArrayAdapter;
 
@@ -145,7 +144,10 @@ if(day == 0) {
         Invigning, stora scenen 13:00-14:00
         Lat: 55°42'20.53"N Long: 13°11'37.55"O
         */
-    LKSchemeMenuArrayAdapter.LKSchemeMenuListItem invigning = new LKSchemeMenuArrayAdapter.LKSchemeMenuListItem(getString(R.string.big_scene), getString(R.string.invigning), R.drawable.test_nojen, myDate, myDateEnd, activated);
+    LKSchemeMenuArrayAdapter.LKSchemeMenuListItem invigning =
+            new LKSchemeMenuArrayAdapter.LKSchemeMenuListItem(getString(R.string.big_scene),
+                    getString(R.string.inauguration),
+                    R.drawable.test_nojen, myDate, myDateEnd, activated);
     listItems.add(invigning);
 /*
         Fredag:
@@ -158,7 +160,7 @@ if(day == 0) {
     cal.set(Calendar.HOUR_OF_DAY, 15);
     myDateEnd = cal.getTime();
 
-    LKSchemeMenuArrayAdapter.LKSchemeMenuListItem orkester = new LKSchemeMenuArrayAdapter.LKSchemeMenuListItem(getString(R.string.big_scene), getString(R.string.orkester), R.drawable.test_nojen, myDate, myDateEnd, activated);
+    LKSchemeMenuArrayAdapter.LKSchemeMenuListItem orkester = new LKSchemeMenuArrayAdapter.LKSchemeMenuListItem(getString(R.string.big_scene), getString(R.string.orchestra), R.drawable.test_nojen, myDate, myDateEnd, activated);
     listItems.add(orkester);
 } else if(day == 1) {
     textView.setText(R.string.saturday);

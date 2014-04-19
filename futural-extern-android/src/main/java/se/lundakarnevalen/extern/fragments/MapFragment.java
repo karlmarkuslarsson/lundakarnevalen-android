@@ -182,7 +182,7 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
     @Override
     public void onResume() {
         isActive = true;
-        super.onPause();
+        super.onResume();
     }
 
     public void updatePositions() {

@@ -75,7 +75,13 @@ public class FunFragment extends LKFragment{
     }
 
     private void addAllFun() {
-        fun.add(new Fun(getString(R.string.kabare_place),getString(R.string.kabare_title),getString(R.string.kabare_info),55.7042667f,13.193833333333334f,R.drawable.header_kabare,R.drawable.header_kabare,getString(R.string.kabare_question)));
+        fun.add(new Fun(getString(R.string.kabare_place),
+                getString(R.string.kabare_title),
+                getString(R.string.kabare_info),
+                55.7042667f,13.193833333333334f,
+                R.drawable.header_kabare,
+                R.drawable.header_kabare,
+                getString(R.string.kabare_question)));
 
         // add all fun here...
 
