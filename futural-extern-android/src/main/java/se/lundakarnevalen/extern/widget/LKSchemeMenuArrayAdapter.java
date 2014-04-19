@@ -198,7 +198,7 @@ public class LKSchemeMenuArrayAdapter extends ArrayAdapter<LKSchemeMenuArrayAdap
 
         }
 
-        public String getStartTime() {return dateFormat.format(endDate);}
+        public String getStartTime() {return dateFormat.format(startDate);}
         public String getEndTime() {
             return dateFormat.format(endDate);
         }

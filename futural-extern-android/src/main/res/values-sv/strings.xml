@@ -97,5 +97,7 @@
     <string name="orkester">ORKESTERKAMP</string>
     <string name="train">TÅGET</string>
     <string name="place_train" />
+    <string name="friday">FREDAG</string>
+    <string name="sunday">SÖNDAG</string>
 
 </resources>
