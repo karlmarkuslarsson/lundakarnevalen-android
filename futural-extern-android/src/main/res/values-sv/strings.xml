@@ -96,7 +96,7 @@
     <string name="inauguration">INVIGNING</string>
     <string name="orchestra">ORKESTERKAMP</string>
     <string name="train">TÅGET</string>
-    <string name="place_train" />
+    <string name="place_train" >LUNDAGÅRD</string>
     <string name="friday">FREDAG</string>
     <string name="sunday">SÖNDAG</string>
     <string name="filmen_place">PALAESTRA</string>
@@ -127,9 +127,17 @@
     <string name="folkan_place">FOODSTOCK</string>
     <string name="folkan_title">FOLKAN</string>
     <string name="folkan_info">Drinkar: karnevöl, cider, läsk och eventuellt vin.\n\nMat: Ej mat\n\nBetalning: kort och kontant. DOCK, cash is king!</string>
-
-
-
+    <string name="sousou">CISSOKO</string>
+    <string name="bo_kasper">BO KASPERS</string>
+    <string name="lucy_love">LUCY LOVE</string>
+    <string name="ida">IDA REDIG</string>
+    <string name="hurricane">HURRICANE LOVE</string>
+    <string name="linnea">LINNEA</string>
+    <string name="movits">MOVITS!</string>
+    <string name="frida">FRIDA SUNDEMO</string>
+    <string name="wintergatan">WINTERGATAN</string>
+    <string name="timbaktu"><![CDATA[TIMBAKTU]]></string>
+    <string name="discoteka">DISCOTEKA</string>
 
 
 </resources>
