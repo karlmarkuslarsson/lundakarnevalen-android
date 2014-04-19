@@ -23,7 +23,9 @@
     <string name="saturday">LÖRDAG</string>
 
     <!-- Information about the fun -->
-    <string name="kabare_title">Kabaré</string>
+    <string name="kabare_question">VAD ÄR KABARÉN?</string>
+    <string name="kabare_place">NORR OM DOMKYRKAN</string>
+    <string name="kabare_title">KABARÈ</string>
     <string name="kabare_info">Vi befinner oss i den postapokalyptiska dystopin
         efter det stora kärnvapenkriget. Världen är i ruiner, men Cabaret Apocalyptica
         gör sitt bästa för att hålla humöret uppe hos de få som är kvar. Dock är det svårt
