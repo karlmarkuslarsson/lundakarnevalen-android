@@ -111,7 +111,6 @@ Tenderloin ham hock brisket chicken andouille capicola, cow beef ribs sausage. F
     biljakter och slutligen i den avgörande kampen mot de onda i Sveriges första superhjältefilm...
     </string>
     <string name="filmen_place">PALAESTRA</string>
-
     <string name="lucy_love">LUCY LOVE</string>
     <string name="ida">IDA REDIG</string>
     <string name="hurricane">HURRICANE LOVE</string>
@@ -121,4 +120,5 @@ Tenderloin ham hock brisket chicken andouille capicola, cow beef ribs sausage. F
     <string name="wintergatan">WINTERGATAN</string>
     <string name="timbaktu"><![CDATA[TIMBAKTU]]></string>
     <string name="discoteka">DISCOTEKA</string>
+    <string name="e_type">E-TYPE</string>
 </resources>
