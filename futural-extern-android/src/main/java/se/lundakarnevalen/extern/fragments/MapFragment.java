@@ -194,6 +194,9 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
     }
 
     public void updatePositions() {
+        // If not attached to activity, getResources() will throw error
+        // java.lang.IllegalStateException: Not attached to Activity
+        if(getActivity() == null) return;
 
         Bitmap mapBitmap = BitmapUtil.decodeSampledBitmapFromResource(getResources(), R.drawable.test_map, imageWidth, imageHeight);
 
@@ -228,7 +231,6 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
                     m.y = y;
                 }
                 Bitmap bitmap = BitmapFactory.decodeResource(getResources(), m.picture);
-
                 canvas.drawBitmap(bitmap, m.x - bitmap.getWidth() / 2, m.y - bitmap.getHeight() / 2, null);
             }
             //canvas.dra(x, y, 10, paintRed);

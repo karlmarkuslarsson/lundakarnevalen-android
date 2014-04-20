@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <string name="app_name">Lundakarnevalen</string>
@@ -26,6 +26,11 @@
     <string name="scheme_right"><![CDATA[>]]></string>
 
     <string name="heart">\u2764</string>
+
+    <string-array name="test_array">
+        <item>Test1</item>
+        <item>Test2</item>
+    </string-array>
 
     <string name="ipsum">
         Bacon ipsum dolor sit amet cow corned beef pig, biltong swine tri-tip short loin turducken strip steak meatball rump. T-bone doner salami ball tip swine leberkas ground round chuck. Short ribs pork drumstick landjaeger salami venison capicola shank filet mignon boudin. \n\n Jowl venison turducken corned beef short ribs chicken flank hamburger. Shoulder salami strip steak chuck. Pancetta rump kevin leberkas capicola salami kielbasa venison porchetta fatback turkey ham hock sirloin hamburger. Pork chop ground round capicola biltong landjaeger andouille.
@@ -110,7 +115,14 @@ Tenderloin ham hock brisket chicken andouille capicola, cow beef ribs sausage. F
     Filip. I sällskap av hennes nyfunne vän får vi följa våra hjältar genom hackerattacker,
     biljakter och slutligen i den avgörande kampen mot de onda i Sveriges första superhjältefilm...
     </string>
-    <string name="filmen_place">PALAESTRA</string>
+
+    <string name="empty" />
+    <string name="folkan_question">VAD FINNS PÅ FOLKAN?</string>
+    <string name="folkan_place">FOODSTOCK</string>
+    <string name="folkan_title">FOLKAN</string>
+    <string name="folkan_info">Drinkar: karnevöl, cider, läsk och eventuellt vin.\n\nMat: Ej mat\n\nBetalning: kort och kontant. DOCK, cash is king!</string>
+    <string name="sousou">CISSOKO</string>
+    <string name="bo_kasper">BO KASPERS</string>
     <string name="lucy_love">LUCY LOVE</string>
     <string name="ida">IDA REDIG</string>
     <string name="hurricane">HURRICANE LOVE</string>
@@ -121,10 +133,11 @@ Tenderloin ham hock brisket chicken andouille capicola, cow beef ribs sausage. F
     <string name="timbaktu"><![CDATA[TIMBAKTU]]></string>
     <string name="discoteka">DISCOTEKA</string>
     <string name="e_type">E-TYPE</string>
-    <string name="small_scene">SMALL SCENE</string>
+    <string name="small_scene">LILLA SCENEN</string>
     <string name="hammar">PER HAMMAR</string>
     <string name="sandra">SANDRA MOSH</string>
     <string name="partiet">PARTIET</string>
-    <string name="play">PLAY</string>
-    <string name="stop">STOP</string>
+
+    <string name="play">SPELA</string>
+    <string name="stop">STOPPA</string>
 </resources>
