@@ -125,4 +125,6 @@ Tenderloin ham hock brisket chicken andouille capicola, cow beef ribs sausage. F
     <string name="hammar">PER HAMMAR</string>
     <string name="sandra">SANDRA MOSH</string>
     <string name="partiet">PARTIET</string>
+    <string name="play">PLAY</string>
+    <string name="stop">STOP</string>
 </resources>

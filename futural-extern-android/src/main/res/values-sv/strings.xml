@@ -144,5 +144,7 @@
     <string name="sandra">SANDRA MOSH</string>
     <string name="partiet">PARTIET</string>
 
+    <string name="play">SPELA</string>
+    <string name="stop">STOPPA</string>
 
 </resources>
