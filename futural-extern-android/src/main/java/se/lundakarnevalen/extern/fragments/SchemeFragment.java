@@ -127,7 +127,6 @@ public class SchemeFragment extends LKFragment {
 
 //        Invigning, stora scenen 13:00-14:00
 //        Lat: 55°42'20.53"N Long: 13°11'37.55"O
-
         Date myDate;
         Date myDateEnd;
         if (day == 0) {
@@ -139,11 +138,6 @@ public class SchemeFragment extends LKFragment {
             cal.set(Calendar.HOUR_OF_DAY, 14);
 
             myDateEnd = cal.getTime();
-        /*
-        Fredag:
-        Invigning, stora scenen 13:00-14:00
-        Lat: 55°42'20.53"N Long: 13°11'37.55"O
-        */
             LKSchemeMenuArrayAdapter.LKSchemeMenuListItem invigning =
                     new LKSchemeMenuArrayAdapter.LKSchemeMenuListItem(getString(R.string.big_scene),
                             getString(R.string.inauguration),

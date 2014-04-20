@@ -43,6 +43,7 @@ import static se.lundakarnevalen.extern.util.ViewUtil.*;
 
 public class ContentActivity extends ActionBarActivity implements LKFragment.Messanger {
     public static final String TAG_MAP = "map";
+    private int counterRight = 0;
     private FragmentManager fragmentMgr;
     private LKRightMenuArrayAdapter adapter;
     private ListView rightMenuList;
@@ -153,14 +154,14 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
         if (addToBackstack) {
             transaction.addToBackStack(null);
         }
-        transaction.commit();
-        /*
         if(list != null) {
             if (f instanceof MapFragment) {
                 list.onClick(findViewById(R.id.button3));
             }
         }
-        */
+
+        transaction.commit();
+
     }
 
     private void moveToFragment(Fragment f) {
@@ -188,8 +189,7 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
         rightMenuItems = new ArrayList<LKRightMenuListItem>();
 
         LKRightMenuListItem header = new LKRightMenuListItem()
-                .isStatic(true)
-                .showView(inflater.inflate(R.layout.menu_header, null));
+                .isStatic(true,inflater.inflate(R.layout.menu_header, null));
         listItems.add(header);
 
         LKRightMenuListItem foodItem = new LKRightMenuListItem(getString(R.string.food),0, MarkerType.FOOD);
@@ -252,6 +252,7 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
                     button.setBackgroundColor(getResources().getColor(R.color.right_menu_button_selected));
                     item.isOn = true;
                     mapFragment.updatePositions();
+                    counterRight = 0;
                 }
                     // show all..
             } else {
@@ -266,14 +267,28 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
                 if(item.isOn) {
                     mapFragment.changeActive(item.markerType,true);
                     button.setBackgroundColor(getResources().getColor(R.color.right_menu_button_selected));
+                    counterRight++;
                     item.isOn = false;
                 } else {
+                    counterRight--;
                     mapFragment.changeActive(item.markerType,false);
                     button.setBackgroundColor(getResources().getColor(R.color.right_menu_button));
                     item.isOn = true;
                 }
-                showAllItem.isOn = false;
-                showAllItem.button.setBackgroundColor(getResources().getColor(R.color.right_menu_button));
+                if(counterRight==0) {
+                    for(LKRightMenuListItem i: rightMenuItems) {
+                        mapFragment.changeActive(i.markerType,true);
+                        Log.d("button:",""+i.button);
+                        i.isOn = true;
+                    }
+                    allItemsActivated = true;
+                    showAllItem.isOn = true;
+                    showAllItem.button.setBackgroundColor(getResources().getColor(R.color.right_menu_button_selected));
+
+                } else {
+                    showAllItem.isOn = false;
+                    showAllItem.button.setBackgroundColor(getResources().getColor(R.color.right_menu_button));
+                }
                 mapFragment.updatePositions();
             }
         }

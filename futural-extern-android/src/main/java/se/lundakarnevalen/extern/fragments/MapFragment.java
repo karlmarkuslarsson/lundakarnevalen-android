@@ -475,7 +475,7 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
         float y = mapBitmap.getHeight() - lat2 * mapBitmap.getHeight();
         img.setScaleType(ImageView.ScaleType.MATRIX);
         matrix.set(img.getImageMatrix());
-        float values[] = new float[6];
+        float values[] = new float[10];
         matrix.getValues(values);
         // values[2] and values[5] are the x,y coordinates of the top left corner of the drawable image, regardless of the zoom factor.
         // values[0] and values[4] are the zoom factors for the image's width and height respectively. If you zoom at the same factor, these should both be the same value.
