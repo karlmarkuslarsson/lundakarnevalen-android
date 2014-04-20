@@ -27,6 +27,8 @@ public class MusicFragment extends LKFragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_music, null);
+       // TODO CHECK INTERNET CONNECTION....
+
         initializeUIElements(rootView);
         initializeMediaPlayer();
 
