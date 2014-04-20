@@ -55,12 +55,14 @@ public class FunFragment extends LKFragment{
                     for(final Fun f: fun) {
                         add(new HashMap<String, String>() {{
                             put("title", f.title);
-                            put("time", "17:00 - 19:00");
+                            put("place", f.place);
+                            put("picture", ""+f.headerPicture);
+                            put("picture", ""+f.headerPicture);
                         }});
                     }
-                }}, R.layout.element_listitem,
-                new String[]{"title", "time"},
-                new int[]{android.R.id.text1, android.R.id.text2}
+                }}, R.layout.element_lk_list,
+                new String[]{"title", "place", "picture"},
+                new int[]{R.id.text1, R.id.text2, R.id.image}
         ));
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
