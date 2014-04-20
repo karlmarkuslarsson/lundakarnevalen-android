@@ -70,6 +70,11 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
     private float myLat;
     private float myLng;
 
+    private float zoomLat;
+    private float zoomLng;
+
+    private boolean zoom = false;
+
     // Information about the map
 /*
 //55.7037889,(float)13.194647222222223
@@ -149,7 +154,7 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
                 }
             }, 0);
         }
-
+/*
         Bundle bundle = getArguments();
 
         if(bundle != null) {
@@ -158,7 +163,10 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
                 zoomInto(bundle.getFloat("lat"),bundle.getFloat("lng"));
             }
         }
-
+        */
+        if(zoom) {
+            zoom(zoomLat,zoomLng);
+        }
         img.setOnTouchListener(this);
 
 
@@ -458,34 +466,54 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
         }
     }
 
-    public void zoomInto(float lat, float lng) {
-     //   scale = 2;
+    private void zoom(float zoomLat, float zoomLng) {
         Bitmap mapBitmap = BitmapUtil.decodeSampledBitmapFromResource(getResources(), R.drawable.test_map, imageWidth, imageHeight);
 
-        float lat2 = (lat - startLatMap) / diffLat;
-        float lon2 = (lng - startLonMap) / diffLon;
+        float lat2 = (zoomLat - startLatMap) / diffLat;
+        float lon2 = (zoomLng - startLonMap) / diffLon;
         float x = lon2 * mapBitmap.getWidth();
         float y = mapBitmap.getHeight() - lat2 * mapBitmap.getHeight();
         img.setScaleType(ImageView.ScaleType.MATRIX);
         matrix.set(img.getImageMatrix());
-        float values[] = new float[10];
+        float values[] = new float[6];
         matrix.getValues(values);
         // values[2] and values[5] are the x,y coordinates of the top left corner of the drawable image, regardless of the zoom factor.
         // values[0] and values[4] are the zoom factors for the image's width and height respectively. If you zoom at the same factor, these should both be the same value.
         float relativeX = (imageWidth/2 - values[2]) / values[0];
+        float relativeX2 = (0f - values[2]) / values[0];
         float relativeY = (imageHeight/2 - values[5]) / values[4];
+        float relativeY2 = (0f - values[5]) / values[4];
         //matrix.postTranslate(mapBitmap.getWidth()/2-x,mapBitmap.getHeight()/2-y);
-       // matrix.postTranslate(mapBitmap.getWidth()/2-x,mapBitmap.getHeight()/2-y);
+        // matrix.postTranslate(mapBitmap.getWidth()/2-x,mapBitmap.getHeight()/2-y);
         // draw canvas..
         Log.d("get","x= "+x+" y= "+y);
+        Log.d("get","relx= "+relativeX+" rely= "+relativeY);
         Log.d("get","widthx= "+mapBitmap.getWidth()+" widthy= "+mapBitmap.getHeight());
-        Log.d("change:","x: "+(mapBitmap.getWidth()/2-x)+" y: "+(mapBitmap.getHeight()/2-y));
+        Log.d("change:","x: "+(relativeX-x)+" y: "+(mapBitmap.getHeight()/2-y));
         Log.d("scale"," x: "+values[0]+" y: "+values[4]);
-        matrix.postTranslate(relativeX-x,relativeY-y);
+//        matrix.postTranslate(relativeX-x,relativeY-y);
+        Log.d("width",""+(imageWidth/2));
 
+        // trycker jag i mitten så hamnar jag på relx.
+        // imageWidth/2/relX
+        // ska flyttas relX-x
+        // (relX-x)*weight
+
+        //matrix.postTranslate(relativeX-x-imageWidth/2,0);
+        //-200 = höger 200
+        matrix.postTranslate((relativeX-x)*imageWidth/2/(relativeX-relativeX2),(relativeY-y)*imageHeight/2/(relativeY-relativeY2));
         img.setImageMatrix(matrix);
-        scale = 2;
 
+        // add zoom ?
+
+        zoom = false;
+    }
+
+    public void zoomInto(float lat, float lng) {
+     //   scale = 2;
+        zoomLat = lat;
+        zoomLng = lng;
+        zoom = true;
     }
 
     public static MapFragment create(boolean zoom, float lat, float lng) {

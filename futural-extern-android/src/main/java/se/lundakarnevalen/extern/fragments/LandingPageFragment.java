@@ -73,10 +73,19 @@ public class LandingPageFragment extends LKFragment{
             @Override
             public void onClick(View view) {
                 Log.d("lat,lng","Lat: "+lat+"lng: "+lng);
+                MapFragment mapFragment = ContentActivity.class
+                        .cast(getActivity()).mapFragment;
+                mapFragment.zoomInto(lat,lng);
                 ContentActivity.class
+                        .cast(getActivity())
+                        .loadFragment( mapFragment
+                                ,true);
+                //
+                /*ContentActivity.class
                         .cast(getActivity())
                         .loadFragment(MapFragment.create(true,lat,lng) ,true);
                 // Add something ...
+            */
             }
         });
 

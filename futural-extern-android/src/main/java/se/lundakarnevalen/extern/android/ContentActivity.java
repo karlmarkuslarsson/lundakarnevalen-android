@@ -49,10 +49,11 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
     private DrawerLayout drawerLayout;
     private BottomMenuClickListener list;
     private ActionBar actionBar;
-    private MapFragment mapFragment;
+    public MapFragment mapFragment;
     private ArrayList<LKRightMenuListItem> rightMenuItems = new ArrayList<LKRightMenuListItem>();
     private LKRightMenuListItem showAllItem;
     private boolean allItemsActivated = true;
+
 
 
     public <T> T find(int id, Class<T> clz) {
@@ -99,10 +100,11 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
         list = new BottomMenuClickListener();
         createBottomMenuItem(bottomMenu, list, new FunFragment(), R.id.button1, R.string.fun, R.drawable.test_nojen);
         createBottomMenuItem(bottomMenu, list, new FoodFragment(), R.id.button2, R.string.food, R.drawable.test_spexet);
-        createBottomMenuItem(bottomMenu, list, new MapFragment(), R.id.button3, R.string.map, R.drawable.test_nojen); // TODO ska vi inte ha mapFragment här?
+        createBottomMenuItem(bottomMenu, list, mapFragment, R.id.button3, R.string.map, R.drawable.test_nojen); // TODO ska vi inte ha mapFragment här?
         createBottomMenuItem(bottomMenu, list, new SchemeFragment(), R.id.button4, R.string.scheme, R.drawable.test_spexet);
         createBottomMenuItem(bottomMenu, list, new OtherFragment(), R.id.button5, R.string.other, R.drawable.test_nojen);
         list.first(get(bottomMenu, R.id.button3, ViewGroup.class));
+
     }
 
     private void createBottomMenuItem(LinearLayout menu, BottomMenuClickListener listener, Fragment f, int itemId, int textId, int imageId) {
@@ -148,16 +150,17 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
          FragmentTransaction transaction = fragmentMgr
                 .beginTransaction().setCustomAnimations(R.anim.slide_in_left,R.anim.slide_out_right)
                 .replace(R.id.content_frame, f);
-        Log.d("ANIMATE","ANIMATE");
         if (addToBackstack) {
             transaction.addToBackStack(null);
         }
         transaction.commit();
+        /*
         if(list != null) {
             if (f instanceof MapFragment) {
                 list.onClick(findViewById(R.id.button3));
             }
         }
+        */
     }
 
     private void moveToFragment(Fragment f) {
@@ -171,6 +174,7 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
     @Override
     public void popFragmentStack() {
         fragmentMgr.popBackStack();
+
     }
 
     /**
