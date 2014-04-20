@@ -63,6 +63,7 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content);
         fragmentMgr = getSupportFragmentManager();
+
         mapFragment = new MapFragment();
         loadFragment(mapFragment, false);
         rightMenuList = (ListView) findViewById(R.id.right_menu_list);
@@ -97,7 +98,7 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
         BottomMenuClickListener list = new BottomMenuClickListener();
         createBottomMenuItem(bottomMenu, list, new FunFragment(), R.id.button1, R.string.fun, R.drawable.test_nojen);
         createBottomMenuItem(bottomMenu, list, new FoodFragment(), R.id.button2, R.string.food, R.drawable.test_spexet);
-        createBottomMenuItem(bottomMenu, list, new MapFragment(), R.id.button3, R.string.map, R.drawable.test_nojen);
+        createBottomMenuItem(bottomMenu, list, new MapFragment(), R.id.button3, R.string.map, R.drawable.test_nojen); // TODO ska vi inte ha mapFragment här?
         createBottomMenuItem(bottomMenu, list, new SchemeFragment(), R.id.button4, R.string.scheme, R.drawable.test_spexet);
         createBottomMenuItem(bottomMenu, list, new OtherFragment(), R.id.button5, R.string.other, R.drawable.test_nojen);
         list.first(get(bottomMenu, R.id.button3, ViewGroup.class));
@@ -143,9 +144,10 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
     @Override
     public void loadFragment(Fragment f, boolean addToBackstack) {
         Log.d("ContentActivity", "loadFragment("+f+")");
-        FragmentTransaction transaction = fragmentMgr
-                .beginTransaction()
+         FragmentTransaction transaction = fragmentMgr
+                .beginTransaction().setCustomAnimations(R.anim.slide_in_left,R.anim.slide_out_right)
                 .replace(R.id.content_frame, f);
+        Log.d("ANIMATE","ANIMATE");
         if (addToBackstack) {
             transaction.addToBackStack(null);
         }
@@ -155,7 +157,7 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
     private void moveToFragment(Fragment f) {
         Log.d("ContentActivity", "moveToFragment("+f+")");
         fragmentMgr
-            .beginTransaction()
+            .beginTransaction().setCustomAnimations(R.anim.slide_in_left,R.anim.slide_out_right)
             .replace(R.id.content_frame, f)
             .commit();
     }
@@ -295,7 +297,9 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
             selected.setBackgroundColor(res.getColor(R.color.bottom_menu_background_selected));
             get(selected, R.id.bottom_menu_text, TextView.class).setTextColor(res.getColor(R.color.white));
             get(selected, R.id.bottom_menu_shadow, LinearLayout.class).setBackgroundColor(res.getColor(R.color.bottom_menu_shadow_selected));
-            get(selected, R.id.bottom_menu_image, ImageView.class).setAlpha(1.0f);
+            if(Build.VERSION.SDK_INT >10) {
+                get(selected, R.id.bottom_menu_image, ImageView.class).setAlpha(1.0f);
+            }
             if(selected.getTag() instanceof MapFragment) {
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
             } else {
@@ -309,7 +313,9 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
                 selected.setBackgroundColor(res.getColor(R.color.red));
                 get(selected, R.id.bottom_menu_text, TextView.class).setTextColor(res.getColor(R.color.white_unselected));
                 get(selected, R.id.bottom_menu_shadow, LinearLayout.class).setBackgroundColor(res.getColor(R.color.bottom_menu_shadow));
-                get(selected, R.id.bottom_menu_image, ImageView.class).setAlpha(0.7f);
+                if(Build.VERSION.SDK_INT >10) {
+                    get(selected, R.id.bottom_menu_image, ImageView.class).setAlpha(0.7f);
+                }
             }
         }
     }
