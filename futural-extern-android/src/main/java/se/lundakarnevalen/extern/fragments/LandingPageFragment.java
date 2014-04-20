@@ -1,34 +1,26 @@
 package se.lundakarnevalen.extern.fragments;
 
 import static se.lundakarnevalen.extern.util.ViewUtil.*;
-import android.app.NotificationManager;
-import android.content.Context;
-import android.content.SharedPreferences;
+
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
 
 import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
-import se.lundakarnevalen.extern.widget.LKSchemeMenuArrayAdapter;
+import se.lundakarnevalen.extern.widget.LKSchemeAdapter;
 
 /**
  * Created by Markus on 2014-04-16.
  */
 public class LandingPageFragment extends LKFragment{
 
-    private LKSchemeMenuArrayAdapter adapter;
+    private LKSchemeAdapter adapter;
     private ListView list;
     private float lat;
     private float lng;

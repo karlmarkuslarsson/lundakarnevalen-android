@@ -29,21 +29,20 @@ import android.widget.TextView;
 import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 
-public class LKSchemeMenuArrayAdapter extends ArrayAdapter<LKSchemeMenuArrayAdapter.LKSchemeMenuListItem> implements OnItemClickListener {
+public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> implements OnItemClickListener {
     private LayoutInflater inflater;
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
 
-    public LKSchemeMenuArrayAdapter(Context context, List<LKSchemeMenuListItem> items){
+    public LKSchemeAdapter(Context context, List<LKSchemeItem> items){
         super(context, android.R.layout.simple_list_item_1, items);
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public View getView(int pos, View convertView, ViewGroup parent){
-        final LKSchemeMenuListItem item = getItem(pos);
+        final LKSchemeItem item = getItem(pos);
 
-        RelativeLayout wrapper;
-        wrapper = (RelativeLayout) inflater.inflate(R.layout.scheme_element, null);
+        RelativeLayout wrapper = (RelativeLayout) inflater.inflate(R.layout.scheme_element, null);
 
         ImageView image = (ImageView) wrapper.findViewById(R.id.bottom_menu_image);
         image.setImageResource(item.icon);
@@ -139,7 +138,7 @@ public class LKSchemeMenuArrayAdapter extends ArrayAdapter<LKSchemeMenuArrayAdap
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
-        final LKSchemeMenuListItem item = getItem(pos);
+        final LKSchemeItem item = getItem(pos);
         OnClickListener listener = item.listener;
         listener.onClick(view);
         view.setSelected(true);
@@ -151,7 +150,7 @@ public class LKSchemeMenuArrayAdapter extends ArrayAdapter<LKSchemeMenuArrayAdap
      * @author alexander
      *
      */
-    public static class LKSchemeMenuListItem {
+    public static class LKSchemeItem {
         public int icon;
         public String name;
         public String place;
@@ -165,7 +164,7 @@ public class LKSchemeMenuArrayAdapter extends ArrayAdapter<LKSchemeMenuArrayAdap
          * Creates list item..
          * @param icon Icon next to text
          */
-        public LKSchemeMenuListItem(String place, String name, int icon, Date startDate, Date endDate, HashSet<String> activated) {
+        public LKSchemeItem(String place, String name, int icon, Date startDate, Date endDate, HashSet<String> activated) {
 
             this.place = place;
             this.name = name;

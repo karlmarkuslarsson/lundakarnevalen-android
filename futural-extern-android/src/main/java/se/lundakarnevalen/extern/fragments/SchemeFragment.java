@@ -1,9 +1,14 @@
 package se.lundakarnevalen.extern.fragments;
 
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,101 +21,227 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 
 import se.lundakarnevalen.extern.android.R;
-import se.lundakarnevalen.extern.widget.LKSchemeMenuArrayAdapter;
+import se.lundakarnevalen.extern.widget.LKRightMenuArrayAdapter;
+import se.lundakarnevalen.extern.widget.LKSchemeAdapter;
 
 import static se.lundakarnevalen.extern.util.ViewUtil.get;
 
 /**
  * Created by Markus on 2014-04-16.
  */
+@SuppressWarnings("ResourceType")
 public class SchemeFragment extends LKFragment {
-
-    private Date startDate;
-    private LKSchemeMenuArrayAdapter adapter;
-    private ListView list;
-    private View rootView;
-    private int day = -1; // 0 = friday, 1 =  saturday, 2 = sunday
 
     // Every time you switch to this fragment.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_scheme, null);
-        list = (ListView) rootView.findViewById(R.id.list_scheme);
+        View view = inflater.inflate(R.layout.fragment_scheme, null);
 
-        RelativeLayout leftArrow = get(rootView, R.id.left_arrow, RelativeLayout.class);
-        leftArrow.setOnClickListener(new View.OnClickListener() {
+        final RelativeLayout leftArrowLayout = get(view, R.id.left_arrow, RelativeLayout.class);
+        final RelativeLayout rightArrowLayout = get(view, R.id.right_arrow, RelativeLayout.class);
+        final TextView header = get(view, R.id.dayText, TextView.class);
+        final ViewPager vp = get(view, R.id.scheme_viewpager, ViewPager.class);
+
+        int currentDay = getCurrentDay(getStartingDate());
+
+        vp.setAdapter(new SchemeViewAdapter());
+        vp.setCurrentItem(currentDay);
+        vp.setPageTransformer(true, new ZoomOutPageTransformer());
+        vp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+            @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                if(Build.VERSION.SDK_INT < 11) return;
+                float absOffset = Math.abs(positionOffset);
+                if(absOffset < 0.5f) {
+                    header.setAlpha(1 - absOffset * 2);
+                }
+                if(absOffset > 0.5f) {
+                    if(header.getTag() != Integer.valueOf(position)) {
+                        setDayText(header, position + (positionOffset > 0 ? 1 : -1) );
+                    }
+                    header.setAlpha(1 - (1 - absOffset) * 2);
+                }
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                setDayText(header, position);
+                updateLeftArrow(leftArrowLayout, vp);
+                updateRightArrow(rightArrowLayout, vp);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {}
+
+        });
+
+        leftArrowLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (day > 0) {
-                    day--;
-                    populateMenu(get(rootView, R.id.dayText, TextView.class));
-                }
-                // shift day...
+                updateLeftArrow(view, vp);
+                vp.setCurrentItem(vp.getCurrentItem()-1, true);
             }
         });
-        RelativeLayout rightArrow = get(rootView, R.id.right_arrow, RelativeLayout.class);
-        rightArrow.setOnClickListener(new View.OnClickListener() {
+
+        rightArrowLayout.setOnClickListener(new View.OnClickListener() {
             @Override
+
             public void onClick(View view) {
-                if (day != 2) {
-                    day++;
-                    populateMenu(get(rootView, R.id.dayText, TextView.class));
-                    // shift day...
-                }
+                updateRightArrow(view, vp);
+                vp.setCurrentItem(vp.getCurrentItem()+1, true);
             }
         });
 
+        setDayText(header, currentDay);
+        updateRightArrow(rightArrowLayout, vp);
+        updateLeftArrow(leftArrowLayout, vp);
 
-        populateMenu(get(rootView, R.id.dayText, TextView.class));
-        return rootView;
+        return view;
     }
 
+    private void updateLeftArrow(View layout, ViewPager vp) {
+        TextView tv = get(layout, R.id.left_arrow_text, TextView.class);
+        int currentItem = vp.getCurrentItem();
+        if(currentItem - 1 < 0){
+            tv.setEnabled(false);
+            tv.setText(R.string.empty);
+        } else {
+            tv.setEnabled(true);
+            tv.setText(R.string.scheme_left);
+        }
+    }
 
+    private void updateRightArrow(View layout, ViewPager vp) {
+        TextView tv = get(layout, R.id.right_arrow_text, TextView.class);
+        int count = vp.getAdapter().getCount();
+        int currentItem = vp.getCurrentItem();
+        if(currentItem + 1 == count){
+            tv.setEnabled(false);
+            tv.setText(R.string.empty);
+        } else {
+            tv.setEnabled(true);
+            tv.setText(R.string.scheme_right);
+        }
+    }
+
+    public void setDayText(TextView header, int day) {
+        switch(day)
+        {
+            case 0:
+                header.setText(R.string.friday); break;
+            case 1:
+                header.setText(R.string.saturday); break;
+            case 2:
+                header.setText(R.string.sunday); break;
+        }
+        header.setTag(day);
+    }
     /**
      * Sets up the ListView in the navigationdrawer menu.
      */
-    private void populateMenu(TextView textView) {
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.MONTH, Calendar.MAY);
-        cal.set(Calendar.DATE, 16);
-        cal.set(Calendar.YEAR, 2014);
-        cal.set(Calendar.SECOND, 00);
+    private ArrayList<LKSchemeAdapter.LKSchemeItem> getSchemeForDay(int day) {
+        Calendar startOfScheme = getStartingDate();
 
-        // Create logo and sigill objects.
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        //View menuBottom = inflater.inflate(R.layout., null);
-        if (startDate == null) {
-            cal.set(Calendar.MINUTE, 00);
-            cal.set(Calendar.HOUR_OF_DAY, 1);
-            startDate = cal.getTime();
+        HashSet<String> activated = getActiveNotifications();
+        ArrayList<LKSchemeAdapter.LKSchemeItem> listItems = new ArrayList<LKSchemeAdapter.LKSchemeItem>();
+
+//        Invigning, stora scenen 13:00-14:00
+//        Lat: 55°42'20.53"N Long: 13°11'37.55"O
+
+        Date myDate;
+        Date myDateEnd;
+        if (day == 0) {
+            startOfScheme.set(Calendar.MINUTE, 00);
+            startOfScheme.set(Calendar.HOUR_OF_DAY, 13);
+
+            myDate = startOfScheme.getTime();
+            startOfScheme.set(Calendar.HOUR_OF_DAY, 14);
+
+            myDateEnd = startOfScheme.getTime();
+
+            /*
+            Fredag:
+            Invigning, stora scenen 13:00-14:00
+            Lat: 55°42'20.53"N Long: 13°11'37.55"O
+            */
+            LKSchemeAdapter.LKSchemeItem invigning =
+                    new LKSchemeAdapter.LKSchemeItem(getString(R.string.big_scene),
+                            getString(R.string.inauguration),
+                            R.drawable.test_nojen, myDate, myDateEnd, activated);
+            listItems.add(invigning);
+
+            /*
+            Fredag:
+            Orkesterkamp, stora scenen 14:30-15:30
+            Lat: 55°42'20.53"N Long: 13°11'37.55"O
+            */
+            startOfScheme.set(Calendar.MINUTE, 30);
+            startOfScheme.set(Calendar.HOUR_OF_DAY, 14);
+            myDate = startOfScheme.getTime();
+            startOfScheme.set(Calendar.HOUR_OF_DAY, 15);
+            myDateEnd = startOfScheme.getTime();
+
+            LKSchemeAdapter.LKSchemeItem orkester = new LKSchemeAdapter.LKSchemeItem(getString(R.string.big_scene), getString(R.string.orchestra), R.drawable.test_nojen, myDate, myDateEnd, activated);
+            listItems.add(orkester);
+        } else if (day == 1) {
+            /*
+            Lördag:
+            Tåget avgår 13:00, åter ca 15:00
+            Se tågväg bifogad om ni vill lägga in den i appen i någon kartfunktion
+            */
+            startOfScheme.set(Calendar.MINUTE, 00);
+            startOfScheme.set(Calendar.DATE, 17);
+            startOfScheme.set(Calendar.HOUR_OF_DAY, 13);
+            myDate = startOfScheme.getTime();
+
+            startOfScheme.set(Calendar.HOUR_OF_DAY, 15);
+            myDateEnd = startOfScheme.getTime();
+
+            LKSchemeAdapter.LKSchemeItem train = new LKSchemeAdapter.LKSchemeItem(getString(R.string.place_train), getString(R.string.train), R.drawable.test_nojen, myDate, myDateEnd, activated);
+            listItems.add(train);
+        } else {
+
+            /*
+            Söndag:
+
+            Tåget avgår 13:00, åter ca 15:00
+            Se tågväg bifogad om ni vill lägga in den i appen i någon kartfunktion
+            Se bifogat dokument om generell tidsplan för detta, artisterna och dess tider samt öppettider.
+                Koordinater lilla scenen:
+            Lat: 55°42'26.07"N Long: 13°11'45.45"O
+            */
+            startOfScheme.set(Calendar.MINUTE, 00);
+            startOfScheme.set(Calendar.DATE, 18);
+            startOfScheme.set(Calendar.HOUR_OF_DAY, 13);
+            myDate = startOfScheme.getTime();
+            startOfScheme.set(Calendar.HOUR_OF_DAY, 15);
+            myDateEnd = startOfScheme.getTime();
+
+            LKSchemeAdapter.LKSchemeItem train2 = new LKSchemeAdapter.LKSchemeItem(getString(R.string.place_train), getString(R.string.train), R.drawable.test_nojen, myDate, myDateEnd, activated);
+            listItems.add(train2);
+
         }
 
+        return listItems;
+    }
 
-        if (day == -1) {
-            Date currentDate = new Date();
-            if (currentDate.before(startDate)) {
-                day = 0;
-            } else {
-                switch (currentDate.getDate()) {
-                    case 16:
-                        day = 0;
-                        break;
-                    case 17:
-                        day = 1;
-                        break;
+    private Calendar getStartingDate() {
+        Calendar startOfScheme = Calendar.getInstance();
+        startOfScheme.set(Calendar.MONTH, Calendar.MAY);
+        startOfScheme.set(Calendar.DATE, 16);
+        startOfScheme.set(Calendar.YEAR, 2014);
+        startOfScheme.set(Calendar.MINUTE, 0);
+        startOfScheme.set(Calendar.HOUR_OF_DAY, 0);
+        startOfScheme.set(Calendar.SECOND, 0);
+        return startOfScheme;
+    }
 
-                    default:
-                        day = 2;
-                        break;
-                }
-            }
-        }
-
-
-        NotificationManager notificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
-
+    private HashSet<String> getActiveNotifications() {
         SharedPreferences sharedPref = getContext().getSharedPreferences("lundkarnevalen", Context.MODE_PRIVATE);
         String set = sharedPref.getString("notifications", "");
         String split[] = set.split(";");
@@ -119,101 +250,92 @@ public class SchemeFragment extends LKFragment {
         for (int i = 0; i < split.length; i++) {
             activated.add(split[i]);
         }
-
-        //
-
-        ArrayList<LKSchemeMenuArrayAdapter.LKSchemeMenuListItem> listItems = new ArrayList<LKSchemeMenuArrayAdapter.LKSchemeMenuListItem>();
-
-
-//        Invigning, stora scenen 13:00-14:00
-//        Lat: 55°42'20.53"N Long: 13°11'37.55"O
-
-        Date myDate;
-        Date myDateEnd;
-        if (day == 0) {
-            textView.setText(R.string.friday);
-            cal.set(Calendar.MINUTE, 00);
-            cal.set(Calendar.HOUR_OF_DAY, 13);
-
-            myDate = cal.getTime();
-            cal.set(Calendar.HOUR_OF_DAY, 14);
-
-            myDateEnd = cal.getTime();
-        /*
-        Fredag:
-        Invigning, stora scenen 13:00-14:00
-        Lat: 55°42'20.53"N Long: 13°11'37.55"O
-        */
-            LKSchemeMenuArrayAdapter.LKSchemeMenuListItem invigning =
-                    new LKSchemeMenuArrayAdapter.LKSchemeMenuListItem(getString(R.string.big_scene),
-                            getString(R.string.inauguration),
-                            R.drawable.test_nojen, myDate, myDateEnd, activated);
-            listItems.add(invigning);
-/*
-        Fredag:
-        Orkesterkamp, stora scenen 14:30-15:30
-        Lat: 55°42'20.53"N Long: 13°11'37.55"O
-        */
-            cal.set(Calendar.MINUTE, 30);
-            cal.set(Calendar.HOUR_OF_DAY, 14);
-            myDate = cal.getTime();
-            cal.set(Calendar.HOUR_OF_DAY, 15);
-            myDateEnd = cal.getTime();
-
-            LKSchemeMenuArrayAdapter.LKSchemeMenuListItem orkester = new LKSchemeMenuArrayAdapter.LKSchemeMenuListItem(getString(R.string.big_scene), getString(R.string.orchestra), R.drawable.test_nojen, myDate, myDateEnd, activated);
-            listItems.add(orkester);
-        } else if (day == 1) {
-            textView.setText(R.string.saturday);
-
-/*
-        Lördag:
-        Tåget avgår 13:00, åter ca 15:00
-        Se tågväg bifogad om ni vill lägga in den i appen i någon kartfunktion
-*/
-            cal.set(Calendar.MINUTE, 00);
-            cal.set(Calendar.DATE, 17);
-            cal.set(Calendar.HOUR_OF_DAY, 13);
-            myDate = cal.getTime();
-
-            cal.set(Calendar.HOUR_OF_DAY, 15);
-            myDateEnd = cal.getTime();
-
-            LKSchemeMenuArrayAdapter.LKSchemeMenuListItem train = new LKSchemeMenuArrayAdapter.LKSchemeMenuListItem(getString(R.string.place_train), getString(R.string.train), R.drawable.test_nojen, myDate, myDateEnd, activated);
-            listItems.add(train);
-
-        } else {
-            textView.setText(R.string.sunday);
-        /*
-        Söndag:
-
-        Tåget avgår 13:00, åter ca 15:00
-        Se tågväg bifogad om ni vill lägga in den i appen i någon kartfunktion
-        Se bifogat dokument om generell tidsplan för detta, artisterna och dess tider samt öppettider.
-                Koordinater lilla scenen:
-        Lat: 55°42'26.07"N Long: 13°11'45.45"O
-*/
-            cal.set(Calendar.MINUTE, 00);
-            cal.set(Calendar.DATE, 18);
-            cal.set(Calendar.HOUR_OF_DAY, 13);
-            myDate = cal.getTime();
-            cal.set(Calendar.HOUR_OF_DAY, 15);
-            myDateEnd = cal.getTime();
-
-            LKSchemeMenuArrayAdapter.LKSchemeMenuListItem train2 = new LKSchemeMenuArrayAdapter.LKSchemeMenuListItem(getString(R.string.place_train), getString(R.string.train), R.drawable.test_nojen, myDate, myDateEnd, activated);
-            listItems.add(train2);
-
-        }
-        adapter = new LKSchemeMenuArrayAdapter(getContext(), listItems);
-        Log.d("adapter", "" + adapter);
-        Log.d("list", "" + list);
-        list.setAdapter(adapter);
-        list.setOnItemClickListener(adapter);
-
+        return activated;
     }
 
+    private int getCurrentDay(Calendar startOfScheme) {
+        long millisNow = Calendar.getInstance().getTimeInMillis();
+        long millisStart = startOfScheme.getTimeInMillis();
+        return Math.max((int) ((millisNow - millisStart) % (3600000L * 24L)), 0);
+    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+    }
+
+    private class SchemeViewAdapter extends PagerAdapter {
+
+        @Override
+        public int getCount() {
+            return 3;
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            LayoutInflater inflater = LayoutInflater.from(container.getContext());
+
+            View view = inflater.inflate(R.layout.scheme_list, container, false);
+            container.addView(view);
+
+            ListView lv = get(view, R.id.scheme_list, ListView.class);
+            lv.setAdapter(new LKSchemeAdapter(container.getContext(), getSchemeForDay(position)));
+
+            view.setTag(position);
+            return position;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            container.removeView(container.findViewWithTag(object));
+        }
+
+        @Override
+        public boolean isViewFromObject(View view, Object object) {
+            return view.getTag() == object;
+        }
+    }
+
+    /**
+     * Fancy animation needs android 11+
+     */
+    @SuppressLint("NewApi")
+    private static class ZoomOutPageTransformer implements ViewPager.PageTransformer {
+        private static final float MIN_SCALE = 0.85f;
+        private static final float MIN_ALPHA = 0.5f;
+
+        public void transformPage(View view, float position) {
+            int pageWidth = view.getWidth();
+            int pageHeight = view.getHeight();
+
+            if (position < -1) { // [-Infinity,-1)
+                // This page is way off-screen to the left.
+                view.setAlpha(0);
+
+            } else if (position <= 1) { // [-1,1]
+                // Modify the default slide transition to shrink the page as well
+                float scaleFactor = Math.max(MIN_SCALE, 1 - Math.abs(position));
+                float vertMargin = pageHeight * (1 - scaleFactor) / 2;
+                float horzMargin = pageWidth * (1 - scaleFactor) / 2;
+                if (position < 0) {
+                    view.setTranslationX(horzMargin - vertMargin / 2);
+                } else {
+                    view.setTranslationX(-horzMargin + vertMargin / 2);
+                }
+
+                // Scale the page down (between MIN_SCALE and 1)
+                view.setScaleX(scaleFactor);
+                view.setScaleY(scaleFactor);
+
+                // Fade the page relative to its size.
+                view.setAlpha(MIN_ALPHA +
+                        (scaleFactor - MIN_SCALE) /
+                                (1 - MIN_SCALE) * (1 - MIN_ALPHA));
+
+            } else { // (1,+Infinity]
+                // This page is way off-screen to the right.
+                view.setAlpha(0);
+            }
+        }
     }
 }
