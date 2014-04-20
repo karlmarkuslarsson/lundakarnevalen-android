@@ -47,12 +47,13 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
     private LKRightMenuArrayAdapter adapter;
     private ListView rightMenuList;
     private DrawerLayout drawerLayout;
-
+    private BottomMenuClickListener list;
     private ActionBar actionBar;
     private MapFragment mapFragment;
     private ArrayList<LKRightMenuListItem> rightMenuItems = new ArrayList<LKRightMenuListItem>();
     private LKRightMenuListItem showAllItem;
     private boolean allItemsActivated = true;
+
 
     public <T> T find(int id, Class<T> clz) {
         return clz.cast(findViewById(id));
@@ -95,7 +96,7 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
     }
 
     private void generateLowerMenu( LinearLayout bottomMenu) {
-        BottomMenuClickListener list = new BottomMenuClickListener();
+        list = new BottomMenuClickListener();
         createBottomMenuItem(bottomMenu, list, new FunFragment(), R.id.button1, R.string.fun, R.drawable.test_nojen);
         createBottomMenuItem(bottomMenu, list, new FoodFragment(), R.id.button2, R.string.food, R.drawable.test_spexet);
         createBottomMenuItem(bottomMenu, list, new MapFragment(), R.id.button3, R.string.map, R.drawable.test_nojen); // TODO ska vi inte ha mapFragment här?
@@ -152,12 +153,17 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
             transaction.addToBackStack(null);
         }
         transaction.commit();
+        if(list != null) {
+            if (f instanceof MapFragment) {
+                list.onClick(findViewById(R.id.button3));
+            }
+        }
     }
 
     private void moveToFragment(Fragment f) {
         Log.d("ContentActivity", "moveToFragment("+f+")");
         fragmentMgr
-            .beginTransaction().setCustomAnimations(R.anim.slide_in_left,R.anim.slide_out_right)
+            .beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
             .replace(R.id.content_frame, f)
             .commit();
     }
