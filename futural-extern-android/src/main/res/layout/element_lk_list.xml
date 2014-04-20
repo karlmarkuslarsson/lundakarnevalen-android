@@ -9,6 +9,7 @@
 
     >
 <RelativeLayout
+    android:id="@+id/image_background"
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:layout_centerVertical="true"
@@ -33,7 +34,7 @@
             android:layout_height="60dp"
             android:layout_centerVertical="true"
             android:src="@drawable/test_nojen"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="10dp"
             />
 
     </RelativeLayout>

@@ -14,6 +14,7 @@ import java.util.Map;
 
 import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
+import se.lundakarnevalen.extern.widget.LKListAdapter;
 
 /**
  * Created by Markus on 2014-04-16.
@@ -33,7 +34,7 @@ public class FoodFragment extends LKFragment{
             addAllFood();
         }
 
-
+/*
         lv.setAdapter(new SimpleAdapter(getContext(),
                 new ArrayList<Map<String, String>>(){{
                    for(final Food f: food) {
@@ -47,6 +48,17 @@ public class FoodFragment extends LKFragment{
                 new String[]{ "title", "plats" },
                 new int[]{ android.R.id.text1, android.R.id.text2 }
         ));
+  */
+
+        ArrayList<LKListAdapter.LKListElement> items = new ArrayList<LKListAdapter.LKListElement>();
+
+        for(final Food f: food) {
+            items.add(new LKListAdapter.LKListElement(f.picture, f.title,f.place,f.headerPicture));
+
+        }
+        lv.setAdapter(new LKListAdapter(getContext(),items));
+
+
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -64,7 +76,7 @@ public class FoodFragment extends LKFragment{
                 getString(R.string.cocktail_title),
                 getString(R.string.cocktail_info),
                 55.706362f, 13.195165f,
-                R.drawable.header_kabare,
+                R.drawable.monk,
                 R.drawable.header_kabare,
                 getString(R.string.cocktail_question),true,true));
 
@@ -73,7 +85,7 @@ public class FoodFragment extends LKFragment{
                 getString(R.string.hipp_baren_title),
                 getString(R.string.hipp_baren_info),
                 55.706521f, 13.195431f,
-                R.drawable.header_kabare,
+                R.drawable.monk,
                 R.drawable.header_kabare,
                 getString(R.string.hipp_baren_question),true,true));
 
@@ -83,7 +95,7 @@ public class FoodFragment extends LKFragment{
                 getString(R.string.folkan_title),
                 getString(R.string.folkan_info),
                 55.706841f, 13.196030f,
-                R.drawable.header_kabare,
+                R.drawable.monk,
                 R.drawable.header_kabare,
                 getString(R.string.folkan_question),true,true));
 

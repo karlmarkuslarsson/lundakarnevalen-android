@@ -21,6 +21,7 @@ import java.util.Map;
 
 import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
+import se.lundakarnevalen.extern.widget.LKListAdapter;
 
 /**
  * Created by Markus on 2014-04-16.
@@ -49,7 +50,7 @@ public class FunFragment extends LKFragment{
             addAllFun();
         }
 
-
+        /*
         lv.setAdapter(new SimpleAdapter(getContext(),
                 new ArrayList<Map<String, String>>() {{
                     for(final Fun f: fun) {
@@ -64,6 +65,14 @@ public class FunFragment extends LKFragment{
                 new String[]{"title", "place", "picture"},
                 new int[]{R.id.text1, R.id.text2, R.id.image}
         ));
+        */
+        ArrayList<LKListAdapter.LKListElement> items = new ArrayList<LKListAdapter.LKListElement>();
+
+        for(final Fun f: fun) {
+            items.add(new LKListAdapter.LKListElement(f.picture, f.title,f.place,f.headerPicture));
+
+        }
+        lv.setAdapter(new LKListAdapter(getContext(),items));
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -85,7 +94,7 @@ public class FunFragment extends LKFragment{
                 getString(R.string.kabare_title),
                 getString(R.string.kabare_info),
                 55.7042667f,13.193833333333334f,
-                R.drawable.header_kabare,
+                R.drawable.monk,
                 R.drawable.header_kabare,
                 getString(R.string.kabare_question)));
         fun.add(new Fun(
@@ -93,7 +102,7 @@ public class FunFragment extends LKFragment{
                 getString(R.string.filmen_title),
                 getString(R.string.filmen_info),
                 55.7059389f, 13.194805555555556f,
-                R.drawable.header_kabare,
+                R.drawable.monk,
                 R.drawable.header_kabare,
                 getString(R.string.filmen_question)));
         fun.add(new Fun(
@@ -101,7 +110,7 @@ public class FunFragment extends LKFragment{
                 getString(R.string.barneval_title),
                 getString(R.string.barneval_info),
                 55.7037889f, 13.194647222222223f,
-                R.drawable.header_kabare,
+                R.drawable.monk,
                 R.drawable.header_kabare,
                 getString(R.string.barneval_question)));
         fun.add(new Fun(
@@ -109,7 +118,7 @@ public class FunFragment extends LKFragment{
                 getString(R.string.cirkus_title),
                 getString(R.string.cirkus_info),
                 55.7048333f, 13.195352777777778f,
-                R.drawable.header_kabare,
+                R.drawable.monk,
                 R.drawable.header_kabare,
                 getString(R.string.cirkus_question)));
         fun.add(new Fun(
@@ -117,7 +126,7 @@ public class FunFragment extends LKFragment{
                 getString(R.string.spexet_title),
                 getString(R.string.spexet_info),
                 55.7054111f, 13.195491666666667f,
-                R.drawable.header_kabare,
+                R.drawable.monk,
                 R.drawable.header_kabare,
                 getString(R.string.spexet_question)));
         fun.add(new Fun(
@@ -125,7 +134,7 @@ public class FunFragment extends LKFragment{
                 getString(R.string.show_title),
                 getString(R.string.show_info),
                 55.7055444f, 13.195588888888889f,
-                R.drawable.header_kabare,
+                R.drawable.monk,
                 R.drawable.header_kabare,
                 getString(R.string.showen_question)));
         fun.add(new Fun(
@@ -133,7 +142,7 @@ public class FunFragment extends LKFragment{
                 getString(R.string.revy_title),
                 getString(R.string.revy_info),
                 55.705775f, 13.193555555555555f,
-                R.drawable.header_kabare,
+                R.drawable.monk,
                 R.drawable.header_kabare,
                 getString(R.string.revy_question)));
 
