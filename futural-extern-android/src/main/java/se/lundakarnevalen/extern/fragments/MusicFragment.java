@@ -27,6 +27,8 @@ public class MusicFragment extends LKFragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_music, null);
+       // TODO CHECK INTERNET CONNECTION....
+
         initializeUIElements(rootView);
         initializeMediaPlayer();
 
@@ -89,7 +91,7 @@ public class MusicFragment extends LKFragment implements View.OnClickListener {
     private void initializeMediaPlayer() {
         player = new MediaPlayer();
         try {
-            player.setDataSource("http://usa8-vn.mixstream.net:8138");
+            player.setDataSource("http://webradio.af.lu.se:8000/;stream/1");
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         } catch (IllegalStateException e) {

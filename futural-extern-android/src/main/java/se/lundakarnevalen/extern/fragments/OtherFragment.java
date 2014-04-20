@@ -20,15 +20,17 @@ import se.lundakarnevalen.extern.android.R;
  */
 public class OtherFragment extends LKFragment{
 
+
     // Every time you switch to this fragment.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_other, null);
         ListView lv = (ListView) rootView.findViewById(R.id.fragment_other_list);
+        addElementsToOther();
         lv.setAdapter(new SimpleAdapter(getContext(),
             new ArrayList<Map<String, String>>(){{
                 add(new HashMap<String, String>(){{
-                    put("title","OtherStuff");
+                    put("title","Music");
                     put("time", "17:00 - 19:00");
                 }});
                 add(new HashMap<String, String>(){{
@@ -42,12 +44,21 @@ public class OtherFragment extends LKFragment{
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ContentActivity.class
-                        .cast(getActivity())
-                        .loadFragment(LandingPageFragment.create("Filip","Lindqvist",false,true,true,56.055876056f,12.9737800f,R.drawable.monk,R.drawable.monk,"VAD ÄR FILIP BRA PÅ?","ÄTA PIZZA!"), true);
-            }
+                if(position == 0) {
+                    ContentActivity.class
+                            .cast(getActivity())
+                            .loadFragment(new MusicFragment(), true);
+
+                } else {
+
+                    ContentActivity.class
+                            .cast(getActivity())
+                            .loadFragment(LandingPageFragment.create("Filip", "Lindqvist", false, true, true, 56.055876056f, 12.9737800f, R.drawable.monk, R.drawable.monk, "VAD ÄR FILIP BRA PÅ?", "ÄTA PIZZA!"), true);
+                }
+                }
         });
         return rootView;
+    }private void addElementsToOther() {
     }
 
     @Override

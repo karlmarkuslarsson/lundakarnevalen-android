@@ -43,16 +43,19 @@ import static se.lundakarnevalen.extern.util.ViewUtil.*;
 
 public class ContentActivity extends ActionBarActivity implements LKFragment.Messanger {
     public static final String TAG_MAP = "map";
+    private int counterRight = 0;
     private FragmentManager fragmentMgr;
     private LKRightMenuArrayAdapter adapter;
     private ListView rightMenuList;
     private DrawerLayout drawerLayout;
-
+    private BottomMenuClickListener list;
     private ActionBar actionBar;
-    private MapFragment mapFragment;
+    public MapFragment mapFragment;
     private ArrayList<LKRightMenuListItem> rightMenuItems = new ArrayList<LKRightMenuListItem>();
     private LKRightMenuListItem showAllItem;
     private boolean allItemsActivated = true;
+
+
 
     public <T> T find(int id, Class<T> clz) {
         return clz.cast(findViewById(id));
@@ -63,6 +66,7 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content);
         fragmentMgr = getSupportFragmentManager();
+
         mapFragment = new MapFragment();
         loadFragment(mapFragment, false);
         rightMenuList = (ListView) findViewById(R.id.right_menu_list);
@@ -94,13 +98,14 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
     }
 
     private void generateLowerMenu( LinearLayout bottomMenu) {
-        BottomMenuClickListener list = new BottomMenuClickListener();
+        list = new BottomMenuClickListener();
         createBottomMenuItem(bottomMenu, list, new FunFragment(), R.id.button1, R.string.fun, R.drawable.test_nojen);
         createBottomMenuItem(bottomMenu, list, new FoodFragment(), R.id.button2, R.string.food, R.drawable.test_spexet);
-        createBottomMenuItem(bottomMenu, list, new MapFragment(), R.id.button3, R.string.map, R.drawable.test_nojen);
+        createBottomMenuItem(bottomMenu, list, mapFragment, R.id.button3, R.string.map, R.drawable.test_nojen); // TODO ska vi inte ha mapFragment här?
         createBottomMenuItem(bottomMenu, list, new SchemeFragment(), R.id.button4, R.string.scheme, R.drawable.test_spexet);
         createBottomMenuItem(bottomMenu, list, new OtherFragment(), R.id.button5, R.string.other, R.drawable.test_nojen);
         list.first(get(bottomMenu, R.id.button3, ViewGroup.class));
+
     }
 
     private void createBottomMenuItem(LinearLayout menu, BottomMenuClickListener listener, Fragment f, int itemId, int textId, int imageId) {
@@ -143,19 +148,26 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
     @Override
     public void loadFragment(Fragment f, boolean addToBackstack) {
         Log.d("ContentActivity", "loadFragment("+f+")");
-        FragmentTransaction transaction = fragmentMgr
-                .beginTransaction()
+         FragmentTransaction transaction = fragmentMgr
+                .beginTransaction().setCustomAnimations(R.anim.slide_in_left,R.anim.slide_out_right)
                 .replace(R.id.content_frame, f);
         if (addToBackstack) {
             transaction.addToBackStack(null);
         }
+        if(list != null) {
+            if (f instanceof MapFragment) {
+                list.onClick(findViewById(R.id.button3));
+            }
+        }
+
         transaction.commit();
+
     }
 
     private void moveToFragment(Fragment f) {
         Log.d("ContentActivity", "moveToFragment("+f+")");
         fragmentMgr
-            .beginTransaction()
+            .beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
             .replace(R.id.content_frame, f)
             .commit();
     }
@@ -163,6 +175,7 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
     @Override
     public void popFragmentStack() {
         fragmentMgr.popBackStack();
+
     }
 
     /**
@@ -176,8 +189,7 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
         rightMenuItems = new ArrayList<LKRightMenuListItem>();
 
         LKRightMenuListItem header = new LKRightMenuListItem()
-                .isStatic(true)
-                .showView(inflater.inflate(R.layout.menu_header, null));
+                .isStatic(true,inflater.inflate(R.layout.menu_header, null));
         listItems.add(header);
 
         LKRightMenuListItem foodItem = new LKRightMenuListItem(getString(R.string.food),0, MarkerType.FOOD);
@@ -240,6 +252,7 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
                     button.setBackgroundColor(getResources().getColor(R.color.right_menu_button_selected));
                     item.isOn = true;
                     mapFragment.updatePositions();
+                    counterRight = 0;
                 }
                     // show all..
             } else {
@@ -254,14 +267,28 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
                 if(item.isOn) {
                     mapFragment.changeActive(item.markerType,true);
                     button.setBackgroundColor(getResources().getColor(R.color.right_menu_button_selected));
+                    counterRight++;
                     item.isOn = false;
                 } else {
+                    counterRight--;
                     mapFragment.changeActive(item.markerType,false);
                     button.setBackgroundColor(getResources().getColor(R.color.right_menu_button));
                     item.isOn = true;
                 }
-                showAllItem.isOn = false;
-                showAllItem.button.setBackgroundColor(getResources().getColor(R.color.right_menu_button));
+                if(counterRight==0) {
+                    for(LKRightMenuListItem i: rightMenuItems) {
+                        mapFragment.changeActive(i.markerType,true);
+                        Log.d("button:",""+i.button);
+                        i.isOn = true;
+                    }
+                    allItemsActivated = true;
+                    showAllItem.isOn = true;
+                    showAllItem.button.setBackgroundColor(getResources().getColor(R.color.right_menu_button_selected));
+
+                } else {
+                    showAllItem.isOn = false;
+                    showAllItem.button.setBackgroundColor(getResources().getColor(R.color.right_menu_button));
+                }
                 mapFragment.updatePositions();
             }
         }
@@ -295,7 +322,9 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
             selected.setBackgroundColor(res.getColor(R.color.bottom_menu_background_selected));
             get(selected, R.id.bottom_menu_text, TextView.class).setTextColor(res.getColor(R.color.white));
             get(selected, R.id.bottom_menu_shadow, LinearLayout.class).setBackgroundColor(res.getColor(R.color.bottom_menu_shadow_selected));
-            get(selected, R.id.bottom_menu_image, ImageView.class).setAlpha(1.0f);
+            if(Build.VERSION.SDK_INT >10) {
+                get(selected, R.id.bottom_menu_image, ImageView.class).setAlpha(1.0f);
+            }
             if(selected.getTag() instanceof MapFragment) {
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
             } else {
@@ -309,7 +338,9 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
                 selected.setBackgroundColor(res.getColor(R.color.red));
                 get(selected, R.id.bottom_menu_text, TextView.class).setTextColor(res.getColor(R.color.white_unselected));
                 get(selected, R.id.bottom_menu_shadow, LinearLayout.class).setBackgroundColor(res.getColor(R.color.bottom_menu_shadow));
-                get(selected, R.id.bottom_menu_image, ImageView.class).setAlpha(0.7f);
+                if(Build.VERSION.SDK_INT >10) {
+                    get(selected, R.id.bottom_menu_image, ImageView.class).setAlpha(0.7f);
+                }
             }
         }
     }
