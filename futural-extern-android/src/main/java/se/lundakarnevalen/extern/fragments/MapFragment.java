@@ -194,6 +194,7 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
     }
 
     public void updatePositions() {
+
         Bitmap mapBitmap = BitmapUtil.decodeSampledBitmapFromResource(getResources(), R.drawable.test_map, imageWidth, imageHeight);
 
         // Create an overlay bitmap
