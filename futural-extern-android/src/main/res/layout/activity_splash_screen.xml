@@ -8,10 +8,11 @@
 
         <ImageView
             android:id="@+id/imgLogo"
+            android:src="@drawable/splash"
+            android:padding="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-             />
+            android:layout_centerInParent="true" />
 
         <TextView
             android:layout_width="fill_parent"
