@@ -24,6 +24,8 @@ import java.util.HashSet;
 import java.util.List;
 
 import se.lundakarnevalen.extern.android.R;
+import se.lundakarnevalen.extern.scheme.Event;
+import se.lundakarnevalen.extern.scheme.Events;
 import se.lundakarnevalen.extern.widget.LKRightMenuArrayAdapter;
 import se.lundakarnevalen.extern.widget.LKSchemeAdapter;
 
@@ -34,6 +36,12 @@ import static se.lundakarnevalen.extern.util.ViewUtil.get;
  */
 @SuppressWarnings("ResourceType")
 public class SchemeFragment extends LKFragment {
+
+    private ArrayList<Event> fridayEvents;
+
+    private ArrayList<Event> saturdayEvents;
+
+    private ArrayList<Event> sundayEvents;
 
     // Every time you switch to this fragment.
     @Override
@@ -145,319 +153,44 @@ public class SchemeFragment extends LKFragment {
      * Sets up the ListView in the navigationdrawer menu.
      */
     private ArrayList<LKSchemeAdapter.LKSchemeItem> getSchemeForDay(int day) {
-        Calendar startOfScheme = getStartingDate();
+        //Calendar startOfScheme = getStartingDate();
 
         HashSet<String> activated = getActiveNotifications();
         ArrayList<LKSchemeAdapter.LKSchemeItem> listItems = new ArrayList<LKSchemeAdapter.LKSchemeItem>();
-Calendar cal = startOfScheme;
-//        Invigning, stora scenen 13:00-14:00
-//        Lat: 55°42'20.53"N Long: 13°11'37.55"O
+        if (fridayEvents == null) {
+            fridayEvents = new ArrayList<Event>();
+            Events.getFridayEvents(fridayEvents, getContext());
 
-        Date myDate;
-        Date myDateEnd;
+            saturdayEvents = new ArrayList<Event>();
+            Events.getSaturdayEvents(saturdayEvents, getContext());
+
+            sundayEvents = new ArrayList<Event>();
+            Events.getSundayEvents(sundayEvents, getContext());
+
+        }
+
         if (day == 0) {
 
-            cal.set(Calendar.MINUTE, 00);
-            cal.set(Calendar.HOUR_OF_DAY, 13);
-
-            myDate = cal.getTime();
-            cal.set(Calendar.HOUR_OF_DAY, 14);
-
-            myDateEnd = cal.getTime();
-        /*
-        Fredag:
-        Invigning, stora scenen 13:00-14:00
-        Lat: 55°42'20.53"N Long: 13°11'37.55"O
-        */
-            LKSchemeAdapter.LKSchemeItem invigning =
-                    new LKSchemeAdapter.LKSchemeItem(getString(R.string.big_scene),
-                            getString(R.string.inauguration),
-                            R.drawable.test_nojen, myDate, myDateEnd, activated);
-            listItems.add(invigning);
-/*
-        Fredag:
-        Orkesterkamp, stora scenen 14:30-15:30
-        Lat: 55°42'20.53"N Long: 13°11'37.55"O
-        */
-            cal.set(Calendar.MINUTE, 30);
-            cal.set(Calendar.HOUR_OF_DAY, 14);
-            myDate = cal.getTime();
-            cal.set(Calendar.HOUR_OF_DAY, 15);
-            myDateEnd = cal.getTime();
-
-            LKSchemeAdapter.LKSchemeItem orkester = new LKSchemeAdapter.LKSchemeItem(getString(R.string.big_scene), getString(R.string.orchestra), R.drawable.test_nojen, myDate, myDateEnd, activated);
-            listItems.add(orkester);
-
-            /*
-        Fredag:
-        Per Hammar, lilla scenen 17:15
-            Lat: 55°42'26.07"N  Long:  13°11'45.45"O
-            55.7072417f, 13.195958333333333f
-        */
-            cal.set(Calendar.MINUTE, 15);
-            cal.set(Calendar.HOUR_OF_DAY, 17);
-            myDate = cal.getTime();
-            cal.set(Calendar.HOUR_OF_DAY, 19);
-            myDateEnd = cal.getTime();
-
-            LKSchemeAdapter.LKSchemeItem hammar = new LKSchemeAdapter.LKSchemeItem(getString(R.string.small_scene), getString(R.string.hammar), R.drawable.test_nojen, myDate, myDateEnd, activated);
-            listItems.add(hammar);
-
-
-/*
-        Fredag:
-        Sousou, Maher Cissoko, stora scenen 17:15
-        Lat: 55°42'20.53"N Long: 13°11'37.55"O
-        */
-            cal.set(Calendar.MINUTE, 15);
-            cal.set(Calendar.HOUR_OF_DAY, 17);
-            myDate = cal.getTime();
-            cal.set(Calendar.HOUR_OF_DAY, 19);
-            myDateEnd = cal.getTime();
-
-            LKSchemeAdapter.LKSchemeItem sousou = new LKSchemeAdapter.LKSchemeItem(getString(R.string.big_scene), getString(R.string.sousou), R.drawable.test_nojen, myDate, myDateEnd, activated);
-            listItems.add(sousou);
-/*
-        Fredag:
-        Bo Kaspers, stora scenen 19:15
-        Lat: 55°42'20.53"N Long: 13°11'37.55"O
-        */
-            cal.set(Calendar.MINUTE, 15);
-            cal.set(Calendar.HOUR_OF_DAY, 19);
-            myDate = cal.getTime();
-            cal.set(Calendar.HOUR_OF_DAY, 21);
-            myDateEnd = cal.getTime();
-
-            LKSchemeAdapter.LKSchemeItem boKasper = new LKSchemeAdapter.LKSchemeItem(getString(R.string.big_scene), getString(R.string.bo_kasper), R.drawable.test_nojen, myDate, myDateEnd, activated);
-            listItems.add(boKasper);
-
-
-/*
-        Fredag:
-        Bo Kaspers, stora scenen 21:15
-        Lat: 55°42'20.53"N Long: 13°11'37.55"O
-        */
-            cal.set(Calendar.MINUTE, 15);
-            cal.set(Calendar.HOUR_OF_DAY, 21);
-            myDate = cal.getTime();
-            cal.set(Calendar.HOUR_OF_DAY, 23);
-            cal.set(Calendar.MINUTE, 00);
-            myDateEnd = cal.getTime();
-
-            LKSchemeAdapter.LKSchemeItem lucyLove = new LKSchemeAdapter.LKSchemeItem(getString(R.string.big_scene), getString(R.string.lucy_love), R.drawable.test_nojen, myDate, myDateEnd, activated);
-            listItems.add(lucyLove);
-
-/*
-        Fredag:
-        E-type, stora scenen 23:00
-        Lat: 55°42'20.53"N Long: 13°11'37.55"O
-        */
-            cal.set(Calendar.MINUTE, 00);
-            cal.set(Calendar.HOUR_OF_DAY, 23);
-            myDate = cal.getTime();
-            cal.set(Calendar.HOUR_OF_DAY, 24);
-            cal.set(Calendar.MINUTE, 00);
-            myDateEnd = cal.getTime();
-
-            LKSchemeAdapter.LKSchemeItem eType = new LKSchemeAdapter.LKSchemeItem(getString(R.string.big_scene), getString(R.string.e_type), R.drawable.test_nojen, myDate, myDateEnd, activated);
-            listItems.add(eType);
-
-
+            for (Event e : fridayEvents) {
+                LKSchemeAdapter.LKSchemeItem item = new LKSchemeAdapter.LKSchemeItem(e.place, e.title, e.image, e.startDate, e.endDate, activated);
+                listItems.add(item);
+            }
         } else if (day == 1) {
-
-
-/*
-        Lördag:
-        Tåget avgår 13:00, åter ca 15:00
-        Se tågväg bifogad om ni vill lägga in den i appen i någon kartfunktion
-*/
-            cal.set(Calendar.MINUTE, 00);
-            cal.set(Calendar.DATE, 17);
-            cal.set(Calendar.HOUR_OF_DAY, 13);
-            myDate = cal.getTime();
-
-            cal.set(Calendar.HOUR_OF_DAY, 15);
-            myDateEnd = cal.getTime();
-
-            LKSchemeAdapter.LKSchemeItem train = new LKSchemeAdapter.LKSchemeItem(getString(R.string.place_train), getString(R.string.train), R.drawable.test_nojen, myDate, myDateEnd, activated);
-            listItems.add(train);
-
-
-            /*
-        Lördag:
-        Sandra Mosh, lilla scenen 17:15
-            Lat: 55°42'26.07"N  Long:  13°11'45.45"O
-            55.7072417f, 13.195958333333333f
-        */
-            cal.set(Calendar.MINUTE, 15);
-            cal.set(Calendar.HOUR_OF_DAY, 17);
-            myDate = cal.getTime();
-            cal.set(Calendar.HOUR_OF_DAY, 19);
-            cal.set(Calendar.MINUTE, 00);
-            myDateEnd = cal.getTime();
-
-            LKSchemeAdapter.LKSchemeItem sandra = new LKSchemeAdapter.LKSchemeItem(getString(R.string.small_scene), getString(R.string.sandra), R.drawable.test_nojen, myDate, myDateEnd, activated);
-            listItems.add(sandra);
-
-
-            /*
-        Lördag:
-        Ida Redig, stora scenen 17:15
-        Lat: 55°42'20.53"N Long: 13°11'37.55"O
-        */
-            cal.set(Calendar.MINUTE, 15);
-            cal.set(Calendar.HOUR_OF_DAY, 17);
-            myDate = cal.getTime();
-            cal.set(Calendar.HOUR_OF_DAY, 19);
-            cal.set(Calendar.MINUTE, 00);
-            myDateEnd = cal.getTime();
-
-            LKSchemeAdapter.LKSchemeItem ida = new LKSchemeAdapter.LKSchemeItem(getString(R.string.big_scene), getString(R.string.ida), R.drawable.test_nojen, myDate, myDateEnd, activated);
-            listItems.add(ida);
-            /*
-        Lördag:
-        Hurricane Love, stora scenen 19:00
-        Lat: 55°42'20.53"N Long: 13°11'37.55"O
-        */
-            cal.set(Calendar.MINUTE, 00);
-            cal.set(Calendar.HOUR_OF_DAY, 19);
-            myDate = cal.getTime();
-            cal.set(Calendar.HOUR_OF_DAY, 21);
-            cal.set(Calendar.MINUTE, 00);
-            myDateEnd = cal.getTime();
-
-            LKSchemeAdapter.LKSchemeItem hurricane = new LKSchemeAdapter.LKSchemeItem(getString(R.string.big_scene), getString(R.string.hurricane), R.drawable.test_nojen, myDate, myDateEnd, activated);
-            listItems.add(hurricane);
-/*
-        Lördag:
-        Linnea, stora scenen 21:00
-        Lat: 55°42'20.53"N Long: 13°11'37.55"O
-        */
-            cal.set(Calendar.MINUTE, 00);
-            cal.set(Calendar.HOUR_OF_DAY, 21);
-            myDate = cal.getTime();
-            cal.set(Calendar.HOUR_OF_DAY, 23);
-            cal.set(Calendar.MINUTE, 00);
-            myDateEnd = cal.getTime();
-
-            LKSchemeAdapter.LKSchemeItem linnea = new LKSchemeAdapter.LKSchemeItem(getString(R.string.big_scene), getString(R.string.linnea), R.drawable.test_nojen, myDate, myDateEnd, activated);
-            listItems.add(linnea);
-/*
-        Lördag:
-        MOVITS!, stora scenen 23:00
-        Lat: 55°42'20.53"N Long: 13°11'37.55"O
-        */
-            cal.set(Calendar.MINUTE, 00);
-            cal.set(Calendar.HOUR_OF_DAY, 23);
-            myDate = cal.getTime();
-            cal.set(Calendar.HOUR_OF_DAY, 24);
-            cal.set(Calendar.MINUTE, 00);
-            myDateEnd = cal.getTime();
-
-            LKSchemeAdapter.LKSchemeItem movits = new LKSchemeAdapter.LKSchemeItem(getString(R.string.big_scene), getString(R.string.movits), R.drawable.test_nojen, myDate, myDateEnd, activated);
-            listItems.add(movits);
-
+            for (Event e : saturdayEvents) {
+                LKSchemeAdapter.LKSchemeItem item = new LKSchemeAdapter.LKSchemeItem(e.place, e.title, e.image, e.startDate, e.endDate, activated);
+                listItems.add(item);
+            }
         } else {
-
-        /*
-        Söndag:
-
-        Tåget avgår 13:00, åter ca 15:00
-        Se tågväg bifogad om ni vill lägga in den i appen i någon kartfunktion
-        Se bifogat dokument om generell tidsplan för detta, artisterna och dess tider samt öppettider.
-                Koordinater lilla scenen:
-        Lat: 55°42'26.07"N Long: 13°11'45.45"O
-*/
-            cal.set(Calendar.MINUTE, 00);
-            cal.set(Calendar.DATE, 18);
-            cal.set(Calendar.HOUR_OF_DAY, 13);
-            myDate = cal.getTime();
-            cal.set(Calendar.HOUR_OF_DAY, 15);
-            myDateEnd = cal.getTime();
-
-            LKSchemeAdapter.LKSchemeItem train2 = new LKSchemeAdapter.LKSchemeItem(getString(R.string.place_train), getString(R.string.train), R.drawable.test_nojen, myDate, myDateEnd, activated);
-            listItems.add(train2);
-
-            /*
-        Söndag:
-        Partiet, lilla scenen 17:15
-            Lat: 55°42'26.07"N  Long:  13°11'45.45"O
-            55.7072417f, 13.195958333333333f
-        */
-            cal.set(Calendar.MINUTE, 15);
-            cal.set(Calendar.HOUR_OF_DAY, 17);
-            myDate = cal.getTime();
-            cal.set(Calendar.HOUR_OF_DAY, 18);
-            cal.set(Calendar.MINUTE, 30);
-            myDateEnd = cal.getTime();
-
-            LKSchemeAdapter.LKSchemeItem partiet = new LKSchemeAdapter.LKSchemeItem(getString(R.string.small_scene), getString(R.string.partiet), R.drawable.test_nojen, myDate, myDateEnd, activated);
-            listItems.add(partiet);
-
-
-            /*
-        Söndag:
-        FRIDA SUNDEMO, stora scenen 17:00
-        Lat: 55°42'20.53"N Long: 13°11'37.55"O
-        */
-            cal.set(Calendar.MINUTE, 00);
-            cal.set(Calendar.HOUR_OF_DAY, 17);
-            myDate = cal.getTime();
-            cal.set(Calendar.HOUR_OF_DAY, 18);
-            cal.set(Calendar.MINUTE, 30);
-            myDateEnd = cal.getTime();
-
-            LKSchemeAdapter.LKSchemeItem frida = new LKSchemeAdapter.LKSchemeItem(getString(R.string.big_scene), getString(R.string.frida), R.drawable.test_nojen, myDate, myDateEnd, activated);
-            listItems.add(frida);
-
-            /*
-        Söndag:
-        WINTERGATAN, stora scenen 18:30
-        Lat: 55°42'20.53"N Long: 13°11'37.55"O
-        */
-            cal.set(Calendar.MINUTE, 30);
-            cal.set(Calendar.HOUR_OF_DAY, 18);
-            myDate = cal.getTime();
-            cal.set(Calendar.HOUR_OF_DAY, 20);
-            cal.set(Calendar.MINUTE, 30);
-            myDateEnd = cal.getTime();
-
-            LKSchemeAdapter.LKSchemeItem wintergatan = new LKSchemeAdapter.LKSchemeItem(getString(R.string.big_scene), getString(R.string.wintergatan), R.drawable.test_nojen, myDate, myDateEnd, activated);
-            listItems.add(wintergatan);
-/*
-        Söndag:
-        TIMBAKTU, stora scenen 20:30
-        Lat: 55°42'20.53"N Long: 13°11'37.55"O
-        */
-            cal.set(Calendar.MINUTE, 30);
-            cal.set(Calendar.HOUR_OF_DAY, 20);
-            myDate = cal.getTime();
-            cal.set(Calendar.HOUR_OF_DAY, 23);
-            cal.set(Calendar.MINUTE, 00);
-            myDateEnd = cal.getTime();
-
-            LKSchemeAdapter.LKSchemeItem timbaktu = new LKSchemeAdapter.LKSchemeItem(getString(R.string.big_scene), getString(R.string.timbaktu), R.drawable.test_nojen, myDate, myDateEnd, activated);
-            listItems.add(timbaktu);
-
-            /*
-        Söndag:
-        Discoteka, stora scenen 23:00
-        Lat: 55°42'20.53"N Long: 13°11'37.55"O
-        */
-            cal.set(Calendar.MINUTE, 00);
-            cal.set(Calendar.HOUR_OF_DAY, 23);
-            myDate = cal.getTime();
-            cal.set(Calendar.HOUR_OF_DAY, 24);
-            cal.set(Calendar.MINUTE, 00);
-            myDateEnd = cal.getTime();
-
-            LKSchemeAdapter.LKSchemeItem discoteka = new LKSchemeAdapter.LKSchemeItem(getString(R.string.big_scene), getString(R.string.discoteka), R.drawable.test_nojen, myDate, myDateEnd, activated);
-            listItems.add(discoteka);
+            for (Event e : sundayEvents) {
+                LKSchemeAdapter.LKSchemeItem item = new LKSchemeAdapter.LKSchemeItem(e.place, e.title, e.image, e.startDate, e.endDate, activated);
+                listItems.add(item);
+            }
 
         }
 
         return listItems;
     }
+
 
     private Calendar getStartingDate() {
         Calendar startOfScheme = Calendar.getInstance();
