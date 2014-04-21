@@ -14,7 +14,7 @@ import android.view.View;
 import se.lundakarnevalen.extern.util.Logf;
 
 public class LKFragment extends Fragment {
-    protected final static String LOG_TAG = "LKFragment";
+    private final static String LOG_TAG = "LKFragment";
     private int onAttachMem;
 
     public static String getAppVersion(Context context) {
