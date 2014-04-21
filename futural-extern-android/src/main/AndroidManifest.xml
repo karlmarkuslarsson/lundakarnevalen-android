@@ -7,9 +7,11 @@
 
     <application
         android:allowBackup="true"
+        android:screenOrientation="portrait"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
         <activity
             android:name="se.lundakarnevalen.extern.android.ContentActivity"
             android:label="@string/app_name" >
@@ -18,8 +20,7 @@
         <activity
             android:name=".SplashScreenActivity"
             android:screenOrientation="portrait"
-
-            android:label="@string/title_activity_splash_screen"
+            android:label="@string/app_name"
             android:theme="@android:style/Theme.Black.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

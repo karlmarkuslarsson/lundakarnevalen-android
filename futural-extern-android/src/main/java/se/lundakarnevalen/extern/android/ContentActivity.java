@@ -108,7 +108,6 @@ public class ContentActivity extends ActionBarActivity {
         createBottomMenuItem(bottomMenu, list, counter, new SchemeFragment(), R.id.button4, R.string.scheme, R.drawable.test_spexet);
         createBottomMenuItem(bottomMenu, list, counter, new OtherFragment(), R.id.button5, R.string.other, R.drawable.test_nojen);
         list.first(get(bottomMenu, R.id.button3, ViewGroup.class));
-
     }
 
     private void createBottomMenuItem(LinearLayout menu, BottomMenuClickListener listener, AtomicInteger counter, Fragment f, int itemId, int textId, int imageId) {
