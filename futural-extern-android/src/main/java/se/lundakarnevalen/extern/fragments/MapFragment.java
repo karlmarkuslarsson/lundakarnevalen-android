@@ -1,7 +1,5 @@
 package se.lundakarnevalen.extern.fragments;
 
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PointF;
+import android.graphics.PorterDuff;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -32,14 +31,18 @@ import se.lundakarnevalen.extern.map.Marker;
 import se.lundakarnevalen.extern.map.MarkerType;
 import se.lundakarnevalen.extern.map.Markers;
 import se.lundakarnevalen.extern.util.BitmapUtil;
+import se.lundakarnevalen.extern.util.Timer;
 
 import static android.location.LocationManager.GPS_PROVIDER;
 import static android.location.LocationManager.NETWORK_PROVIDER;
 
 public class MapFragment extends LKFragment implements View.OnTouchListener {
+    private final static String LOG_TAG = MapFragment.class.getName();
 
     private static final int TIME_INTERVAL = 1800000; // get gps location every 30 min
     private static final int GPS_DISTANCE = 0; // set the distance value in meter
+    public static final int UPDATE_MILLIS = 2000;
+
     // States onTouchEvent
     private final int NONE = 0;
     private int mode = NONE;
@@ -50,21 +53,26 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
     private Matrix matrix;
     private Matrix savedMatrix = new Matrix();
     private boolean isActive;
+
     // Save current dots
     private Bitmap bmOverlay;
     private ImageView img;
     private int imageWidth;
     private int imageHeight;
+
     // Variables for zooming
     private PointF start = new PointF();
     private PointF mid = new PointF();
     private float oldDist = 1f;
     private float newDist = 1f;
+
     // Control scale 1 = full size
     private float scale = 1f;
     private boolean firstTime = true;
+
     // Context
     private Context context;
+
     // For gps and network
     private LocationManager locMan;
     private float myLat;
@@ -77,8 +85,8 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
 
     // Information about the map
 /*
-//55.7037889,(float)13.194647222222223
-   // (float)55.7054111,(float)13.195491666666667
+    //55.7037889,(float)13.194647222222223
+    //(float)55.7054111,(float)13.195491666666667
     // only fake, for next map...
     private float startLonMap = (float) 13.190449839578941;
     private float startLatMap = (float) 55.69015099913018;
@@ -93,6 +101,7 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
     private float diffLat = endLatMap - startLatMap;
 
     private HashMap<Integer, Boolean> active = new HashMap<Integer, Boolean>();
+    private Bitmap mapBackgroundBitmap;
 
     // Every time you switch to this fragment.
     @Override
@@ -107,7 +116,6 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
         }
 
         context = getContext();
-
 
         if (markers.size() == 0) {
             Markers.addMarkers(markers);
@@ -146,9 +154,9 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
                     if (isActive) {
                         getPosition();
                         updatePositions();
-                        handler.postDelayed(this, 10000);
+                        handler.postDelayed(this, UPDATE_MILLIS);
                     } else {
-                        handler.postDelayed(this, 10000);
+                        handler.postDelayed(this, UPDATE_MILLIS);
                     }
                 }
             }, 0);
@@ -197,26 +205,39 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
         // java.lang.IllegalStateException: Not attached to Activity
         if(getActivity() == null) return;
 
-        Bitmap mapBitmap = BitmapUtil.decodeSampledBitmapFromResource(getResources(),
-                R.drawable.test_map, imageWidth, imageHeight);
+        Timer t = new Timer();
+
+        //If already loaded don't load
+        if(mapBackgroundBitmap == null) {
+            mapBackgroundBitmap = BitmapUtil.decodeSampledBitmapFromResource(getResources(),
+                    R.drawable.test_map, imageWidth, imageHeight);
+        }
+
 
         // Create an overlay bitmap
-        bmOverlay = Bitmap.createBitmap(
-                mapBitmap.getWidth(), mapBitmap.getHeight(), mapBitmap.getConfig());
+        if(bmOverlay == null) {
+            bmOverlay = Bitmap.createBitmap(
+                    mapBackgroundBitmap.getWidth(), mapBackgroundBitmap.getHeight(), mapBackgroundBitmap.getConfig());
+            img.setImageBitmap(bmOverlay);
+        }
 
-        final Canvas canvas = new Canvas();
-        canvas.setBitmap(bmOverlay);
-        canvas.drawBitmap(mapBitmap, new Matrix(), null);
+        final Canvas canvas = new Canvas(bmOverlay);
+
+        //Clear bitmap
+        canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+        canvas.drawBitmap(mapBackgroundBitmap, new Matrix(), null);
 
         final Paint paintRed = getColoredPaint(R.color.red);
         final Paint paintGray = getColoredPaint(R.color.blue_purple);
 
         float lat = (myLat - startLatMap) / diffLat;
         float lon = (myLng - startLonMap) / diffLon;
-        float x = lon * mapBitmap.getWidth();
-        float y = mapBitmap.getHeight() - lat * mapBitmap.getHeight();
+        float x = lon * mapBackgroundBitmap.getWidth();
+        float y = mapBackgroundBitmap.getHeight() - lat * mapBackgroundBitmap.getHeight();
 
-        canvas.drawCircle(x,y, 20, paintRed);
+        canvas.drawCircle(x, y, 20, paintRed);
+        canvas.drawCircle((float)Math.random() * mapBackgroundBitmap.getWidth(),
+                (float)Math.random()* mapBackgroundBitmap.getWidth(), 100, paintGray);
 
         for (Marker m : markers) {
 
@@ -225,8 +246,8 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
                 if (m.x == -1) {
                     lat = (m.lat - startLatMap) / diffLat;
                     lon = (m.lng - startLonMap) / diffLon;
-                    x = lon * mapBitmap.getWidth();
-                    y = mapBitmap.getHeight() - lat * mapBitmap.getHeight();
+                    x = lon * mapBackgroundBitmap.getWidth();
+                    y = mapBackgroundBitmap.getHeight() - lat * mapBackgroundBitmap.getHeight();
                     // draw canvas..
                     m.x = x;
                     m.y = y;
@@ -236,10 +257,9 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
             }
             //canvas.dra(x, y, 10, paintRed);
         }
+        img.postInvalidate();
 
-        img.setImageBitmap(bmOverlay);
-
-
+        t.tick(LOG_TAG, "Paint Canvas");
     }
 
     private Paint getColoredPaint(int colorId) {

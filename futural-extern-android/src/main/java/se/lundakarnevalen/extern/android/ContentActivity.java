@@ -1,11 +1,10 @@
 package se.lundakarnevalen.extern.android;
 
-import android.animation.Animator;
 import android.annotation.TargetApi;
 import android.content.res.Resources;
 import android.os.Build;
+import android.os.Handler;
 import android.support.v7.app.ActionBar;
-import android.view.Gravity;
 import android.view.View.OnClickListener;
 import android.graphics.Color;
 import android.support.v4.app.FragmentManager;
@@ -20,10 +19,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -69,20 +66,23 @@ public class ContentActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content);
         fragmentMgr = getSupportFragmentManager();
-
         mapFragment = new MapFragment();
         loadFragmentWithReplace(mapFragment);
 
         rightMenuList = find(R.id.right_menu_list, ListView.class);
-
         drawerLayout = find(R.id.drawer_layout, DrawerLayout.class);
         drawerLayout.setScrimColor(Color.TRANSPARENT);
 
-        populateMenu();
-        generateLowerMenu(find(R.id.bottom_frame_menu, LinearLayout.class));
+        populateBottomMenu(find(R.id.bottom_frame_menu, LinearLayout.class));
+        //Load populate with delay
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                populateRightMenuDrawer();
+            }
+        }, 300);
 
-        actionBar = getSupportActionBar();
-        setupActionbar();
+        actionBar = setupActionbar();
         setupTint();
     }
 
@@ -142,17 +142,18 @@ public class ContentActivity extends ActionBarActivity {
         tintManager.setNavigationBarTintColor(getResources().getColor(R.color.red));
     }
 
-    private void setupActionbar() {
+    private ActionBar setupActionbar() {
         LayoutInflater inflater = LayoutInflater.from(this);
-
+        ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         actionBar.setCustomView(inflater.inflate(R.layout.action_bar_layout, null));
+        return actionBar;
     }
 
-    private void generateLowerMenu( LinearLayout bottomMenu) {
+    private void populateBottomMenu(LinearLayout bottomMenu) {
         list = new BottomMenuClickListener();
         AtomicInteger counter = new AtomicInteger(0);
         createBottomMenuItem(bottomMenu, list, counter, new FunFragment(), R.id.button1, R.string.fun, R.drawable.test_nojen);
@@ -179,7 +180,6 @@ public class ContentActivity extends ActionBarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        
         // Inflate the menu; this adds items to the action bar if it is present.
         //getMenuInflater().inflate(R.menu.content, menu);
         return false;
@@ -222,14 +222,14 @@ public class ContentActivity extends ActionBarActivity {
     }
 
     private void loadFragmentWithReplaceAnimated(Fragment f, boolean left) {
-        Log.d("ContentActivity", "loadFragmentWithReplace("+f+")");
+        Log.d("ContentActivity", "loadFragmentWithReplaceAnim("+f+")");
         int in = left ? R.anim.slide_in_left : R.anim.slide_in_right;
-        int out = R.anim.slide_out_bottom;
+        int out = left ? R.anim.slide_out_right : R.anim.slide_out_left;
         fragmentMgr
-                .beginTransaction()
+            .beginTransaction()
                 .setCustomAnimations(in, out)
                 .replace(R.id.content_frame, f)
-                .commit();
+            .commit();
     }
 
     public void popFragmentStack() {
@@ -239,7 +239,7 @@ public class ContentActivity extends ActionBarActivity {
     /**
      * Sets up the ListView in the navigationdrawer menu.
      */
-    private void populateMenu() {
+    private void populateRightMenuDrawer() {
         LayoutInflater inflater = LayoutInflater.from(this);
 
         ArrayList<LKRightMenuListItem> listItems = new ArrayList<LKRightMenuListItem>();
