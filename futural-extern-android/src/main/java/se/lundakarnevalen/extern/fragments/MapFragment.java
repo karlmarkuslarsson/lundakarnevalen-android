@@ -197,10 +197,12 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
         // java.lang.IllegalStateException: Not attached to Activity
         if(getActivity() == null) return;
 
-        Bitmap mapBitmap = BitmapUtil.decodeSampledBitmapFromResource(getResources(), R.drawable.test_map, imageWidth, imageHeight);
+        Bitmap mapBitmap = BitmapUtil.decodeSampledBitmapFromResource(getResources(),
+                R.drawable.test_map, imageWidth, imageHeight);
 
         // Create an overlay bitmap
-        bmOverlay = Bitmap.createBitmap(mapBitmap.getWidth(), mapBitmap.getHeight(), mapBitmap.getConfig());
+        bmOverlay = Bitmap.createBitmap(
+                mapBitmap.getWidth(), mapBitmap.getHeight(), mapBitmap.getConfig());
 
         final Canvas canvas = new Canvas();
         canvas.setBitmap(bmOverlay);
