@@ -3,6 +3,7 @@ package se.lundakarnevalen.extern.android;
 import android.content.res.Resources;
 import android.os.Build;
 import android.support.v7.app.ActionBar;
+import android.view.Gravity;
 import android.view.View.OnClickListener;
 import android.graphics.Color;
 import android.support.v4.app.FragmentManager;
@@ -64,7 +65,7 @@ public class ContentActivity extends ActionBarActivity {
         fragmentMgr = getSupportFragmentManager();
 
         mapFragment = new MapFragment();
-        loadFragmentWithAdd(mapFragment);
+        loadFragmentWithReplace(mapFragment);
 
         rightMenuList = (ListView) findViewById(R.id.right_menu_list);
 
@@ -149,6 +150,7 @@ public class ContentActivity extends ActionBarActivity {
         FragmentTransaction transaction = fragmentMgr.beginTransaction();
         transaction.setCustomAnimations(R.anim.abc_fade_in,R.anim.abc_fade_out);
         transaction.replace(R.id.content_frame, f);
+        transaction.addToBackStack(null);
         if(list != null) {
             if (f instanceof MapFragment) {
                 list.onClick(findViewById(R.id.button3));
