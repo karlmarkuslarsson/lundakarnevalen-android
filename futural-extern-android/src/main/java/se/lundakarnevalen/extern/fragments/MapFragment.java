@@ -25,6 +25,8 @@ import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.Semaphore;
 
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.map.Marker;
@@ -101,6 +103,7 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
     private float endLatMap = (float) 56.52300194685981;
     private float diffLat = endLatMap - startLatMap;
 
+    private HashMap<Integer, Bitmap> bitmapCache;
     private HashMap<Integer, Boolean> active = new HashMap<Integer, Boolean>();
     private Bitmap mapBackgroundBitmap;
 
@@ -117,10 +120,6 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
         }
 
         context = getContext();
-
-        if (markers.size() == 0) {
-            Markers.addMarkers(markers);
-        }
 
         if (imageWidth == 0) {
             DisplayMetrics metrics = context.getResources().getDisplayMetrics();
@@ -150,19 +149,15 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
             handler = new Handler();
             handler.postDelayed(new Runnable() {
                 public void run() {
-                if (isActive) {
-                    getPosition();
-                    updatePositions();
+                    if (isActive) {
+                        new UpdatePosTask().execute(); //offload to aSyncThread
+                    }
                     handler.postDelayed(this, UPDATE_MILLIS);
-                } else {
-                    handler.postDelayed(this, UPDATE_MILLIS);
-                }
                 }
             }, 0);
         }
 /*
         Bundle bundle = getArguments();
-
         if(bundle != null) {
             if(bundle.getBoolean("zoom")) {
                 Log.d("here!","yes");
@@ -185,7 +180,15 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
             Timer t = new Timer();
             mapBackgroundBitmap.recycle();
             mapBackgroundBitmap = null;
-            t.tick(LOG_TAG, "onDestroyView(): Recycling bitmap");
+            t.tick(LOG_TAG, "onDestroyView(): Recycling map bitmap");
+        }
+        if(bitmapCache != null){
+            Timer t = new Timer();
+            for (Bitmap entry : bitmapCache.values()) {
+                entry.recycle();
+            }
+            bitmapCache.clear();
+            t.tick(LOG_TAG, "onDestroyView(): Recycling bitmap cache");
         }
         super.onDestroyView();
     }
@@ -202,7 +205,7 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
         super.onResume();
     }
 
-    public void updatePositions() {
+    public void renderMap() {
         // If not attached to activity, getResources() will throw error
         // java.lang.IllegalStateException: Not attached to Activity
         if(getActivity() == null) return;
@@ -220,13 +223,19 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
         if(bmOverlay == null) {
             bmOverlay = Bitmap.createBitmap(
                     mapBackgroundBitmap.getWidth(), mapBackgroundBitmap.getHeight(), mapBackgroundBitmap.getConfig());
-            img.setImageBitmap(bmOverlay);
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    img.setImageBitmap(bmOverlay);
+                }
+            });
         }
 
         final Canvas canvas = new Canvas(bmOverlay);
 
         //Clear bitmap
         canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+        //Draw map image
         canvas.drawBitmap(mapBackgroundBitmap, new Matrix(), null);
 
         final Paint paintRed = getColoredPaint(R.color.red);
@@ -239,29 +248,46 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
 
         canvas.drawCircle(x, y, 20, paintRed);
         canvas.drawCircle((float)Math.random() * mapBackgroundBitmap.getWidth(),
-                (float)Math.random()* mapBackgroundBitmap.getWidth(), 100, paintGray);
+                (float)Math.random()* mapBackgroundBitmap.getHeight(), 100, paintGray);
+
+        if(markers.size() == 0){
+            Markers.addMarkers(markers);
+        }
 
         for (Marker m : markers) {
-
             if (active.get(m.type) != null && active.get(m.type)) {
-
                 if (m.x == -1) {
                     lat = (m.lat - startLatMap) / diffLat;
                     lon = (m.lng - startLonMap) / diffLon;
                     x = lon * mapBackgroundBitmap.getWidth();
                     y = mapBackgroundBitmap.getHeight() - lat * mapBackgroundBitmap.getHeight();
-                    // draw canvas..
-                    m.x = x;
-                    m.y = y;
+
+                    //m.x = x;
+                    m.x = (float)Math.random() * mapBackgroundBitmap.getWidth();
+                    //m.y = y;
+                    m.y = (float)Math.random() * mapBackgroundBitmap.getHeight();
                 }
-                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), m.picture);
+                Bitmap bitmap = getCachedBitmap(m);
                 canvas.drawBitmap(bitmap, m.x - bitmap.getWidth() / 2, m.y - bitmap.getHeight() / 2, null);
             }
             //canvas.dra(x, y, 10, paintRed);
         }
         img.postInvalidate();
-
         t.tick(LOG_TAG, "Painting Canvas");
+    }
+
+    private Bitmap getCachedBitmap(Marker m) {
+        if(bitmapCache == null) {
+            bitmapCache = new HashMap<Integer, Bitmap>();
+        }
+
+        if(bitmapCache.containsKey(m.picture)){
+            return bitmapCache.get(m.picture);
+        } else {
+            Bitmap bm = BitmapFactory.decodeResource(getResources(), m.picture);
+            bitmapCache.put(m.picture, bm);
+            return bm;
+        }
     }
 
     private Paint getColoredPaint(int colorId) {
@@ -400,14 +426,9 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
             locMan.removeUpdates(PositionListener); // remove this listener
         }
 
-        public void onProviderDisabled(String provider) {
-        }
-
-        public void onProviderEnabled(String provider) {
-        }
-
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-        }
+        public void onProviderDisabled(String provider) {}
+        public void onProviderEnabled(String provider) {}
+        public void onStatusChanged(String provider, int status, Bundle extras) {}
     };
 
     /**
@@ -419,10 +440,6 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
         return (float) Math.sqrt(x * x + y * y);
     }
 
-    /**
-     * @param relativeX
-     * @param relativeY
-     */
     private void checkClick(float relativeX, float relativeY) {
         if (bmOverlay != null) {
             for (Marker m : markers) {
@@ -510,5 +527,21 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
         return fragment;
     }
 
+    private class UpdatePosTask extends AsyncTask<Void, Void, Void> {
+        private Semaphore sm = new Semaphore(1);
 
+        @Override
+        protected void onPreExecute() {
+            getPosition();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            if(sm.tryAcquire()) {
+                renderMap();
+                sm.release();
+            }
+            return null;
+        }
+    }
 }
