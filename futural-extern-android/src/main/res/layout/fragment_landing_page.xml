@@ -7,12 +7,13 @@
     >
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         >
     <RelativeLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="180dp">
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -33,7 +34,7 @@
             android:shadowRadius="6"
             android:shadowDy="4"
             android:shadowColor="@color/black"
-            android:textSize="20dp"/>
+            android:textSize="16sp"/>
 
         <se.lundakarnevalen.extern.widget.LKTextView
             android:text="REVYN"
@@ -43,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="20dp"
-            android:textSize="50dp"
+            android:textSize="30sp"
             android:shadowRadius="6"
             android:shadowDy="4"
             android:shadowColor="@color/black"
@@ -73,8 +74,8 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    ></LinearLayout>
+                    android:layout_weight="1" >
+                </LinearLayout>
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -109,9 +110,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
-                    android:layout_below="@id/open_box"
+                    android:layout_below="@id/open_box">
 
-                    >
                     <ImageView
                         android:id="@+id/cash_picture"
                         android:layout_width="24dp"
@@ -119,6 +119,7 @@
                         android:paddingLeft="3dp"
                         android:paddingTop="3dp"
                         android:background="@color/white"/>
+
                     <se.lundakarnevalen.extern.widget.LKTextView
                         android:text="@string/cash"
                         android:id="@+id/open_info"

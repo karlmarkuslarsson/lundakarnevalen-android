@@ -7,7 +7,6 @@
     tools:context=".ContentActivity">
     <!-- ^ Wrapper Layout to create margin between elements -->
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
