@@ -224,7 +224,7 @@ public class ContentActivity extends ActionBarActivity {
     private void loadFragmentWithReplaceAnimated(Fragment f, boolean left) {
         Log.d("ContentActivity", "loadFragmentWithReplace("+f+")");
         int in = left ? R.anim.slide_in_left : R.anim.slide_in_right;
-        int out = R.anim.slide_out_bottom;
+        int out = left ? R.anim.slide_out_right : R.anim.slide_out_left;
         fragmentMgr
                 .beginTransaction()
                 .setCustomAnimations(in, out)
