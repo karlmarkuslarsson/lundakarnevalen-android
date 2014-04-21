@@ -19,7 +19,7 @@ public class Logf {
     }
 
     private static String className(Object src) {
-        return String.valueOf(src).replace("se.lundakarnevalen.extern.","");
+        return String.valueOf(src);
     }
 
     public static void w(Object src, String fmt, Object... args) {
