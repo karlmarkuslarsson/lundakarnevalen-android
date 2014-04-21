@@ -37,11 +37,12 @@ import static android.location.LocationManager.GPS_PROVIDER;
 import static android.location.LocationManager.NETWORK_PROVIDER;
 
 public class MapFragment extends LKFragment implements View.OnTouchListener {
-    private final static String LOG_TAG = MapFragment.class.getName();
+    private final static String LOG_TAG = MapFragment.class.getSimpleName();
 
     private static final int TIME_INTERVAL = 1800000; // get gps location every 30 min
     private static final int GPS_DISTANCE = 0; // set the distance value in meter
-    public static final int UPDATE_MILLIS = 2000;
+
+    private static final int UPDATE_MILLIS = 15000;
 
     // States onTouchEvent
     private final int NONE = 0;
@@ -143,21 +144,19 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
             firstTime = true;
             isActive = true;
             //TODO fix bug with switch to another fragment and the back again to map...
-            PositionTask positionTask = new PositionTask();
-            positionTask.execute();
         }
 
         if (handler == null) {
             handler = new Handler();
             handler.postDelayed(new Runnable() {
                 public void run() {
-                    if (isActive) {
-                        getPosition();
-                        updatePositions();
-                        handler.postDelayed(this, UPDATE_MILLIS);
-                    } else {
-                        handler.postDelayed(this, UPDATE_MILLIS);
-                    }
+                if (isActive) {
+                    getPosition();
+                    updatePositions();
+                    handler.postDelayed(this, UPDATE_MILLIS);
+                } else {
+                    handler.postDelayed(this, UPDATE_MILLIS);
+                }
                 }
             }, 0);
         }
@@ -180,11 +179,15 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
         return rootView;
     }
 
-
-
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onDestroyView() {
+        if(mapBackgroundBitmap != null) {
+            Timer t = new Timer();
+            mapBackgroundBitmap.recycle();
+            mapBackgroundBitmap = null;
+            t.tick(LOG_TAG, "onDestroyView(): Recycling bitmap");
+        }
+        super.onDestroyView();
     }
 
     @Override
@@ -192,7 +195,6 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
         isActive = false;
         super.onPause();
     }
-
 
     @Override
     public void onResume() {
@@ -259,7 +261,7 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
         }
         img.postInvalidate();
 
-        t.tick(LOG_TAG, "Paint Canvas");
+        t.tick(LOG_TAG, "Painting Canvas");
     }
 
     private Paint getColoredPaint(int colorId) {
@@ -443,49 +445,6 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
 
     public void changeActive(int i, boolean activated) {
         active.put(i, activated);
-    }
-
-    private class PositionTask extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected Void doInBackground(Void... params) {
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            publishProgress();
-            return null;
-        }
-
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
-
-            /*
-            final Handler handler;
-            handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                    public void run() {
-                        Log.d("isinactive","new position");
-                        if(isActive) {
-                            Log.d("isactive","new position");
-                            getPosition();
-                            updatePositions();
-
-                        }
-                        handler.postDelayed(this, 10000);
-                    }
-              }, 0);
-
-        */
-
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-
-            super.onPostExecute(result);
-        }
     }
 
     private void zoom(float zoomLat, float zoomLng) {
