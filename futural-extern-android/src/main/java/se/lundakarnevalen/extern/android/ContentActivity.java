@@ -1,7 +1,5 @@
 package se.lundakarnevalen.extern.android;
 
-import android.content.Context;
-
 import android.content.res.Resources;
 import android.os.Build;
 import android.support.v7.app.ActionBar;
@@ -28,6 +26,7 @@ import android.widget.TextView;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import se.lundakarnevalen.extern.fragments.FoodFragment;
 import se.lundakarnevalen.extern.fragments.FunFragment;
@@ -99,23 +98,26 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
 
     private void generateLowerMenu( LinearLayout bottomMenu) {
         list = new BottomMenuClickListener();
-        createBottomMenuItem(bottomMenu, list, new FunFragment(), R.id.button1, R.string.fun, R.drawable.test_nojen);
-        createBottomMenuItem(bottomMenu, list, new FoodFragment(), R.id.button2, R.string.food, R.drawable.test_spexet);
-        createBottomMenuItem(bottomMenu, list, mapFragment, R.id.button3, R.string.map, R.drawable.test_nojen); // TODO ska vi inte ha mapFragment här?
-        createBottomMenuItem(bottomMenu, list, new SchemeFragment(), R.id.button4, R.string.scheme, R.drawable.test_spexet);
-        createBottomMenuItem(bottomMenu, list, new OtherFragment(), R.id.button5, R.string.other, R.drawable.test_nojen);
+        AtomicInteger counter = new AtomicInteger(0);
+        createBottomMenuItem(bottomMenu, list, counter, new FunFragment(), R.id.button1, R.string.fun, R.drawable.test_nojen);
+        createBottomMenuItem(bottomMenu, list, counter, new FoodFragment(), R.id.button2, R.string.food, R.drawable.test_spexet);
+        createBottomMenuItem(bottomMenu, list, counter, mapFragment, R.id.button3, R.string.map, R.drawable.test_nojen);
+        // TODO ska vi inte ha mapFragment här? ^
+        createBottomMenuItem(bottomMenu, list, counter, new SchemeFragment(), R.id.button4, R.string.scheme, R.drawable.test_spexet);
+        createBottomMenuItem(bottomMenu, list, counter, new OtherFragment(), R.id.button5, R.string.other, R.drawable.test_nojen);
         list.first(get(bottomMenu, R.id.button3, ViewGroup.class));
 
     }
 
-    private void createBottomMenuItem(LinearLayout menu, BottomMenuClickListener listener, Fragment f, int itemId, int textId, int imageId) {
+    private void createBottomMenuItem(LinearLayout menu, BottomMenuClickListener listener, AtomicInteger counter, Fragment f, int itemId, int textId, int imageId) {
         ViewGroup group = get(menu, itemId, ViewGroup.class);
         get(group, R.id.bottom_menu_text, TextView.class).setText(textId);
         get(group, R.id.bottom_menu_image, ImageView.class).setImageResource(imageId);
         if(Build.VERSION.SDK_INT >= 11){
             get(group, R.id.bottom_menu_image, ImageView.class).setAlpha(0.7f);
         }
-        group.setTag(f);
+        group.setTag(BottomMenuClickListener.TAG_FRAGMENT, f);
+        group.setTag(BottomMenuClickListener.TAG_IDX, counter.getAndIncrement());
         group.setOnClickListener(listener);
     }
 
@@ -134,7 +136,7 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        return id == R.id.action_settings || super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -149,7 +151,7 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
     public void loadFragment(Fragment f, boolean addToBackstack) {
         Log.d("ContentActivity", "loadFragment("+f+")");
          FragmentTransaction transaction = fragmentMgr
-                .beginTransaction().setCustomAnimations(R.anim.slide_in_left,R.anim.slide_out_right)
+                .beginTransaction().setCustomAnimations(R.anim.slide_in_left,R.anim.slide_out_bottom)
                 .replace(R.id.content_frame, f);
         if (addToBackstack) {
             transaction.addToBackStack(null);
@@ -167,9 +169,21 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
     private void moveToFragment(Fragment f) {
         Log.d("ContentActivity", "moveToFragment("+f+")");
         fragmentMgr
-            .beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
-            .replace(R.id.content_frame, f)
+            .beginTransaction()
+                .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_bottom)
+                .replace(R.id.content_frame, f)
             .commit();
+    }
+
+    private void moveToFragmentAnimated(Fragment f, boolean left) {
+        Log.d("ContentActivity", "moveToFragment("+f+")");
+        int in = left ? R.anim.slide_in_left : R.anim.slide_in_right;
+        int out = R.anim.slide_out_bottom;
+        fragmentMgr
+                .beginTransaction()
+                .setCustomAnimations(in, out)
+                .replace(R.id.content_frame, f)
+                .commit();
     }
 
     @Override
@@ -295,7 +309,11 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
     }
 
     private class BottomMenuClickListener implements OnClickListener {
+        private static final int TAG_IDX = R.id.bottom_menu_tag_idx;
+        private static final int TAG_FRAGMENT = R.id.bottom_menu_tag_fragment;
+
         private final Resources r = getResources();
+
         private ViewGroup selected;
 
         private BottomMenuClickListener() {}
@@ -310,11 +328,16 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
             if(v == this.selected) return;
 
             ViewGroup newSelection = (ViewGroup) v;
-            Fragment f = (Fragment) v.getTag();
+            Fragment f = (Fragment) v.getTag(TAG_FRAGMENT);
 
-            moveToFragment(f);
+            int newIdx = Integer.class.cast(v.getTag(TAG_IDX));
+            int oldIdx = Integer.class.cast(selected.getTag(TAG_IDX));
+            boolean moveLeft = (newIdx > oldIdx);
+
+            moveToFragmentAnimated(f, moveLeft);
             selectItem(newSelection, r);
             deselectItem(r);
+
             this.selected = newSelection;
         }
 
