@@ -108,7 +108,6 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
 
         context = getContext();
 
-
         if (markers.size() == 0) {
             Markers.addMarkers(markers);
         }
