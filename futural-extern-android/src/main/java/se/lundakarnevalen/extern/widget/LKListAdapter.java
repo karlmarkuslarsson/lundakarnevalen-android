@@ -33,15 +33,12 @@ public class LKListAdapter extends ArrayAdapter<LKListAdapter.LKListElement> {
             View rowView = inflater.inflate(R.layout.element_lk_list, parent, false);
             TextView textView = (TextView) rowView.findViewById(R.id.text1);
             TextView textView2 = (TextView) rowView.findViewById(R.id.text2);
-            RelativeLayout header = (RelativeLayout) rowView.findViewById(R.id.image_background);
             ImageView image = (ImageView) rowView.findViewById(R.id.image);
 
             textView.setText(item.name);
             textView2.setText(item.place);
-            header.setBackgroundResource(item.header);
             image.setImageResource(item.image);
             // Change the icon for Windows and iPhone
-
 
             return rowView;
 

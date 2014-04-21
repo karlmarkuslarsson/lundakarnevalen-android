@@ -30,7 +30,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import se.lundakarnevalen.extern.fragments.FoodFragment;
 import se.lundakarnevalen.extern.fragments.FunFragment;
-import se.lundakarnevalen.extern.fragments.LKFragment;
 import se.lundakarnevalen.extern.fragments.MapFragment;
 import se.lundakarnevalen.extern.fragments.OtherFragment;
 import se.lundakarnevalen.extern.fragments.SchemeFragment;
@@ -40,7 +39,7 @@ import se.lundakarnevalen.extern.widget.LKRightMenuArrayAdapter.*;
 
 import static se.lundakarnevalen.extern.util.ViewUtil.*;
 
-public class ContentActivity extends ActionBarActivity implements LKFragment.Messanger {
+public class ContentActivity extends ActionBarActivity {
     public static final String TAG_MAP = "map";
     private int counterRight = 0;
     private FragmentManager fragmentMgr;
@@ -54,8 +53,6 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
     private LKRightMenuListItem showAllItem;
     private boolean allItemsActivated = true;
 
-
-
     public <T> T find(int id, Class<T> clz) {
         return clz.cast(findViewById(id));
     }
@@ -67,12 +64,16 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
         fragmentMgr = getSupportFragmentManager();
 
         mapFragment = new MapFragment();
-        loadFragment(mapFragment, false);
+        loadFragmentWithAdd(mapFragment);
+
         rightMenuList = (ListView) findViewById(R.id.right_menu_list);
+
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerLayout.setScrimColor(Color.TRANSPARENT);
+
         populateMenu();
         generateLowerMenu(find(R.id.bottom_frame_menu, LinearLayout.class));
+
         actionBar = getSupportActionBar();
         setupActionbar();
         setupTint();
@@ -139,44 +140,34 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void message(LKFragment.MessangerMessage message, Bundle data) {
-        setTitle(data.getString("title"));
+    public void setTitle(String title) {
+        setTitle(title);
     }
 
-    /**
-     * Loads new fragment into the frame.
-     */
-    @Override
-    public void loadFragment(Fragment f, boolean addToBackstack) {
-        Log.d("ContentActivity", "loadFragment("+f+")");
-         FragmentTransaction transaction = fragmentMgr
-                .beginTransaction().setCustomAnimations(R.anim.slide_in_left,R.anim.slide_out_bottom)
-                .replace(R.id.content_frame, f);
-        if (addToBackstack) {
-            transaction.addToBackStack(null);
-        }
+    public void loadFragmentWithAdd(Fragment f) {
+        Log.d("ContentActivity", "loadFragmentWithAdd("+f+")");
+        FragmentTransaction transaction = fragmentMgr.beginTransaction();
+        transaction.setCustomAnimations(R.anim.abc_fade_in,R.anim.abc_fade_out);
+        transaction.replace(R.id.content_frame, f);
         if(list != null) {
             if (f instanceof MapFragment) {
                 list.onClick(findViewById(R.id.button3));
             }
         }
-
         transaction.commit();
-
     }
 
-    private void moveToFragment(Fragment f) {
-        Log.d("ContentActivity", "moveToFragment("+f+")");
+    private void loadFragmentWithReplace(Fragment f) {
+        Log.d("ContentActivity", "loadFragmentWithReplace("+f+")");
         fragmentMgr
             .beginTransaction()
-                .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_bottom)
+                .setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out)
                 .replace(R.id.content_frame, f)
             .commit();
     }
 
-    private void moveToFragmentAnimated(Fragment f, boolean left) {
-        Log.d("ContentActivity", "moveToFragment("+f+")");
+    private void loadFragmentWithReplaceAnimated(Fragment f, boolean left) {
+        Log.d("ContentActivity", "loadFragmentWithReplace("+f+")");
         int in = left ? R.anim.slide_in_left : R.anim.slide_in_right;
         int out = R.anim.slide_out_bottom;
         fragmentMgr
@@ -186,10 +177,8 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
                 .commit();
     }
 
-    @Override
     public void popFragmentStack() {
         fragmentMgr.popBackStack();
-
     }
 
     /**
@@ -334,7 +323,7 @@ public class ContentActivity extends ActionBarActivity implements LKFragment.Mes
             int oldIdx = Integer.class.cast(selected.getTag(TAG_IDX));
             boolean moveLeft = (newIdx > oldIdx);
 
-            moveToFragmentAnimated(f, moveLeft);
+            loadFragmentWithReplaceAnimated(f, moveLeft);
             selectItem(newSelection, r);
             deselectItem(r);
 
