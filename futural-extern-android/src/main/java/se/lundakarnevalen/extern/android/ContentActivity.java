@@ -1,5 +1,7 @@
 package se.lundakarnevalen.extern.android;
 
+import android.animation.Animator;
+import android.annotation.TargetApi;
 import android.content.res.Resources;
 import android.os.Build;
 import android.support.v7.app.ActionBar;
@@ -18,6 +20,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -67,9 +73,9 @@ public class ContentActivity extends ActionBarActivity {
         mapFragment = new MapFragment();
         loadFragmentWithReplace(mapFragment);
 
-        rightMenuList = (ListView) findViewById(R.id.right_menu_list);
+        rightMenuList = find(R.id.right_menu_list, ListView.class);
 
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerLayout = find(R.id.drawer_layout, DrawerLayout.class);
         drawerLayout.setScrimColor(Color.TRANSPARENT);
 
         populateMenu();
@@ -78,6 +84,54 @@ public class ContentActivity extends ActionBarActivity {
         actionBar = getSupportActionBar();
         setupActionbar();
         setupTint();
+    }
+
+    @TargetApi(11)
+    public void hideBottomMenu(){
+        final View menu = find(R.id.bottom_frame_menu, View.class);
+        View content = find(R.id.content_frame, View.class);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            final Animation slideOutBottom = AnimationUtils.loadAnimation(this, R.anim.abc_slide_out_bottom);
+            slideOutBottom.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {}
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    menu.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {}
+            });
+            menu.startAnimation(slideOutBottom);
+        }else{
+            menu.setVisibility(View.GONE);
+        }
+    }
+
+    @TargetApi(11)
+    public void showBottomMenu(){
+        final View menu = find(R.id.bottom_frame_menu, View.class);
+        View content = find(R.id.content_frame, View.class);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            Animation slideInBottom = AnimationUtils.loadAnimation(this, R.anim.abc_slide_in_bottom);
+            slideInBottom.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                    menu.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {}
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {}
+            });
+            menu.startAnimation(slideInBottom);
+        } else {
+            find(R.id.bottom_frame_menu, View.class).setVisibility(View.VISIBLE);
+        }
     }
 
     private void setupTint() {

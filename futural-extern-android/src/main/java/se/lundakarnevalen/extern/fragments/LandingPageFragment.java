@@ -84,8 +84,15 @@ public class LandingPageFragment extends LKFragment{
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onStart() {
+        super.onStart();
+        ContentActivity.class.cast(getActivity()).hideBottomMenu();
+    }
+
+    @Override
+    public void onStop() {
+        ContentActivity.class.cast(getActivity()).showBottomMenu();
+        super.onStop();
     }
 
     public static LandingPageFragment create(String name, String place, boolean open, boolean cash, boolean card, float lat, float lng, int picture,int topPicture, String question, String desc) {
