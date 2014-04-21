@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="app_name">Lundakarnevalen</string>
+
     <string name="map">KARTA</string>
 
     <!-- right_list -->
@@ -12,9 +14,6 @@
     <string name="show_only">VISA ENBART</string>
     <string name="scheme">SCHEMA</string>
     <string name="other">ÖVRIGT</string>
-    <string name="map2">KARTA</string>
-
-
 
     <!-- scheme -->
     <string name="my_scheme">MITT SCHEMA</string>
@@ -125,6 +124,7 @@
     <string name="folkan_place">FOODSTOCK</string>
     <string name="folkan_title">FOLKAN</string>
     <string name="folkan_info">Drinkar: karnevöl, cider, läsk och eventuellt vin.\n\nMat: Ej mat\n\nBetalning: kort och kontant. DOCK, cash is king!</string>
+
     <string name="sousou">CISSOKO</string>
     <string name="bo_kasper">BO KASPERS</string>
     <string name="lucy_love">LUCY LOVE</string>
@@ -134,7 +134,7 @@
     <string name="movits">MOVITS!</string>
     <string name="frida">FRIDA SUNDEMO</string>
     <string name="wintergatan">WINTERGATAN</string>
-    <string name="timbaktu"><![CDATA[TIMBAKTU]]></string>
+    <string name="timbaktu">TIMBAKTU</string>
     <string name="discoteka">DISCOTEKA</string>
     <string name="e_type">E-TYPE</string>
     <string name="small_scene">LILLA SCENEN</string>

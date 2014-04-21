@@ -14,11 +14,11 @@
     <string name="show_only">SHOW ONLY</string>
     <string name="scheme">SCHEME</string>
     <string name="other">OTHER</string>
-    <string name="title_activity_splash_screen">SplashScreenActivity</string>
 
     <!-- scheme -->
     <string name="my_scheme">MY SCHEME</string>
     <string name="saturday">SATURDAY</string>
+
     <string name="scheme_left"><![CDATA[<]]></string>
     <string name="scheme_right"><![CDATA[>]]></string>
 
@@ -33,6 +33,7 @@
         Bacon ipsum dolor sit amet cow corned beef pig, biltong swine tri-tip short loin turducken strip steak meatball rump. T-bone doner salami ball tip swine leberkas ground round chuck. Short ribs pork drumstick landjaeger salami venison capicola shank filet mignon boudin. \n\n Jowl venison turducken corned beef short ribs chicken flank hamburger. Shoulder salami strip steak chuck. Pancetta rump kevin leberkas capicola salami kielbasa venison porchetta fatback turkey ham hock sirloin hamburger. Pork chop ground round capicola biltong landjaeger andouille.
         Tenderloin ham hock brisket chicken andouille capicola, cow beef ribs sausage. Flank drumstick ham prosciutto, filet mignon chuck tail landjaeger chicken cow shankle. Sausage brisket pork chop, ham turducken chicken meatloaf filet mignon doner. \n\n Chicken leberkas frankfurter shank, jowl ground round spare ribs tri-tip andouille bresaola pastrami brisket ribeye prosciutto. Ground round cow tri-tip doner porchetta ham swine. Frankfurter ribeye shank leberkas, sirloin turducken swine jerky sausage pork loin biltong spare ribs bacon ground round meatloaf.
     </string>
+
     <string name="open">OPEN</string>
     <string name="closed">CLOSED</string>
     <string name="card">CARD</string>
@@ -44,9 +45,21 @@
     <string name="sunday">SUNDAY</string>
     <string name="orchestra">ORKESTERKAMP</string>
     <string name="train">TÅGET</string>
-    <string name="place_train" >LUNDAGÅRD</string>
+    <string name="place_train">LUNDAGÅRD</string>
+    <string name="filmen_place">PALAESTRA</string>
+    <string name="filmen_question">WHAT IS FILMEN?</string>
+    <string name="barneval_place">KRAFTS TORG</string>
+    <string name="barneval_question">WHAT IS BARNEVALEN?</string>
+    <string name="cirkus_place">TEGNÈRSPLATSEN</string>
+    <string name="cirkus_question">WHAT IS CIRKUSEN?</string>
+    <string name="spexet_place">STORA SCENEN AF</string>
+    <string name="spexet_question">WHAT IS SPEXET?</string>
+    <string name="showen_place">TEGNÈRS MATSALAR</string>
+    <string name="showen_question">WHAT IS SHOWEN?</string>
+    <string name="revy_place">UNIVERSITETSHUSET</string>
+    <string name="revy_question">WHAT IS REVYN?</string>
 
-    <string name="kabare_question">VAD ÄR KABARÉN?</string>
+    <string name="kabare_question">WHAT IS KABARÉN?</string>
     <string name="kabare_place">NORR OM DOMKYRKAN</string>
     <string name="kabare_title">KABARÈ</string>
     <string name="kabare_info">Vi befinner oss i den postapokalyptiska dystopin
@@ -110,6 +123,16 @@
     Filip. I sällskap av hennes nyfunne vän får vi följa våra hjältar genom hackerattacker,
     biljakter och slutligen i den avgörande kampen mot de onda i Sveriges första superhjältefilm…
     </string>
+
+    <string name="cocktail_question">VAD FINNS PÅ COCKTAILBAREN?</string>
+    <string name="cocktail_place">FOODSTOCK</string>
+    <string name="cocktail_title">COCKTAILBAREN</string>
+    <string name="cocktail_info">Drinkar: (drinkmeny om ca 10 st max), karnevöl, karnevale, cider, läsk och vin.\n\nMat: Ej mat\n\nBetalning: kort och kontant. DOCK, cash is king!</string>
+
+    <string name="hipp_baren_question">VAD FINNS PÅ HIPP I BAREN?</string>
+    <string name="hipp_baren_place">FOODSTOCK</string>
+    <string name="hipp_baren_title">HIPP I BAREN</string>
+    <string name="hipp_baren_info">Drinkar: karnevöl, cider, läsk och eventuellt vin.\n\nMat: Ej mat\n\nBetalning: kort och kontant. DOCK, cash is king!</string>
 
     <string name="empty" />
     <string name="folkan_question">VAD FINNS PÅ FOLKAN?</string>
