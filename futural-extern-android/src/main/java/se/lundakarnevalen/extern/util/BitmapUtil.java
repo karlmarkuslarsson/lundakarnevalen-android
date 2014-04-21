@@ -3,11 +3,15 @@ package se.lundakarnevalen.extern.util;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 /**
  * Created by Filip on 2014-04-18.
  */
 public class BitmapUtil {
+
+    public static final String LOG_TAG = BitmapUtil.class.getName();
+
     public static int calculateInSampleSize(
             BitmapFactory.Options options, int reqWidth, int reqHeight) {
         // Raw height and width of image
@@ -27,7 +31,8 @@ public class BitmapUtil {
                 inSampleSize *= 2;
             }
         }
-
+        Logf.d(LOG_TAG, "sampleSize: %d", inSampleSize);
+        Logf.d(LOG_TAG, "in(%d, %d) => fit(%d, %d)", height, width, reqHeight, reqWidth);
         return inSampleSize;
     }
 
