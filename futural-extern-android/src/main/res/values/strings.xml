@@ -135,4 +135,5 @@
 
     <string name="play">SPELA</string>
     <string name="stop">STOPPA</string>
+    <string name="content_desc_image">image</string>
 </resources>
