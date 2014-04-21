@@ -137,7 +137,6 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
             //TODO fix bug with switch to another fragment and the back again to map...
             PositionTask positionTask = new PositionTask();
             positionTask.execute();
-
         }
 
         if (handler == null) {
@@ -254,12 +253,12 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
         // Only turn off get position with GPS. Ok with network...
         if (locMan.isProviderEnabled(GPS_PROVIDER)) {
             locMan.requestLocationUpdates(GPS_PROVIDER, TIME_INTERVAL, GPS_DISTANCE, PositionListener);
-            Log.d("Updateing GPS!", "Update");
+            Log.d(LOG_TAG, "Updating GPS!");
         } else {
-            Log.d("GPS off", "Avst�ngd GPS");
+            Log.d(LOG_TAG, "GPF: off");
             if (locMan.isProviderEnabled(NETWORK_PROVIDER)) {
                 locMan.requestLocationUpdates(NETWORK_PROVIDER, TIME_INTERVAL, GPS_DISTANCE, PositionListener);
-                Log.d("Updateing Position with network!", "Update");
+                Log.d(LOG_TAG, "Updateing Position with network!");
             }
         }
 
@@ -267,18 +266,17 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
         if (location != null) {
             myLat = (float) location.getLatitude();
             myLng = (float) location.getLongitude();
-            Log.d("Find GPS_position", myLat + " " + myLng);
+            Log.d(LOG_TAG, "Find GPS_position: " + myLat + " " + myLng);
         } else {
             location = locMan.getLastKnownLocation(NETWORK_PROVIDER);
             if (location != null) {
                 myLng = (float) location.getLongitude();
                 myLat = (float) location.getLatitude();
-                Log.d("Find Network_position", myLat + " " + myLng);
+                Log.d(LOG_TAG, "Find network_position: " + myLat + " " + myLng);
             } else {
-                Log.d("No GPS or Network position", "FAIL1");
+                Log.d(LOG_TAG, "No GPS or Network position");
             }
         }
-
     }
 
     @Override
@@ -313,7 +311,7 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
                         // values[0] and values[4] are the zoom factors for the image's width and height respectively. If you zoom at the same factor, these should both be the same value.
                         float relativeX = (event.getX() - values[2]) / values[0];
                         float relativeY = (event.getY() - values[5]) / values[4];
-                        Log.d("rel x and y", "x: " + relativeX + " y: " + relativeY);
+                        Log.d(LOG_TAG, "Relative: x: " + relativeX + " y: " + relativeY);
                         // values[2] and values[5] are the x,y coordinates of the top left corner of the drawable image, regardless of the zoom factor.
                         checkClick(relativeX, relativeY);
                     } else {
@@ -322,7 +320,6 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
                 }
                 mode = NONE;
                 // Uppdatera mapen...
-
                 break;
 
             case MotionEvent.ACTION_POINTER_DOWN: // first and second finger down
@@ -367,7 +364,7 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
         int []location = new int[10];
         view.getLocationInWindow(location);
         for(int i = 0;i<location.length;i++) {
-            Log.d("loc"+i,"get: "+location[i]+"");
+            Log.d(LOG_TAG, "loc"+i+" get: "+location[i]+"");
         }
         */
         return true; // indicate event was handled
@@ -489,13 +486,13 @@ public class MapFragment extends LKFragment implements View.OnTouchListener {
         //matrix.postTranslate(mapBitmap.getWidth()/2-x,mapBitmap.getHeight()/2-y);
         // matrix.postTranslate(mapBitmap.getWidth()/2-x,mapBitmap.getHeight()/2-y);
         // draw canvas..
-        Log.d("get","x= "+x+" y= "+y);
-        Log.d("get","relx= "+relativeX+" rely= "+relativeY);
-        Log.d("get","widthx= "+mapBitmap.getWidth()+" widthy= "+mapBitmap.getHeight());
-        Log.d("change:","x: "+(relativeX-x)+" y: "+(mapBitmap.getHeight()/2-y));
-        Log.d("scale"," x: "+values[0]+" y: "+values[4]);
+        Log.d(LOG_TAG, "get: x= "+x+" y= "+y);
+        Log.d(LOG_TAG, "get: relX= "+relativeX+" relY= "+relativeY);
+        Log.d(LOG_TAG, "get: widthX= "+mapBitmap.getWidth()+" widthY= "+mapBitmap.getHeight());
+        Log.d(LOG_TAG, "change: x="+(relativeX-x)+" y="+(mapBitmap.getHeight()/2-y));
+        Log.d(LOG_TAG, "scale: x="+values[0]+" y="+values[4]);
 //        matrix.postTranslate(relativeX-x,relativeY-y);
-        Log.d("width",""+(imageWidth/2));
+        Log.d(LOG_TAG, "width: "+(imageWidth/2));
 
         // trycker jag i mitten så hamnar jag på relx.
         // imageWidth/2/relX
