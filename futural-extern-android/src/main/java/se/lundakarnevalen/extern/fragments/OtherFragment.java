@@ -44,22 +44,27 @@ public class OtherFragment extends LKFragment{
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ContentActivity contentActivity = ContentActivity.class
+                        .cast(getActivity());
                 if(position == 0) {
-                    ContentActivity.class
-                            .cast(getActivity())
-                            .loadFragment(new MusicFragment(), true);
-
+                    contentActivity
+                        .loadFragmentWithAdd(new MusicFragment());
                 } else {
-
-                    ContentActivity.class
-                            .cast(getActivity())
-                            .loadFragment(LandingPageFragment.create("Filip", "Lindqvist", false, true, true, 56.055876056f, 12.9737800f, R.drawable.monk, R.drawable.monk, "VAD ÄR FILIP BRA PÅ?", "ÄTA PIZZA!"), true);
+                    contentActivity
+                        .loadFragmentWithAdd(
+                            LandingPageFragment.create(
+                                "Filip", "Lindqvist",
+                                false, true, true,
+                                56.055876056f, 12.9737800f,
+                                R.drawable.monk, R.drawable.monk,
+                                "VAD ÄR FILIP BRA PÅ?", "ÄTA KEBAB!"));
                 }
-                }
+            }
         });
         return rootView;
-    }private void addElementsToOther() {
     }
+
+    private void addElementsToOther() {}
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {

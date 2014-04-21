@@ -1,23 +1,13 @@
 package se.lundakarnevalen.extern.fragments;
 
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.SimpleAdapter;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
 
 import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
@@ -26,19 +16,9 @@ import se.lundakarnevalen.extern.widget.LKListAdapter;
 /**
  * Created by Markus on 2014-04-16.
  */
-public class FunFragment extends LKFragment{
+public class FunFragment extends LKFragment {
 
     private ArrayList<Fun> fun = new ArrayList<Fun>();
-
-    private static class FunItem {
-        String text1;
-        String text2;
-
-        private FunItem(String text1, String text2) {
-            this.text1 = text1;
-            this.text2 = text2;
-        }
-    }
 
     // Every time you switch to this fragment.
     @Override
@@ -46,7 +26,7 @@ public class FunFragment extends LKFragment{
         View rootView = inflater.inflate(R.layout.fragment_fun, null);
 
         ListView lv = (ListView) rootView.findViewById(R.id.fragment_fun_list);
-        if(fun.isEmpty()) {
+        if (fun.isEmpty()) {
             addAllFun();
         }
 
@@ -68,21 +48,30 @@ public class FunFragment extends LKFragment{
         */
         ArrayList<LKListAdapter.LKListElement> items = new ArrayList<LKListAdapter.LKListElement>();
 
-        for(final Fun f: fun) {
-            items.add(new LKListAdapter.LKListElement(f.picture, f.title,f.place,f.headerPicture));
-
+        for (final Fun f : fun) {
+            items.add(new LKListAdapter.LKListElement(f.picture, f.title, f.place, f.headerPicture));
         }
-        lv.setAdapter(new LKListAdapter(getContext(),items));
+        lv.setAdapter(new LKListAdapter(getContext(), items));
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                 ContentActivity.class
                         .cast(getActivity())
-                        .loadFragment(LandingPageFragment.create(fun.get(position).title,fun.get(position).place,true,true,true,fun.get(position).lat,fun.get(position).lng,fun.get(position).picture,fun.get(position).headerPicture,fun.get(position).question,fun.get(position).info), true);
+                        .loadFragmentWithAdd(
+                                LandingPageFragment.create(
+                                        fun.get(position).title,
+                                        fun.get(position).place,
+                                        true, true, true,
+                                        fun.get(position).lat,
+                                        fun.get(position).lng,
+                                        fun.get(position).picture,
+                                        fun.get(position).headerPicture,
+                                        fun.get(position).question,
+                                        fun.get(position).info)
+                        );
             }
         });
         return rootView;
@@ -93,7 +82,7 @@ public class FunFragment extends LKFragment{
                 getString(R.string.kabare_place),
                 getString(R.string.kabare_title),
                 getString(R.string.kabare_info),
-                55.7042667f,13.193833333333334f,
+                55.7042667f, 13.193833333333334f,
                 R.drawable.monk,
                 R.drawable.header_kabare,
                 getString(R.string.kabare_question)));
@@ -146,20 +135,23 @@ public class FunFragment extends LKFragment{
                 R.drawable.header_kabare,
                 getString(R.string.revy_question)));
 
-
-
-
-
         // add all fun here...
-
     }
-
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
     }
 
+    private static class FunItem {
+        String text1;
+        String text2;
+
+        private FunItem(String text1, String text2) {
+            this.text1 = text1;
+            this.text2 = text2;
+        }
+    }
 
     private class Fun {
         String title;
@@ -184,7 +176,6 @@ public class FunFragment extends LKFragment{
 
 
     }
-
 
 
 }

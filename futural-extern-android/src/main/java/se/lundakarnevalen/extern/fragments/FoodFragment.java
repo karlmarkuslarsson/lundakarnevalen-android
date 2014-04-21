@@ -6,11 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
@@ -19,7 +16,7 @@ import se.lundakarnevalen.extern.widget.LKListAdapter;
 /**
  * Created by Markus on 2014-04-16.
  */
-public class FoodFragment extends LKFragment{
+public class FoodFragment extends LKFragment {
 
 
     private ArrayList<Food> food = new ArrayList<Food>();
@@ -30,7 +27,7 @@ public class FoodFragment extends LKFragment{
         View rootView = inflater.inflate(R.layout.fragment_food, null);
         ListView lv = (ListView) rootView.findViewById(R.id.fragment_food_list);
 
-        if(food.isEmpty()) {
+        if (food.isEmpty()) {
             addAllFood();
         }
 
@@ -52,19 +49,30 @@ public class FoodFragment extends LKFragment{
 
         ArrayList<LKListAdapter.LKListElement> items = new ArrayList<LKListAdapter.LKListElement>();
 
-        for(final Food f: food) {
-            items.add(new LKListAdapter.LKListElement(f.picture, f.title,f.place,f.headerPicture));
+        for (final Food f : food) {
+            items.add(new LKListAdapter.LKListElement(f.picture, f.title, f.place, f.headerPicture));
 
         }
-        lv.setAdapter(new LKListAdapter(getContext(),items));
-
+        lv.setAdapter(new LKListAdapter(getContext(), items));
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ContentActivity.class
-                        .cast(getActivity())
-                        .loadFragment(LandingPageFragment.create(food.get(position).title,food.get(position).place,true,food.get(position).cash,food.get(position).card,food.get(position).lat,food.get(position).lng,food.get(position).picture,food.get(position).headerPicture,food.get(position).question,food.get(position).info), true);
+            ContentActivity.class
+                .cast(getActivity())
+                .loadFragmentWithAdd(
+                    LandingPageFragment.create(
+                        food.get(position).title,
+                        food.get(position).place,
+                        true,
+                        food.get(position).cash,
+                        food.get(position).card,
+                        food.get(position).lat,
+                        food.get(position).lng,
+                        food.get(position).picture,
+                        food.get(position).headerPicture,
+                        food.get(position).question,
+                        food.get(position).info));
             }
         });
         return rootView;
@@ -78,7 +86,7 @@ public class FoodFragment extends LKFragment{
                 55.706362f, 13.195165f,
                 R.drawable.monk,
                 R.drawable.header_kabare,
-                getString(R.string.cocktail_question),true,true));
+                getString(R.string.cocktail_question), true, true));
 
         food.add(new Food(
                 getString(R.string.hipp_baren_place),
@@ -87,7 +95,7 @@ public class FoodFragment extends LKFragment{
                 55.706521f, 13.195431f,
                 R.drawable.monk,
                 R.drawable.header_kabare,
-                getString(R.string.hipp_baren_question),true,true));
+                getString(R.string.hipp_baren_question), true, true));
 
 
         food.add(new Food(
@@ -97,11 +105,7 @@ public class FoodFragment extends LKFragment{
                 55.706841f, 13.196030f,
                 R.drawable.monk,
                 R.drawable.header_kabare,
-                getString(R.string.folkan_question),true,true));
-
-
-
-
+                getString(R.string.folkan_question), true, true));
 
 
         // add all fun here...
@@ -112,7 +116,7 @@ public class FoodFragment extends LKFragment{
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-     }
+    }
 
     private class Food {
         String title;
