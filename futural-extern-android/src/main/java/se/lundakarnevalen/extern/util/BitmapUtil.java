@@ -17,7 +17,7 @@ public class BitmapUtil {
         // Raw height and width of image
         final int height = options.outHeight;
         final int width = options.outWidth;
-        int inSampleSize = 1;
+        int inSampleSize = (height * width > 1500000) ? 2 : 1;
 
         if (height > reqHeight || width > reqWidth) {
 
@@ -32,7 +32,7 @@ public class BitmapUtil {
             }
         }
         Logf.d(LOG_TAG, "sampleSize: %d", inSampleSize);
-        Logf.d(LOG_TAG, "in(%d, %d) => fit(%d, %d)", height, width, reqHeight, reqWidth);
+        Logf.d(LOG_TAG, "orig(%d, %d) => fit(%d, %d)", height, width, reqHeight, reqWidth);
         return inSampleSize;
     }
 
