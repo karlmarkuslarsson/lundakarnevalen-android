@@ -2,11 +2,8 @@
 <resources>
 
     <string name="app_name">Lundakarnevalen</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-    <string name="hello_blank_fragment">Hello blank </string>
+
     <string name="map">MAP</string>
-    <string name="map2">MAP</string>
 
     <!-- right_list -->
     <string name="food">FOOD</string>
@@ -34,9 +31,7 @@
 
     <string name="ipsum">
         Bacon ipsum dolor sit amet cow corned beef pig, biltong swine tri-tip short loin turducken strip steak meatball rump. T-bone doner salami ball tip swine leberkas ground round chuck. Short ribs pork drumstick landjaeger salami venison capicola shank filet mignon boudin. \n\n Jowl venison turducken corned beef short ribs chicken flank hamburger. Shoulder salami strip steak chuck. Pancetta rump kevin leberkas capicola salami kielbasa venison porchetta fatback turkey ham hock sirloin hamburger. Pork chop ground round capicola biltong landjaeger andouille.
-
-Tenderloin ham hock brisket chicken andouille capicola, cow beef ribs sausage. Flank drumstick ham prosciutto, filet mignon chuck tail landjaeger chicken cow shankle. Sausage brisket pork chop, ham turducken chicken meatloaf filet mignon doner. \n\n Chicken leberkas frankfurter shank, jowl ground round spare ribs tri-tip andouille bresaola pastrami brisket ribeye prosciutto. Ground round cow tri-tip doner porchetta ham swine. Frankfurter ribeye shank leberkas, sirloin turducken swine jerky sausage pork loin biltong spare ribs bacon ground round meatloaf.
-
+        Tenderloin ham hock brisket chicken andouille capicola, cow beef ribs sausage. Flank drumstick ham prosciutto, filet mignon chuck tail landjaeger chicken cow shankle. Sausage brisket pork chop, ham turducken chicken meatloaf filet mignon doner. \n\n Chicken leberkas frankfurter shank, jowl ground round spare ribs tri-tip andouille bresaola pastrami brisket ribeye prosciutto. Ground round cow tri-tip doner porchetta ham swine. Frankfurter ribeye shank leberkas, sirloin turducken swine jerky sausage pork loin biltong spare ribs bacon ground round meatloaf.
     </string>
     <string name="open">OPEN</string>
     <string name="closed">CLOSED</string>
@@ -113,7 +108,7 @@ Tenderloin ham hock brisket chicken andouille capicola, cow beef ribs sausage. F
     undergång. Men är det egentligen en slump att det blir just hon? Under tiden som hon
     tvingas vänja sig vid sina nyvunna superkrafter, får vi stifta bekantskap med den nördige
     Filip. I sällskap av hennes nyfunne vän får vi följa våra hjältar genom hackerattacker,
-    biljakter och slutligen i den avgörande kampen mot de onda i Sveriges första superhjältefilm...
+    biljakter och slutligen i den avgörande kampen mot de onda i Sveriges första superhjältefilm…
     </string>
 
     <string name="empty" />
