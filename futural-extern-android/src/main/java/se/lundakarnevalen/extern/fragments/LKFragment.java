@@ -15,6 +15,7 @@ import se.lundakarnevalen.extern.util.Logf;
 
 public class LKFragment extends Fragment {
     private final static String LOG_TAG = LKFragment.class.getSimpleName();
+    private static final boolean DEBUG_LIFECYCLE = false;
     private int onAttachMem;
 
     public static String getAppVersion(Context context) {
@@ -47,20 +48,20 @@ public class LKFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         onAttachMem = getMemUsage();
-        Logf.d(getClass().getSimpleName(), "onAttach(): Free mem: %d MB", onAttachMem);
+        if(DEBUG_LIFECYCLE)Logf.d(getClass().getSimpleName(), "onAttach(): Free mem: %d MB", onAttachMem);
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        Logf.d(getClass().getSimpleName(), "onDetach(): Free mem: %d MB", getMemUsage());
+        if(DEBUG_LIFECYCLE)Logf.d(getClass().getSimpleName(), "onDetach(): Free mem: %d MB", getMemUsage());
     }
 
     @Override
     public void onResume() {
         super.onResume();
         int usage = getMemUsage();
-        Logf.d(getClass().getSimpleName(), "onResume(): Free mem: %d MB (since onAttach: %d MB)", usage, onAttachMem - usage);
+        if(DEBUG_LIFECYCLE)Logf.d(getClass().getSimpleName(), "onResume(): Free mem: %d MB (since onAttach: %d MB)", usage, onAttachMem - usage);
     }
 
     public Context getContext(){

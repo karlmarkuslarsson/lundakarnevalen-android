@@ -10,7 +10,7 @@ import android.util.Log;
  */
 public class BitmapUtil {
 
-    public static final String LOG_TAG = BitmapUtil.class.getName();
+    public static final String LOG_TAG = BitmapUtil.class.getSimpleName();
 
     public static int calculateInSampleSize(
             BitmapFactory.Options options, int reqWidth, int reqHeight) {

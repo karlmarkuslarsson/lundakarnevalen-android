@@ -45,6 +45,7 @@ import static se.lundakarnevalen.extern.util.ViewUtil.*;
 
 public class ContentActivity extends ActionBarActivity {
     public static final String TAG_MAP = "map";
+    public static final String LOG_TAG = ContentActivity.class.getSimpleName();
     private int counterRight = 0;
     private FragmentManager fragmentMgr;
     private LKRightMenuArrayAdapter adapter;
@@ -66,14 +67,18 @@ public class ContentActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content);
         fragmentMgr = getSupportFragmentManager();
-        mapFragment = new MapFragment();
-        loadFragmentWithReplace(mapFragment);
+
+        if(savedInstanceState == null){ // Prevent multiple fragments creations
+            mapFragment = new MapFragment();
+            loadFragmentWithReplace(mapFragment);
+        }
 
         rightMenuList = find(R.id.right_menu_list, ListView.class);
         drawerLayout = find(R.id.drawer_layout, DrawerLayout.class);
         drawerLayout.setScrimColor(Color.TRANSPARENT);
 
         populateBottomMenu(find(R.id.bottom_frame_menu, LinearLayout.class));
+
         //Load populate with delay
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -378,9 +383,10 @@ public class ContentActivity extends ActionBarActivity {
             int oldIdx = Integer.class.cast(selected.getTag(TAG_IDX));
             boolean moveLeft = (newIdx > oldIdx);
 
-            loadFragmentWithReplaceAnimated(f, moveLeft);
             selectItem(newSelection, r);
             deselectItem(r);
+
+            loadFragmentWithReplaceAnimated(f, moveLeft);
 
             this.selected = newSelection;
         }
