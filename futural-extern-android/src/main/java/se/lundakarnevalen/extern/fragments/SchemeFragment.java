@@ -175,6 +175,7 @@ public class SchemeFragment extends LKFragment {
                 LKSchemeAdapter.LKSchemeItem item = new LKSchemeAdapter.LKSchemeItem(e.place, e.title, e.image, e.startDate, e.endDate, activated);
                 listItems.add(item);
             }
+
         } else if (day == 1) {
             for (Event e : saturdayEvents) {
                 LKSchemeAdapter.LKSchemeItem item = new LKSchemeAdapter.LKSchemeItem(e.place, e.title, e.image, e.startDate, e.endDate, activated);
