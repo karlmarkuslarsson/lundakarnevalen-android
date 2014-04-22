@@ -88,6 +88,7 @@ public class ContentActivity extends ActionBarActivity {
         }, 300);
 
         actionBar = setupActionbar();
+
         setupTint();
     }
 
@@ -161,12 +162,12 @@ public class ContentActivity extends ActionBarActivity {
     private void populateBottomMenu(LinearLayout bottomMenu) {
         list = new BottomMenuClickListener();
         AtomicInteger counter = new AtomicInteger(0);
-        createBottomMenuItem(bottomMenu, list, counter, new FunFragment(), R.id.button1, R.string.fun, R.drawable.test_nojen);
-        createBottomMenuItem(bottomMenu, list, counter, new FoodFragment(), R.id.button2, R.string.food, R.drawable.test_spexet);
-        createBottomMenuItem(bottomMenu, list, counter, mapFragment, R.id.button3, R.string.map, R.drawable.test_nojen);
+        createBottomMenuItem(bottomMenu, list, counter, new FunFragment(), R.id.button1, R.string.fun, R.drawable.fun_logo);
+        createBottomMenuItem(bottomMenu, list, counter, new FoodFragment(), R.id.button2, R.string.food, R.drawable.food_logo);
+        createBottomMenuItem(bottomMenu, list, counter, mapFragment, R.id.button3, R.string.map, R.drawable.map_logo);
         // TODO ska vi inte ha mapFragment här? ^
-        createBottomMenuItem(bottomMenu, list, counter, new SchemeFragment(), R.id.button4, R.string.scheme, R.drawable.test_spexet);
-        createBottomMenuItem(bottomMenu, list, counter, new OtherFragment(), R.id.button5, R.string.other, R.drawable.test_nojen);
+        createBottomMenuItem(bottomMenu, list, counter, new SchemeFragment(), R.id.button4, R.string.scheme, R.drawable.scheme_logo);
+        createBottomMenuItem(bottomMenu, list, counter, new OtherFragment(), R.id.button5, R.string.other, R.drawable.other_logo);
         list.first(get(bottomMenu, R.id.button3, ViewGroup.class));
     }
 

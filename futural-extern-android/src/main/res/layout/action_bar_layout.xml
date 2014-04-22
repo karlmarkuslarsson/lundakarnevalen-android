@@ -12,13 +12,17 @@
         android:layout_height="match_parent"
         >
 
-        <ImageView
+        <se.lundakarnevalen.extern.widget.LKActionBarTextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/lundakarnevalen_top"
             android:padding="10dp"
+            android:textSize="30dp"
+
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:text="LUNDAKARNEVALEN"
             />
 
 
