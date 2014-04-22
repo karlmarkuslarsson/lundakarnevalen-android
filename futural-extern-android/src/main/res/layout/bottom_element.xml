@@ -19,11 +19,12 @@
 
     <ImageView
         android:id="@+id/bottom_menu_image"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="30dp"
+        android:layout_width="30dp"
+        android:layout_gravity="center"
         android:paddingRight="4dp"
         android:paddingLeft="4dp"
-        android:paddingTop="4dp"
+        android:paddingTop="10dp"
         android:src="@drawable/test_spexet"
         />
 
@@ -31,7 +32,6 @@
         android:id="@+id/bottom_menu_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="2dp"
         android:paddingLeft="2dp"
         android:paddingRight="2dp"
         android:gravity="center"
