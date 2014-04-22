@@ -107,6 +107,15 @@ public class FoodFragment extends LKFragment {
                 R.drawable.header_kabare,
                 getString(R.string.folkan_question), true, true));
 
+        food.add(new Food(
+                getString(R.string.krog_undervatten_place),
+                getString(R.string.krog_undervatten_title),
+                getString(R.string.krog_undervatten_info),
+                55.705154f, 13.19458f,
+                R.drawable.monk,
+                R.drawable.krog_undervatten_logo,
+                getString(R.string.krog_undervatten_question), true, true));
+
 
         // add all fun here...
 
