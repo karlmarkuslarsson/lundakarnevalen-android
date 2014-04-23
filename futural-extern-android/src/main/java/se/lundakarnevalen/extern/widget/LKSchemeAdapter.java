@@ -60,16 +60,16 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
 
         ImageView heart = (ImageView) wrapper.findViewById(R.id.heart_image);
         if(item.reminder) {
-            heart.setImageResource(android.R.drawable.star_big_on);
+            heart.setImageResource(R.drawable.heart_clicked);
         } else {
-            heart.setImageResource(android.R.drawable.star_big_off);
+            heart.setImageResource(R.drawable.heart_not_clicked);
         }
         heart.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(item.reminder) {
                     item.reminder = false;
-                    ((ImageView)view).setImageResource(android.R.drawable.star_big_off);
+                    ((ImageView)view).setImageResource(R.drawable.heart_not_clicked);
 
                     NotificationManager notificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -92,7 +92,7 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
 
                 } else {
                     item.reminder = true;
-                    ((ImageView)view).setImageResource(android.R.drawable.star_big_on);
+                    ((ImageView)view).setImageResource(R.drawable.heart_clicked);
 
                     //Intent intent = new Intent(this, NotificationReceiverActivity.class);
                     //PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, 0);

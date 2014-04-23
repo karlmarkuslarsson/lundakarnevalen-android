@@ -4,7 +4,7 @@
     tools:context="se.lundakarnevalen.extern.fragments.SchemeFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/transparent">
+    android:background="@drawable/background_scheme">
 
         <RelativeLayout
             android:id="@+id/heartText"
@@ -14,7 +14,7 @@
             android:layout_centerHorizontal="true"
             android:background="@color/white"
             >
-        <TextView
+        <ImageView
             android:id="@+id/myHeart"
             android:layout_centerVertical="true"
             android:textSize="20dp"
@@ -22,9 +22,8 @@
             android:layout_height="26dp"
             android:layout_marginLeft="4dp"
             android:paddingBottom="1dp"
-            android:textColor="@color/red"
             android:gravity="center"
-            android:text="@string/heart"/>
+            android:src="@drawable/my_heart"/>
 
         <se.lundakarnevalen.extern.widget.LKTextView
             android:layout_centerHorizontal="true"
@@ -138,7 +137,7 @@
         android:layout_height="fill_parent"
         android:layout_below="@id/day"
         android:layout_toRightOf="@id/left_arrow"
-        android:background="@color/blue_green"
+        android:background="@color/white"
         >
     </RelativeLayout>
 

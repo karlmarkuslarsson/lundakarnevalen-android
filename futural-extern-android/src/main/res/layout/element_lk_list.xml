@@ -4,55 +4,57 @@
     android:layout_width="match_parent"
     android:layout_height="120dp"
     android:padding="10dp"
+    android:weightSum="2"
     tools:context=".ContentActivity">
     <!-- ^ Wrapper Layout to create margin between elements -->
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/scheme_element">
-
+        android:layout_weight="1">
         <ImageView
-            android:src="@drawable/monk"
-            android:scaleType="centerCrop"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <ImageView
-            android:id="@+id/image"
+            android:id="@+id/image1"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
+            android:layout_centerHorizontal="true"
             android:src="@drawable/test_nojen"
             android:contentDescription="@string/content_desc_image" />
+        <se.lundakarnevalen.extern.widget.LKTextView
+            android:id="@+id/text1"
 
-        <LinearLayout
-            android:id="@+id/desc"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/image"
-            android:orientation="vertical">
-
-            <se.lundakarnevalen.extern.widget.LKTextView
-                android:id="@+id/text1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="REVYN"
-                android:textColor="@color/white"
-                android:textSize="24dp" />
-
-            <se.lundakarnevalen.extern.widget.LKTextView
-                android:id="@+id/text2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="AG-BORGEN"
-                android:textColor="@color/white"
-                android:textSize="10dp"
-                android:textStyle="bold" />
-        </LinearLayout>
+            android:text="REVYN"
+            android:layout_below="@id/image1"
+            android:textColor="@color/white"
+            android:textSize="18dp" />
 
     </RelativeLayout>
-</LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+        <ImageView
+            android:id="@+id/image2"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:contentDescription="@string/content_desc_image" />
+        <se.lundakarnevalen.extern.widget.LKTextView
+            android:id="@+id/text2"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="REVYN"
+            android:layout_below="@id/image2"
+            android:textColor="@color/white"
+            android:textSize="18dp" />
+
+    </RelativeLayout>
+ </LinearLayout>

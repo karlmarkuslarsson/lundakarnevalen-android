@@ -91,7 +91,7 @@
             android:layout_marginRight="10dp"
             android:layout_alignParentRight="true"
             android:padding="6dp"
-            android:src="@android:drawable/star_big_on"
+            android:src="@drawable/heart_clicked"
             />
 </RelativeLayout>
 
