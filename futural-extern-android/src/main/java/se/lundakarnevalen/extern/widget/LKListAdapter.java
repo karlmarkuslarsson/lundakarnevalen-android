@@ -23,7 +23,7 @@ import se.lundakarnevalen.extern.fragments.MusicFragment;
 /**
  * Created by Markus on 2014-04-20.
  */
-public class LKListAdapter extends ArrayAdapter<LKListAdapter.LKListRow> {
+public class LKListAdapter extends ArrayAdapter<LKListRow> {
     private final Context context;
     private Activity activity;
 
@@ -36,7 +36,7 @@ public class LKListAdapter extends ArrayAdapter<LKListAdapter.LKListRow> {
 
     @Override
     public View getView(int pos, View convertView, ViewGroup parent) {
-        final LKListRow item = getItem(pos);
+        LKListRow item = getItem(pos);
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.element_lk_list, parent, false);
@@ -61,42 +61,6 @@ public class LKListAdapter extends ArrayAdapter<LKListAdapter.LKListRow> {
 
     }
 
-    public static class LKListRow {
-        String name;
-        String place;
-        int header;
-        int image;
-        String name1;
-        int image1;
-        String name2;
-        int image2;
-        LKListElement element1;
-        LKListElement element2;
-        boolean isFun = false;
-
-
-        public LKListRow(int image1, String name1, int image2, String name2) {
-            this.image1 = image1;
-            this.name1 = name1;
-            this.image2 = image2;
-            this.name2 = name2;
-            this.place = place;
-            this.header = header;
-        }
-
-        public LKListRow(LKListElement element1, LKListElement element2) {
-            this.element1 = element1;
-            this.element2 = element2;
-
-        }
-
-        public LKListRow(int image, String name, String place, int header) {
-            this.image = image;
-            this.name = name;
-            this.place = place;
-            this.header = header;
-        }
-    }
 
     private class ItemListener implements View.OnClickListener {
         LKListElement element;
@@ -113,10 +77,10 @@ public class LKListAdapter extends ArrayAdapter<LKListAdapter.LKListRow> {
                 view.setAlpha(0.5f);
             }
             ContentActivity contentActivity = ContentActivity.class.cast(activity);
-            if (element.isMusic) {
+            if (element.type == LKListElementType.RADIO) {
                 contentActivity.loadFragmentWithAdd(new MusicFragment());
 
-            } else if (element.isOther) {
+            } else if (element.type == LKListElementType.OTHER) {
                      /*
                     contentActivity.loadFragmentWithAdd(
                                     MapFragment.create(
@@ -127,7 +91,7 @@ public class LKListAdapter extends ArrayAdapter<LKListAdapter.LKListRow> {
                                             "VAD ÄR FILIP BRA PÅ?", "ÄTA KEBAB!"));
                     */
 
-            } else {
+            } else if (element.type == LKListElementType.FUN) {
 
                 contentActivity.loadFragmentWithAdd(
                         LandingPageFragment.create(
@@ -139,7 +103,22 @@ public class LKListAdapter extends ArrayAdapter<LKListAdapter.LKListRow> {
                                 element.picture,
                                 element.headerPicture,
                                 element.question,
-                                element.info)
+                                element.info,
+                                1)
+                );
+            } else {
+                contentActivity.loadFragmentWithAdd(
+                        LandingPageFragment.create(
+                                element.title,
+                                element.place,
+                                true, true, true,
+                                element.lat,
+                                element.lng,
+                                element.picture,
+                                element.headerPicture,
+                                element.question,
+                                element.info,
+                                2)
                 );
             }
 

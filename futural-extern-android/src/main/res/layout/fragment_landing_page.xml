@@ -64,18 +64,12 @@
             />
 
     </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/header_background"
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:layout_below="@id/header"
-        android:background="@color/bottom_menu_shadow">
-</RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/middleLayout"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:layout_below="@id/header_background"
+            android:layout_below="@id/header"
             android:background="@color/light_red">
 
             <LinearLayout
@@ -97,10 +91,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:background="@color/blue_green"
+                    android:background="@color/green_button_background"
                     >
                     <se.lundakarnevalen.extern.widget.LKTextView
-                        android:text="ÖPPET"
+                        android:text="@string/OPEN"
                         android:id="@+id/open_info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -147,6 +141,9 @@
                         android:layout_below="@id/cash_picture"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/cash_picture"
+                        android:layout_alignRight="@+id/cash_picture"
+                        android:gravity="center"
                         android:textColor="@color/white"
                         android:textSize="8dp"
 
@@ -177,8 +174,11 @@
                         android:id="@+id/open_info"
                         android:layout_marginTop="1dp"
                         android:layout_below="@id/card_picture"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_alignLeft="@+id/card_picture"
+                        android:layout_alignRight="@+id/card_picture"
                         android:textColor="@color/white"
                         android:textSize="8dp"
 
@@ -198,26 +198,39 @@
                     >
 
                     <ImageView
-                        android:layout_marginTop="12dp"
-                        android:id="@+id/map_picture"
+                        android:id="@+id/map_shadow"
                         android:layout_width="60dp"
+                        android:layout_height="3dp"
                         android:layout_centerHorizontal="true"
-                        android:layout_height="match_parent"
-
-                        android:background="@color/white"/>
+                        android:layout_alignParentBottom="true"                        android:background="@drawable/scheme_shadow"
+                        />
 
                     <se.lundakarnevalen.extern.widget.LKTextView
                         android:text="@string/to_map"
                         android:id="@+id/map_info"
-                        android:layout_width="wrap_content"
-                        android:layout_alignLeft="@id/map_picture"
+                        android:layout_width="match_parent"
+                        android:layout_alignLeft="@id/map_shadow"
+                        android:layout_alignRight="@id/map_shadow"
+                        android:gravity="center"
                         android:layout_height="wrap_content"
-                        android:layout_above="@id/map_picture"
                         android:textColor="@color/white"
                         android:textSize="8dp"
-                        android:layout_marginBottom="6dp"
 
                         />
+
+                    <ImageView
+                        android:layout_marginTop="2dp"
+                        android:id="@+id/map_picture"
+                        android:layout_width="match_parent"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignLeft="@id/map_shadow"
+                        android:layout_alignRight="@id/map_shadow"
+                        android:layout_height="match_parent"
+                        android:layout_below="@id/map_info"
+                        android:layout_above="@id/map_shadow"
+                        android:background="@color/white"/>
+
+
 
 
                 </RelativeLayout>
@@ -226,15 +239,13 @@
 
             </RelativeLayout>
         </LinearLayout>
-
-
-</RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/middleLayoutShadow"
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:layout_below="@id/middleLayout"
-        android:background="@color/light_gray">
+            <ImageView
+                android:id="@+id/header_background"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/scheme_shadow">
+            </ImageView>
 
 </RelativeLayout>
 
@@ -258,7 +269,7 @@
         android:id="@+id/bottom_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/middleLayoutShadow"
+        android:layout_below="@id/middleLayout"
 
         android:background="@color/white">
         <se.lundakarnevalen.extern.widget.LKTextView
@@ -286,6 +297,14 @@
             android:lineSpacingMultiplier="1.1"
             />
 
+        <ImageView
+            android:id="@+id/middleLayoutShadow"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/scheme_shadow">
+
+        </ImageView>
 
     </RelativeLayout>
     <RelativeLayout
