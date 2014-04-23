@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_food"
-    tools:context="se.lundakarnevalen.extern.fragments.MapFragment">
+    tools:context="se.lundakarnevalen.extern.fragments.FoodFragment">
 
     <ListView
         android:id="@+id/fragment_food_list"

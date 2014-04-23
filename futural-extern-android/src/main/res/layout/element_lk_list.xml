@@ -30,7 +30,7 @@
             android:text="REVYN"
             android:layout_below="@id/image1"
             android:textColor="@color/white"
-            android:textSize="18dp" />
+            android:textSize="13sp" />
 
     </RelativeLayout>
     <RelativeLayout
@@ -54,7 +54,7 @@
             android:text="REVYN"
             android:layout_below="@id/image2"
             android:textColor="@color/white"
-            android:textSize="18dp" />
+            android:textSize="13sp" />
 
     </RelativeLayout>
  </LinearLayout>

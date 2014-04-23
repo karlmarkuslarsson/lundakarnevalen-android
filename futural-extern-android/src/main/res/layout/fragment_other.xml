@@ -3,11 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_other"
+    
     tools:context="se.lundakarnevalen.extern.fragments.MapFragment">
 
     <ListView
-        android:id="@+id/fragment_other_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+    android:id="@+id/fragment_other_list"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:divider="@null"
+    android:dividerHeight="0dp"
+    android:listSelector="@color/transparent">
+
+    </ListView>
+
 
 </FrameLayout>

@@ -188,4 +188,10 @@ karnevalistisk femstjärning meny för 70 kr!\n\n
     <string name="stop">STOPPA</string>
     <string name="content_desc_image">image</string>
     <string name="lundakarnevalen_actionbar">LUNDAKARNEVALEN</string>
+    <string name="radio_title">RADIO</string>
+    <string name="security_title">SECURITY</string>
+    <string name="atm_title">ATMS</string>
+    <string name="parking_title">PARKING</string>
+    <string name="care_title">CARE</string>
+    <string name="toilets_title">TOILETS</string>
 </resources>

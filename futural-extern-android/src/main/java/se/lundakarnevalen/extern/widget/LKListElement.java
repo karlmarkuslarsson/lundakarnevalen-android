@@ -12,6 +12,8 @@ public class LKListElement {
     public int picture;
     public String question;
     public String info;
+    public boolean isMusic = false;
+    public boolean isOther = false;
 
     public LKListElement(String place, String title, String info, float lat, float lng, int headerPicture, int picture, String question) {
         this.place = place;
