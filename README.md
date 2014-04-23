@@ -28,7 +28,7 @@ Nöjen
     
     Dansen        -> Landningssida    -> (Karta)
 
-Mat 
+Mat
   Krog1           ->Landningssida    ->(Karta)
   
   Krog2           ->Landningssida    ->(Karta)
