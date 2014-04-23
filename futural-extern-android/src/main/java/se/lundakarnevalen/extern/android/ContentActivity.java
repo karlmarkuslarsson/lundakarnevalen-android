@@ -256,24 +256,24 @@ public class ContentActivity extends ActionBarActivity {
                 .isStatic(true,inflater.inflate(R.layout.menu_header, null));
         listItems.add(header);
 
-        LKRightMenuListItem foodItem = new LKRightMenuListItem(getString(R.string.food),0, MarkerType.FOOD);
+        LKRightMenuListItem foodItem = new LKRightMenuListItem(getString(R.string.food),R.drawable.food_logo, MarkerType.FOOD);
         foodItem.setOnClickListener(new MenuClickSelector(foodItem));
         listItems.add(foodItem);
         rightMenuItems.add(foodItem);
 
 
-        LKRightMenuListItem funItem = new LKRightMenuListItem(getString(R.string.fun),0, MarkerType.FUN);
+        LKRightMenuListItem funItem = new LKRightMenuListItem(getString(R.string.fun),R.drawable.fun_logo, MarkerType.FUN);
         funItem.setOnClickListener(new MenuClickSelector(funItem));
         listItems.add(funItem);
         rightMenuItems.add(funItem);
 
 
-        LKRightMenuListItem helpItem = new LKRightMenuListItem(getString(R.string.help),0, MarkerType.HELP);
+        LKRightMenuListItem helpItem = new LKRightMenuListItem(getString(R.string.help),R.drawable.help_logo, MarkerType.HELP);
         helpItem.setOnClickListener(new MenuClickSelector(helpItem));
         listItems.add(helpItem);
         rightMenuItems.add(helpItem);
 
-        LKRightMenuListItem wcItem = new LKRightMenuListItem(getString(R.string.wc),0, MarkerType.WC);
+        LKRightMenuListItem wcItem = new LKRightMenuListItem(getString(R.string.wc),R.drawable.wc_logo, MarkerType.WC);
         wcItem.setOnClickListener(new MenuClickSelector(wcItem));
         listItems.add(wcItem);
         rightMenuItems.add(wcItem);
