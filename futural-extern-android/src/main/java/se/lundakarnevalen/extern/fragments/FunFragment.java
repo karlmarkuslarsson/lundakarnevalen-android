@@ -92,7 +92,7 @@ public class FunFragment extends LKFragment {
                 getString(R.string.filmen_info),
                 55.7059389f, 13.194805555555556f,
                 R.drawable.monk,
-                R.drawable.header_kabare,
+                R.drawable.filmen_logo,
                 getString(R.string.filmen_question)));
         fun.add(new Fun(
                 getString(R.string.barneval_place),
@@ -108,7 +108,7 @@ public class FunFragment extends LKFragment {
                 getString(R.string.cirkus_info),
                 55.7048333f, 13.195352777777778f,
                 R.drawable.monk,
-                R.drawable.header_kabare,
+                R.drawable.cirkusen_logo,
                 getString(R.string.cirkus_question)));
         fun.add(new Fun(
                 getString(R.string.spexet_place),
@@ -116,7 +116,7 @@ public class FunFragment extends LKFragment {
                 getString(R.string.spexet_info),
                 55.7054111f, 13.195491666666667f,
                 R.drawable.monk,
-                R.drawable.header_kabare,
+                R.drawable.spexet_logo,
                 getString(R.string.spexet_question)));
         fun.add(new Fun(
                 getString(R.string.showen_place),
@@ -132,7 +132,7 @@ public class FunFragment extends LKFragment {
                 getString(R.string.revy_info),
                 55.705775f, 13.193555555555555f,
                 R.drawable.monk,
-                R.drawable.header_kabare,
+                R.drawable.revyn_logo,
                 getString(R.string.revy_question)));
 
         // add all fun here...

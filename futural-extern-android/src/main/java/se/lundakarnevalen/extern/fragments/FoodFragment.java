@@ -113,7 +113,7 @@ public class FoodFragment extends LKFragment {
                 getString(R.string.krog_undervatten_info),
                 55.705154f, 13.19458f,
                 R.drawable.monk,
-                R.drawable.krog_undervatten_logo,
+                R.drawable.undervatten_logo,
                 getString(R.string.krog_undervatten_question), true, true));
 
 

@@ -118,7 +118,7 @@
                         android:layout_height="10dp"
                         android:paddingLeft="3dp"
                         android:paddingTop="3dp"
-                        android:background="@color/white"/>
+                        android:background="@drawable/cash_logo"/>
 
                     <se.lundakarnevalen.extern.widget.LKTextView
                         android:text="@string/cash"
@@ -151,7 +151,7 @@
                         android:layout_height="10dp"
                         android:paddingRight="3dp"
                         android:paddingTop="3dp"
-                        android:background="@color/white"/>
+                        android:background="@drawable/card_logo"/>
                     <se.lundakarnevalen.extern.widget.LKTextView
                         android:text="@string/card"
                         android:id="@+id/open_info"
