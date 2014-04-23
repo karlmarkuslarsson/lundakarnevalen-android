@@ -17,9 +17,8 @@
         <ImageView
             android:id="@+id/myHeart"
             android:layout_centerVertical="true"
-            android:textSize="20dp"
-            android:layout_width="20dp"
-            android:layout_height="26dp"
+            android:layout_width="14dp"
+            android:layout_height="22dp"
             android:layout_marginLeft="4dp"
             android:paddingBottom="1dp"
             android:gravity="center"
@@ -51,22 +50,29 @@
         android:id="@+id/left_arrow"
         android:layout_width="60dp"
         android:layout_height="50dp"
-        android:layout_below="@id/heartText"
-        android:background="@drawable/transparentbluegreen_bg_bottom_shadow">
+        android:layout_below="@id/heartText">
 
         <se.lundakarnevalen.extern.widget.LKTextView
             android:id="@+id/left_arrow_text"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_alignParentBottom="true"
-
+            android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:text="@string/scheme_left"
             android:textStyle="normal"
             android:gravity="center"
-            android:textColor="#FFF"
+            android:textColor="@color/red"
             android:textSize="30sp"
-            android:background="@drawable/bluegreen_bg_bottom_shadow"/>
+            android:background="@color/white"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_below="@id/left_arrow_text"
+            android:background="@drawable/scheme_shadow"
+            android:layout_alignLeft="@id/left_arrow_text"
+            android:layout_alignRight="@id/left_arrow_text"
+            />
 
     </RelativeLayout>
 
@@ -75,22 +81,29 @@
         android:layout_width="60dp"
         android:layout_height="50dp"
         android:layout_below="@id/heartText"
-        android:layout_alignParentRight="true"
-        android:background="@drawable/transparentbluegreen_bg_bottom_shadow">
+        android:layout_alignParentRight="true">
 
         <se.lundakarnevalen.extern.widget.LKTextView
             android:id="@+id/right_arrow_text"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_alignParentBottom="true"
+            android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:text="@string/scheme_right"
             android:gravity="center"
             android:textStyle="normal"
-            android:textColor="#FFF"
+            android:textColor="@color/red"
             android:textSize="30sp"
-            android:background="@drawable/bluegreen_bg_bottom_shadow"/>
+            android:background="@color/white"/>
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_below="@id/right_arrow_text"
+            android:background="@drawable/scheme_shadow"
+            android:layout_alignLeft="@id/right_arrow_text"
+            android:layout_alignRight="@id/right_arrow_text"
+            />
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/day"
@@ -99,9 +112,8 @@
         android:layout_toRightOf="@id/left_arrow"
         android:layout_toLeftOf="@id/right_arrow"
         android:layout_below="@id/heartText"
-        android:background="@drawable/bluegreen_bg_bottom_shadow"
+        android:background="@color/white"
         >
-
 
 
 
@@ -114,7 +126,7 @@
         android:layout_marginBottom="3dp"
         android:gravity="center"
         android:textSize="32dp"
-        android:textColor="@color/white"
+        android:textColor="@color/red"
         android:text="@string/saturday"
 
         />
@@ -128,7 +140,7 @@
         android:layout_alignLeft="@id/heartText"
         android:layout_alignRight="@id/heartText"
         android:layout_below="@id/heartText"
-        android:background="#64A18A"
+        android:background="#CCCCCC"
         >
     </RelativeLayout>
 
@@ -149,5 +161,14 @@
         android:layout_height="match_parent">
 
     </android.support.v4.view.ViewPager>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_below="@id/day"
+        android:background="@drawable/scheme_shadow"
+        android:layout_alignLeft="@id/day"
+        android:layout_alignRight="@id/day"
+        />
 
 </RelativeLayout>
