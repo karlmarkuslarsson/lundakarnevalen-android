@@ -23,7 +23,6 @@
         <include layout="@layout/bottom_element" android:id="@+id/button4"/>
         <include layout="@layout/bottom_element" android:id="@+id/button5"/>
     </LinearLayout>
-
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
@@ -49,4 +48,10 @@
             android:layout_above="@id/bottom_frame_menu" />
 
     </android.support.v4.widget.DrawerLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@drawable/scheme_shadow"/>
+
 </RelativeLayout>

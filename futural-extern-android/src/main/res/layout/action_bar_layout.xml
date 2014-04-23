@@ -18,26 +18,15 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:padding="10dp"
-            android:textSize="30dp"
+            android:textSize="34dp"
 
             android:gravity="center"
             android:textColor="@color/white"
-            android:text="LUNDAKARNEVALEN"
+            android:text="@string/lundakarnevalen_actionbar"
             />
 
 
     </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/actionBarShadow"
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:background="@color/bottom_menu_shadow"
-        android:layout_alignParentBottom="true"
-
-        >
-
-        </RelativeLayout>
 
 
 </RelativeLayout>

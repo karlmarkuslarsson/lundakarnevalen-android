@@ -177,5 +177,6 @@ karnevalistisk femstjärning meny för 70 kr!\n\n
     <string name="krog_undervatten_place" />
     <string name="krog_undervatten_title">KROG UNDERVATTEN</string>
     <string name="krog_undervatten_question">VAD ÄR KROG UNDERVATTEN?</string>
+    <string name="lundakarnevalen_actionbar">LUNDAKARNEVALEN</string>
 
 </resources>

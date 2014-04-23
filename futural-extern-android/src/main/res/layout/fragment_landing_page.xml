@@ -97,14 +97,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/bluegreenred_bg_bottom_shadow"
+                    android:background="@color/blue_green"
                     >
                     <se.lundakarnevalen.extern.widget.LKTextView
                         android:text="ÖPPET"
                         android:id="@+id/open_info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingBottom="6dp"
+                        android:paddingBottom="3dp"
                         android:paddingTop="3dp"
                         android:paddingLeft="12dp"
                         android:paddingRight="12dp"
@@ -116,11 +116,20 @@
 
                 </RelativeLayout>
 
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:layout_alignLeft="@id/open_box"
+                    android:layout_alignRight="@id/open_box"
+                    android:layout_below="@id/open_box"
+                    android:background="@drawable/scheme_shadow"
+                    />
+
                 <RelativeLayout
                     android:id="@+id/cash_box"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
+                    android:layout_marginTop="6dp"
                     android:layout_below="@id/open_box">
 
                     <ImageView
@@ -152,7 +161,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignRight="@id/open_box"
-                    android:layout_marginTop="3dp"
+                    android:layout_marginTop="6dp"
                     android:layout_below="@id/open_box"
 
                     >
@@ -185,6 +194,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/open_box"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     >
 
                     <ImageView
@@ -193,7 +203,6 @@
                         android:layout_width="60dp"
                         android:layout_centerHorizontal="true"
                         android:layout_height="match_parent"
-                        android:layout_marginBottom="10dp"
 
                         android:background="@color/white"/>
 
