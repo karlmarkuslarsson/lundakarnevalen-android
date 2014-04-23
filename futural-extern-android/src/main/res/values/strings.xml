@@ -134,6 +134,34 @@
     <string name="hipp_baren_title">HIPP I BAREN</string>
     <string name="hipp_baren_info">Drinkar: karnevöl, cider, läsk och eventuellt vin.\n\nMat: Ej mat\n\nBetalning: kort och kontant. DOCK, cash is king!</string>
 
+    <string name="krog_lajka_info">
+    Med härlig atmosfär och en stor uteservering mitt i karnevalens kaos skapar Krog Lajka ditt
+        perfekta karnevalshäng! Kom till oss och ät god mat, släck törsten med en svalkande
+        karnevöl och slå dig ner på karnevalens bästa plats: mitt framför stora scenen.\n\n
+    Betalning: Kort och kontant (har inte hört något om futuralbetal, men tror inte att vi kommer att ha det)\n\n
+    Serverar: öl, vin och cider
+    </string>
+
+    <string name="krog_undervatten_info">
+    Öppet: 12-01\n\n
+    Betalning: kort, kontant, vet inget om futuralbetal
+    </string>
+
+<string name="krog_thyme_info">
+    Öppet: 14-02\n\n
+    Café Athen i AF-borgen kommer du mellan 14 och 2 finna tidsmaskinen som
+ tar dig på en kulinarisk tidsresa som kryddar din karnevalsupplevelse.\n\n
+ Dagen börjar med en 50-tals amerikansk diner och i högtalarna spelas
+tidstypisk musik På kvällen kröker vi tid och rum och svirar om till en
+bar i sann studio 54 anda. Räkna med att vi alltid kommer leverera en
+karnevalistisk femstjärning meny för 70 kr!\n\n
+    Betalning: kort och kontant\n\n
+    Serverar: Alkohol
+    </string>
+    <string name="krog_undervatten_place" />
+    <string name="krog_undervatten_title">KROG UNDERVATTEN</string>
+    <string name="krog_undervatten_question">WHAT IS KROG UNDERVATTEN?</string>
+
     <string name="empty" />
     <string name="folkan_question">VAD FINNS PÅ FOLKAN?</string>
     <string name="folkan_place">FOODSTOCK</string>
