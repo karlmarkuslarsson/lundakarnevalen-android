@@ -21,6 +21,17 @@
             android:src="@drawable/monk"
             android:id="@+id/header_background"
             />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/header_clouds"
+            android:id="@+id/header_background"
+            android:layout_marginBottom="3dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
         <se.lundakarnevalen.extern.widget.LKTextView
             android:text="AF-BORGEN"
             android:id="@+id/place"
@@ -115,7 +126,7 @@
                     <ImageView
                         android:id="@+id/cash_picture"
                         android:layout_width="24dp"
-                        android:layout_height="10dp"
+                        android:layout_height="12dp"
                         android:paddingLeft="3dp"
                         android:paddingTop="3dp"
                         android:background="@drawable/cash_logo"/>
@@ -148,7 +159,7 @@
                     <ImageView
                         android:id="@+id/card_picture"
                         android:layout_width="24dp"
-                        android:layout_height="10dp"
+                        android:layout_height="12dp"
                         android:paddingRight="3dp"
                         android:paddingTop="3dp"
                         android:background="@drawable/card_logo"/>
