@@ -2,6 +2,8 @@ package se.lundakarnevalen.extern.widget;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.PorterDuff;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -107,7 +109,9 @@ public class LKListAdapter extends ArrayAdapter<LKListAdapter.LKListRow> {
 
         @Override
         public void onClick(View view) {
-
+            if(Build.VERSION.SDK_INT >= 11) {
+                view.setAlpha(0.5f);
+            }
             ContentActivity contentActivity = ContentActivity.class.cast(activity);
             if (element.isMusic) {
                 contentActivity.loadFragmentWithAdd(new MusicFragment());

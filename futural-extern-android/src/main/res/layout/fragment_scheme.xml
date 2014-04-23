@@ -19,7 +19,7 @@
             android:layout_centerVertical="true"
             android:layout_width="14dp"
             android:layout_height="22dp"
-            android:layout_marginLeft="4dp"
+            android:layout_marginLeft="8dp"
             android:paddingBottom="1dp"
             android:gravity="center"
             android:src="@drawable/my_heart"/>
@@ -32,11 +32,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="4dp"
-            android:paddingRight="4dp"
+            android:paddingRight="8dp"
             android:paddingTop="8dp"
-            android:paddingBottom="8dp"
+            android:paddingBottom="6dp"
             android:gravity="center"
-            android:textSize="10dp"
+            android:textSize="8sp"
             android:textColor="@color/red"
             android:text="@string/my_scheme"/>
         </RelativeLayout>
@@ -48,21 +48,20 @@
 
     <RelativeLayout
         android:id="@+id/left_arrow"
-        android:layout_width="60dp"
+        android:layout_width="70dp"
         android:layout_height="50dp"
         android:layout_below="@id/heartText">
 
         <se.lundakarnevalen.extern.widget.LKTextView
             android:id="@+id/left_arrow_text"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:text="@string/scheme_left"
             android:textStyle="normal"
+            android:layout_centerInParent="true"
             android:gravity="center"
+            android:textSize="25sp"
             android:textColor="@color/red"
-            android:textSize="30sp"
             android:background="@color/white"/>
 
         <ImageView
@@ -78,22 +77,21 @@
 
     <RelativeLayout
         android:id="@+id/right_arrow"
-        android:layout_width="60dp"
+        android:layout_width="70dp"
         android:layout_height="50dp"
         android:layout_below="@id/heartText"
         android:layout_alignParentRight="true">
 
         <se.lundakarnevalen.extern.widget.LKTextView
             android:id="@+id/right_arrow_text"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:text="@string/scheme_right"
-            android:gravity="center"
             android:textStyle="normal"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:textSize="25sp"
             android:textColor="@color/red"
-            android:textSize="30sp"
             android:background="@color/white"/>
 
         <ImageView
@@ -123,7 +121,6 @@
         android:id="@+id/dayText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="3dp"
         android:gravity="center"
         android:textSize="32dp"
         android:textColor="@color/red"
@@ -148,7 +145,7 @@
         android:layout_width="3dp"
         android:layout_height="match_parent"
         android:layout_below="@id/day"
-        android:layout_marginLeft="60dp"
+        android:layout_marginLeft="70dp"
         android:background="@color/white"
         >
     </RelativeLayout>
