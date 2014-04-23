@@ -47,6 +47,7 @@ public class SVGMapView extends View implements View.OnTouchListener {
     private SVG svg = null;
     private Rect r = new Rect();
     private Picture pic = new Picture();
+    private Timer timer = new Timer();
 
     public SVGMapView(Context context) {
         super(context);
@@ -92,7 +93,6 @@ public class SVGMapView extends View implements View.OnTouchListener {
                 } else {
 
                     if ((start.x - event.getX()) * (start.x - event.getX()) + (start.y - event.getY()) * (start.y - event.getY()) < 10) {
-
                         float[] values = new float[9];
                         matrix.getValues(values);
                         // values[2] and values[5] are the x,y coordinates of the top left corner of the drawable image, regardless of the zoom factor.
@@ -150,17 +150,15 @@ public class SVGMapView extends View implements View.OnTouchListener {
     }
 
 
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
-        canvas.concat(matrix);
+        timer.reset();
+        canvas.setMatrix(matrix);
         canvas.getClipBounds(r);
-
-        if(svg == null) return;
-
-        svg.renderToCanvas(canvas);
-        Log.d(LOG_TAG, "draw(): " + r + "> "+(System.currentTimeMillis()-1398256710000L));
+        canvas.drawPicture(pic);
+        timer.tick(LOG_TAG, "draw(): " + r);
     }
 
     /**
@@ -189,7 +187,18 @@ public class SVGMapView extends View implements View.OnTouchListener {
         this.svg = svg;
         Timer t = new Timer();
         this.pic = svg.renderToPicture();
+        float initScale = getWidth() * 1.0f / pic.getWidth();
+        this.matrix.setScale(initScale, initScale);
         t.tick(LOG_TAG, "renderToPicture("+ w +" ,"+ h +")");
         postInvalidate();
+    }
+
+    public void setMatrixValues(float[] floatArray) {
+        matrix.setValues(floatArray);
+    }
+    public float[] getMatrixValues(){
+        float[] floats = new float[9];
+        matrix.getValues(floats);
+        return floats;
     }
 }

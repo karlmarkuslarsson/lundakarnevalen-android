@@ -9,6 +9,10 @@ public class Timer {
     private long start;
 
     public Timer() {
+        reset();
+    }
+
+    public void reset() {
         this.start = System.currentTimeMillis();
     }
 

@@ -6,6 +6,7 @@
 
     <se.lundakarnevalen.extern.widget.SVGMapView
         android:id="@+id/map_id"
+        android:layerType="software"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

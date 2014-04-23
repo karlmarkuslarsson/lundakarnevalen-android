@@ -45,6 +45,9 @@ import static android.location.LocationManager.NETWORK_PROVIDER;
 public class MapFragment extends LKFragment {
 
     private static final String LOG_TAG = MapFragment.class.getSimpleName();
+    public static final String STATE_MATRIX = "matrix";
+
+    public static SVG staticCache;
 
     private int dip;
     private int imageWidth;
@@ -65,22 +68,40 @@ public class MapFragment extends LKFragment {
         }
 
         img = ((SVGMapView) rootView.findViewById(R.id.map_id));
-        new AsyncTask<Void, Void, Void>(){
-            @Override
-            protected Void doInBackground(Void... params) {
-                try {
-                    Timer t = new Timer();
-                    SVG svg = SVG.getFromResource(inflater.getContext(), R.raw.map3);
-                    img.setSvg(svg, imageWidth, imageHeight, dip);
-                    t.tick(LOG_TAG, "getFromResource()");
-                } catch (SVGParseException e) {
-                    Log.wtf(LOG_TAG, "This wont happen");
+        if(staticCache == null){
+            new AsyncTask<Void, Void, Void>(){
+                @Override
+                protected Void doInBackground(Void... params) {
+                    try {
+                        Timer t = new Timer();
+                        SVG svg = staticCache = SVG.getFromResource(inflater.getContext(), R.raw.map3);
+                        img.setSvg(svg, imageWidth, imageHeight, dip);
+                        t.tick(LOG_TAG, "getFromResource()");
+                    } catch (SVGParseException e) {
+                        Log.wtf(LOG_TAG, "This wont happen");
+                    }
+                    return null;
                 }
-                return null;
-            }
-        }.execute();
+            }.execute();
+        } else {
+            img.setSvg(staticCache, imageWidth, imageHeight, dip);
+        }
+
+        if(savedInstanceState != null && savedInstanceState.containsKey(STATE_MATRIX)){
+            Log.d(LOG_TAG, "Matrix values restored");
+            img.setMatrixValues(savedInstanceState.getFloatArray(STATE_MATRIX));
+        }
+
+        setRetainInstance(true);
 
         return rootView;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.d(LOG_TAG, "onSaveInstanceState() called");
+        outState.putFloatArray(STATE_MATRIX, img.getMatrixValues());
     }
 
     public static MapFragment create(boolean zoom, float lat, float lng) {

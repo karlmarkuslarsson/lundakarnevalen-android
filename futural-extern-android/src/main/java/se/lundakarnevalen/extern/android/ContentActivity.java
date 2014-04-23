@@ -92,6 +92,13 @@ public class ContentActivity extends ActionBarActivity {
         setupTint();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.wtf(LOG_TAG, "onDestroy()!? null=>svg");
+        MapFragment.staticCache = null;
+    }
+
     @TargetApi(11)
     public void hideBottomMenu(){
         final View menu = find(R.id.bottom_frame_menu, View.class);
