@@ -68,7 +68,7 @@ public class LandingPageFragment extends LKFragment{
                 ContentActivity contentActivity = ContentActivity.class.cast(getActivity());
 
                 MapFragment mapFragment = contentActivity.mapFragment;
-                mapFragment.zoomInto(lat,lng);
+                //mapFragment.zoomInto(lat,lng);
 
                 contentActivity.loadFragmentWithAdd(mapFragment);
                 //

@@ -4,19 +4,9 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-
-    <RelativeLayout
+    <se.lundakarnevalen.extern.widget.SVGMapView
+        android:id="@+id/map_id"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true">
-
-        <ImageView
-            android:id="@+id/map_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/test_map" />
-    </RelativeLayout>
-
+        android:layout_height="match_parent" />
 
 </RelativeLayout>

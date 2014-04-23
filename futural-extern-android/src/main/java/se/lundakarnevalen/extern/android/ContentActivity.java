@@ -315,7 +315,7 @@ public class ContentActivity extends ActionBarActivity {
                     RelativeLayout button = get(v, R.id.button, RelativeLayout.class);
                     button.setBackgroundColor(getResources().getColor(R.color.right_menu_button_selected));
                     item.isOn = true;
-                    mapFragment.renderMap();
+                    //mapFragment.renderMap();
                     counterRight = 0;
                 }
                     // show all..
@@ -353,7 +353,7 @@ public class ContentActivity extends ActionBarActivity {
                     showAllItem.isOn = false;
                     showAllItem.button.setBackgroundColor(getResources().getColor(R.color.right_menu_button));
                 }
-                mapFragment.renderMap();
+                //mapFragment.renderMap();
             }
         }
     }
