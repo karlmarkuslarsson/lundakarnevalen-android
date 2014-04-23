@@ -12,6 +12,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
@@ -111,7 +112,10 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
                             .setContentTitle(item.name)
                             .setContentText(item.place+" "+item.getStartTime())
                             .setAutoCancel(true)
-                            .setSmallIcon(R.drawable.test_spexet);
+                            .setSmallIcon(R.drawable.test_spexet)
+                            .setSound(Uri.parse("android.resource://"
+                                    + getContext().getPackageName() + "/" + R.raw.futufutu));
+
 
                     builder.build();
                     // .setWhen(item.startDate.getTime()-1000*60*60)
