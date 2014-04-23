@@ -64,18 +64,12 @@
             />
 
     </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/header_background"
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:layout_below="@id/header"
-        android:background="@color/bottom_menu_shadow">
-</RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/middleLayout"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:layout_below="@id/header_background"
+            android:layout_below="@id/header"
             android:background="@color/light_red">
 
             <LinearLayout
@@ -97,10 +91,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:background="@color/blue_green"
+                    android:background="@color/green_button_background"
                     >
                     <se.lundakarnevalen.extern.widget.LKTextView
-                        android:text="ÖPPET"
+                        android:text="@string/OPEN"
                         android:id="@+id/open_info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -226,15 +220,13 @@
 
             </RelativeLayout>
         </LinearLayout>
-
-
-</RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/middleLayoutShadow"
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:layout_below="@id/middleLayout"
-        android:background="@color/light_gray">
+            <ImageView
+                android:id="@+id/header_background"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/scheme_shadow">
+            </ImageView>
 
 </RelativeLayout>
 
@@ -258,7 +250,7 @@
         android:id="@+id/bottom_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/middleLayoutShadow"
+        android:layout_below="@id/middleLayout"
 
         android:background="@color/white">
         <se.lundakarnevalen.extern.widget.LKTextView
@@ -286,6 +278,14 @@
             android:lineSpacingMultiplier="1.1"
             />
 
+        <ImageView
+            android:id="@+id/middleLayoutShadow"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/scheme_shadow">
+
+        </ImageView>
 
     </RelativeLayout>
     <RelativeLayout

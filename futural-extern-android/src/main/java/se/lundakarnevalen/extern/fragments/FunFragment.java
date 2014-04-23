@@ -13,6 +13,8 @@ import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.widget.LKListAdapter;
 import se.lundakarnevalen.extern.widget.LKListElement;
+import se.lundakarnevalen.extern.widget.LKListElementType;
+import se.lundakarnevalen.extern.widget.LKListRow;
 
 /**
  * Created by Markus on 2014-04-16.
@@ -47,13 +49,13 @@ public class FunFragment extends LKFragment {
                 new int[]{R.id.text1, R.id.text2, R.id.image}
         ));
         */
-        ArrayList<LKListAdapter.LKListRow> items = new ArrayList<LKListAdapter.LKListRow>();
+        ArrayList<LKListRow> items = new ArrayList<LKListRow>();
 
         for(int i = 0;i< fun.size();i=i+2){
             if(i+1<fun.size()) {
-                items.add(new LKListAdapter.LKListRow(fun.get(i),fun.get(i+1)));
+                items.add(new LKListRow(fun.get(i),fun.get(i+1)));
             } else {
-                items.add(new LKListAdapter.LKListRow(fun.get(i),null));
+                items.add(new LKListRow(fun.get(i),null));
             }
 
         }
@@ -93,7 +95,8 @@ public class FunFragment extends LKFragment {
                 55.7042667f, 13.193833333333334f,
                 R.drawable.monk,
                 R.drawable.header_kabare,
-                getString(R.string.kabare_question)));
+                getString(R.string.kabare_question),
+                LKListElementType.FUN));
 
         fun.add(new LKListElement(
                 getString(R.string.filmen_place),
@@ -102,7 +105,8 @@ public class FunFragment extends LKFragment {
                 55.7059389f, 13.194805555555556f,
                 R.drawable.monk,
                 R.drawable.filmen_logo,
-                getString(R.string.filmen_question)));
+                getString(R.string.filmen_question),
+                LKListElementType.FUN));
 
         fun.add(new LKListElement(
                 getString(R.string.barneval_place),
@@ -111,7 +115,8 @@ public class FunFragment extends LKFragment {
                 55.7037889f, 13.194647222222223f,
                 R.drawable.monk,
                 R.drawable.header_kabare,
-                getString(R.string.barneval_question)));
+                getString(R.string.barneval_question),
+                LKListElementType.FUN));
         fun.add(new LKListElement(
                 getString(R.string.cirkus_place),
                 getString(R.string.cirkus_title),
@@ -119,7 +124,8 @@ public class FunFragment extends LKFragment {
                 55.7048333f, 13.195352777777778f,
                 R.drawable.monk,
                 R.drawable.cirkusen_logo,
-                getString(R.string.cirkus_question)));
+                getString(R.string.cirkus_question),
+                LKListElementType.FUN));
         fun.add(new LKListElement(
                 getString(R.string.spexet_place),
                 getString(R.string.spexet_title),
@@ -127,7 +133,8 @@ public class FunFragment extends LKFragment {
                 55.7054111f, 13.195491666666667f,
                 R.drawable.monk,
                 R.drawable.spexet_logo,
-                getString(R.string.spexet_question)));
+                getString(R.string.spexet_question),
+                LKListElementType.FUN));
         fun.add(new LKListElement(
                 getString(R.string.showen_place),
                 getString(R.string.show_title),
@@ -135,7 +142,8 @@ public class FunFragment extends LKFragment {
                 55.7055444f, 13.195588888888889f,
                 R.drawable.monk,
                 R.drawable.header_kabare,
-                getString(R.string.showen_question)));
+                getString(R.string.showen_question),
+                LKListElementType.FUN));
         fun.add(new LKListElement(
                 getString(R.string.revy_place),
                 getString(R.string.revy_title),
@@ -143,7 +151,8 @@ public class FunFragment extends LKFragment {
                 55.705775f, 13.193555555555555f,
                 R.drawable.monk,
                 R.drawable.revyn_logo,
-                getString(R.string.revy_question)));
+                getString(R.string.revy_question),
+                LKListElementType.FUN));
 
         // add all fun here...
     }

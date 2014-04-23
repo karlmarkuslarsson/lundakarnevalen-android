@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import se.lundakarnevalen.extern.android.ContentActivity;
@@ -54,11 +55,10 @@ public class LandingPageFragment extends LKFragment{
         }
         lat = bundle.getFloat("lat");
         lng = bundle.getFloat("lng");
+        int type = bundle.getInt("type");
+
         get(rootView,R.id.picture,ImageView.class).setImageResource(bundle.getInt("picture"));
         get(rootView,R.id.header_background,ImageView.class).setImageResource(bundle.getInt("top_picture"));
-        get(rootView,R.id.question,TextView.class).setText(bundle.getString("question"));
-        get(rootView,R.id.text,TextView.class).setText(bundle.getString("desc"));
-//        rootView.findViewById(R.id.name).;
 
         ImageView mapView = (ImageView) rootView.findViewById(R.id.map_picture);
         mapView.setOnClickListener(new View.OnClickListener() {
@@ -80,7 +80,19 @@ public class LandingPageFragment extends LKFragment{
             }
         });
 
-        return rootView;
+
+        if(type==1) {
+            get(rootView, R.id.question, TextView.class).setText(bundle.getString("question"));
+            get(rootView, R.id.text, TextView.class).setText(bundle.getString("desc"));
+//        rootView.findViewById(R.id.name).;
+        } else if(type == 2) {
+            get(rootView, R.id.question, TextView.class).setText(bundle.getString("question"));
+            get(rootView, R.id.text, TextView.class).setText(bundle.getString("desc"));
+            get(rootView, R.id.middleLayout, RelativeLayout.class).setBackgroundResource(R.color.green_background);
+
+//
+        }
+            return rootView;
     }
 
     @Override
@@ -95,7 +107,7 @@ public class LandingPageFragment extends LKFragment{
         super.onStop();
     }
 
-    public static LandingPageFragment create(String name, String place, boolean open, boolean cash, boolean card, float lat, float lng, int picture,int topPicture, String question, String desc) {
+    public static LandingPageFragment create(String name, String place, boolean open, boolean cash, boolean card, float lat, float lng, int picture,int topPicture, String question, String desc, int type) {
         LandingPageFragment fragment = new LandingPageFragment();
         Bundle bundle = new Bundle();
 
@@ -110,7 +122,7 @@ public class LandingPageFragment extends LKFragment{
         bundle.putInt("top_picture", topPicture);
         bundle.putString("question", question);
         bundle.putString("desc", desc);
-
+        bundle.putInt("type",type);
         fragment.setArguments(bundle);
         // Add arguments
         return fragment;

@@ -13,6 +13,8 @@ import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.widget.LKListAdapter;
 import se.lundakarnevalen.extern.widget.LKListElement;
+import se.lundakarnevalen.extern.widget.LKListElementType;
+import se.lundakarnevalen.extern.widget.LKListRow;
 
 /**
  * Created by Markus on 2014-04-16.
@@ -48,13 +50,13 @@ public class FoodFragment extends LKFragment {
         ));
   */
 
-        ArrayList<LKListAdapter.LKListRow> items = new ArrayList<LKListAdapter.LKListRow>();
+        ArrayList<LKListRow> items = new ArrayList<LKListRow>();
 
         for(int i = 0;i< food.size();i=i+2){
             if(i+1<food.size()) {
-                items.add(new LKListAdapter.LKListRow(food.get(i),food.get(i+1)));
+                items.add(new LKListRow(food.get(i),food.get(i+1)));
             } else {
-                items.add(new LKListAdapter.LKListRow(food.get(i),null));
+                items.add(new LKListRow(food.get(i),null));
             }
 
         }
@@ -71,7 +73,8 @@ public class FoodFragment extends LKFragment {
                 55.706362f, 13.195165f,
                 R.drawable.monk,
                 R.drawable.header_kabare,
-                getString(R.string.cocktail_question)));
+                getString(R.string.cocktail_question),
+                LKListElementType.FOOD));
 
         food.add(new LKListElement(
                 getString(R.string.hipp_baren_place),
@@ -80,7 +83,8 @@ public class FoodFragment extends LKFragment {
                 55.706521f, 13.195431f,
                 R.drawable.monk,
                 R.drawable.header_kabare,
-                getString(R.string.hipp_baren_question)));
+                getString(R.string.hipp_baren_question),
+                LKListElementType.FOOD));
 
 
         food.add(new LKListElement(
@@ -90,7 +94,8 @@ public class FoodFragment extends LKFragment {
                 55.706841f, 13.196030f,
                 R.drawable.monk,
                 R.drawable.header_kabare,
-                getString(R.string.folkan_question)));
+                getString(R.string.folkan_question),
+                LKListElementType.FOOD));
 
         food.add(new LKListElement(
                 getString(R.string.krog_undervatten_place),
@@ -99,7 +104,8 @@ public class FoodFragment extends LKFragment {
                 55.705154f, 13.19458f,
                 R.drawable.monk,
                 R.drawable.undervatten_logo,
-                getString(R.string.krog_undervatten_question)));
+                getString(R.string.krog_undervatten_question),
+                LKListElementType.FOOD));
 
 
         // add all fun here...

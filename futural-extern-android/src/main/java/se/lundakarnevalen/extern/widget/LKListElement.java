@@ -12,10 +12,9 @@ public class LKListElement {
     public int picture;
     public String question;
     public String info;
-    public boolean isMusic = false;
-    public boolean isOther = false;
+    public int type;
 
-    public LKListElement(String place, String title, String info, float lat, float lng, int headerPicture, int picture, String question) {
+    public LKListElement(String place, String title, String info, float lat, float lng, int headerPicture, int picture, String question, int type) {
         this.place = place;
         this.title = title;
         this.info = info;
@@ -24,6 +23,7 @@ public class LKListElement {
         this.headerPicture = headerPicture;
         this.picture = picture;
         this.question = question;
+        this.type = type;
     }
 
 
