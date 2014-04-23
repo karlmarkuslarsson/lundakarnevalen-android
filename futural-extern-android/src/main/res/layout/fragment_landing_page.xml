@@ -141,6 +141,9 @@
                         android:layout_below="@id/cash_picture"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/cash_picture"
+                        android:layout_alignRight="@+id/cash_picture"
+                        android:gravity="center"
                         android:textColor="@color/white"
                         android:textSize="8dp"
 
@@ -171,8 +174,11 @@
                         android:id="@+id/open_info"
                         android:layout_marginTop="1dp"
                         android:layout_below="@id/card_picture"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_alignLeft="@+id/card_picture"
+                        android:layout_alignRight="@+id/card_picture"
                         android:textColor="@color/white"
                         android:textSize="8dp"
 
@@ -192,26 +198,39 @@
                     >
 
                     <ImageView
-                        android:layout_marginTop="12dp"
-                        android:id="@+id/map_picture"
+                        android:id="@+id/map_shadow"
                         android:layout_width="60dp"
+                        android:layout_height="3dp"
                         android:layout_centerHorizontal="true"
-                        android:layout_height="match_parent"
-
-                        android:background="@color/white"/>
+                        android:layout_alignParentBottom="true"                        android:background="@drawable/scheme_shadow"
+                        />
 
                     <se.lundakarnevalen.extern.widget.LKTextView
                         android:text="@string/to_map"
                         android:id="@+id/map_info"
-                        android:layout_width="wrap_content"
-                        android:layout_alignLeft="@id/map_picture"
+                        android:layout_width="match_parent"
+                        android:layout_alignLeft="@id/map_shadow"
+                        android:layout_alignRight="@id/map_shadow"
+                        android:gravity="center"
                         android:layout_height="wrap_content"
-                        android:layout_above="@id/map_picture"
                         android:textColor="@color/white"
                         android:textSize="8dp"
-                        android:layout_marginBottom="6dp"
 
                         />
+
+                    <ImageView
+                        android:layout_marginTop="2dp"
+                        android:id="@+id/map_picture"
+                        android:layout_width="match_parent"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignLeft="@id/map_shadow"
+                        android:layout_alignRight="@id/map_shadow"
+                        android:layout_height="match_parent"
+                        android:layout_below="@id/map_info"
+                        android:layout_above="@id/map_shadow"
+                        android:background="@color/white"/>
+
+
 
 
                 </RelativeLayout>
