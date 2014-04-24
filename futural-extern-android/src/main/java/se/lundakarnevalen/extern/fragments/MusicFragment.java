@@ -116,12 +116,6 @@ public class MusicFragment extends LKFragment implements View.OnClickListener {
         player = new MediaPlayer();
 
         player.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mediaPlayer) {
-                Log.d("mediaplayer complete",""+mediaPlayer);
-            }
-        });
         player.setOnBufferingUpdateListener(new MediaPlayer.OnBufferingUpdateListener() {
             @Override
             public void onBufferingUpdate(MediaPlayer mediaPlayer, int i) {
