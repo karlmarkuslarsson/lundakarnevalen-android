@@ -97,13 +97,15 @@ public class LKListAdapter extends ArrayAdapter<LKListRow> {
                         LandingPageFragment.create(
                                 element.title,
                                 element.place,
-                                true, true, true,
+                                 true, true,
                                 element.lat,
                                 element.lng,
                                 element.picture,
                                 element.headerPicture,
                                 element.question,
                                 element.info,
+                                element.open,
+                                element.close,
                                 1)
                 );
             } else {
@@ -111,13 +113,15 @@ public class LKListAdapter extends ArrayAdapter<LKListRow> {
                         LandingPageFragment.create(
                                 element.title,
                                 element.place,
-                                true, true, true,
+                                 true, true,
                                 element.lat,
                                 element.lng,
                                 element.picture,
                                 element.headerPicture,
                                 element.question,
                                 element.info,
+                                element.open,
+                                element.close,
                                 2)
                 );
             }

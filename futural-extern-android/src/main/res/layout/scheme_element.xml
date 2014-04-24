@@ -34,6 +34,11 @@
             android:layout_alignLeft="@id/bottom_menu_image"
             android:layout_marginLeft="-22dp"
             android:textSize="10dp"
+            android:padding="2dp"
+            android:gravity="center"
+            android:shadowRadius="3"
+            android:shadowDy="1"
+            android:shadowColor="@color/black"
             android:text="16:00"/>
         <se.lundakarnevalen.extern.widget.LKTextView
             android:id="@+id/time2"
@@ -44,6 +49,12 @@
             android:layout_alignLeft="@id/bottom_menu_image"
             android:layout_marginLeft="-22dp"
             android:textSize="10dp"
+            android:gravity="center"
+            android:padding="2dp"
+            android:shadowRadius="3"
+            android:shadowDy="1"
+            android:shadowColor="@color/black"
+
             android:text="16:00"/>
 
     </RelativeLayout>
@@ -62,14 +73,26 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textSize="10dp"
+            android:shadowRadius="4"
+            android:shadowDy="1"
+            android:paddingLeft="1dp"
+            android:paddingRight="1dp"
+            android:gravity="center"
+            android:shadowColor="@color/black"
             android:text="TÄLTET"/>
   <se.lundakarnevalen.extern.widget.LKTextView
             android:id="@+id/name"
-            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:paddingLeft="1dp"
+      android:paddingRight="1dp"
+      android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/place"
             android:textColor="@color/white"
             android:textSize="18dp"
+      android:shadowRadius="4"
+      android:shadowDy="1"
+      android:shadowColor="@color/black"
             android:text="SPEXET"/>
 
 

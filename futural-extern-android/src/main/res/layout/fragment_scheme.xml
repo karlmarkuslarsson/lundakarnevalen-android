@@ -49,7 +49,7 @@
     <RelativeLayout
         android:id="@+id/left_arrow"
         android:layout_width="70dp"
-        android:layout_height="50dp"
+        android:layout_height="54dp"
         android:layout_below="@id/heartText">
 
         <se.lundakarnevalen.extern.widget.LKTextView
@@ -78,7 +78,7 @@
     <RelativeLayout
         android:id="@+id/right_arrow"
         android:layout_width="70dp"
-        android:layout_height="50dp"
+        android:layout_height="55dp"
         android:layout_below="@id/heartText"
         android:layout_alignParentRight="true">
 
@@ -106,7 +106,7 @@
     <RelativeLayout
         android:id="@+id/day"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="54dp"
         android:layout_toRightOf="@id/left_arrow"
         android:layout_toLeftOf="@id/right_arrow"
         android:layout_below="@id/heartText"
@@ -156,7 +156,6 @@
         android:layout_gravity="end"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         >
 
     </android.support.v4.view.ViewPager>

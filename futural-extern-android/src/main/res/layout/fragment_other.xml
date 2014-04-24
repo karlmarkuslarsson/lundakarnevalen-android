@@ -12,7 +12,8 @@
     android:layout_height="match_parent"
     android:divider="@null"
     android:dividerHeight="0dp"
-    android:listSelector="@color/transparent">
+    android:listSelector="@color/transparent"
+    android:scrollbars="none">
 
     </ListView>
 
