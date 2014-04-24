@@ -1,46 +1,23 @@
 package se.lundakarnevalen.extern.fragments;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Matrix;
-import android.graphics.Paint;
-import android.graphics.PointF;
-import android.graphics.PorterDuff;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.view.animation.AnimationUtils;
+import android.widget.ViewFlipper;
 
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
-import com.caverock.androidsvg.SVGParser;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 import se.lundakarnevalen.extern.android.R;
-import se.lundakarnevalen.extern.map.Marker;
-import se.lundakarnevalen.extern.map.MarkerType;
-import se.lundakarnevalen.extern.map.Markers;
-import se.lundakarnevalen.extern.util.BitmapUtil;
 import se.lundakarnevalen.extern.util.Timer;
 import se.lundakarnevalen.extern.widget.SVGMapView;
 
-import static android.location.LocationManager.GPS_PROVIDER;
-import static android.location.LocationManager.NETWORK_PROVIDER;
+import static se.lundakarnevalen.extern.util.ViewUtil.get;
 
 public class MapFragment extends LKFragment {
 
@@ -67,7 +44,8 @@ public class MapFragment extends LKFragment {
             dip = metrics.densityDpi;
         }
 
-        img = ((SVGMapView) rootView.findViewById(R.id.map_id));
+        img = get(rootView, R.id.map_id, SVGMapView.class);
+        final ViewFlipper flipper = get(rootView, R.id.map_switcher, ViewFlipper.class);
 
         new AsyncTask<Void, Void, Void>(){
             @Override
@@ -75,22 +53,31 @@ public class MapFragment extends LKFragment {
                 try {
                     Timer t = new Timer();
                     SVG svg = SVG.getFromResource(inflater.getContext(), R.raw.map3);
-                    img.setSvg(svg, imageWidth, imageHeight, dip);
                     t.tick(LOG_TAG, "getFromResource()");
+                    img.setSvg(svg, imageWidth, imageHeight, dip);
+                    t.tick(LOG_TAG, "renderToPicture()");
                 } catch (SVGParseException e) {
                     Log.wtf(LOG_TAG, "This wont happen");
                 }
                 return null;
             }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                flipper.showNext();
+            }
         }.execute();
 
+        flipper.setAnimateFirstView(true);
+        flipper.setInAnimation(AnimationUtils.loadAnimation(inflater.getContext(), R.anim.abc_fade_in));
+        flipper.setOutAnimation(AnimationUtils.loadAnimation(inflater.getContext(), R.anim.abc_fade_out));
 
         if(savedInstanceState != null && savedInstanceState.containsKey(STATE_MATRIX)){
             Log.d(LOG_TAG, "Matrix values restored");
-            //img.setMatrixValues(savedInstanceState.getFloatArray(STATE_MATRIX));
+            img.setMatrixValues(savedInstanceState.getFloatArray(STATE_MATRIX));
         }
 
-        setRetainInstance(true);
+        //setRetainInstance(true);
 
         return rootView;
     }
@@ -99,7 +86,7 @@ public class MapFragment extends LKFragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         Log.d(LOG_TAG, "onSaveInstanceState() called");
-        //outState.putFloatArray(STATE_MATRIX, img.getMatrixValues());
+        outState.putFloatArray(STATE_MATRIX, img.getMatrixValues());
     }
 
     public static MapFragment create(boolean zoom, float lat, float lng) {
