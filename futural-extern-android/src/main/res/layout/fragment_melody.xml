@@ -21,7 +21,7 @@
              >
             <include layout="@layout/layout_clouds" />
             <ImageView
-                android:id="@+id/heart"
+                android:id="@+id/melody_heart"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/heart_large"

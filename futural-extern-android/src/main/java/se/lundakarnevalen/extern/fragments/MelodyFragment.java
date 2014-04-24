@@ -13,8 +13,6 @@ package se.lundakarnevalen.extern.fragments;
         import android.content.Context;
         import android.content.res.Resources;
         import android.graphics.Matrix;
-        import android.graphics.Typeface;
-        import android.os.AsyncTask;
         import android.os.Bundle;
         import android.os.Handler;
         import android.util.Log;
@@ -31,10 +29,12 @@ package se.lundakarnevalen.extern.fragments;
 public class MelodyFragment extends LKFragment {
     private static MySoundFactory factory;
     private static ImageView play;
+    private static ImageView rewind;
     private static boolean playing;
     private static boolean started;
     private int songID = R.raw.lundakarneval;
     private static float tot;
+
     // Lyrics
     private static ImageView heart;
     private static int text = 0;
@@ -45,9 +45,10 @@ public class MelodyFragment extends LKFragment {
     private static TextView lyric3;
     private static final Handler handler = new Handler();
     private static final Handler moveHandler = new Handler();
-    private static myRunnable r;
+    private static LyricsRunnable r;
     private static moveRunnable r2;
     private static long pauseTime = -1;
+    private static float taken = 0;
     private int[] delays = { 11260, 3456, 2578, 4451, 4002, 3671, 3849, 2518,
             5784, 3684, 3656, 3707, 2263, 1786, 1929, 1735, 1976, 1770, 4701,
             1344, 1922, 3856, 1060, 2269, 3289, 2462, 2481, 3802, 2486, 3166,
@@ -66,6 +67,7 @@ public class MelodyFragment extends LKFragment {
     private static TextView tvKarnevalTitle;
     private static TextView tvKarneval;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -76,7 +78,7 @@ public class MelodyFragment extends LKFragment {
         tvKarnevalTitle = (TextView) rootView
                 .findViewById(R.id.tvKarnevalTitle);
         tvKarneval = (TextView) rootView.findViewById(R.id.tvKarneval);
-        heart = (ImageView) rootView.findViewById(R.id.heart);
+        heart = (ImageView) rootView.findViewById(R.id.melody_heart);
 /*
         Typeface tf = Typeface.createFromAsset(getActivity().getAssets(),
                 "fonts/Roboto-Bold.ttf");
@@ -183,8 +185,11 @@ public class MelodyFragment extends LKFragment {
             this.lyrics = lyrics;
         }
         play = (ImageView) rootView.findViewById(R.id.countdown_playbutton);
-
         play.setOnClickListener(new PlayButton());
+
+        rewind = (ImageView) rootView.findViewById(R.id.rewind_button);
+        rewind.setOnClickListener(new RewindButton());
+
         if (!started) {
             lyric1.setText("");
             lyric2.setText("");
@@ -248,7 +253,7 @@ public class MelodyFragment extends LKFragment {
         lyric1.setText("");
         lyric3.setText(lyrics[1]);
         lyric2.setText(lyrics[0]);
-        r = new myRunnable();
+        r = new LyricsRunnable();
         handler.postDelayed(r, delays[0]);
     }
 
@@ -304,10 +309,27 @@ public class MelodyFragment extends LKFragment {
                     startLyrics();
                     factory.start(songID);
                     started = true;
+                    taken = 0; //Resets marker
                 }
                 play.setImageResource(R.drawable.pause);
 
             }
+        }
+    }
+
+    private class RewindButton implements OnClickListener {
+        @Override
+        public void onClick(View v) {
+            if (playing) {
+                factory.stopAll();
+            }
+            rewindMarker();
+            rewindLyrics();
+            handler.removeCallbacks(r);
+            moveHandler.removeCallbacks(r2);
+            playing = false;
+            started = false;
+            play.setImageResource(R.drawable.playerbutton);
         }
     }
 
@@ -318,8 +340,6 @@ public class MelodyFragment extends LKFragment {
     }
 
     private void startMover() {
-        // TODO Auto-generated method stub
-
         // WindowManager wm = (WindowManager)
         // getContext().getSystemService(Context.WINDOW_SERVICE);
         // Display display = wm.getDefaultDisplay();
@@ -348,10 +368,17 @@ public class MelodyFragment extends LKFragment {
     }
 
 
+    private static void rewindLyrics() {
+        tvKarnevalTitle.setVisibility(View.VISIBLE);
+        tvKarneval.setVisibility(View.VISIBLE);
+        heart.setVisibility(View.VISIBLE);
+        lyric3.setText("");
+        lyric2.setText("");
+        lyric1.setText("");
+    }
 
 
-
-    private class myRunnable implements Runnable {
+    private class LyricsRunnable implements Runnable {
 
 
         @Override
@@ -361,12 +388,7 @@ public class MelodyFragment extends LKFragment {
             if (text >= delays.length) {
                 //factory = new MySoundFactory(getContext());
                 //factory.createLongMedia(songID, false);
-                tvKarnevalTitle.setVisibility(View.VISIBLE);
-                tvKarneval.setVisibility(View.VISIBLE);
-                heart.setVisibility(View.INVISIBLE);
-                lyric3.setText("");
-                lyric2.setText("");
-                lyric1.setText("");
+                rewindLyrics();
 
                 started = false;
                 playing = false;
@@ -390,23 +412,27 @@ public class MelodyFragment extends LKFragment {
         }
     };
 
+    private static void rewindMarker() {
+        Matrix matrix = new Matrix();
+        mover.setScaleType(ImageView.ScaleType.MATRIX);
+        matrix.set(mover.getImageMatrix());
+
+        matrix.postTranslate(-taken, 0);
+        mover.setImageMatrix(matrix);
+    }
+
     private class moveRunnable implements Runnable {
 
-        float taken = 0;
-
         public void run() {
-            Matrix matrix = new Matrix();
-            mover.setScaleType(ImageView.ScaleType.MATRIX);
-            matrix.set(mover.getImageMatrix());
-
             float part = ((float) (System.currentTimeMillis() - startTime)) / 217000;
             float move = tot * part;
             if (part >= 1) {
-
-                matrix.postTranslate(-taken, 0);
-                mover.setImageMatrix(matrix);
+                rewindMarker();
                 return;
             }
+            Matrix matrix = new Matrix();
+            mover.setScaleType(ImageView.ScaleType.MATRIX);
+            matrix.set(mover.getImageMatrix());
             matrix.postTranslate(move - taken, 0);
             taken = move;
 
