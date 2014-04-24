@@ -157,31 +157,33 @@ public class SchemeFragment extends LKFragment {
 
         HashSet<String> activated = getActiveNotifications();
         ArrayList<LKSchemeAdapter.LKSchemeItem> listItems = new ArrayList<LKSchemeAdapter.LKSchemeItem>();
-        if (fridayEvents == null) {
-            fridayEvents = new ArrayList<Event>();
-            Events.getFridayEvents(fridayEvents, getContext());
 
-            saturdayEvents = new ArrayList<Event>();
-            Events.getSaturdayEvents(saturdayEvents, getContext());
-
-            sundayEvents = new ArrayList<Event>();
-            Events.getSundayEvents(sundayEvents, getContext());
-
-        }
+        listItems.add(new LKSchemeAdapter.LKSchemeItem());
 
         if (day == 0) {
-
+            if (fridayEvents == null) {
+                fridayEvents = new ArrayList<Event>();
+                Events.getFridayEvents(fridayEvents, getContext());
+            }
             for (Event e : fridayEvents) {
                 LKSchemeAdapter.LKSchemeItem item = new LKSchemeAdapter.LKSchemeItem(e.place, e.title, e.image, e.startDate, e.endDate, activated);
                 listItems.add(item);
             }
 
         } else if (day == 1) {
+            if (saturdayEvents == null) {
+                saturdayEvents = new ArrayList<Event>();
+                Events.getSaturdayEvents(saturdayEvents, getContext());
+            }
             for (Event e : saturdayEvents) {
                 LKSchemeAdapter.LKSchemeItem item = new LKSchemeAdapter.LKSchemeItem(e.place, e.title, e.image, e.startDate, e.endDate, activated);
                 listItems.add(item);
             }
         } else {
+            if (sundayEvents == null) {
+                sundayEvents = new ArrayList<Event>();
+                Events.getSundayEvents(sundayEvents, getContext());
+            }
             for (Event e : sundayEvents) {
                 LKSchemeAdapter.LKSchemeItem item = new LKSchemeAdapter.LKSchemeItem(e.place, e.title, e.image, e.startDate, e.endDate, activated);
                 listItems.add(item);

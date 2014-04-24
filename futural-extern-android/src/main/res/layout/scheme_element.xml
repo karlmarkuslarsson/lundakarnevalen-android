@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/scheme_element"
-    android:paddingBottom="10dp"
-    android:paddingTop="10dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
@@ -13,9 +11,18 @@
     <RelativeLayout
         android:id="@+id/time"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
         android:layout_centerVertical="true"
+
         >
+
+        <ImageView
+            android:layout_width="3dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="70dp"
+            android:background="@color/white"
+            />
+
         <ImageView
             android:id="@+id/bottom_menu_image"
             android:layout_width="60dp"
@@ -23,6 +30,7 @@
             android:layout_centerVertical="true"
             android:src="@drawable/test_nojen"
             android:layout_marginLeft="42dp"
+
             />
 
         <se.lundakarnevalen.extern.widget.LKTextView

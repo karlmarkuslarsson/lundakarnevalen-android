@@ -28,6 +28,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="REVYN"
+            android:shadowRadius="4"
+            android:shadowDy="1"
+            android:shadowColor="@color/black"
+
             android:layout_below="@id/image1"
             android:textColor="@color/white"
             android:textSize="13sp" />
@@ -49,6 +53,10 @@
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:gravity="center"
+            android:shadowRadius="4"
+            android:shadowDy="1"
+            android:shadowColor="@color/black"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="REVYN"

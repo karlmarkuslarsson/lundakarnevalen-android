@@ -43,6 +43,12 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
     public View getView(int pos, View convertView, ViewGroup parent){
         final LKSchemeItem item = getItem(pos);
 
+        if(item.dot) {
+            RelativeLayout wrapper = (RelativeLayout) inflater.inflate(R.layout.scheme_element_top, null);
+
+            return wrapper;
+        }
+
         RelativeLayout wrapper = (RelativeLayout) inflater.inflate(R.layout.scheme_element, null);
 
         ImageView image = (ImageView) wrapper.findViewById(R.id.bottom_menu_image);
@@ -162,7 +168,11 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
         public Date endDate;
         private OnClickListener listener;
         boolean reminder = false;
+        boolean dot = false;
 
+        public LKSchemeItem() {
+            this.dot = true;
+        }
 
         /**
          * Creates list item..

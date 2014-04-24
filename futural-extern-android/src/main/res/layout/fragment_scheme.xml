@@ -141,20 +141,13 @@
         >
     </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="3dp"
-        android:layout_height="match_parent"
-        android:layout_below="@id/day"
-        android:layout_marginLeft="70dp"
-        android:background="@color/white"
-        >
-    </RelativeLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/scheme_viewpager"
         android:layout_below="@id/day"
         android:layout_gravity="end"
         android:layout_width="match_parent"
+
         android:layout_height="match_parent"
         >
 

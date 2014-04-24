@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scheme_element"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    >
+
+    <RelativeLayout
+        android:paddingTop="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_centerVertical="true">
+
+        <ImageView
+            android:layout_alignParentBottom="true"
+
+            android:layout_width="13dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="65dp"
+
+            android:src="@drawable/scheme_dot"
+
+            />
+        <ImageView
+            android:layout_width="3dp"
+            android:layout_height="5dp"
+            android:layout_marginLeft="70dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white"/>
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>
