@@ -87,10 +87,10 @@ public class MapFragment extends LKFragment {
 
         if(savedInstanceState != null && savedInstanceState.containsKey(STATE_MATRIX)){
             Log.d(LOG_TAG, "Matrix values restored");
-            //img.setMatrixValues(savedInstanceState.getFloatArray(STATE_MATRIX));
+            img.setMatrixValues(savedInstanceState.getFloatArray(STATE_MATRIX));
         }
 
-        setRetainInstance(true);
+        //setRetainInstance(true);
 
         return rootView;
     }
@@ -99,7 +99,7 @@ public class MapFragment extends LKFragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         Log.d(LOG_TAG, "onSaveInstanceState() called");
-        //outState.putFloatArray(STATE_MATRIX, img.getMatrixValues());
+        outState.putFloatArray(STATE_MATRIX, img.getMatrixValues());
     }
 
     public static MapFragment create(boolean zoom, float lat, float lng) {
