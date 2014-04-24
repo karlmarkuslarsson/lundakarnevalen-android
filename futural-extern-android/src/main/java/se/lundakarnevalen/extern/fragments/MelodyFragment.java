@@ -36,6 +36,7 @@ public class MelodyFragment extends LKFragment {
     private int songID = R.raw.lundakarneval;
     private static float tot;
     // Lyrics
+    private static ImageView heart;
     private static int text = 0;
     private static long startTime;
     private static int totTime;
@@ -75,7 +76,7 @@ public class MelodyFragment extends LKFragment {
         tvKarnevalTitle = (TextView) rootView
                 .findViewById(R.id.tvKarnevalTitle);
         tvKarneval = (TextView) rootView.findViewById(R.id.tvKarneval);
-
+        heart = (ImageView) rootView.findViewById(R.id.heart);
 /*
         Typeface tf = Typeface.createFromAsset(getActivity().getAssets(),
                 "fonts/Roboto-Bold.ttf");
@@ -197,6 +198,7 @@ public class MelodyFragment extends LKFragment {
 
                 tvKarnevalTitle.setVisibility(View.INVISIBLE);
                 tvKarneval.setVisibility(View.INVISIBLE);
+                heart.setVisibility(View.INVISIBLE);
                 if (text != delays.length - 1) {
                     lyric3.setText(lyrics[text + 1]);
                 }
@@ -276,6 +278,7 @@ public class MelodyFragment extends LKFragment {
                 lyric3.setText("");
                 tvKarnevalTitle.setVisibility(View.VISIBLE);
                 tvKarneval.setVisibility(View.VISIBLE);
+                heart.setVisibility(View.VISIBLE);
                 handler.removeCallbacks(r);
                 moveHandler.removeCallbacks(r2);
                 pauseTime = System.currentTimeMillis();
@@ -290,12 +293,14 @@ public class MelodyFragment extends LKFragment {
                 if (started) {
                     tvKarnevalTitle.setVisibility(View.INVISIBLE);
                     tvKarneval.setVisibility(View.INVISIBLE);
+                    heart.setVisibility(View.INVISIBLE);
                     startTime += (System.currentTimeMillis() - pauseTime);
                     resumeLyrics(delay);
                     factory.resume(songID);
                 } else {
                     tvKarnevalTitle.setVisibility(View.INVISIBLE);
                     tvKarneval.setVisibility(View.INVISIBLE);
+                    heart.setVisibility(View.INVISIBLE);
                     startLyrics();
                     factory.start(songID);
                     started = true;
@@ -358,6 +363,7 @@ public class MelodyFragment extends LKFragment {
                 //factory.createLongMedia(songID, false);
                 tvKarnevalTitle.setVisibility(View.VISIBLE);
                 tvKarneval.setVisibility(View.VISIBLE);
+                heart.setVisibility(View.INVISIBLE);
                 lyric3.setText("");
                 lyric2.setText("");
                 lyric1.setText("");
