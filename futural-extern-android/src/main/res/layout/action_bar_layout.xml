@@ -18,7 +18,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:padding="10dp"
-            android:textSize="34dp"
+            android:textSize="@dimen/actionbar_size"
 
             android:gravity="center"
             android:textColor="@color/white"

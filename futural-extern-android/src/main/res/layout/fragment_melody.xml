@@ -9,7 +9,6 @@
 
     >
 
-
         <!-- Start of upper part layout -->
 
         <RelativeLayout
@@ -19,7 +18,42 @@
             android:background="@color/blue_light"
             android:layout_weight="7"
              >
-            <include layout="@layout/layout_clouds" />
+            <ImageView
+                android:id="@+id/cloud1"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="30dp"
+                android:layout_alignTop="@+id/cloud2"
+                android:src="@drawable/cloud1" />
+
+            <ImageView
+                android:id="@+id/cloud4"
+                android:layout_width="125dp"
+                android:layout_height="62dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginRight="25dp"
+                android:layout_marginBottom="29dp"
+                android:src="@drawable/cloud4" />
+
+            <ImageView
+                android:scaleType="fitEnd"
+                android:id="@+id/cloud3"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_alignParentBottom="true"
+                android:src="@drawable/cloud3" />
+
+            <ImageView
+                android:id="@+id/cloud2"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:scaleType="fitEnd"
+                android:src="@drawable/cloud2" />
             <ImageView
                 android:id="@+id/melody_heart"
                 android:layout_width="match_parent"

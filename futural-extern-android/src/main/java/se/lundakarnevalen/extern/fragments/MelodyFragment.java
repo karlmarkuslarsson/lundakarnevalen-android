@@ -9,10 +9,14 @@ package se.lundakarnevalen.extern.fragments;
         import se.lundakarnevalen.extern.android.R;
         import se.lundakarnevalen.extern.sound.MySoundFactory;
 
+        import android.animation.Animator;
+        import android.animation.ObjectAnimator;
         import android.annotation.SuppressLint;
+        import android.annotation.TargetApi;
         import android.content.Context;
         import android.content.res.Resources;
         import android.graphics.Matrix;
+        import android.os.Build;
         import android.os.Bundle;
         import android.os.Handler;
         import android.util.Log;
@@ -21,8 +25,11 @@ package se.lundakarnevalen.extern.fragments;
         import android.view.View;
         import android.view.View.OnClickListener;
         import android.view.ViewGroup;
+        import android.view.ViewPropertyAnimator;
         import android.view.WindowManager;
+        import android.view.animation.Animation;
         import android.widget.ImageView;
+        import android.widget.RelativeLayout;
         import android.widget.TextView;
 
 @SuppressLint("DefaultLocale")
@@ -217,7 +224,53 @@ public class MelodyFragment extends LKFragment {
                 play.setImageResource(R.drawable.playerbutton);
             }
         }
+        if(Build.VERSION.SDK_INT >= 11) {
 
+            ImageView cloud = (ImageView) rootView.findViewById(R.id.cloud1);
+            final ObjectAnimator animX1 = ObjectAnimator.ofFloat(cloud, "x", 500f);
+            animX1.setDuration(3000);
+            animX1.setRepeatCount(Animation.INFINITE);
+
+            animX1.start();
+            cloud = (ImageView) rootView.findViewById(R.id.cloud2);
+            final ObjectAnimator animX2 = ObjectAnimator.ofFloat(cloud, "x", 50f);
+            animX2.setDuration(3000);
+            animX2.setRepeatCount(Animation.INFINITE);
+            animX2.start();
+
+            final ImageView finalCloud = cloud;
+            animX2.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animator) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animator) {
+
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animator) {
+                    animX2.ofFloat(finalCloud,"x",500f);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animator) {
+
+                }
+            });
+            cloud = (ImageView) rootView.findViewById(R.id.cloud3);
+            final ObjectAnimator animX3 = ObjectAnimator.ofFloat(cloud, "x", 500f);
+            animX3.setDuration(3000);
+            animX3.setRepeatCount(Animation.INFINITE);
+            animX3.start();
+            cloud = (ImageView) rootView.findViewById(R.id.cloud4);
+            final ObjectAnimator animX4 = ObjectAnimator.ofFloat(cloud, "x", 50f);
+            animX4.setDuration(3000);
+            animX4.setRepeatCount(Animation.INFINITE);
+            animX4.start();
+        }
         return rootView;
     }
 
@@ -441,6 +494,39 @@ public class MelodyFragment extends LKFragment {
         }
     };
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    private class CloudListner implements Animator.AnimatorListener {
+
+        ImageView view;
+        boolean right;
+        CloudListner(ImageView view, boolean right) {
+            this.view = view;
+            this.right = right;
+        }
+
+        @Override
+        public void onAnimationStart(Animator animator) {
+
+        }
+
+        @Override
+        public void onAnimationEnd(Animator animator) {
+
+        }
+
+        @Override
+        public void onAnimationCancel(Animator animator) {
+
+        }
+
+        @Override
+        public void onAnimationRepeat(Animator animator) {
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                    50, 100);
+            params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+            view.setLayoutParams(params);
+        }
+    }
 
 
 }
