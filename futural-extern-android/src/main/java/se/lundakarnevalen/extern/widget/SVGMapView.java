@@ -167,15 +167,11 @@ public class SVGMapView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        timer.reset();
-
         canvas.save();
         canvas.concat(matrix);
         canvas.getClipBounds(r);
         canvas.drawPicture(pic);
         canvas.restore();
-
-        //timer.tick(LOG_TAG, "draw(): " + r + ", scale: " + mScaleFactor + ", "+lastScale);
     }
 
     private void checkClick(float relativeX, float relativeY) {
@@ -183,13 +179,10 @@ public class SVGMapView extends View {
     }
 
     public void setSvg(SVG svg, int w, int h, int dpi) {
-        Timer t = new Timer();
         this.pic = svg.renderToPicture();
-        float initScale = getWidth() * 1.0f / pic.getWidth();
-        this.mScaleFactor = initScale;
-        //this.matrix.setTranslate( (w - pic.getWidth())/2, (h - pic.getHeight())/2);
+        float initScale = w * 1.0f / pic.getWidth();
         this.matrix.setScale(initScale, initScale);
-        t.tick(LOG_TAG, "renderToPicture(" + w + " ," + h + ")");
+        this.matrix.preTranslate(0f, 100f);
         postInvalidate();
     }
 
