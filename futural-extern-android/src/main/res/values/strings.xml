@@ -196,4 +196,50 @@ karnevalistisk femstjärning meny för 70 kr!\n\n
     <string name="toilets_title">TOILETS</string>
     <string name="OPEN">ÖPPET</string>
     <string name="no_internet">Please check your internet connection!</string>
+
+    <!-- lyrics player -->
+    <string name="playPart1">JAG KAN INTE SITTA STILL</string>
+    <string name="playPart2">JAG FÅR INTE NÅGON RO</string>
+    <string name="playPart3">NU ÄR LÄNGTAN ÖVER</string>
+    <string name="playPart4">JAG SÄTTER ALLT PÅ PAUS</string>
+    <string name="playPart5">DET ÄR NÅT SOM ÄR PÅ GÅNG</string>
+    <string name="playPart6"> HAR ALDRIG KÄNT SÅ HÄR FÖRUT</string>
+    <string name="playPart7">GLÖMMER ALLT SOM VAR</string>
+    <string name="playPart8">DET E KARNEVAL</string>
+    <string name="playPart9">MED HJÄRTSLAGEN I TAKT TILL BASEN</string>
+    <string name="playPart10">LYFTER HÄNDERNA MOT TAKEN</string>
+    <string name="playPart11">INGEN SÖMN PÅ FLERA NÄTTER</string>
+    <string name="playPart12">ALDRIG KÄNT MIG MERA VAKEN</string>
+    <string name="playPart13">DET E NU I VÅR DET HÄNDER</string> <!-- Go one more time -->
+    <string name="playPart14">DET E VART FJÄRDE ÅR</string>
+    <string name="playPart15">KOM MÖT UPP MED ALLA VÄNNER</string>
+    <string name="playPart16">KOM OCH SKRIK I LUNDAGÅRD</string>
+    <string name="playPart17">LJUSET BLÄNDAR, HJÄRTAT BULTAR</string>
+    <string name="playPart18">NU ÄR DET FEST I LUND</string>
+    <string name="playPart19">EXPLODERAR PÅ EN SEKUND</string>
+    <string name="playPartRef1">FUTU-FUTU</string>
+    <string name="playPartRef2">RAL</string>
+    <string name="playPartRef3">KARNEVAL</string>
+    <string name="playPartRef4">FUTU-FUTU-FUTU</string>
+    <string name="playPartRef5">RAL</string>
+    <string name="playPartRef6">KARNEVAL</string>
+    <string name="playPartRef7">FUTU-FUTU-FUTU</string>
+    <string name="playPart20">ETT UNIVERSUM FYLLT AV ALLT</string>
+    <string name="playPart21">HUNDRA FESTER PÅ EN DAG</string>
+    <string name="playPart22">NU BLIR GAMMALT NYTT</string>
+    <string name="playPart23">OCH GENERALEN HAR FÅTT BRÖST</string>
+    <string name="playPart24">KARNEVÖLEN FYLLER GLASEN</string>
+    <string name="playPart25">VEM VET NÅT OM MORGONDAGEN</string>
+    <string name="playPart26">ALLA DANSAR BORGEN SKAKAR</string>
+    <string name="playPart27">ALDRIG KÄNT MIG MERA VAKEN</string> <!-- stop here -->
+    <string name="playPart28">VI ÄR VÅREN NÄR DET HÄNDER</string>
+    <string name="playPart29">VI ÄR VART FJÄRDE ÅR</string>
+    <string name="playPart30">VI ÄR ALLESAMMANS VÄNNER</string>
+    <string name="playPart31">SKRIKER UT I LUNDAGÅRD</string>
+    <string name="playPart32">VI SKA ÖVERTYGA VÄRLDEN</string>
+    <string name="playPart33">ATT FIRA MAJ I LUND</string>
+    <string name="playPart34">EXPLODERAR PÅ EN SEKUND</string>
+
+
+
 </resources>

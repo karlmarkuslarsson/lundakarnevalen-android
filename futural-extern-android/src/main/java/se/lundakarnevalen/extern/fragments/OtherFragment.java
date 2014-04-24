@@ -114,6 +114,16 @@ public class OtherFragment extends LKFragment{
                 R.drawable.toilets_logo,
                 "",
                 LKListElementType.OTHER));
+
+        other.add(new LKListElement(
+                "",
+                "KARNEVALSLÅTEN",
+                "",
+                0, 0,
+                0,
+                R.drawable.radio_logo,
+                "",
+                LKListElementType.FUTURAL));
     }
 
     @Override

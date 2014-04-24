@@ -18,6 +18,7 @@ import java.util.List;
 import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.fragments.LandingPageFragment;
+import se.lundakarnevalen.extern.fragments.MelodyFragment;
 import se.lundakarnevalen.extern.fragments.MusicFragment;
 
 /**
@@ -108,27 +109,32 @@ public class LKListAdapter extends ArrayAdapter<LKListRow> {
                                 element.close,
                                 1)
                 );
+            } else if(element.type == LKListElementType.FUTURAL) {
+                contentActivity.loadFragmentWithAdd(new MelodyFragment());
+
+
             } else {
-                contentActivity.loadFragmentWithAdd(
-                        LandingPageFragment.create(
-                                element.title,
-                                element.place,
-                                 true, true,
-                                element.lat,
-                                element.lng,
-                                element.picture,
-                                element.headerPicture,
-                                element.question,
-                                element.info,
-                                element.open,
-                                element.close,
-                                2)
-                );
+                    contentActivity.loadFragmentWithAdd(
+                            LandingPageFragment.create(
+                                    element.title,
+                                    element.place,
+                                    true, true,
+                                    element.lat,
+                                    element.lng,
+                                    element.picture,
+                                    element.headerPicture,
+                                    element.question,
+                                    element.info,
+                                    element.open,
+                                    element.close,
+                                    2)
+                    );
+                }
             }
 
         }
     }
-}
+
 
 
 
