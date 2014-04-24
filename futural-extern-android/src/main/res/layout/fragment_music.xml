@@ -25,4 +25,11 @@
         android:id="@+id/buttonStop"
         android:layout_gravity="bottom|center" />
 
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="183dp"
+        android:layout_height="183dp"
+        android:id="@+id/progressBar"
+        android:layout_gravity="center" />
+
 </FrameLayout>
