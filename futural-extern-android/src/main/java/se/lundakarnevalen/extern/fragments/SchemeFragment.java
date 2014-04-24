@@ -5,6 +5,7 @@ import android.annotation.TargetApi;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -113,27 +115,27 @@ public class SchemeFragment extends LKFragment {
     }
 
     private void updateLeftArrow(View layout, ViewPager vp) {
-        TextView tv = get(layout, R.id.left_arrow_text, TextView.class);
+        ImageView arrowPlaceholder = get(layout, R.id.left_arrow_text, ImageView.class);
         int currentItem = vp.getCurrentItem();
         if(currentItem - 1 < 0){
-            tv.setEnabled(false);
-            tv.setText(R.string.empty);
+            arrowPlaceholder.setEnabled(false);
+            arrowPlaceholder.setBackgroundResource(R.drawable.arrow_empty);
         } else {
-            tv.setEnabled(true);
-            tv.setText(R.string.scheme_left);
+            arrowPlaceholder.setEnabled(true);
+            arrowPlaceholder.setBackgroundResource(R.drawable.arrow_left);
         }
     }
 
     private void updateRightArrow(View layout, ViewPager vp) {
-        TextView tv = get(layout, R.id.right_arrow_text, TextView.class);
+        ImageView arrowPlaceholder = get(layout, R.id.right_arrow_text, ImageView.class);
         int count = vp.getAdapter().getCount();
         int currentItem = vp.getCurrentItem();
         if(currentItem + 1 == count){
-            tv.setEnabled(false);
-            tv.setText(R.string.empty);
+            arrowPlaceholder.setEnabled(false);
+            arrowPlaceholder.setBackgroundResource(R.drawable.arrow_empty);
         } else {
-            tv.setEnabled(true);
-            tv.setText(R.string.scheme_right);
+            arrowPlaceholder.setEnabled(true);
+            arrowPlaceholder.setBackgroundResource(R.drawable.arrow_right);
         }
     }
 
