@@ -15,6 +15,7 @@ import android.view.*;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -66,7 +67,12 @@ public class MusicFragment extends LKFragment implements View.OnClickListener {
             if(checkInternet()) {
                 startPlaying();
             } else {
-                // TODO show message...
+                Context context = getActivity().getApplicationContext();
+                CharSequence text = context.getString(R.string.no_internet);
+                int duration = Toast.LENGTH_LONG;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
             }
 
         } else if (v == buttonStopPlay) {

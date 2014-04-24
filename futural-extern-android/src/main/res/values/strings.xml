@@ -195,4 +195,5 @@ karnevalistisk femstjärning meny för 70 kr!\n\n
     <string name="care_title">CARE</string>
     <string name="toilets_title">TOILETS</string>
     <string name="OPEN">ÖPPET</string>
+    <string name="no_internet">Please check your internet connection!</string>
 </resources>
