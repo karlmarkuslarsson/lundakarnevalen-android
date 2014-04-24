@@ -52,17 +52,13 @@
         android:layout_height="54dp"
         android:layout_below="@id/heartText">
 
-        <se.lundakarnevalen.extern.widget.LKTextView
+        <ImageView
             android:id="@+id/left_arrow_text"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:text="@string/scheme_left"
-            android:textStyle="normal"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:textSize="25sp"
-            android:textColor="@color/red"
-            android:background="@color/white"/>
+            android:background="@drawable/arrow_left"/>
 
         <ImageView
             android:layout_width="match_parent"
@@ -82,17 +78,13 @@
         android:layout_below="@id/heartText"
         android:layout_alignParentRight="true">
 
-        <se.lundakarnevalen.extern.widget.LKTextView
+        <ImageView
             android:id="@+id/right_arrow_text"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:text="@string/scheme_right"
-            android:textStyle="normal"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:textSize="25sp"
-            android:textColor="@color/red"
-            android:background="@color/white"/>
+            android:background="@drawable/arrow_right"/>
 
         <ImageView
             android:layout_width="match_parent"
