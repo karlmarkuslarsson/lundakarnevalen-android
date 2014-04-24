@@ -12,6 +12,8 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.Calendar;
+
 import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.widget.LKSchemeAdapter;
@@ -36,11 +38,13 @@ public class LandingPageFragment extends LKFragment{
         Bundle bundle = getArguments();
         get(rootView,R.id.name,TextView.class).setText(bundle.getString("name"));
         get(rootView,R.id.place,TextView.class).setText(bundle.getString("place"));
-        if(bundle.getBoolean("open")) {
-            //get(rootView,R.id.open_box,RelativeLayout.class)
+        Calendar c = Calendar.getInstance();
+        int open = bundle.getInt("open");
+        int close = bundle.getInt("close");
+        if(isOpen(c.HOUR_OF_DAY,open,close)) {
             get(rootView,R.id.open_info,TextView.class).setText(R.string.open);
         } else {
-            //get(rootView,R.id.open_box,RelativeLayout.class)
+            get(rootView,R.id.open_box,RelativeLayout.class).setBackgroundColor(getResources().getColor(R.color.red_button_background));
             get(rootView,R.id.open_info,TextView.class).setText(R.string.closed);
         }
         if(bundle.getBoolean("cash")) {
@@ -95,6 +99,30 @@ public class LandingPageFragment extends LKFragment{
             return rootView;
     }
 
+    private boolean isOpen(int hourOfDay, int open, int close) {
+        if(close < open) {
+            if(hourOfDay < close) {
+                return true;
+            } else if(hourOfDay >= open) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } else {
+            if(hourOfDay >= open) {
+                if(hourOfDay < close) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+
+    }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -107,13 +135,12 @@ public class LandingPageFragment extends LKFragment{
         super.onStop();
     }
 
-    public static LandingPageFragment create(String name, String place, boolean open, boolean cash, boolean card, float lat, float lng, int picture,int topPicture, String question, String desc, int type) {
+    public static LandingPageFragment create(String name, String place, boolean cash, boolean card, float lat, float lng, int picture,int topPicture, String question, String desc,int open, int close, int type) {
         LandingPageFragment fragment = new LandingPageFragment();
         Bundle bundle = new Bundle();
 
         bundle.putString("name",name);
         bundle.putString("place",place);
-        bundle.putBoolean("open", open);
         bundle.putBoolean("cash", cash);
         bundle.putBoolean("card", card);
         bundle.putFloat("lat", lat);
@@ -122,7 +149,9 @@ public class LandingPageFragment extends LKFragment{
         bundle.putInt("top_picture", topPicture);
         bundle.putString("question", question);
         bundle.putString("desc", desc);
-        bundle.putInt("type",type);
+        bundle.putInt("type", type);
+        bundle.putInt("open", open);
+        bundle.putInt("close",close);
         fragment.setArguments(bundle);
         // Add arguments
         return fragment;
