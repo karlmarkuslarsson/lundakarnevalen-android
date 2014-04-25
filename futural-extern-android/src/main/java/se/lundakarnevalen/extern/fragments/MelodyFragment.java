@@ -506,7 +506,7 @@ public class MelodyFragment extends LKFragment {
         a  = new TranslateAnimation(0,200,0,0);
         a.setDuration(4000);
         movingCloud = (ImageView) rootView.findViewById(R.id.cloud6);
-        a2 = new TranslateAnimation(0,width+200,0 ,0);
+        a2 = new TranslateAnimation(0,width+160,0 ,0);
         a2.setRepeatCount(Animation.INFINITE);
         a2.setDuration(13000);
         a.setAnimationListener(new CloudStartListner(cloud, movingCloud, a2));
@@ -520,14 +520,14 @@ public class MelodyFragment extends LKFragment {
         a = new TranslateAnimation(0,width,0 ,0);
         a.setDuration(13000);
         movingCloud = (ImageView) rootView.findViewById(R.id.cloud7);
-        a2 = new TranslateAnimation(0,width+200,0 ,0);
+        a2 = new TranslateAnimation(0,width+140,0 ,0);
         a2.setRepeatCount(Animation.INFINITE);
         a2.setDuration(15000);
         a.setAnimationListener(new CloudStartListner(cloud, movingCloud, a2));
         cloud.startAnimation(a);
 
         cloud = (ImageView) rootView.findViewById(R.id.cloud4);
-        a  = new TranslateAnimation(0,200,0,0);
+        a  = new TranslateAnimation(0,250,0,0);
         a.setDuration(4000);
         movingCloud = (ImageView) rootView.findViewById(R.id.cloud8);
         a2 = new TranslateAnimation(0,width+200,0 ,0);
