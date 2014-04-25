@@ -5,6 +5,7 @@ import android.annotation.TargetApi;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
@@ -56,7 +57,7 @@ public class SchemeFragment extends LKFragment {
         final ViewPager vp = get(view, R.id.scheme_viewpager, ViewPager.class);
 
         int currentDay = getCurrentDay(getStartingDate());
-
+        vp.setBackgroundColor(Color.TRANSPARENT);
         vp.setAdapter(new SchemeViewAdapter());
         vp.setCurrentItem(currentDay);
         vp.setPageTransformer(true, new ZoomOutPageTransformer());
