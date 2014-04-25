@@ -6,6 +6,7 @@
     tools:context=".ContentActivity">
 
     <ListView
+        android:cacheColorHint="@color/transparent"
     android:id="@+id/fragment_fun_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"

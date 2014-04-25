@@ -225,9 +225,8 @@ public class MelodyFragment extends LKFragment {
                 play.setImageResource(R.drawable.playerbutton);
             }
         }
-        if(Build.VERSION.SDK_INT >= 11) {
             startMovingClouds(rootView);
-             }
+
         return rootView;
     }
 
@@ -452,7 +451,6 @@ public class MelodyFragment extends LKFragment {
         }
     };
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private class CloudStartListner implements Animation.AnimationListener {
 
         ImageView view;
