@@ -16,7 +16,9 @@ import java.util.Calendar;
 
 import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
+import se.lundakarnevalen.extern.widget.LKListElement;
 import se.lundakarnevalen.extern.widget.LKSchemeAdapter;
+import se.lundakarnevalen.extern.widget.LKTimeObject;
 
 /**
  * Created by Markus on 2014-04-16.
@@ -38,31 +40,48 @@ public class LandingPageFragment extends LKFragment{
         Bundle bundle = getArguments();
         get(rootView,R.id.name,TextView.class).setText(bundle.getString("name"));
         get(rootView,R.id.place,TextView.class).setText(bundle.getString("place"));
+        LKListElement element = bundle.getParcelable("element");
         Calendar c = Calendar.getInstance();
-        int open = bundle.getInt("open");
-        int close = bundle.getInt("close");
-        if(isOpen(c.HOUR_OF_DAY,open,close)) {
-            get(rootView,R.id.open_info,TextView.class).setText(R.string.open);
-        } else {
-            get(rootView,R.id.open_box,RelativeLayout.class).setBackgroundColor(getResources().getColor(R.color.red_button_background));
-            get(rootView,R.id.open_info,TextView.class).setText(R.string.closed);
+
+        switch (c.DAY_OF_MONTH) {
+            case 23:
+                get(rootView,R.id.open_info,TextView.class).setText(element.timeFriday);
+                //open(c.)
+                //if(c.)
+                break;
+            case 24:
+                if(c.HOUR_OF_DAY < 6) {
+                    get(rootView,R.id.open_info,TextView.class).setText(element.timeFriday);
+                }
+                get(rootView,R.id.open_info,TextView.class).setText(element.timeSaturday);
+                break;
+            case 25:
+                if(c.HOUR_OF_DAY < 6) {
+                    get(rootView,R.id.open_info,TextView.class).setText(element.timeSaturday);
+                }
+                get(rootView,R.id.open_info,TextView.class).setText(element.timeSunday);
+                break;
+            default:
+                get(rootView,R.id.open_info,TextView.class).setText(element.timeSunday);
+                break;
         }
-        if(bundle.getBoolean("cash")) {
+
+        if(element.cash == 1) {
            // get(rootView,R.id.cash_picture,ImageView.class).setImageResource(R.drawable.cash_true);
         } else {
             // get(rootView,R.id.cash_picture,ImageView.class).setImageResource(R.drawable.cash_false);
         }
-        if(bundle.getBoolean("card")) {
+        if(element.card==1) {
             // get(rootView,R.id.card_picture,ImageView.class).setImageResource(R.drawable.card_true);
         } else {
             // get(rootView,R.id.card_picture,ImageView.class).setImageResource(R.drawable.card_false);
         }
-        lat = bundle.getFloat("lat");
-        lng = bundle.getFloat("lng");
-        int type = bundle.getInt("type");
+        lat = element.lat;
+        lng = element.lng;
+        int type = element.type;
 
-        get(rootView,R.id.picture,ImageView.class).setImageResource(bundle.getInt("picture"));
-        get(rootView,R.id.header_background,ImageView.class).setImageResource(bundle.getInt("top_picture"));
+        get(rootView,R.id.picture,ImageView.class).setImageResource(element.picture);
+        get(rootView,R.id.header_background,ImageView.class).setImageResource(element.headerPicture);
 
         ImageView mapView = (ImageView) rootView.findViewById(R.id.map_picture);
         mapView.setOnClickListener(new View.OnClickListener() {
@@ -86,12 +105,12 @@ public class LandingPageFragment extends LKFragment{
 
 
         if(type==1) {
-            get(rootView, R.id.question, TextView.class).setText(bundle.getString("question"));
-            get(rootView, R.id.text, TextView.class).setText(bundle.getString("desc"));
+            get(rootView, R.id.question, TextView.class).setText(element.question);
+            get(rootView, R.id.text, TextView.class).setText(element.info);
 //        rootView.findViewById(R.id.name).;
         } else if(type == 2) {
-            get(rootView, R.id.question, TextView.class).setText(bundle.getString("question"));
-            get(rootView, R.id.text, TextView.class).setText(bundle.getString("desc"));
+            get(rootView, R.id.question, TextView.class).setText(element.question);
+            get(rootView, R.id.text, TextView.class).setText(element.info);
             get(rootView, R.id.middleLayout, RelativeLayout.class).setBackgroundResource(R.color.green_background);
 
 //
@@ -99,29 +118,6 @@ public class LandingPageFragment extends LKFragment{
             return rootView;
     }
 
-    private boolean isOpen(int hourOfDay, int open, int close) {
-        if(close < open) {
-            if(hourOfDay < close) {
-                return true;
-            } else if(hourOfDay >= open) {
-                return true;
-            } else {
-                return false;
-            }
-
-        } else {
-            if(hourOfDay >= open) {
-                if(hourOfDay < close) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        }
-
-    }
 
     @Override
     public void onStart() {
@@ -135,10 +131,10 @@ public class LandingPageFragment extends LKFragment{
         super.onStop();
     }
 
-    public static LandingPageFragment create(String name, String place, boolean cash, boolean card, float lat, float lng, int picture,int topPicture, String question, String desc,int open, int close, int type) {
+    public static LandingPageFragment create(LKListElement element) {
         LandingPageFragment fragment = new LandingPageFragment();
         Bundle bundle = new Bundle();
-
+    /*
         bundle.putString("name",name);
         bundle.putString("place",place);
         bundle.putBoolean("cash", cash);
@@ -152,6 +148,9 @@ public class LandingPageFragment extends LKFragment{
         bundle.putInt("type", type);
         bundle.putInt("open", open);
         bundle.putInt("close",close);
+    */
+        bundle.putParcelable("element",element);
+
         fragment.setArguments(bundle);
         // Add arguments
         return fragment;
