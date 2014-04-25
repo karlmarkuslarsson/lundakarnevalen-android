@@ -6,7 +6,7 @@ Extern andriod-app för Futuralkarneval 2014!
 Struktur - Externappen
 
 Strukturkarta
-
+```
 Nöjen
     Show          -> Landningssida    -> (Karta)
     
@@ -76,7 +76,7 @@ Schema
     Parkering               ->     Karta
     
     Tåget                   ->     Tåget (Google Karta)
-
+```
 Vyer
 
 De olika vyerna som vi kommer använda oss utav
