@@ -1,14 +1,9 @@
 package se.lundakarnevalen.extern.widget;
 
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Matrix;
-import android.graphics.Paint;
 import android.graphics.Picture;
-import android.graphics.PointF;
-import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -16,11 +11,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
-import android.widget.ImageView;
 
-import com.caverock.androidsvg.SVG;
-
-import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.util.Logf;
 import se.lundakarnevalen.extern.util.Timer;
 
@@ -46,6 +37,7 @@ public class SVGMapView extends View {
 
     private float lastFocusY;
     private float lastFocusX;
+    private float mInitScale;
 
     public SVGMapView(Context context) {
         super(context);
@@ -107,9 +99,6 @@ public class SVGMapView extends View {
             //mScaleFactor *= Math.max(1.005f, Math.min(scale, 0.995f));
             mScaleFactor *= scale;
 
-            // Don't let the object get too small or too large.
-            // mScaleFactor = Math.max(0.8f, Math.min(mScaleFactor, 2.0f));
-
             float focusX = detector.getFocusX();
             float focusY = detector.getFocusY();
 
@@ -126,6 +115,7 @@ public class SVGMapView extends View {
 
             float focusShiftX = focusX - lastFocusX;
             float focusShiftY = focusY - lastFocusY;
+
             transformationMatrix.postTranslate(focusX + focusShiftX, focusY + focusShiftY);
 
             matrix.set(savedMatrix);
@@ -149,7 +139,13 @@ public class SVGMapView extends View {
         }
 
         @Override
-        public void onLongPress(MotionEvent e) {}
+        public void onLongPress(MotionEvent e) {
+            Log.d(LOG_TAG, matrix.toShortString());
+            //matrix.invert(inv);
+            matrix.mapPoints(mappedEndPoint, endPoint);
+            Logf.d(LOG_TAG, "%f, %f => %f, %f", endPoint[0], endPoint[1], mappedEndPoint[0], mappedEndPoint[1]);
+
+        }
 
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {return false;}
@@ -168,10 +164,34 @@ public class SVGMapView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.save();
+        filterMatrix(matrix);
         canvas.concat(matrix);
         canvas.getClipBounds(r);
         canvas.drawPicture(pic);
         canvas.restore();
+    }
+
+    private float[] values = new float[9];
+    private Matrix inv = new Matrix();
+    private final float[] endPoint = new float[]{512f, 512f};
+    private float[] mappedEndPoint = new float[]{0.0f, 0.0f};
+
+    private void filterMatrix(Matrix matrix) {
+        matrix.getValues(values);
+
+        //matrix.invert(inv);
+        matrix.mapPoints(mappedEndPoint, endPoint);
+
+        values[2] = Math.max(Math.min(values[2], 0), -1.0f * mappedEndPoint[0]);
+        values[5] = Math.max(Math.min(values[5], 0), -1.0f * mappedEndPoint[1]);
+
+        //values[2] = Math.min(values[2], 0);
+        //values[5] = Math.min(values[5], 0);
+
+        values[0] = Math.max(Math.min(values[0], 250.0f), mInitScale);
+        values[4] = Math.max(Math.min(values[4], 250.0f), mInitScale);
+
+        matrix.setValues(values);
     }
 
     private void checkClick(float relativeX, float relativeY) {
@@ -180,9 +200,11 @@ public class SVGMapView extends View {
 
     public void setSvg(Picture svg, int w, int h) {
         this.pic = svg;
-        float initScale = w * 1.0f / pic.getWidth();
-        this.matrix.setScale(initScale, initScale);
-        this.matrix.preTranslate(0f, 100f);
+        this.mInitScale = w * 2f / pic.getWidth();
+        this.matrix.setScale(mInitScale, mInitScale);
+        this.endPoint[0] = pic.getWidth();
+        this.endPoint[1] = pic.getHeight();
+        //this.matrix.preTranslate(0f, 100f);
         postInvalidate();
     }
 
