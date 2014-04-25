@@ -100,11 +100,10 @@
                         android:layout_height="wrap_content"
                         android:paddingBottom="3dp"
                         android:paddingTop="3dp"
-                        android:paddingLeft="12dp"
-                        android:paddingRight="12dp"
+                        android:paddingLeft="3dp"
+                        android:paddingRight="3dp"
                         android:textColor="@color/white"
-                        android:textSize="12dp"
-
+                        android:textSize="10sp"
                         />
 
 
@@ -119,14 +118,29 @@
                     android:background="@drawable/scheme_shadow"
                     />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="2"
+                    android:layout_alignRight="@id/open_box"
+                    android:layout_alignLeft="@id/open_box"
+                    android:layout_below="@id/open_box"
+                    >
+
+
                 <RelativeLayout
+
                     android:id="@+id/cash_box"
+                    android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
+
                     android:layout_below="@id/open_box">
 
                     <ImageView
+
+                        android:layout_centerHorizontal="true"
                         android:id="@+id/cash_picture"
                         android:layout_width="24dp"
                         android:layout_height="12dp"
@@ -136,6 +150,7 @@
 
                     <se.lundakarnevalen.extern.widget.LKTextView
                         android:text="@string/cash"
+                        android:layout_centerHorizontal="true"
                         android:id="@+id/open_info"
                         android:layout_marginTop="1dp"
                         android:layout_below="@id/cash_picture"
@@ -154,15 +169,15 @@
 
 
                 <RelativeLayout
+                    android:layout_weight="1"
                     android:id="@+id/card_box"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignRight="@id/open_box"
                     android:layout_marginTop="6dp"
-                    android:layout_below="@id/open_box"
 
                     >
                     <ImageView
+                        android:layout_centerHorizontal="true"
                         android:id="@+id/card_picture"
                         android:layout_width="24dp"
                         android:layout_height="12dp"
@@ -172,6 +187,7 @@
                     <se.lundakarnevalen.extern.widget.LKTextView
                         android:text="@string/card"
                         android:id="@+id/open_info"
+                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="1dp"
                         android:layout_below="@id/card_picture"
                         android:layout_width="match_parent"
@@ -187,6 +203,7 @@
 
                 </RelativeLayout>
 
+                </LinearLayout>
 
                 <RelativeLayout
                     android:id="@+id/map_box"

@@ -185,6 +185,10 @@ karnevalistisk femstjärning meny för 70 kr!\n\n
     <string name="care_title">SJUKVÅRD</string>
     <string name="toilets_title">TOALETTER</string>
     <string name="no_internet">Kontrollera din internetanslutning!</string>
+    <string name="dansen_place">AF BORGEN</string>
+    <string name="dansen_title">DANSEN</string>
+    <string name="dansen_info" />
+    <string name="dansen_question">VAD ÄR DANSEN?</string>
 
 
 </resources>

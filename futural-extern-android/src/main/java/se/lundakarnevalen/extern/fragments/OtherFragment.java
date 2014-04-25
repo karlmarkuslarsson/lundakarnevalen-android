@@ -55,74 +55,40 @@ public class OtherFragment extends LKFragment{
 
     private void addAllOther() {
         other.add(new LKListElement(
-                "",
+
                 getString(R.string.radio_title),
-                "",
-                0, 0,
-                0,
                 R.drawable.radio_logo,
-                "",
                 LKListElementType.RADIO));
 
         other.add(new LKListElement(
-                "",
                 getString(R.string.security_title),
-                "",
-                0, 0,
-                0,
                 R.drawable.security_logo,
-                "",
                 LKListElementType.OTHER));
-
         other.add(new LKListElement(
-                "",
                 getString(R.string.atm_title),
-                "",
-                0, 0,
-                0,
                 R.drawable.atm_logo,
-                "",
                 LKListElementType.OTHER));
 
 
         other.add(new LKListElement(
-                "",
+
                 getString(R.string.parking_title),
-                "",
-                0, 0,
-                0,
                 R.drawable.parking_logo,
-                "",
                 LKListElementType.OTHER));
 
         other.add(new LKListElement(
-                "",
                 getString(R.string.care_title),
-                "",
-                0, 0,
-                0,
                 R.drawable.health_logo,
-                "",
                 LKListElementType.OTHER));
 
         other.add(new LKListElement(
-                "",
                 getString(R.string.toilets_title),
-                "",
-                0, 0,
-                0,
                 R.drawable.toilets_logo,
-                "",
                 LKListElementType.OTHER));
 
         other.add(new LKListElement(
-                "",
                 "KARNEVALSLÅTEN",
-                "",
-                0, 0,
-                0,
                 R.drawable.radio_logo,
-                "",
                 LKListElementType.FUTURAL));
     }
 

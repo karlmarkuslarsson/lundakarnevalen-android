@@ -99,8 +99,9 @@ public class ContentActivity extends ActionBarActivity {
         super.onDestroy();
     }
 
-    @TargetApi(11)
     public void hideBottomMenu(){
+
+        /*
         final View menu = find(R.id.bottom_frame_menu, View.class);
         View content = find(R.id.content_frame, View.class);
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
@@ -121,10 +122,12 @@ public class ContentActivity extends ActionBarActivity {
         }else{
             menu.setVisibility(View.GONE);
         }
+        */
     }
 
-    @TargetApi(11)
+    //@TargetApi(11)
     public void showBottomMenu(){
+        /*
         final View menu = find(R.id.bottom_frame_menu, View.class);
         View content = find(R.id.content_frame, View.class);
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
@@ -145,6 +148,7 @@ public class ContentActivity extends ActionBarActivity {
         } else {
             find(R.id.bottom_frame_menu, View.class).setVisibility(View.VISIBLE);
         }
+        */
     }
 
     private void setupTint() {

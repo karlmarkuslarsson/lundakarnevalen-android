@@ -1,5 +1,6 @@
 package se.lundakarnevalen.extern.widget;
 
+
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.PorterDuff;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -21,12 +23,17 @@ import se.lundakarnevalen.extern.fragments.LandingPageFragment;
 import se.lundakarnevalen.extern.fragments.MelodyFragment;
 import se.lundakarnevalen.extern.fragments.MusicFragment;
 
+import static se.lundakarnevalen.extern.util.ViewUtil.get;
+
+
 /**
  * Created by Markus on 2014-04-20.
  */
 public class LKListAdapter extends ArrayAdapter<LKListRow> {
+
     private final Context context;
     private Activity activity;
+
 
     public LKListAdapter(Context context, List<LKListRow> items, Activity activity) {
         super(context, R.layout.element_lk_list, items);
@@ -94,20 +101,10 @@ public class LKListAdapter extends ArrayAdapter<LKListRow> {
 
             } else if (element.type == LKListElementType.FUN) {
 
+                
                 contentActivity.loadFragmentWithAdd(
                         LandingPageFragment.create(
-                                element.title,
-                                element.place,
-                                 true, true,
-                                element.lat,
-                                element.lng,
-                                element.picture,
-                                element.headerPicture,
-                                element.question,
-                                element.info,
-                                element.open,
-                                element.close,
-                                1)
+                              element)
                 );
             } else if(element.type == LKListElementType.FUTURAL) {
                 contentActivity.loadFragmentWithAdd(new MelodyFragment());
@@ -115,20 +112,7 @@ public class LKListAdapter extends ArrayAdapter<LKListRow> {
 
             } else {
                     contentActivity.loadFragmentWithAdd(
-                            LandingPageFragment.create(
-                                    element.title,
-                                    element.place,
-                                    true, true,
-                                    element.lat,
-                                    element.lng,
-                                    element.picture,
-                                    element.headerPicture,
-                                    element.question,
-                                    element.info,
-                                    element.open,
-                                    element.close,
-                                    2)
-                    );
+                            LandingPageFragment.create(element));
                 }
             }
 

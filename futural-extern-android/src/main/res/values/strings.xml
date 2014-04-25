@@ -239,7 +239,10 @@ karnevalistisk femstjärning meny för 70 kr!\n\n
     <string name="playPart32">VI SKA ÖVERTYGA VÄRLDEN</string>
     <string name="playPart33">ATT FIRA MAJ I LUND</string>
     <string name="playPart34">EXPLODERAR PÅ EN SEKUND</string>
-
+    <string name="dansen_place">AF BORGEN</string>
+    <string name="dansen_title">DANSEN</string>
+    <string name="dansen_info" />
+    <string name="dansen_question">VAD ÄR DANSEN?</string>
 
 
 </resources>
