@@ -74,6 +74,7 @@ public class FoodFragment extends LKFragment {
                 R.drawable.monk,
                 R.drawable.header_kabare,
                 getString(R.string.cocktail_question),
+                "15:30-22:30","15-30:23:30","15:30-22:30",
                 LKListElementType.FOOD));
 
         food.add(new LKListElement(
@@ -84,6 +85,7 @@ public class FoodFragment extends LKFragment {
                 R.drawable.monk,
                 R.drawable.header_kabare,
                 getString(R.string.hipp_baren_question),
+                "15:30-22:30","15-30:23:30","15:30-22:30",
                 LKListElementType.FOOD));
 
 
@@ -95,6 +97,7 @@ public class FoodFragment extends LKFragment {
                 R.drawable.monk,
                 R.drawable.header_kabare,
                 getString(R.string.folkan_question),
+                "15:30-22:30","15-30:23:30","15:30-22:30",
                 LKListElementType.FOOD));
 
         food.add(new LKListElement(
@@ -105,6 +108,7 @@ public class FoodFragment extends LKFragment {
                 R.drawable.monk,
                 R.drawable.undervatten_logo,
                 getString(R.string.krog_undervatten_question),
+                "15:30-22:30","15-30:23:30","15:30-22:30",
                 LKListElementType.FOOD));
 
 

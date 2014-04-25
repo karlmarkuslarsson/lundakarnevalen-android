@@ -17,6 +17,7 @@ import java.util.Calendar;
 import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.widget.LKListElement;
+import se.lundakarnevalen.extern.widget.LKListElementType;
 import se.lundakarnevalen.extern.widget.LKSchemeAdapter;
 import se.lundakarnevalen.extern.widget.LKTimeObject;
 
@@ -104,11 +105,11 @@ public class LandingPageFragment extends LKFragment{
         });
 
 
-        if(type==1) {
+        if(type==LKListElementType.FUN) {
             get(rootView, R.id.question, TextView.class).setText(element.question);
             get(rootView, R.id.text, TextView.class).setText(element.info);
 //        rootView.findViewById(R.id.name).;
-        } else if(type == 2) {
+        } else if(type == LKListElementType.FOOD) {
             get(rootView, R.id.question, TextView.class).setText(element.question);
             get(rootView, R.id.text, TextView.class).setText(element.info);
             get(rootView, R.id.middleLayout, RelativeLayout.class).setBackgroundResource(R.color.green_background);
