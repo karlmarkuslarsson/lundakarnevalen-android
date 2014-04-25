@@ -94,9 +94,9 @@ public class ContentActivity extends ActionBarActivity {
 
     @Override
     protected void onDestroy() {
+        Log.d(LOG_TAG, "onDestroy()!? null=>preloaded");
+        MapFragment.clean();
         super.onDestroy();
-        Log.wtf(LOG_TAG, "onDestroy()!? null=>svg");
-        MapFragment.staticCache = null;
     }
 
     @TargetApi(11)

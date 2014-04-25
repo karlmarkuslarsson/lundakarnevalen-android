@@ -178,8 +178,8 @@ public class SVGMapView extends View {
 
     }
 
-    public void setSvg(SVG svg, int w, int h, int dpi) {
-        this.pic = svg.renderToPicture();
+    public void setSvg(Picture svg, int w, int h) {
+        this.pic = svg;
         float initScale = w * 1.0f / pic.getWidth();
         this.matrix.setScale(initScale, initScale);
         this.matrix.preTranslate(0f, 100f);
