@@ -101,7 +101,7 @@ public class LKListAdapter extends ArrayAdapter<LKListRow> {
 
             } else if (element.type == LKListElementType.FUN) {
 
-                
+
                 contentActivity.loadFragmentWithAdd(
                         LandingPageFragment.create(
                               element)

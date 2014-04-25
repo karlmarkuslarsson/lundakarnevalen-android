@@ -6,6 +6,7 @@ package se.lundakarnevalen.extern.fragments;
 
 
 
+        import se.lundakarnevalen.extern.android.ContentActivity;
         import se.lundakarnevalen.extern.android.R;
         import se.lundakarnevalen.extern.sound.MySoundFactory;
 
@@ -537,6 +538,13 @@ public class MelodyFragment extends LKFragment {
 
     }
 
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        ContentActivity.class.cast(getActivity()).allBottomsActive();
+    }
 
 }
 

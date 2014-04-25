@@ -123,12 +123,14 @@ public class LandingPageFragment extends LKFragment{
     @Override
     public void onStart() {
         super.onStart();
-        ContentActivity.class.cast(getActivity()).hideBottomMenu();
+        //ContentActivity.class.cast(getActivity()).hideBottomMenu();
+
+        ContentActivity.class.cast(getActivity()).allBottomsActive();
     }
 
     @Override
     public void onStop() {
-        ContentActivity.class.cast(getActivity()).showBottomMenu();
+        //ContentActivity.class.cast(getActivity()).showBottomMenu();
         super.onStop();
     }
 

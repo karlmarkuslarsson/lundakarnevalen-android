@@ -1,6 +1,5 @@
 package se.lundakarnevalen.extern.android;
 
-import android.annotation.TargetApi;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Handler;
@@ -19,8 +18,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -51,7 +48,7 @@ public class ContentActivity extends ActionBarActivity {
     private LKRightMenuArrayAdapter adapter;
     private ListView rightMenuList;
     private DrawerLayout drawerLayout;
-    private BottomMenuClickListener list;
+    private BottomMenuClickListener listner;
     private ActionBar actionBar;
     public MapFragment mapFragment;
     private ArrayList<LKRightMenuListItem> rightMenuItems = new ArrayList<LKRightMenuListItem>();
@@ -98,6 +95,7 @@ public class ContentActivity extends ActionBarActivity {
         MapFragment.clean();
         super.onDestroy();
     }
+
 
     public void hideBottomMenu(){
 
@@ -171,14 +169,14 @@ public class ContentActivity extends ActionBarActivity {
     }
 
     private void populateBottomMenu(LinearLayout bottomMenu) {
-        list = new BottomMenuClickListener();
+        listner = new BottomMenuClickListener();
         AtomicInteger counter = new AtomicInteger(0);
-        createBottomMenuItem(bottomMenu, list, counter, new FunFragment(), R.id.button1, R.string.fun, R.drawable.fun_logo);
-        createBottomMenuItem(bottomMenu, list, counter, new FoodFragment(), R.id.button2, R.string.food, R.drawable.food_logo);
-        createBottomMenuItem(bottomMenu, list, counter, mapFragment, R.id.button3, R.string.map, R.drawable.map_logo);
-        createBottomMenuItem(bottomMenu, list, counter, new SchemeFragment(), R.id.button4, R.string.scheme, R.drawable.scheme_logo);
-        createBottomMenuItem(bottomMenu, list, counter, new OtherFragment(), R.id.button5, R.string.other, R.drawable.other_logo);
-        list.first(get(bottomMenu, R.id.button3, ViewGroup.class));
+        createBottomMenuItem(bottomMenu, listner, counter, new FunFragment(), R.id.button1, R.string.fun, R.drawable.fun_logo);
+        createBottomMenuItem(bottomMenu, listner, counter, new FoodFragment(), R.id.button2, R.string.food, R.drawable.food_logo);
+        createBottomMenuItem(bottomMenu, listner, counter, mapFragment, R.id.button3, R.string.map, R.drawable.map_logo);
+        createBottomMenuItem(bottomMenu, listner, counter, new SchemeFragment(), R.id.button4, R.string.scheme, R.drawable.scheme_logo);
+        createBottomMenuItem(bottomMenu, listner, counter, new OtherFragment(), R.id.button5, R.string.other, R.drawable.other_logo);
+        listner.first(get(bottomMenu, R.id.button3, ViewGroup.class));
     }
 
     private void createBottomMenuItem(LinearLayout menu, BottomMenuClickListener listener, AtomicInteger counter, Fragment f, int itemId, int textId, int imageId) {
@@ -220,9 +218,9 @@ public class ContentActivity extends ActionBarActivity {
         transaction.setCustomAnimations(R.anim.abc_fade_in,R.anim.abc_fade_out);
         transaction.replace(R.id.content_frame, f);
         transaction.addToBackStack(null);
-        if(list != null) {
+        if(listner != null) {
             if (f instanceof MapFragment) {
-                list.onClick(findViewById(R.id.button3));
+                listner.onClick(findViewById(R.id.button3));
             }
         }
         transaction.commit();
@@ -296,6 +294,11 @@ public class ContentActivity extends ActionBarActivity {
         rightMenuList.setAdapter(adapter);
         rightMenuList.setOnItemClickListener(adapter);
 
+    }
+
+    public void allBottomsActive() {
+        listner.deselectItem(getResources());
+        listner.selected = null;
     }
 
     private class MenuClickSelector implements OnClickListener {
@@ -391,6 +394,12 @@ public class ContentActivity extends ActionBarActivity {
             Fragment f = (Fragment) v.getTag(TAG_FRAGMENT);
 
             int newIdx = Integer.class.cast(v.getTag(TAG_IDX));
+            if(selected == null) {
+                selectItem(newSelection, r);
+                loadFragmentWithReplaceAnimated(f, true);
+                this.selected = newSelection;
+                return;
+            }
             int oldIdx = Integer.class.cast(selected.getTag(TAG_IDX));
             boolean moveLeft = (newIdx > oldIdx);
 
