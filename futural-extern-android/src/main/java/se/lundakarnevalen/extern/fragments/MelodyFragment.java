@@ -28,6 +28,7 @@ package se.lundakarnevalen.extern.fragments;
         import android.view.ViewPropertyAnimator;
         import android.view.WindowManager;
         import android.view.animation.Animation;
+        import android.view.animation.TranslateAnimation;
         import android.widget.ImageView;
         import android.widget.RelativeLayout;
         import android.widget.TextView;
@@ -80,7 +81,7 @@ public class MelodyFragment extends LKFragment {
                              Bundle savedInstanceState) {
 
 
-        View rootView = inflater.inflate(R.layout.fragment_melody, null);
+        final View rootView = inflater.inflate(R.layout.fragment_melody, null);
 
         tvKarnevalTitle = (TextView) rootView
                 .findViewById(R.id.tvKarnevalTitle);
@@ -225,54 +226,11 @@ public class MelodyFragment extends LKFragment {
             }
         }
         if(Build.VERSION.SDK_INT >= 11) {
-
-            ImageView cloud = (ImageView) rootView.findViewById(R.id.cloud1);
-            final ObjectAnimator animX1 = ObjectAnimator.ofFloat(cloud, "x", 500f);
-            animX1.setDuration(3000);
-            animX1.setRepeatCount(Animation.INFINITE);
-
-            animX1.start();
-            cloud = (ImageView) rootView.findViewById(R.id.cloud2);
-            final ObjectAnimator animX2 = ObjectAnimator.ofFloat(cloud, "x", 50f);
-            animX2.setDuration(3000);
-            animX2.setRepeatCount(Animation.INFINITE);
-            animX2.start();
-
-            final ImageView finalCloud = cloud;
-            animX2.addListener(new Animator.AnimatorListener() {
-                @Override
-                public void onAnimationStart(Animator animator) {
-
-                }
-
-                @Override
-                public void onAnimationEnd(Animator animator) {
-
-                }
-
-                @Override
-                public void onAnimationCancel(Animator animator) {
-                    animX2.ofFloat(finalCloud,"x",500f);
-                }
-
-                @Override
-                public void onAnimationRepeat(Animator animator) {
-
-                }
-            });
-            cloud = (ImageView) rootView.findViewById(R.id.cloud3);
-            final ObjectAnimator animX3 = ObjectAnimator.ofFloat(cloud, "x", 500f);
-            animX3.setDuration(3000);
-            animX3.setRepeatCount(Animation.INFINITE);
-            animX3.start();
-            cloud = (ImageView) rootView.findViewById(R.id.cloud4);
-            final ObjectAnimator animX4 = ObjectAnimator.ofFloat(cloud, "x", 50f);
-            animX4.setDuration(3000);
-            animX4.setRepeatCount(Animation.INFINITE);
-            animX4.start();
-        }
+            startMovingClouds(rootView);
+             }
         return rootView;
     }
+
 
     private void setFinish(View v, TextView tv, ImageView img) {
        /*
@@ -495,37 +453,90 @@ public class MelodyFragment extends LKFragment {
     };
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    private class CloudListner implements Animator.AnimatorListener {
+    private class CloudStartListner implements Animation.AnimationListener {
 
         ImageView view;
-        boolean right;
-        CloudListner(ImageView view, boolean right) {
+        ImageView movingCloud;
+        Animation a2;
+        CloudStartListner(ImageView view) {
             this.view = view;
-            this.right = right;
+        }
+
+        public CloudStartListner(ImageView view, ImageView movingCloud, Animation a2) {
+            this.view = view;
+            this.movingCloud = movingCloud;
+            this.a2 = a2;
         }
 
         @Override
-        public void onAnimationStart(Animator animator) {
-
-        }
-
-        @Override
-        public void onAnimationEnd(Animator animator) {
-
-        }
-
-        @Override
-        public void onAnimationCancel(Animator animator) {
+        public void onAnimationStart(Animation animation) {
 
         }
 
         @Override
-        public void onAnimationRepeat(Animator animator) {
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                    50, 100);
-            params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-            view.setLayoutParams(params);
+        public void onAnimationEnd(Animation animation) {
+            view.setVisibility(View.INVISIBLE);
+            if(a2!=null)  {
+                movingCloud.startAnimation(a2);
+            }
         }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+
+        }
+    }
+
+    private void startMovingClouds(View rootView) {
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        float width = display.getWidth();  // deprecated
+        float height = display.getHeight();
+        ImageView cloud = (ImageView) rootView.findViewById(R.id.cloud1);
+        Animation a = new TranslateAnimation(0,width,0 ,0);
+        ImageView movingCloud = (ImageView) rootView.findViewById(R.id.cloud5);
+        Animation a2 = new TranslateAnimation(0,width+200,0 ,0);
+        a2.setRepeatCount(Animation.INFINITE);
+        a2.setDuration(10000);
+        a.setAnimationListener(new CloudStartListner(cloud, movingCloud, a2));
+        a.setDuration(10000);
+        cloud.startAnimation(a);
+        cloud = (ImageView) rootView.findViewById(R.id.cloud2);
+        //ObjectAnimator.
+        //animX2.setDuration(3000);
+        a  = new TranslateAnimation(0,200,0,0);
+        a.setDuration(4000);
+        movingCloud = (ImageView) rootView.findViewById(R.id.cloud6);
+        a2 = new TranslateAnimation(0,width+200,0 ,0);
+        a2.setRepeatCount(Animation.INFINITE);
+        a2.setDuration(13000);
+        a.setAnimationListener(new CloudStartListner(cloud, movingCloud, a2));
+        cloud.startAnimation(a);
+
+
+        //animX2.setRepeatCount(Animation.INFINITE);
+        //animX2.start();
+
+        cloud = (ImageView) rootView.findViewById(R.id.cloud3);
+        a = new TranslateAnimation(0,width,0 ,0);
+        a.setDuration(13000);
+        movingCloud = (ImageView) rootView.findViewById(R.id.cloud7);
+        a2 = new TranslateAnimation(0,width+200,0 ,0);
+        a2.setRepeatCount(Animation.INFINITE);
+        a2.setDuration(15000);
+        a.setAnimationListener(new CloudStartListner(cloud, movingCloud, a2));
+        cloud.startAnimation(a);
+
+        cloud = (ImageView) rootView.findViewById(R.id.cloud4);
+        a  = new TranslateAnimation(0,200,0,0);
+        a.setDuration(4000);
+        movingCloud = (ImageView) rootView.findViewById(R.id.cloud8);
+        a2 = new TranslateAnimation(0,width+200,0 ,0);
+        a2.setRepeatCount(Animation.INFINITE);
+        a2.setDuration(8000);
+        a.setAnimationListener(new CloudStartListner(cloud, movingCloud, a2));
+        cloud.startAnimation(a);
+
+
     }
 
 
