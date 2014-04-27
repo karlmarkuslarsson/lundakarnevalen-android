@@ -22,8 +22,10 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import se.lundakarnevalen.extern.android.R;
+import se.lundakarnevalen.extern.util.Delay;
 import se.lundakarnevalen.extern.util.Timer;
-import se.lundakarnevalen.extern.widget.SVGMapView;
+import se.lundakarnevalen.extern.widget.LKMapView;
+import se.lundakarnevalen.extern.widget.SVGView;
 
 import static se.lundakarnevalen.extern.util.ViewUtil.get;
 
@@ -58,30 +60,35 @@ public class MapFragment extends LKFragment {
     private static final String LOG_TAG = MapFragment.class.getSimpleName();
     private static final String STATE_MATRIX = "matrix";
 
-    private int imageWidth;
-    private int imageHeight;
+    private int displayWidth;
+    private int displayHeight;
 
-    private SVGMapView img;
+    private LKMapView img;
 
     // Every time you switch to this fragment.
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_map, container, false);
+        final View root = inflater.inflate(R.layout.fragment_map, container, false);
 
         DisplayMetrics metrics = inflater.getContext().getResources().getDisplayMetrics();
-        imageWidth = metrics.widthPixels;
-        imageHeight = metrics.heightPixels;
 
-        img = get(rootView, R.id.map_id, SVGMapView.class);
+        displayWidth = metrics.widthPixels;
+        displayHeight = metrics.heightPixels;
 
-        final ViewFlipper flipper = get(rootView, R.id.map_switcher, ViewFlipper.class);
+        img = get(root, R.id.map_id, LKMapView.class);
+
+        final ViewFlipper flipper = get(root, R.id.map_switcher, ViewFlipper.class);
 
         new AsyncTask<Void, Void, Void>(){
             @Override
             protected Void doInBackground(Void... params) {
                 try {
                     Picture picture = preloaded.get(20, TimeUnit.SECONDS);
-                    img.setSvg(picture, imageWidth, imageHeight);
+
+                    while (img.getMeasuredHeight() == 0) Delay.ms(100); //Wait for layout
+
+                    float preferredZoom = calculatePreferredZoom(img);
+                    img.setSvg(picture, preferredZoom);
                 } catch (InterruptedException e) {
                     Log.wtf(LOG_TAG, "Future was interrupted", e);
                 } catch (ExecutionException e) {
@@ -89,7 +96,9 @@ public class MapFragment extends LKFragment {
                 } catch (TimeoutException e) {
                     try{
                         Picture picture = new SvgLoader(inflater.getContext()).call();
-                        img.setSvg(picture, imageWidth, imageHeight);
+                        while (img.getMeasuredHeight() == 0) Delay.ms(100); //Wait for layout
+                        float preferredZoom = calculatePreferredZoom(img);
+                        img.setSvg(picture, preferredZoom);
                     } catch (Exception ex){
                         Log.wtf(LOG_TAG, "Failed to load image after timeout", ex);
                     }
@@ -114,7 +123,14 @@ public class MapFragment extends LKFragment {
 
         //setRetainInstance(true);
 
-        return rootView;
+        return root;
+    }
+
+    private float calculatePreferredZoom(View root) {
+        //We assume that the svg image is 512x512 for now
+        return Math.max(
+                    root.getMeasuredHeight()/512f,
+                    root.getMeasuredWidth()/512f);
     }
 
     public static class SvgLoader implements Callable<Picture> {

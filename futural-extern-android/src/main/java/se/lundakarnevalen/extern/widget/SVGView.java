@@ -12,54 +12,53 @@ import android.view.ScaleGestureDetector;
 import android.view.View;
 
 import se.lundakarnevalen.extern.util.Logf;
-import se.lundakarnevalen.extern.util.Timer;
 
 import static android.graphics.Matrix.*;
 
 /**
  * Created by Filip on 2014-04-23.
  */
-public class SVGMapView extends View {
+public class SVGView extends View {
+    private static final String LOG_TAG = SVGView.class.getSimpleName();
 
-    private static final String LOG_TAG = SVGMapView.class.getSimpleName();
-    private static final int INVALID_POINTER_ID = -1;
+    public static final boolean DEBUG = true;
+
+    public static final float MAX_ZOOM = 250.0f;
 
     private float[] values = new float[9];
 
     private Matrix inverseMatrix;
     private Matrix savedMatrix;
-    private Matrix matrix;
+    protected Matrix matrix;
 
     private float mScaleFactor;
 
-    private Rect r = new Rect();
-    private Picture pic = new Picture();
-    private Timer timer = new Timer();
+    protected Picture pic;
 
     private ScaleGestureDetector mScaleDetector;
     private GestureDetector mGestures;
 
     private float lastFocusY;
     private float lastFocusX;
-    private float mInitScale;
+    protected float mInitScale;
+
+    protected Rect currentViewBound;
+
+    protected final float[] picEndPoint = new float[]{-1f, -1f};
+    protected final float[] viewEndPoint = new float[]{-1f, -1f};
 
 
-    private final float[] picEndPoint = new float[]{-1f, -1f};
-    private final float[] viewEndPoint = new float[]{-1f, -1f};
-    private final float[] screenEndPoint = new float[]{-1f, -1f};
-
-
-    public SVGMapView(Context context) {
+    public SVGView(Context context) {
         super(context);
         init(context);
     }
 
-    public SVGMapView(Context context, AttributeSet attrs) {
+    public SVGView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
-    public SVGMapView(Context context, AttributeSet attrs, int defStyle) {
+    public SVGView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(context);
     }
@@ -68,6 +67,8 @@ public class SVGMapView extends View {
         matrix = new Matrix();
         savedMatrix = new Matrix();
         inverseMatrix = new Matrix();
+        pic = new Picture();
+        currentViewBound = new Rect();
         mScaleDetector = new ScaleGestureDetector(context, new ScaleListener());
         mGestures = new GestureDetector(getContext(), new GestureListener());
     }
@@ -143,11 +144,11 @@ public class SVGMapView extends View {
         }
     }
 
-    private static float range(float min, float value, float max){
-        return 1f;
+    private static float limit(float min, float value, float max){
+        return Math.max(Math.min(value, max), min);
     }
 
-    private float[] getPictureXYfromScreenXY(float x, float y){
+    public float[] getPictureXYbyScreenXY(float x, float y){
         matrix.invert(inverseMatrix);
         final float[] pts = {x, y};
         inverseMatrix.mapPoints(pts);
@@ -163,15 +164,6 @@ public class SVGMapView extends View {
 
         @Override
         public void onLongPress(MotionEvent e) {
-            Logf.d(LOG_TAG, "P: (%f,%f) matrix: %s", e.getX(), e.getY(), matrix.toShortString());
-
-            float[] ps = getPictureXYfromScreenXY(e.getX(),e.getY());
-
-            Logf.d(LOG_TAG, "Map-inv: (%f, %f)", ps[0], ps[1]);
-
-            matrix.getValues(values);
-
-            Logf.d(LOG_TAG, "svg(512,512) => trans(%f, %f)", ps[0], ps[1]);
         }
 
         @Override
@@ -184,7 +176,15 @@ public class SVGMapView extends View {
         public void onShowPress(MotionEvent e) {}
 
         @Override
-        public boolean onSingleTapUp(MotionEvent e) {return false;}
+        public boolean onSingleTapUp(MotionEvent e) {
+            float[] ps = getPictureXYbyScreenXY(e.getX(), e.getY());
+            if(DEBUG) Logf.d(LOG_TAG, "screen(%f,%f) => svg(%f,%f)\nMatrix: %s", e.getX(), e.getY(), ps[0], ps[1], matrix.toShortString());
+            return onClick(ps[0], ps[1]);
+        }
+    }
+
+    protected boolean onClick(float xInSvg, float yInSvg) {
+        return false;
     }
 
     @Override
@@ -193,26 +193,27 @@ public class SVGMapView extends View {
         canvas.save();
         filterMatrix(matrix);
         canvas.concat(matrix);
-        canvas.getClipBounds(r);
+        canvas.getClipBounds(currentViewBound);
         canvas.drawPicture(pic);
+        onDrawObjects(canvas);
         canvas.restore();
+    }
+
+    protected void onDrawObjects(Canvas canvas) {
+        //Nothing here yet, extend in subclass
     }
 
     private void filterMatrix(Matrix matrix) {
         matrix.getValues(values);
 
-        // screenW - 512 * scale is lower limit
-        values[MTRANS_X] = Math.max(Math.min(values[MTRANS_X], 0), viewEndPoint[0] - picEndPoint[0] * values[MSCALE_X]);
-        values[MTRANS_Y] = Math.max(Math.min(values[MTRANS_Y], 0), viewEndPoint[1] - picEndPoint[1] * values[MSCALE_Y]);
+        // screenW - svgW * scale is lower limit
+        values[MTRANS_X] = limit(viewEndPoint[0] - picEndPoint[0] * values[MSCALE_X], values[MTRANS_X], 0);
+        values[MTRANS_Y] = limit(viewEndPoint[1] - picEndPoint[1] * values[MSCALE_Y], values[MTRANS_Y], 0);
 
-        values[MSCALE_X] = Math.max(Math.min(values[MSCALE_X], 250.0f), mInitScale);
-        values[MSCALE_Y] = Math.max(Math.min(values[MSCALE_Y], 250.0f), mInitScale);
+        values[MSCALE_X] = limit(mInitScale, values[MSCALE_X], MAX_ZOOM);
+        values[MSCALE_Y] = limit(mInitScale, values[MSCALE_Y], MAX_ZOOM);
 
         matrix.setValues(values);
-    }
-
-    private void checkClick(float relativeX, float relativeY) {
-
     }
 
     @Override
@@ -226,19 +227,15 @@ public class SVGMapView extends View {
         this.viewEndPoint[1] = getMeasuredHeight();
     }
 
-    public void setSvg(Picture svg, int screenW, int screenH) {
+    public void setSvg(Picture svg, float preferredZoom) {
         this.pic = svg;
         this.picEndPoint[0] = svg.getWidth();
         this.picEndPoint[1] = svg.getWidth();
-        this.mInitScale = screenH * 1f / pic.getHeight();
+        this.mInitScale = preferredZoom;
         this.matrix.setScale(mInitScale, mInitScale);
-        this.screenEndPoint[0] = screenW;
-        this.screenEndPoint[1] = screenH;
         //this.matrix.preTranslate(0f, 100f);
         postInvalidate();
     }
-
-
 
     public void importMatrixValues(float[] floatArray) {
         matrix.setValues(floatArray);
