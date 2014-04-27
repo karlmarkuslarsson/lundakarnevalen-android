@@ -6,7 +6,6 @@ import android.graphics.Matrix;
 import android.graphics.Picture;
 import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
@@ -14,6 +13,8 @@ import android.view.View;
 
 import se.lundakarnevalen.extern.util.Logf;
 import se.lundakarnevalen.extern.util.Timer;
+
+import static android.graphics.Matrix.*;
 
 /**
  * Created by Filip on 2014-04-23.
@@ -23,6 +24,9 @@ public class SVGMapView extends View {
     private static final String LOG_TAG = SVGMapView.class.getSimpleName();
     private static final int INVALID_POINTER_ID = -1;
 
+    private float[] values = new float[9];
+
+    private Matrix inverseMatrix;
     private Matrix savedMatrix;
     private Matrix matrix;
 
@@ -38,6 +42,12 @@ public class SVGMapView extends View {
     private float lastFocusY;
     private float lastFocusX;
     private float mInitScale;
+
+
+    private final float[] picEndPoint = new float[]{-1f, -1f};
+    private final float[] viewEndPoint = new float[]{-1f, -1f};
+    private final float[] screenEndPoint = new float[]{-1f, -1f};
+
 
     public SVGMapView(Context context) {
         super(context);
@@ -57,6 +67,7 @@ public class SVGMapView extends View {
     public void init(Context context){
         matrix = new Matrix();
         savedMatrix = new Matrix();
+        inverseMatrix = new Matrix();
         mScaleDetector = new ScaleGestureDetector(context, new ScaleListener());
         mGestures = new GestureDetector(getContext(), new GestureListener());
     }
@@ -64,12 +75,12 @@ public class SVGMapView extends View {
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         // Let the ScaleGestureDetector inspect all events first.
-        mScaleDetector.onTouchEvent(ev);
+        boolean result = mScaleDetector.onTouchEvent(ev);
         if(!mScaleDetector.isInProgress()){
-            mGestures.onTouchEvent(ev);
+            result |= mGestures.onTouchEvent(ev);
         }
         invalidate();
-        return true;
+        return result;
     }
 
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
@@ -98,6 +109,11 @@ public class SVGMapView extends View {
 
             //mScaleFactor *= Math.max(1.005f, Math.min(scale, 0.995f));
             mScaleFactor *= scale;
+
+            matrix.getValues(values);
+            if(mInitScale >= values[MSCALE_X] && scale < 1f){
+                return false;
+            }
 
             float focusX = detector.getFocusX();
             float focusY = detector.getFocusY();
@@ -131,6 +147,13 @@ public class SVGMapView extends View {
         return 1f;
     }
 
+    private float[] getPictureXYfromScreenXY(float x, float y){
+        matrix.invert(inverseMatrix);
+        final float[] pts = {x, y};
+        inverseMatrix.mapPoints(pts);
+        return pts;
+    }
+
     private class GestureListener implements GestureDetector.OnGestureListener {
         @Override
         public boolean onScroll(MotionEvent downEvent, MotionEvent currentEvent, float distanceX, float distanceY) {
@@ -140,11 +163,15 @@ public class SVGMapView extends View {
 
         @Override
         public void onLongPress(MotionEvent e) {
-            Log.d(LOG_TAG, matrix.toShortString());
-            //matrix.invert(inv);
-            matrix.mapPoints(mappedEndPoint, endPoint);
-            Logf.d(LOG_TAG, "%f, %f => %f, %f", endPoint[0], endPoint[1], mappedEndPoint[0], mappedEndPoint[1]);
+            Logf.d(LOG_TAG, "P: (%f,%f) matrix: %s", e.getX(), e.getY(), matrix.toShortString());
 
+            float[] ps = getPictureXYfromScreenXY(e.getX(),e.getY());
+
+            Logf.d(LOG_TAG, "Map-inv: (%f, %f)", ps[0], ps[1]);
+
+            matrix.getValues(values);
+
+            Logf.d(LOG_TAG, "svg(512,512) => trans(%f, %f)", ps[0], ps[1]);
         }
 
         @Override
@@ -171,25 +198,15 @@ public class SVGMapView extends View {
         canvas.restore();
     }
 
-    private float[] values = new float[9];
-    private Matrix inv = new Matrix();
-    private final float[] endPoint = new float[]{512f, 512f};
-    private float[] mappedEndPoint = new float[]{0.0f, 0.0f};
-
     private void filterMatrix(Matrix matrix) {
         matrix.getValues(values);
 
-        //matrix.invert(inv);
-        matrix.mapPoints(mappedEndPoint, endPoint);
+        // screenW - 512 * scale is lower limit
+        values[MTRANS_X] = Math.max(Math.min(values[MTRANS_X], 0), viewEndPoint[0] - picEndPoint[0] * values[MSCALE_X]);
+        values[MTRANS_Y] = Math.max(Math.min(values[MTRANS_Y], 0), viewEndPoint[1] - picEndPoint[1] * values[MSCALE_Y]);
 
-        values[2] = Math.max(Math.min(values[2], 0), -1.0f * mappedEndPoint[0]);
-        values[5] = Math.max(Math.min(values[5], 0), -1.0f * mappedEndPoint[1]);
-
-        //values[2] = Math.min(values[2], 0);
-        //values[5] = Math.min(values[5], 0);
-
-        values[0] = Math.max(Math.min(values[0], 250.0f), mInitScale);
-        values[4] = Math.max(Math.min(values[4], 250.0f), mInitScale);
+        values[MSCALE_X] = Math.max(Math.min(values[MSCALE_X], 250.0f), mInitScale);
+        values[MSCALE_Y] = Math.max(Math.min(values[MSCALE_Y], 250.0f), mInitScale);
 
         matrix.setValues(values);
     }
@@ -198,21 +215,36 @@ public class SVGMapView extends View {
 
     }
 
-    public void setSvg(Picture svg, int w, int h) {
+    @Override
+    public void onWindowFocusChanged(boolean hasWindowFocus) {
+        super.onWindowFocusChanged(hasWindowFocus);
+        updateViewBounds();
+    }
+
+    public void updateViewBounds() {
+        this.viewEndPoint[0] = getMeasuredWidth();
+        this.viewEndPoint[1] = getMeasuredHeight();
+    }
+
+    public void setSvg(Picture svg, int screenW, int screenH) {
         this.pic = svg;
-        this.mInitScale = w * 2f / pic.getWidth();
+        this.picEndPoint[0] = svg.getWidth();
+        this.picEndPoint[1] = svg.getWidth();
+        this.mInitScale = screenH * 1f / pic.getHeight();
         this.matrix.setScale(mInitScale, mInitScale);
-        this.endPoint[0] = pic.getWidth();
-        this.endPoint[1] = pic.getHeight();
+        this.screenEndPoint[0] = screenW;
+        this.screenEndPoint[1] = screenH;
         //this.matrix.preTranslate(0f, 100f);
         postInvalidate();
     }
 
-    public void setMatrixValues(float[] floatArray) {
+
+
+    public void importMatrixValues(float[] floatArray) {
         matrix.setValues(floatArray);
     }
 
-    public float[] getMatrixValues(){
+    public float[] exportMatrixValues(){
         float[] floats = new float[9];
         matrix.getValues(floats);
         return floats;

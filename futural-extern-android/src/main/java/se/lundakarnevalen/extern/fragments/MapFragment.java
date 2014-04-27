@@ -17,7 +17,6 @@ import com.caverock.androidsvg.SVGParseException;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -110,7 +109,7 @@ public class MapFragment extends LKFragment {
 
         if(savedInstanceState != null && savedInstanceState.containsKey(STATE_MATRIX)){
             Log.d(LOG_TAG, "Matrix values restored");
-            img.setMatrixValues(savedInstanceState.getFloatArray(STATE_MATRIX));
+            img.importMatrixValues(savedInstanceState.getFloatArray(STATE_MATRIX));
         }
 
         //setRetainInstance(true);
@@ -145,7 +144,7 @@ public class MapFragment extends LKFragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         Log.d(LOG_TAG, "onSaveInstanceState() called");
-        outState.putFloatArray(STATE_MATRIX, img.getMatrixValues());
+        outState.putFloatArray(STATE_MATRIX, img.exportMatrixValues());
     }
 
     public static MapFragment create(boolean zoom, float lat, float lng) {
