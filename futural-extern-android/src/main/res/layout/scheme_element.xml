@@ -16,7 +16,7 @@
         >
 
         <ImageView
-            android:layout_width="3dp"
+            android:layout_width="5dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="70dp"
             android:background="@color/white"
@@ -28,7 +28,7 @@
             android:layout_height="80dp"
             android:layout_centerVertical="true"
             android:src="@drawable/test_nojen"
-            android:layout_marginLeft="32dp"
+            android:layout_marginLeft="33dp"
 
             />
 
@@ -39,8 +39,8 @@
             android:textColor="@color/white"
             android:layout_alignTop="@id/bottom_menu_image"
             android:layout_alignLeft="@id/bottom_menu_image"
-            android:layout_marginLeft="-22dp"
-            android:textSize="10dp"
+            android:layout_marginLeft="-26dp"
+            android:textSize="11sp"
             android:padding="2dp"
             android:gravity="center"
             android:shadowRadius="1"
@@ -54,8 +54,8 @@
             android:layout_alignBottom="@id/bottom_menu_image"
             android:textColor="@color/white"
             android:layout_alignLeft="@id/bottom_menu_image"
-            android:layout_marginLeft="-22dp"
-            android:textSize="10dp"
+            android:layout_marginLeft="-26dp"
+            android:textSize="11sp"
             android:gravity="center"
             android:padding="2dp"
             android:shadowRadius="1"
@@ -73,6 +73,7 @@
         android:layout_centerVertical="true"
         android:layout_toRightOf="@id/time"
         android:layout_marginLeft="10dp"
+        android:layout_marginRight="50dp"
         >
         <se.lundakarnevalen.extern.widget.LKTextView
             android:id="@+id/place"
@@ -89,7 +90,6 @@
             android:text="TÄLTET"/>
   <se.lundakarnevalen.extern.widget.LKTextView
             android:id="@+id/name"
-            android:gravity="center"
             android:paddingLeft="1dp"
       android:paddingRight="1dp"
       android:layout_width="wrap_content"
@@ -110,17 +110,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/desc"
         android:layout_alignParentRight="true"
 
         >
         <ImageView
             android:id="@+id/heart_image"
-            android:layout_width="42dp"
-            android:layout_height="42dp"
-            android:layout_marginRight="10dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="16dp"
             android:layout_alignParentRight="true"
-            android:padding="6dp"
             android:src="@drawable/heart_clicked"
             />
 </RelativeLayout>

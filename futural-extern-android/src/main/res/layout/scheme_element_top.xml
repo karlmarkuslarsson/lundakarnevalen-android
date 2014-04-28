@@ -17,13 +17,13 @@
 
             android:layout_width="13dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="65dp"
+            android:layout_marginLeft="66dp"
 
             android:src="@drawable/scheme_dot"
 
             />
         <ImageView
-            android:layout_width="3dp"
+            android:layout_width="5dp"
             android:layout_height="5dp"
             android:layout_marginLeft="70dp"
             android:layout_alignParentBottom="true"
