@@ -18,7 +18,7 @@
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="-125dp"
+        android:layout_marginLeft="-100dp"
         android:layout_marginBottom="29dp"
         android:src="@drawable/cloud4" />
 
@@ -37,6 +37,6 @@
         android:layout_marginTop="10dp"
 
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="-100dp"
+        android:layout_marginLeft="-80dp"
         android:src="@drawable/cloud5" />
 </RelativeLayout>

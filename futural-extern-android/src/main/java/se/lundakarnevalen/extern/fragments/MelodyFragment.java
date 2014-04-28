@@ -25,6 +25,7 @@ package se.lundakarnevalen.extern.fragments;
         import android.view.animation.LinearInterpolator;
         import android.view.animation.TranslateAnimation;
         import android.widget.ImageView;
+        import android.widget.RelativeLayout;
         import android.widget.TextView;
 
 @SuppressLint("DefaultLocale")
@@ -468,12 +469,15 @@ public class MelodyFragment extends LKFragment {
 
     private void startMovingClouds(View rootView) {
         Display display = getActivity().getWindowManager().getDefaultDisplay();
-        float width = display.getWidth();  // deprecated
-        float height = display.getHeight();
+        int width = display.getWidth();  // deprecated
+        int height = display.getHeight();
         ImageView cloud = (ImageView) rootView.findViewById(R.id.cloud1);
         Animation a = new TranslateAnimation(0,width,0 ,0);
         ImageView movingCloud = (ImageView) rootView.findViewById(R.id.cloud5);
-        Animation a2 = new TranslateAnimation(0,width+200,0 ,0);
+
+        RelativeLayout.LayoutParams lp =
+                (RelativeLayout.LayoutParams) movingCloud.getLayoutParams();
+        Animation a2 = new TranslateAnimation(0,width+(-lp.leftMargin),0 ,0);
         a2.setInterpolator(new AccelerateDecelerateInterpolator());
         a2.setInterpolator(new LinearInterpolator());
 
@@ -488,9 +492,17 @@ public class MelodyFragment extends LKFragment {
         //ObjectAnimator.
         //animX2.setDuration(3000);
         a  = new TranslateAnimation(0,200,0,0);
+        a.setInterpolator(new AccelerateDecelerateInterpolator());
+        a.setInterpolator(new LinearInterpolator());
+
         a.setDuration(4000);
         movingCloud = (ImageView) rootView.findViewById(R.id.cloud6);
-        a2 = new TranslateAnimation(0,width+160,0 ,0);
+        lp =
+                (RelativeLayout.LayoutParams) movingCloud.getLayoutParams();
+        a2 = new TranslateAnimation(0,width+(-lp.leftMargin),0 ,0);
+        a2.setInterpolator(new AccelerateDecelerateInterpolator());
+        a2.setInterpolator(new LinearInterpolator());
+
         a2.setRepeatCount(Animation.INFINITE);
         a2.setDuration(13000);
         a.setAnimationListener(new CloudStartListner(cloud, movingCloud, a2));
@@ -502,9 +514,18 @@ public class MelodyFragment extends LKFragment {
 
         cloud = (ImageView) rootView.findViewById(R.id.cloud3);
         a = new TranslateAnimation(0,width,0 ,0);
+        a.setInterpolator(new AccelerateDecelerateInterpolator());
+        a.setInterpolator(new LinearInterpolator());
+
         a.setDuration(13000);
         movingCloud = (ImageView) rootView.findViewById(R.id.cloud7);
-        a2 = new TranslateAnimation(0,width+140,0 ,0);
+
+        lp =
+                (RelativeLayout.LayoutParams) movingCloud.getLayoutParams();
+        a2 = new TranslateAnimation(0,width+(-lp.leftMargin),0 ,0);
+        a2.setInterpolator(new AccelerateDecelerateInterpolator());
+        a2.setInterpolator(new LinearInterpolator());
+
         a2.setRepeatCount(Animation.INFINITE);
         a2.setDuration(15000);
         a.setAnimationListener(new CloudStartListner(cloud, movingCloud, a2));
@@ -512,9 +533,17 @@ public class MelodyFragment extends LKFragment {
 
         cloud = (ImageView) rootView.findViewById(R.id.cloud4);
         a  = new TranslateAnimation(0,250,0,0);
+        a.setInterpolator(new AccelerateDecelerateInterpolator());
+        a.setInterpolator(new LinearInterpolator());
+
         a.setDuration(4000);
         movingCloud = (ImageView) rootView.findViewById(R.id.cloud8);
-        a2 = new TranslateAnimation(0,width+200,0 ,0);
+        lp =
+                (RelativeLayout.LayoutParams) movingCloud.getLayoutParams();
+        a2 = new TranslateAnimation(0,width+(-lp.leftMargin),0 ,0);
+        a2.setInterpolator(new AccelerateDecelerateInterpolator());
+        a2.setInterpolator(new LinearInterpolator());
+
         a2.setRepeatCount(Animation.INFINITE);
         a2.setDuration(8000);
         a.setAnimationListener(new CloudStartListner(cloud, movingCloud, a2));
