@@ -104,18 +104,27 @@ public class LKMapView extends SVGView {
         float scale = mMatrixValues[MSCALE_X];
         int pictureHeight = mPicture.getHeight();
         int pictureWidth = mPicture.getWidth();
+
         for (Marker marker : markers) {
             //canvas.drawCircle(marker.x, marker.y, 10, mBlackInk);
         }
 
-        //test draw in middle
+        // Do a random walk +-2 steps
         lastPos.set(r.nextInt(5) - 2 + lastPos.x, r.nextInt(5) - 2 + lastPos.y);
+/*
+        //Blue dot
         dest.set(lastPos.x,
-                 lastPos.y,
-                 lastPos.x + mGpsMarkerSize/scale,
-                 lastPos.y + mGpsMarkerSize/scale);
+                lastPos.y,
+                lastPos.x + mGpsMarkerSize/scale,
+                lastPos.y + mGpsMarkerSize/scale);
         canvas.drawCircle((dest.left + dest.right) * 0.5f, dest.bottom - 8f/scale, mGpsMarkerBlueRadius/scale, mBlueInk);
         canvas.drawCircle((dest.left + dest.right) * 0.5f, dest.bottom - 8f/scale, mGpsMarkerLightBlueRadius/scale, mLightBlueInk);
+
+*/
+        dest.set(lastPos.x,
+                lastPos.y,
+                lastPos.x + mGpsMarkerSize/scale,
+                lastPos.y + mGpsMarkerSize/scale);
         canvas.drawPicture(gpsMarker, dest);
     }
 }
