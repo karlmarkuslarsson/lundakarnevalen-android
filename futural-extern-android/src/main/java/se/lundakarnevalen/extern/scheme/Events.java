@@ -95,7 +95,7 @@ public class Events {
         cal.set(Calendar.HOUR_OF_DAY, 21);
         myDateEnd = cal.getTime();
 
-        e = new Event(context.getString(R.string.big_scene), context.getString(R.string.bo_kasper), R.drawable.test_nojen, myDate, myDateEnd);
+        e = new Event(context.getString(R.string.big_scene), context.getString(R.string.bo_kasper),R.drawable.bokaspersorkester , myDate, myDateEnd);
         events.add(e);
 
 
