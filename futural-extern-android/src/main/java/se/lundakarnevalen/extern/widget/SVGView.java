@@ -6,6 +6,7 @@ import android.graphics.Matrix;
 import android.graphics.Picture;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
@@ -23,7 +24,7 @@ public class SVGView extends View {
 
     public static final boolean DEBUG = true;
 
-    public static final float MAX_ZOOM = 250.0f;
+    public static final float MAX_ZOOM = 50.0f;
 
     private float[] values = new float[9];
 
@@ -111,13 +112,16 @@ public class SVGView extends View {
             //mScaleFactor *= Math.max(1.005f, Math.min(scale, 0.995f));
             mScaleFactor *= scale;
 
-            matrix.getValues(values);
-            if(mInitScale >= values[MSCALE_X] && scale < 1f){
-                return false;
-            }
-
             float focusX = detector.getFocusX();
             float focusY = detector.getFocusY();
+
+            matrix.getValues(values);
+            if(mInitScale >= values[MSCALE_X] && scale < 1f){
+                mScaleFactor = 1;
+                lastFocusX = focusX;
+                lastFocusY = focusY;
+                return false;
+            }
 
             //Zoom focus is where the fingers are centered,
             transformationMatrix.reset();
@@ -219,12 +223,19 @@ public class SVGView extends View {
     @Override
     public void onWindowFocusChanged(boolean hasWindowFocus) {
         super.onWindowFocusChanged(hasWindowFocus);
-        updateViewBounds();
+        updateViewLimitBounds();
     }
 
-    public void updateViewBounds() {
-        this.viewEndPoint[0] = getMeasuredWidth();
-        this.viewEndPoint[1] = getMeasuredHeight();
+    public boolean updateViewLimitBounds() {
+        final int w = getMeasuredWidth();
+        final int h = getMeasuredHeight();
+        if(w > 0 && h > 0) { //Ignore if layout is not calculated yet
+            this.viewEndPoint[0] = w;
+            this.viewEndPoint[1] = h;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void setSvg(Picture svg, float preferredZoom) {
@@ -233,7 +244,12 @@ public class SVGView extends View {
         this.picEndPoint[1] = svg.getWidth();
         this.mInitScale = preferredZoom;
         this.matrix.setScale(mInitScale, mInitScale);
-        //this.matrix.preTranslate(0f, 100f);
+        if(updateViewLimitBounds()) {
+            float cx = -(preferredZoom * picEndPoint[0] - viewEndPoint[0])/2;
+            float cy = -(preferredZoom * picEndPoint[1] - viewEndPoint[1])/2;
+            this.matrix.postTranslate(cx, cy);
+            Logf.d(LOG_TAG, "Matrix translated to center picture, translate(%f, %f)", cx, cy);
+        }
         postInvalidate();
     }
 

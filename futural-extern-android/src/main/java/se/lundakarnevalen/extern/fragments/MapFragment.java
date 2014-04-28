@@ -25,7 +25,6 @@ import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.util.Delay;
 import se.lundakarnevalen.extern.util.Timer;
 import se.lundakarnevalen.extern.widget.LKMapView;
-import se.lundakarnevalen.extern.widget.SVGView;
 
 import static se.lundakarnevalen.extern.util.ViewUtil.get;
 
@@ -85,9 +84,9 @@ public class MapFragment extends LKFragment {
                 try {
                     Picture picture = preloaded.get(20, TimeUnit.SECONDS);
 
-                    while (img.getMeasuredHeight() == 0) Delay.ms(100); //Wait for layout
+                    waitForLayout();
 
-                    float preferredZoom = calculatePreferredZoom(img);
+                    float preferredZoom = calculatePreferredZoom(img, picture);
                     img.setSvg(picture, preferredZoom);
                 } catch (InterruptedException e) {
                     Log.wtf(LOG_TAG, "Future was interrupted", e);
@@ -96,8 +95,8 @@ public class MapFragment extends LKFragment {
                 } catch (TimeoutException e) {
                     try{
                         Picture picture = new SvgLoader(inflater.getContext()).call();
-                        while (img.getMeasuredHeight() == 0) Delay.ms(100); //Wait for layout
-                        float preferredZoom = calculatePreferredZoom(img);
+                        waitForLayout();
+                        float preferredZoom = calculatePreferredZoom(img, picture);
                         img.setSvg(picture, preferredZoom);
                     } catch (Exception ex){
                         Log.wtf(LOG_TAG, "Failed to load image after timeout", ex);
@@ -121,16 +120,20 @@ public class MapFragment extends LKFragment {
             img.importMatrixValues(savedInstanceState.getFloatArray(STATE_MATRIX));
         }
 
-        //setRetainInstance(true);
-
         return root;
     }
 
-    private float calculatePreferredZoom(View root) {
+    private void waitForLayout() {
+        int counter = 0;
+        while (img.getMeasuredHeight() == 0 && counter++ < 100) Delay.ms(100); //Wait for layout
+        img.updateViewLimitBounds();
+    }
+
+    private float calculatePreferredZoom(View root, Picture pic) {
         //We assume that the svg image is 512x512 for now
-        return Math.max(
-                    root.getMeasuredHeight()/512f,
-                    root.getMeasuredWidth()/512f);
+        return 2.0f * Math.max(
+                    root.getMeasuredHeight()/pic.getHeight(),
+                    root.getMeasuredWidth()/pic.getWidth());
     }
 
     public static class SvgLoader implements Callable<Picture> {
@@ -177,7 +180,7 @@ public class MapFragment extends LKFragment {
     }
 
 
-    public void changeActive(int markerType, boolean b) {
+    public void changeActive(int markerType, boolean enabled) {
 
     }
 }
