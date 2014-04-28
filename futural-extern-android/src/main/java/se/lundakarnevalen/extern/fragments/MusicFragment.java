@@ -157,6 +157,11 @@ public class MusicFragment extends LKFragment implements View.OnClickListener {
 
     }
 
+    @Override
+    public void onDestroyView () {
+        stopPlaying();
+        super.onDestroyView();
+    }
 
     @Override
     public void onStart() {
