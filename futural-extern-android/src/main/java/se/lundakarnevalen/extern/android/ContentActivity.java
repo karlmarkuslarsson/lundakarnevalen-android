@@ -400,13 +400,14 @@ public class ContentActivity extends ActionBarActivity {
                 this.selected = newSelection;
                 return;
             }
+
             int oldIdx = Integer.class.cast(selected.getTag(TAG_IDX));
             boolean moveLeft = (newIdx > oldIdx);
 
+            loadFragmentWithReplaceAnimated(f, moveLeft);
+
             selectItem(newSelection, r);
             deselectItem(r);
-
-            loadFragmentWithReplaceAnimated(f, moveLeft);
 
             this.selected = newSelection;
         }
