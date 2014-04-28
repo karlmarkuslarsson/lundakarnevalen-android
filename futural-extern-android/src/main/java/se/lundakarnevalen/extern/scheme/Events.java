@@ -176,7 +176,7 @@ public class Events {
         cal.set(Calendar.HOUR_OF_DAY, 15);
         myDateEnd = cal.getTime();
 
-        Event e = new Event(context.getString(R.string.place_train), context.getString(R.string.train), R.drawable.train_logo, myDate, myDateEnd);
+        Event e = new Event(context.getString(R.string.place_train), context.getString(R.string.train), R.drawable.train_logo_white, myDate, myDateEnd);
         events.add(e);
 
                    /*
@@ -304,7 +304,7 @@ public class Events {
         cal.set(Calendar.HOUR_OF_DAY, 15);
         myDateEnd = cal.getTime();
 
-        Event e = new Event(context.getString(R.string.place_train), context.getString(R.string.train), R.drawable.train_logo, myDate, myDateEnd);
+        Event e = new Event(context.getString(R.string.place_train), context.getString(R.string.train), R.drawable.train_logo_white, myDate, myDateEnd);
         events.add(e);
 
         /*
