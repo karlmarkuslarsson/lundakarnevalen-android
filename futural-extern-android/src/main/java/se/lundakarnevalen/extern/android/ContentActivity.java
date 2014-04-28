@@ -237,8 +237,8 @@ public class ContentActivity extends ActionBarActivity {
 
     private void loadFragmentWithReplaceAnimated(Fragment f, boolean left) {
         Log.d("ContentActivity", "loadFragmentWithReplaceAnim("+f+")");
-        int in = left ? R.anim.slide_in_left : R.anim.slide_in_right;
-        int out = left ? R.anim.slide_out_right : R.anim.slide_out_left;
+        int in = R.anim.abc_fade_in; //left ? R.anim.slide_in_left : R.anim.slide_in_right;
+        int out = R.anim.abc_fade_out; //left ? R.anim.slide_out_right : R.anim.slide_out_left;
         fragmentMgr
             .beginTransaction()
                 .setCustomAnimations(in, out)
@@ -415,7 +415,7 @@ public class ContentActivity extends ActionBarActivity {
             selected.setBackgroundColor(res.getColor(R.color.bottom_menu_background_selected));
             get(selected, R.id.bottom_menu_text, TextView.class).setTextColor(res.getColor(R.color.white));
             get(selected, R.id.bottom_menu_shadow, LinearLayout.class).setBackgroundColor(res.getColor(R.color.bottom_menu_shadow_selected));
-            if(Build.VERSION.SDK_INT >10) {
+            if(Build.VERSION.SDK_INT > 10) {
                 get(selected, R.id.bottom_menu_image, ImageView.class).setAlpha(1.0f);
             }
             if(selected.getTag() instanceof MapFragment) {
