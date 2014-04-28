@@ -32,11 +32,11 @@ public class SVGView extends View {
     private ScaleGestureDetector mScaleDetector;
     private GestureDetector mGestures;
 
-    private float[] mMatrixValues = new float[9];
     private float mScaleFactor;
     private float mLastFocusY;
     private float mLastFocusX;
 
+    protected float[] mMatrixValues = new float[9];
     protected float mMinZoom;
     protected Matrix mMatrix;
     protected Picture mPicture;
