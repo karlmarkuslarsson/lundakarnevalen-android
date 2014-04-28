@@ -12,9 +12,12 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.FragmentManager;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +32,7 @@ import android.widget.TextView;
 
 import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
+import se.lundakarnevalen.extern.util.BitmapUtil;
 
 public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> implements OnItemClickListener {
     private LayoutInflater inflater;
@@ -52,7 +56,10 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
         RelativeLayout wrapper = (RelativeLayout) inflater.inflate(R.layout.scheme_element, null);
 
         ImageView image = (ImageView) wrapper.findViewById(R.id.bottom_menu_image);
-        image.setImageResource(item.icon);
+        //image.setImageResource(item.icon);
+        Bitmap bm = BitmapFactory.decodeResource(getContext().getResources(),item.icon);
+        bm = BitmapUtil.getRoundedShape(bm);
+        image.setImageBitmap(bm);
 
         TextView start = (TextView) wrapper.findViewById(R.id.time1);
         TextView end = (TextView) wrapper.findViewById(R.id.time2);
