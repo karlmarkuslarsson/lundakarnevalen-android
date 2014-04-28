@@ -129,7 +129,7 @@ public class MapFragment extends LKFragment {
         public Picture call() throws Exception {
             try {
                 Timer t = new Timer();
-                SVG svg = SVG.getFromResource(c, R.raw.kartabeta5_cleaned);
+                SVG svg = SVG.getFromResource(c, R.raw.kartabeta6_cleaned);
                 t.tick(LOG_TAG, "getFromResource()");
                 Picture pic = svg.renderToPicture();
                 t.tick(LOG_TAG, "renderToPicture()");
