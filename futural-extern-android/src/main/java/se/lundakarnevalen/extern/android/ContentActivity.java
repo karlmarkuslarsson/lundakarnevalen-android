@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
+import android.view.Gravity;
 import android.view.View.OnClickListener;
 import android.graphics.Color;
 import android.support.v4.app.FragmentManager;
@@ -14,7 +15,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +27,7 @@ import android.widget.TextView;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import se.lundakarnevalen.extern.fragments.FoodFragment;
@@ -71,8 +72,10 @@ public class ContentActivity extends ActionBarActivity {
         }
 
         rightMenuList = find(R.id.right_menu_list, ListView.class);
+
         drawerLayout = find(R.id.drawer_layout, DrawerLayout.class);
         drawerLayout.setScrimColor(Color.TRANSPARENT);
+        drawerLayout.openDrawer(Gravity.RIGHT);
 
         populateBottomMenu(find(R.id.bottom_frame_menu, LinearLayout.class));
 
@@ -85,7 +88,6 @@ public class ContentActivity extends ActionBarActivity {
         }, 300);
 
         actionBar = setupActionbar();
-
         setupTint();
     }
 
@@ -96,6 +98,14 @@ public class ContentActivity extends ActionBarActivity {
         super.onDestroy();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        return super.onOptionsItemSelected(item);
+    }
 
     public void hideBottomMenu(){
 
@@ -191,23 +201,6 @@ public class ContentActivity extends ActionBarActivity {
         group.setOnClickListener(listener);
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.content, menu);
-        return false;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        return super.onOptionsItemSelected(item);
-    }
-
     public void setTitle(String title) {
         setTitle(title);
     }
@@ -256,44 +249,19 @@ public class ContentActivity extends ActionBarActivity {
     private void populateRightMenuDrawer() {
         LayoutInflater inflater = LayoutInflater.from(this);
 
-        ArrayList<LKRightMenuListItem> listItems = new ArrayList<LKRightMenuListItem>();
+        List<LKRightMenuListItem> listItems = new ArrayList<LKRightMenuListItem>();
+        adapter = new LKRightMenuArrayAdapter(this, listItems, drawerLayout);
 
-        rightMenuItems = new ArrayList<LKRightMenuListItem>();
+        adapter.add(new LKRightMenuListItem(getString(R.string.food),R.drawable.food_logo, MarkerType.FOOD));
+        adapter.add(new LKRightMenuListItem(getString(R.string.fun),R.drawable.fun_logo, MarkerType.FUN));
+        adapter.add(new LKRightMenuListItem(getString(R.string.help),R.drawable.help_logo, MarkerType.HELP));
+        adapter.add(new LKRightMenuListItem(getString(R.string.wc),R.drawable.wc_logo, MarkerType.WC));
+        adapter.add(new LKRightMenuListItem(getString(R.string.show_all),0, MarkerType.SHOW));
 
-        LKRightMenuListItem header = new LKRightMenuListItem()
-                .isStatic(true,inflater.inflate(R.layout.menu_header, null));
-        listItems.add(header);
-
-        LKRightMenuListItem foodItem = new LKRightMenuListItem(getString(R.string.food),R.drawable.food_logo, MarkerType.FOOD);
-        foodItem.setOnClickListener(new MenuClickSelector(foodItem));
-        listItems.add(foodItem);
-        rightMenuItems.add(foodItem);
-
-
-        LKRightMenuListItem funItem = new LKRightMenuListItem(getString(R.string.fun),R.drawable.fun_logo, MarkerType.FUN);
-        funItem.setOnClickListener(new MenuClickSelector(funItem));
-        listItems.add(funItem);
-        rightMenuItems.add(funItem);
-
-
-        LKRightMenuListItem helpItem = new LKRightMenuListItem(getString(R.string.help),R.drawable.help_logo, MarkerType.HELP);
-        helpItem.setOnClickListener(new MenuClickSelector(helpItem));
-        listItems.add(helpItem);
-        rightMenuItems.add(helpItem);
-
-        LKRightMenuListItem wcItem = new LKRightMenuListItem(getString(R.string.wc),R.drawable.wc_logo, MarkerType.WC);
-        wcItem.setOnClickListener(new MenuClickSelector(wcItem));
-        listItems.add(wcItem);
-        rightMenuItems.add(wcItem);
-
-        showAllItem = new LKRightMenuListItem(getString(R.string.show_all),0, MarkerType.SHOW);
-        showAllItem.setOnClickListener(new MenuClickSelector(showAllItem));
-        listItems.add(showAllItem);
-
-        adapter = new LKRightMenuArrayAdapter(this, listItems);
         rightMenuList.setAdapter(adapter);
         rightMenuList.setOnItemClickListener(adapter);
-
+        rightMenuList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        rightMenuList.setItemsCanFocus(false);
     }
 
     public void allBottomsActive() {
@@ -301,73 +269,13 @@ public class ContentActivity extends ActionBarActivity {
         listner.selected = null;
     }
 
-    private class MenuClickSelector implements OnClickListener {
-        LKRightMenuListItem item;
-        MenuClickSelector(LKRightMenuListItem item) {
-            this.item = item;
-        }
-
-        // change direction
-        @Override
-        public void onClick(View v) {
-            // need later
-            if(item.markerType == MarkerType.SHOW) {
-
-                if(item.isOn) {
-
-                } else {
-                    for(LKRightMenuListItem i: rightMenuItems) {
-                        mapFragment.changeActive(i.markerType,true);
-
-                        Log.d("button:",""+i.button);
-                        i.button.setBackgroundColor(getResources().getColor(R.color.right_menu_button));
-                        i.isOn = true;
-
-                    }
-                    allItemsActivated = true;
-                    RelativeLayout button = get(v, R.id.button, RelativeLayout.class);
-                    button.setBackgroundColor(getResources().getColor(R.color.right_menu_button_selected));
-                    item.isOn = true;
-                    //mapFragment.renderMap();
-                    counterRight = 0;
-                }
-                    // show all..
-            } else {
-                RelativeLayout button = get(v, R.id.button, RelativeLayout.class);
-                if(allItemsActivated) {
-                    allItemsActivated = false;
-                    for(LKRightMenuListItem i: rightMenuItems) {
-                        mapFragment.changeActive(i.markerType, false);
-                        i.isOn = true;
-                    }
-                }
-                if(item.isOn) {
-                    mapFragment.changeActive(item.markerType,true);
-                    button.setBackgroundColor(getResources().getColor(R.color.right_menu_button_selected));
-                    counterRight++;
-                    item.isOn = false;
-                } else {
-                    counterRight--;
-                    mapFragment.changeActive(item.markerType,false);
-                    button.setBackgroundColor(getResources().getColor(R.color.right_menu_button));
-                    item.isOn = true;
-                }
-                if(counterRight==0) {
-                    for(LKRightMenuListItem i: rightMenuItems) {
-                        mapFragment.changeActive(i.markerType,true);
-                        Log.d("button:",""+i.button);
-                        i.isOn = true;
-                    }
-                    allItemsActivated = true;
-                    showAllItem.isOn = true;
-                    showAllItem.button.setBackgroundColor(getResources().getColor(R.color.right_menu_button_selected));
-
-                } else {
-                    showAllItem.isOn = false;
-                    showAllItem.button.setBackgroundColor(getResources().getColor(R.color.right_menu_button));
-                }
-                //mapFragment.renderMap();
-            }
+    public void openRightMenu(View v){
+        if(drawerLayout.isDrawerOpen(Gravity.RIGHT)){
+            if (Build.VERSION.SDK_INT > 10) v.setRotation(0);
+            drawerLayout.closeDrawer(Gravity.RIGHT);
+        } else {
+            if (Build.VERSION.SDK_INT > 10) v.setRotation(180);
+            drawerLayout.openDrawer(Gravity.RIGHT);
         }
     }
 

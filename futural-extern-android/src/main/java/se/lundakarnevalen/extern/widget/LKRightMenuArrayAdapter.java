@@ -1,164 +1,129 @@
 package se.lundakarnevalen.extern.widget;
 
+import java.util.ArrayList;
+import java.util.List;
 
-        import java.util.List;
+import android.content.Context;
+import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
-        import android.content.Context;
-        import android.support.v4.widget.DrawerLayout;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.View.OnClickListener;
-        import android.view.ViewGroup;
-        import android.widget.AdapterView;
-        import android.widget.AdapterView.OnItemClickListener;
-        import android.widget.ArrayAdapter;
-        import android.widget.RelativeLayout;
-        import android.widget.TextView;
+import se.lundakarnevalen.extern.android.R;
 
-        import se.lundakarnevalen.extern.android.R;
+import static se.lundakarnevalen.extern.util.ViewUtil.get;
 
-/**
- *
- */
 public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapter.LKRightMenuListItem> implements OnItemClickListener {
-   private LayoutInflater inflater;
 
-    public LKRightMenuArrayAdapter(Context context, List<LKRightMenuListItem> items){
+    private final DrawerLayout mDrawerLayout;
+    private final LayoutInflater mInflater;
+    private final Context mContext;
+
+    public LKRightMenuArrayAdapter(Context context, List<LKRightMenuListItem> items, DrawerLayout drawerLayout){
         super(context, android.R.layout.activity_list_item, items);
-        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.mContext = context;
+        this.mInflater = LayoutInflater.from(context);
+        this.mDrawerLayout = drawerLayout;
     }
-
 
     @Override
     public View getView(int pos, View convertView, ViewGroup parent){
         final LKRightMenuListItem item = getItem(pos);
 
-        if(item.isStatic) {
+        View layout = convertView;
 
-            return item.staticView;
+        if(convertView == null) {
+            layout = mInflater.inflate(R.layout.menu_right_element, parent, false);
         }
-        RelativeLayout wrapper;
-        if(item.title.equals(getContext().getString(R.string.show_all))) {
-            item.isOn = true;
 
-            wrapper = (RelativeLayout) inflater.inflate(R.layout.menu_bottom, null);
-            item.button = wrapper.findViewById(R.id.button);
-            if(item.isActive && wrapper != null){
-                wrapper.setSelected(true);
-            }
-            item.button.setBackgroundColor(getContext().getResources().getColor(R.color.right_menu_button_selected));
-            item.isOn = true;
+        item.bindValues(layout);
 
-
+        if(item.title.equals(mContext.getString(R.string.show_all))) {
+            item.setSelected(mContext, true);
+            item.image.setVisibility(View.GONE);
+            item.layout.setGravity(Gravity.CENTER);
         } else {
-            wrapper = (RelativeLayout) inflater.inflate(R.layout.menu_element, null);
-            item.button = wrapper.findViewById(R.id.button);
-            if(item.isActive && wrapper != null){
-                wrapper.setSelected(true);
-            }
-
+            item.setSelected(mContext, false);
         }
 
-        if(wrapper != null) {
-            item.text = (TextView) wrapper.findViewById(R.id.bottom_menu_item);
-            item.text.setText(item.title);
-        }
-
-        return wrapper;
+        return layout;
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
-        final LKRightMenuListItem item = getItem(pos);
-        if(!item.enable) {
-            return;
+        // mDrawerLayout.closeDrawers();
+        LKRightMenuListItem item = getItem(pos);
+        Context c = parent.getContext();
+
+        int showAllIdx = getCount() - 1;
+        boolean showAllSelected = showAllIdx == pos;
+        if (showAllSelected) { // is showAll item
+            deselectAll();
+            getItem(showAllIdx).setSelected(c, true);
+        } else {
+            item.setSelected(c, !item.selected); // Flip state
+            getItem(showAllIdx).setSelected(c, false);
         }
 
-        OnClickListener listener = item.listener;
-        if(listener != null){
-            listener.onClick(view);
-            view.setSelected(true);
-            if(item.navDrawer != null && item.closeDrawerOnClick){
-                item.navDrawer.closeDrawers();
-            }
+    }
+
+    private void deselectAll() {
+        for (int i = 0; i < getCount(); i++) {
+            getItem(i).setSelected(getContext(), false);
         }
     }
 
-    @Override
-    public boolean isEnabled(int pos){
-        // Make statics no enabled.
-
-        return !getItem(pos).isStatic;
+    public List<Integer> selectedTypes(){
+        List<Integer> markerTypes = new ArrayList<Integer>();
+        for (int i = 0; i < getCount(); i++) {
+            LKRightMenuListItem item = getItem(i);
+            if(item.selected){
+                markerTypes.add(item.markerType);
+            }
+        }
+        return markerTypes;
     }
 
     /**
      * Class representing a single row in the menu. Used with the LKMenuArrayAdapter.
      * @author alexander
-     *
      */
     public static class LKRightMenuListItem {
-        public int icon;
-        public String title;
-        OnClickListener listener;
-        DrawerLayout navDrawer;
-        boolean isStatic = false;
-        View staticView;
-        boolean closeDrawerOnClick = false;
+        private final int markerType;
+        private final int icon;
+        private final String title;
 
-        boolean isActive = false;
-        public boolean isOn = true;
+        private boolean selected = false;
 
-        public int markerType;
+        private LinearLayout layout;
+        private TextView text;
+        private ImageView image;
 
-        public TextView text;
-        public boolean enable = true;
-
-        public View button;
-
-        /**
-         * std. constr.
-         */
-        public LKRightMenuListItem(){
-
-        }
-
-        /**
-         * To be used with statics in listview.
-         * @param isStatic true if static
-         * @return list item
-         */
-        public LKRightMenuListItem isStatic(boolean isStatic, View view){
-            this.isStatic = isStatic;
-            this.staticView = view;
-            return this;
-        }
-
-
-        /**
-         * Creates list item..
-         * @param title Text in menu to show
-         * @param icon Icon next to text
-         */
         public LKRightMenuListItem(String title, int icon, int markerType){
             this.title = title;
             this.icon = icon;
             this.markerType = markerType;
-
         }
 
-        /**
-         * Call this to close the navigationdrawer when item is clicked.
-         * @param closeDrawerOnClick If true the drawer will close.
-         * @param layout The drawerlayout to be closed.
-         */
-        public LKRightMenuListItem closeDrawerOnClick(boolean closeDrawerOnClick, DrawerLayout layout){
-            this.closeDrawerOnClick = closeDrawerOnClick;
-            this.navDrawer = layout;
-            return this;
+        private void bindValues(View layout) {
+            this.layout = get(layout, R.id.menu_right_button_layout, LinearLayout.class);
+            this.text = get(layout, R.id.menu_right_button_text, TextView.class);
+            this.image = get(layout, R.id.menu_right_button_image, ImageView.class);
+            this.image.setImageResource(icon);
+            this.text.setText(title);
         }
 
-        public void setOnClickListener(OnClickListener listener) {
-            this.listener = listener;
+        public void setSelected(Context c, boolean selected) {
+            this.selected = selected;
+            int bg = selected ? R.color.right_menu_button_selected : R.color.right_menu_button;
+            this.layout.setBackgroundColor(c.getResources().getColor(bg));
         }
     }
 }
