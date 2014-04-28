@@ -4,20 +4,13 @@ package se.lundakarnevalen.extern.fragments;
  * Created by Markus on 2014-04-24.
  */
 
-
-
         import se.lundakarnevalen.extern.android.ContentActivity;
         import se.lundakarnevalen.extern.android.R;
         import se.lundakarnevalen.extern.sound.MySoundFactory;
-
-        import android.animation.Animator;
-        import android.animation.ObjectAnimator;
         import android.annotation.SuppressLint;
-        import android.annotation.TargetApi;
         import android.content.Context;
         import android.content.res.Resources;
         import android.graphics.Matrix;
-        import android.os.Build;
         import android.os.Bundle;
         import android.os.Handler;
         import android.util.Log;
@@ -26,12 +19,12 @@ package se.lundakarnevalen.extern.fragments;
         import android.view.View;
         import android.view.View.OnClickListener;
         import android.view.ViewGroup;
-        import android.view.ViewPropertyAnimator;
         import android.view.WindowManager;
+        import android.view.animation.AccelerateDecelerateInterpolator;
         import android.view.animation.Animation;
+        import android.view.animation.LinearInterpolator;
         import android.view.animation.TranslateAnimation;
         import android.widget.ImageView;
-        import android.widget.RelativeLayout;
         import android.widget.TextView;
 
 @SuppressLint("DefaultLocale")
@@ -88,11 +81,6 @@ public class MelodyFragment extends LKFragment {
                 .findViewById(R.id.tvKarnevalTitle);
         tvKarneval = (TextView) rootView.findViewById(R.id.tvKarneval);
         heart = (ImageView) rootView.findViewById(R.id.melody_heart);
-/*
-        Typeface tf = Typeface.createFromAsset(getActivity().getAssets(),
-                "fonts/Roboto-Bold.ttf");
-        tvKarneval.setTypeface(tf);
-*/
 
 
 
@@ -100,7 +88,6 @@ public class MelodyFragment extends LKFragment {
         lyric2 = (TextView) rootView.findViewById(R.id.lyric2);
         lyric3 = (TextView) rootView.findViewById(R.id.lyric4);
 
-        // new DrawingTheCloud(this.getContext());
         mover = (ImageView) rootView.findViewById(R.id.music_handle1);
         Log.d("Started:","yes"+started);
         if (started) {
@@ -233,13 +220,6 @@ public class MelodyFragment extends LKFragment {
 
 
     private void setFinish(View v, TextView tv, ImageView img) {
-       /*
-        int padding = getResources().getDimensionPixelSize(
-                R.dimen.horizontal_margin_half);
-        */
-        //v.setBackgroundResource(R.drawable.bluegray_bg_bottom_shadow);
-        //v.setPadding(padding, padding, padding, padding);
-        //tv.setTextColor(getResources().getColor(R.color.dark_yellow));
         img.setVisibility(View.VISIBLE);
 
     }
@@ -494,10 +474,15 @@ public class MelodyFragment extends LKFragment {
         Animation a = new TranslateAnimation(0,width,0 ,0);
         ImageView movingCloud = (ImageView) rootView.findViewById(R.id.cloud5);
         Animation a2 = new TranslateAnimation(0,width+200,0 ,0);
+        a2.setInterpolator(new AccelerateDecelerateInterpolator());
+        a2.setInterpolator(new LinearInterpolator());
+
         a2.setRepeatCount(Animation.INFINITE);
         a2.setDuration(10000);
         a.setAnimationListener(new CloudStartListner(cloud, movingCloud, a2));
         a.setDuration(10000);
+        a.setInterpolator(new AccelerateDecelerateInterpolator());
+        a.setInterpolator(new LinearInterpolator());
         cloud.startAnimation(a);
         cloud = (ImageView) rootView.findViewById(R.id.cloud2);
         //ObjectAnimator.
