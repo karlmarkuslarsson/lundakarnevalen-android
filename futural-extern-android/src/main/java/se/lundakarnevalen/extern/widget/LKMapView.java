@@ -91,8 +91,8 @@ public class LKMapView extends SVGView {
         lastPos.set(r.nextInt(5) - 2 + lastPos.x, r.nextInt(5) - 2 + lastPos.y);
         dest.set(lastPos.x,
                  lastPos.y,
-                 lastPos.x + 100.0f/scale,
-                 lastPos.y + 100.0f/scale);
+                 lastPos.x + 150.0f/scale,
+                 lastPos.y + 150.0f/scale);
         canvas.drawPicture(gpsMarker, dest);
     }
 
