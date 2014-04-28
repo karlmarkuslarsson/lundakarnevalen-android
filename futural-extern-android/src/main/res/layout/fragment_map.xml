@@ -1,29 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ViewFlipper
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ContentActivity"
+    android:id="@+id/map_switcher"
+    android:background="@color/bg_map"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white">
+    android:layout_height="match_parent">
 
-    <ViewFlipper
-        android:id="@+id/map_switcher"
+    <ProgressBar
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_gravity="center"
+        android:scaleX="2.0"
+        android:scaleY="2.0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <se.lundakarnevalen.extern.widget.LKMapView
+        android:id="@+id/map_id"
+        android:keepScreenOn="true"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent" />
 
-        <ProgressBar
-            style="@style/Widget.AppCompat.ProgressBar"
-            android:layout_gravity="center"
-            android:scaleX="2.0"
-            android:scaleY="2.0"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <se.lundakarnevalen.extern.widget.LKMapView
-            android:id="@+id/map_id"
-            android:layerType="software"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </ViewFlipper>
-
-
-</RelativeLayout>
+</ViewFlipper>
