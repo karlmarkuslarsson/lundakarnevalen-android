@@ -67,7 +67,7 @@ public class Events {
         cal.set(Calendar.HOUR_OF_DAY, 19);
         myDateEnd = cal.getTime();
 
-        e = new Event(context.getString(R.string.small_scene), context.getString(R.string.hammar), R.drawable.test_nojen, myDate, myDateEnd);
+        e = new Event(context.getString(R.string.small_scene), context.getString(R.string.hammar), R.drawable.perhammar, myDate, myDateEnd);
         events.add(e);
 
 
@@ -111,7 +111,7 @@ public class Events {
         cal.set(Calendar.MINUTE, 0);
         myDateEnd = cal.getTime();
 
-        e = new Event(context.getString(R.string.big_scene), context.getString(R.string.lucy_love), R.drawable.test_nojen, myDate, myDateEnd);
+        e = new Event(context.getString(R.string.big_scene), context.getString(R.string.lucy_love), R.drawable.lucylove, myDate, myDateEnd);
         events.add(e);
 
 /*
@@ -126,7 +126,7 @@ public class Events {
         cal.set(Calendar.MINUTE, 0);
         myDateEnd = cal.getTime();
 
-       e = new Event(context.getString(R.string.big_scene), context.getString(R.string.e_type), R.drawable.test_nojen, myDate, myDateEnd);
+       e = new Event(context.getString(R.string.big_scene), context.getString(R.string.e_type), R.drawable.etype, myDate, myDateEnd);
         events.add(e);
 
     }
@@ -159,7 +159,7 @@ public class Events {
         cal.set(Calendar.HOUR_OF_DAY, 15);
         myDateEnd = cal.getTime();
 
-        Event e = new Event(context.getString(R.string.place_train), context.getString(R.string.train), R.drawable.test_nojen, myDate, myDateEnd);
+        Event e = new Event(context.getString(R.string.place_train), context.getString(R.string.train), R.drawable.train_logo, myDate, myDateEnd);
         events.add(e);
 
 
@@ -176,7 +176,7 @@ public class Events {
         cal.set(Calendar.MINUTE, 0);
         myDateEnd = cal.getTime();
 
-        e = new Event(context.getString(R.string.small_scene), context.getString(R.string.sandra), R.drawable.test_nojen, myDate, myDateEnd);
+        e = new Event(context.getString(R.string.small_scene), context.getString(R.string.sandra), R.drawable.sandramosh, myDate, myDateEnd);
         events.add(e);
 
 
@@ -192,7 +192,7 @@ public class Events {
         cal.set(Calendar.MINUTE, 0);
         myDateEnd = cal.getTime();
 
-        e = new Event(context.getString(R.string.big_scene), context.getString(R.string.ida), R.drawable.test_nojen, myDate, myDateEnd);
+        e = new Event(context.getString(R.string.big_scene), context.getString(R.string.ida), R.drawable.idaredig, myDate, myDateEnd);
         events.add(e);
             /*
         Lördag:
@@ -206,7 +206,7 @@ public class Events {
         cal.set(Calendar.MINUTE, 0);
         myDateEnd = cal.getTime();
 
-        e = new Event(context.getString(R.string.big_scene), context.getString(R.string.hurricane), R.drawable.test_nojen, myDate, myDateEnd);
+        e = new Event(context.getString(R.string.big_scene), context.getString(R.string.hurricane), R.drawable.hurricanelove, myDate, myDateEnd);
         events.add(e);
 /*
         Lördag:
@@ -220,7 +220,7 @@ public class Events {
         cal.set(Calendar.MINUTE, 0);
         myDateEnd = cal.getTime();
 
-        e = new Event(context.getString(R.string.big_scene), context.getString(R.string.linnea), R.drawable.test_nojen, myDate, myDateEnd);
+        e = new Event(context.getString(R.string.big_scene), context.getString(R.string.linnea), R.drawable.linneahenrikssonsquare, myDate, myDateEnd);
         events.add(e);
 /*
         Lördag:
@@ -234,7 +234,7 @@ public class Events {
         cal.set(Calendar.MINUTE, 0);
         myDateEnd = cal.getTime();
 
-        e = new Event(context.getString(R.string.big_scene), context.getString(R.string.movits), R.drawable.test_nojen, myDate, myDateEnd);
+        e = new Event(context.getString(R.string.big_scene), context.getString(R.string.movits), R.drawable.movits, myDate, myDateEnd);
         events.add(e);
 
 
@@ -271,7 +271,7 @@ public class Events {
         cal.set(Calendar.HOUR_OF_DAY, 15);
         myDateEnd = cal.getTime();
 
-        Event e = new Event(context.getString(R.string.place_train), context.getString(R.string.train), R.drawable.test_nojen, myDate, myDateEnd);
+        Event e = new Event(context.getString(R.string.place_train), context.getString(R.string.train), R.drawable.train_logo, myDate, myDateEnd);
         events.add(e);
 
             /*
@@ -287,7 +287,7 @@ public class Events {
         cal.set(Calendar.MINUTE, 30);
         myDateEnd = cal.getTime();
 
-        e = new Event(context.getString(R.string.small_scene), context.getString(R.string.partiet), R.drawable.test_nojen, myDate, myDateEnd);
+        e = new Event(context.getString(R.string.small_scene), context.getString(R.string.partiet), R.drawable.partiet, myDate, myDateEnd);
         events.add(e);
 
 
@@ -303,7 +303,7 @@ public class Events {
         cal.set(Calendar.MINUTE, 30);
         myDateEnd = cal.getTime();
 
-        e= new Event(context.getString(R.string.big_scene), context.getString(R.string.frida), R.drawable.test_nojen, myDate, myDateEnd);
+        e= new Event(context.getString(R.string.big_scene), context.getString(R.string.frida), R.drawable.fridasundemo, myDate, myDateEnd);
         events.add(e);
 
             /*
@@ -318,7 +318,7 @@ public class Events {
         cal.set(Calendar.MINUTE, 30);
         myDateEnd = cal.getTime();
 
-        e = new Event(context.getString(R.string.big_scene), context.getString(R.string.wintergatan), R.drawable.test_nojen, myDate, myDateEnd);
+        e = new Event(context.getString(R.string.big_scene), context.getString(R.string.wintergatan), R.drawable.wintergatan, myDate, myDateEnd);
         events.add(e);
 /*
         Söndag:
@@ -332,7 +332,7 @@ public class Events {
         cal.set(Calendar.MINUTE, 0);
         myDateEnd = cal.getTime();
 
-         e = new Event(context.getString(R.string.big_scene), context.getString(R.string.timbaktu), R.drawable.test_nojen, myDate, myDateEnd);
+         e = new Event(context.getString(R.string.big_scene), context.getString(R.string.timbaktu), R.drawable.timbuktuochdamn, myDate, myDateEnd);
         events.add(e);
 
             /*
@@ -347,7 +347,7 @@ public class Events {
         cal.set(Calendar.MINUTE, 0);
         myDateEnd = cal.getTime();
 
-        e = new Event(context.getString(R.string.big_scene), context.getString(R.string.discoteka), R.drawable.test_nojen, myDate, myDateEnd);
+        e = new Event(context.getString(R.string.big_scene), context.getString(R.string.discoteka), R.drawable.discotekayugostyle, myDate, myDateEnd);
         events.add(e);
 
 
