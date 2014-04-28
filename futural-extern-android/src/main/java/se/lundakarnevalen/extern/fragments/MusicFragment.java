@@ -169,4 +169,5 @@ public class MusicFragment extends LKFragment implements View.OnClickListener {
         ContentActivity.class.cast(getActivity()).allBottomsActive();
     }
 
+
 }

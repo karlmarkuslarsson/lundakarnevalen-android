@@ -560,6 +560,19 @@ public class MelodyFragment extends LKFragment {
         ContentActivity.class.cast(getActivity()).allBottomsActive();
     }
 
+    @Override
+    public void onDestroyView () {
+        stopMusic();
+        handler.removeCallbacks(r);
+        moveHandler.removeCallbacks(r2);
+
+        started = false;
+        playing = false;
+        stopMusic(); rewindLyrics();
+        rewindMarker();
+        super.onDestroyView();
+    }
+
 }
 
 
