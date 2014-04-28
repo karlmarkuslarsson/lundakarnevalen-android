@@ -31,6 +31,7 @@ import static se.lundakarnevalen.extern.util.ViewUtil.get;
 public class MapFragment extends LKFragment {
     private static FutureTask<Picture> preloaded = null;
 
+
     public static Picture preload(Context c) {
         if(preloaded == null){
             preloaded = new FutureTask<Picture>(new SvgLoader(c));
@@ -59,10 +60,22 @@ public class MapFragment extends LKFragment {
     private static final String LOG_TAG = MapFragment.class.getSimpleName();
     private static final String STATE_MATRIX = "matrix";
 
+    private float[] mMatrixValues;
     private int displayWidth;
     private int displayHeight;
-
     private LKMapView img;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if(savedInstanceState != null && savedInstanceState.containsKey(STATE_MATRIX)){
+            Log.d(LOG_TAG, "Matrix values restored");
+            mMatrixValues = savedInstanceState.getFloatArray(STATE_MATRIX);
+        }
+
+        setRetainInstance(true);
+    }
 
     // Every time you switch to this fragment.
     @Override
@@ -86,8 +99,8 @@ public class MapFragment extends LKFragment {
 
                     waitForLayout();
 
-                    float preferredZoom = calculatePreferredZoom(img, picture);
-                    img.setSvg(picture, preferredZoom);
+                    float minZoom = calculateMinZoom(img, picture);
+                    img.setSvg(picture, minZoom, mMatrixValues);
                 } catch (InterruptedException e) {
                     Log.wtf(LOG_TAG, "Future was interrupted", e);
                 } catch (ExecutionException e) {
@@ -96,8 +109,8 @@ public class MapFragment extends LKFragment {
                     try{
                         Picture picture = new SvgLoader(inflater.getContext()).call();
                         waitForLayout();
-                        float preferredZoom = calculatePreferredZoom(img, picture);
-                        img.setSvg(picture, preferredZoom);
+                        float minZoom = calculateMinZoom(img, picture);
+                        img.setSvg(picture, minZoom, mMatrixValues);
                     } catch (Exception ex){
                         Log.wtf(LOG_TAG, "Failed to load image after timeout", ex);
                     }
@@ -115,12 +128,21 @@ public class MapFragment extends LKFragment {
         flipper.setInAnimation(AnimationUtils.loadAnimation(inflater.getContext(), R.anim.abc_fade_in));
         flipper.setOutAnimation(AnimationUtils.loadAnimation(inflater.getContext(), R.anim.abc_fade_out));
 
-        if(savedInstanceState != null && savedInstanceState.containsKey(STATE_MATRIX)){
-            Log.d(LOG_TAG, "Matrix values restored");
-            img.importMatrixValues(savedInstanceState.getFloatArray(STATE_MATRIX));
-        }
-
         return root;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(mMatrixValues != null) {
+            img.importMatrixValues(mMatrixValues);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        mMatrixValues = img.exportMatrixValues();
+        super.onPause();
     }
 
     private void waitForLayout() {
@@ -129,11 +151,11 @@ public class MapFragment extends LKFragment {
         img.updateViewLimitBounds();
     }
 
-    private float calculatePreferredZoom(View root, Picture pic) {
+    private float calculateMinZoom(View root, Picture pic) {
         //We assume that the svg image is 512x512 for now
-        return 2.0f * Math.max(
-                    root.getMeasuredHeight()/pic.getHeight(),
-                    root.getMeasuredWidth()/pic.getWidth());
+        return Math.max(
+                    root.getMeasuredHeight() * 1.0f / pic.getHeight(),
+                    root.getMeasuredWidth() * 1.0f / pic.getWidth());
     }
 
     public static class SvgLoader implements Callable<Picture> {

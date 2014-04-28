@@ -41,7 +41,10 @@ public class LKMapView extends SVGView {
         blackInk.setColor(Color.BLACK);
         redInk = new Paint(Paint.ANTI_ALIAS_FLAG);
         redInk.setColor(Color.RED);
-        //Do stuff
+        if(!isInEditMode()) {
+            redInk.setShadowLayer(3f, 0f, 0f, Color.BLACK);
+            //Do stuff
+        }
     }
 
     @Override
@@ -51,8 +54,9 @@ public class LKMapView extends SVGView {
 
     @Override
     protected void onDrawObjects(Canvas canvas) {
-        int pictureHeight = pic.getHeight();
-        int pictureWidth = pic.getWidth();
+        super.onDrawObjects(canvas); // Must be called to draw map
+        int pictureHeight = mPicture.getHeight();
+        int pictureWidth = mPicture.getWidth();
         for (Marker marker : markers) {
             canvas.drawCircle(marker.x, marker.y, 10, blackInk);
         }
