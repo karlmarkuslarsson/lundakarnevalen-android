@@ -82,7 +82,7 @@ public class Events {
         cal.set(Calendar.HOUR_OF_DAY, 19);
         myDateEnd = cal.getTime();
 
-        e = new Event(context.getString(R.string.big_scene), context.getString(R.string.sousou), R.drawable.test_nojen, myDate, myDateEnd);
+        e = new Event(context.getString(R.string.big_scene), context.getString(R.string.sousou), R.drawable.sousoumahercissoko, myDate, myDateEnd);
         events.add(e);
 /*
         Fredag:
