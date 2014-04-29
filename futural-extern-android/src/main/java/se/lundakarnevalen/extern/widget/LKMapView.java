@@ -51,10 +51,10 @@ public class LKMapView extends SVGView {
     private Random r = new Random();
 
     private static final float startLonMap = 13.1910161648f;
-    private static final float startLatMap = 55.7034716513f;
+    private static final float startLatMap = 55.707371322f;
 
     private static final float endLonMap = 13.1979612196f;
-    private static final float endLatMap = 55.707371322f;
+    private static final float endLatMap = 55.7034716513f;
 
     private static final float diffLon = endLonMap - startLonMap;
     private static final float diffLat = endLatMap - startLatMap;
@@ -142,17 +142,15 @@ public class LKMapView extends SVGView {
         float lat1 = (55.705655f - startLatMap) / diffLat;
         float lon1 = (13.194277f - startLonMap) / diffLon;
         float m1x = lon1 * pictureWidth;
-        float m1y = pictureHeight-lat1 * pictureHeight;
+        float m1y = lat1 * pictureHeight;
         canvas.drawCircle(m1x, m1y, mGpsShadowXRadius/scale, mBlueInk);
 
-        canvas.drawCircle(0, 0, mGpsShadowXRadius/scale, mBlueInk);
-        canvas.drawCircle(512, 512, mGpsShadowXRadius/scale, mBlueInk);
 
 
         float lat2 = (55.705439f - startLatMap) / diffLat; //y
         float lon2 = (13.193153f - startLonMap) / diffLon;
         float m2x = lon2 * pictureWidth;
-        float m2y = pictureHeight-lat2 * pictureHeight;
+        float m2y = lat2 * pictureHeight;
         canvas.drawCircle(m2x, m2y, mGpsShadowXRadius/scale, mLightBlueInk);
 
         // Do a random walk +-2 steps
