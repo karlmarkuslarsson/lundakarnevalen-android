@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<scale
+    android:scaleHeight="70%"
+    android:scaleWidth="70%"
+    android:scaleGravity="center"
+    android:drawable="@drawable/ic_action_menu_out"
+    xmlns:android="http://schemas.android.com/apk/res/android" />
