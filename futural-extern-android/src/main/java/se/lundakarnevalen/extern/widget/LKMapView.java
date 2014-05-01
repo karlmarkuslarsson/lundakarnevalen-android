@@ -150,7 +150,7 @@ public class LKMapView extends SVGView {
                     final float lat = (m.lat - startLatMap) / diffLat;
                     final float lon = (m.lng - startLonMap) / diffLon;
                     m.x = lon * pictureWidth;
-                    m.y = pictureHeight - lat * pictureHeight;
+                    m.y = lat * pictureHeight;
                 }
                 dst.set(m.x - mBubbleShadowXRadius,
                         m.y - mBubbleShadowYRadius,
