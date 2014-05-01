@@ -167,9 +167,5 @@ public class LKMapView extends SVGView {
                 lastPos.x + mGpsMarkerSize/scale,
                 lastPos.y + mGpsMarkerSize/scale);
         canvas.drawPicture(gpsMarker, dest);
-
-
-
-
     }
 }
