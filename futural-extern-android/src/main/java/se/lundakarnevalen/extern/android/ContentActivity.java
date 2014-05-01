@@ -1,5 +1,6 @@
 package se.lundakarnevalen.extern.android;
 
+import android.app.Dialog;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Handler;
@@ -18,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -89,6 +91,31 @@ public class ContentActivity extends ActionBarActivity {
 
         actionBar = setupActionbar();
         setupTint();
+
+//        createCustomDialog();
+
+
+    }
+
+    private void createCustomDialog() {
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.welcome_dialog);
+        dialog.setTitle("WELCOME");
+        // set the custom dialog components - text, image and button
+        TextView text = (TextView) dialog.findViewById(R.id.text);
+        text.setText("Android custom dialog example!");
+
+        Button dialogButton = (Button) dialog.findViewById(R.id.okButton);
+        // if button is clicked, close the custom dialog
+        dialogButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
     }
 
     @Override
