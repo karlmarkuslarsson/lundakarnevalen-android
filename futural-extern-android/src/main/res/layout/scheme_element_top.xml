@@ -14,11 +14,9 @@
 
         <ImageView
             android:layout_alignParentBottom="true"
-
             android:layout_width="13dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="66dp"
-
             android:src="@drawable/scheme_dot"
 
             />

@@ -92,6 +92,7 @@ public class ContentActivity extends ActionBarActivity {
         actionBar = setupActionbar();
         setupTint();
 
+        //TODO modify design
 //        createCustomDialog();
 
 
@@ -289,6 +290,7 @@ public class ContentActivity extends ActionBarActivity {
         rightMenuList.setOnItemClickListener(adapter);
         rightMenuList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         rightMenuList.setItemsCanFocus(false);
+
     }
 
     public void allBottomsActive() {

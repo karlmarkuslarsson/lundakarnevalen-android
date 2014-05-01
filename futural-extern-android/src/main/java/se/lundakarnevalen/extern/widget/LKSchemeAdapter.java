@@ -59,6 +59,7 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
         //image.setImageResource(item.icon);
         Bitmap bm = BitmapFactory.decodeResource(getContext().getResources(),item.icon);
         bm = BitmapUtil.getRoundedShape(bm);
+
         image.setImageBitmap(bm);
 
         TextView start = (TextView) wrapper.findViewById(R.id.time1);
