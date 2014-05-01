@@ -7,6 +7,7 @@ import android.graphics.Picture;
 import android.graphics.Rect;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
@@ -26,6 +27,9 @@ public class SVGView extends View {
 
     public static final float MAX_ZOOM = 50.0f;
 
+    public static final int AXIS_X = 0;
+    public static final int AXIS_Y = 1;
+
     private Matrix mInverseMatrix;
     private Matrix mSavedMatrix;
 
@@ -42,7 +46,7 @@ public class SVGView extends View {
     protected Picture mPicture;
     protected Rect mCurrentViewBound;
 
-    protected final float[] mPicEndPoint = new float[]{-1f, -1f};
+    protected final float[] mPictureEndPoint = new float[]{-1f, -1f};
     protected final float[] mViewEndPoint = new float[]{-1f, -1f};
 
 
@@ -114,8 +118,8 @@ public class SVGView extends View {
             //mScaleFactor *= Math.max(1.005f, Math.min(mTempScale, 0.995f));
             mScaleFactor *= mTempScale;
 
-            float focusX = detector.getFocusX();
-            float focusY = detector.getFocusY();
+            final float focusX = detector.getFocusX();
+            final float focusY = detector.getFocusY();
 
             mMatrix.getValues(mMatrixValues);
 
@@ -139,8 +143,8 @@ public class SVGView extends View {
                 This could be done in fewer lines, but for clarity I do it this way here
             */
 
-            float focusShiftX = focusX - mLastFocusX;
-            float focusShiftY = focusY - mLastFocusY;
+            final float focusShiftX = focusX - mLastFocusX;
+            final float focusShiftY = focusY - mLastFocusY;
 
             mTransformationMatrix.postTranslate(focusX + focusShiftX, focusY + focusShiftY);
 
@@ -151,6 +155,12 @@ public class SVGView extends View {
             mLastFocusY = focusY;
             return true;
         }
+    }
+
+    @Override
+    public void requestLayout() {
+        super.requestLayout();
+        Log.d(LOG_TAG, "requestLayout()");
     }
 
     private static float limit(float min, float value, float max){
@@ -205,15 +215,26 @@ public class SVGView extends View {
         return false;
     }
 
+    private long t0, acc = 0;
+    private short counter;
+
     @Override
     protected final void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.save();
+        t0 = System.currentTimeMillis();
+        //canvas.save();
         filterMatrix(mMatrix);
-        canvas.concat(mMatrix);
-        canvas.getClipBounds(mCurrentViewBound);
+        canvas.setMatrix(mMatrix);
+        //canvas.getClipBounds(mCurrentViewBound);
         onDrawObjects(canvas);
-        canvas.restore();
+        //canvas.restore();
+        acc += System.currentTimeMillis() - t0;
+
+        if(++counter % 500 == 0){
+            final long t = acc / counter;
+            Logf.d(LOG_TAG, "Rendering, AVG: %d ms, FPS: %f", t, 1000f/t);
+            acc = counter = 0;
+        }
     }
 
     protected void onDrawObjects(Canvas canvas) {
@@ -225,8 +246,8 @@ public class SVGView extends View {
         matrix.getValues(mMatrixValues);
 
         // screenW - svgW * scale is lower limit
-        mMatrixValues[MTRANS_X] = limit(mViewEndPoint[0] - mPicEndPoint[0] * mMatrixValues[MSCALE_X], mMatrixValues[MTRANS_X], 0);
-        mMatrixValues[MTRANS_Y] = limit(mViewEndPoint[1] - mPicEndPoint[1] * mMatrixValues[MSCALE_Y], mMatrixValues[MTRANS_Y], 0);
+        mMatrixValues[MTRANS_X] = limit(mViewEndPoint[AXIS_X] - mPictureEndPoint[AXIS_X] * mMatrixValues[MSCALE_X], mMatrixValues[MTRANS_X], 0);
+        mMatrixValues[MTRANS_Y] = limit(mViewEndPoint[AXIS_Y] - mPictureEndPoint[AXIS_Y] * mMatrixValues[MSCALE_Y], mMatrixValues[MTRANS_Y], 0);
 
         mMatrixValues[MSCALE_X] = limit(mMinZoom, mMatrixValues[MSCALE_X], MAX_ZOOM);
         mMatrixValues[MSCALE_Y] = limit(mMinZoom, mMatrixValues[MSCALE_Y], MAX_ZOOM);
@@ -244,8 +265,8 @@ public class SVGView extends View {
         final int w = getMeasuredWidth();
         final int h = getMeasuredHeight();
         if(w > 0 && h > 0) { //Ignore if layout is not calculated yet
-            this.mViewEndPoint[0] = w;
-            this.mViewEndPoint[1] = h;
+            this.mViewEndPoint[AXIS_X] = w;
+            this.mViewEndPoint[AXIS_Y] = h;
             return true;
         } else {
             return false;
@@ -254,10 +275,9 @@ public class SVGView extends View {
 
     public void setSvg(Picture svg, float minZoom, float[] values) {
         this.mPicture = svg;
-        this.mPicEndPoint[0] = svg.getWidth();
-        this.mPicEndPoint[1] = svg.getWidth();
+        this.mPictureEndPoint[AXIS_X] = svg.getWidth();
+        this.mPictureEndPoint[AXIS_Y] = svg.getWidth();
         this.mMinZoom = minZoom;
-
 
         // Scale image
         float initZoom = mMinZoom * 2f;
@@ -268,14 +288,12 @@ public class SVGView extends View {
 
             // Center image
             if(updateViewLimitBounds()) {
-                float cx = (initZoom * mPicEndPoint[0] - mViewEndPoint[0]) / -2.0f;
-                float cy = (initZoom * mPicEndPoint[1] - mViewEndPoint[1]) / -2.0f;
+                float cx = (initZoom * mPictureEndPoint[AXIS_X] - mViewEndPoint[AXIS_X]) / -2.0f;
+                float cy = (initZoom * mPictureEndPoint[AXIS_Y] - mViewEndPoint[AXIS_Y]) / -2.0f;
                 mMatrix.postTranslate(cx, cy);
                 Logf.d(LOG_TAG, "Matrix translated to center picture, translate(%f, %f)", cx, cy);
             }
         }
-
-
 
         postInvalidate();
     }
