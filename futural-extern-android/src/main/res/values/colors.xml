@@ -31,6 +31,7 @@
     <color name="transparent">#0000</color>
     <color name="bg_map">#7DC9AD</color>
     <color name="beige_shadow">#CFCAC6</color>
+    <color name="grey">#4C4C4C</color>
 
 
 </resources>
