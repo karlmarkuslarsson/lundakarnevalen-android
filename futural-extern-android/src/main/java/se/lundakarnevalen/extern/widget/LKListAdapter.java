@@ -22,6 +22,7 @@ import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.fragments.LandingPageFragment;
 import se.lundakarnevalen.extern.fragments.MelodyFragment;
 import se.lundakarnevalen.extern.fragments.MusicFragment;
+import se.lundakarnevalen.extern.fragments.TrainMapFragment;
 
 import static se.lundakarnevalen.extern.util.ViewUtil.get;
 
@@ -81,14 +82,22 @@ public class LKListAdapter extends ArrayAdapter<LKListRow> {
 
         @Override
         public void onClick(View view) {
-            if(Build.VERSION.SDK_INT >= 11) {
+            if (Build.VERSION.SDK_INT >= 11) {
                 view.setAlpha(0.5f);
             }
             ContentActivity contentActivity = ContentActivity.class.cast(activity);
-            if (element.type == LKListElementType.RADIO) {
-                contentActivity.loadFragmentWithAdd(new MusicFragment());
 
-            } else if (element.type == LKListElementType.OTHER) {
+            switch (element.type) {
+                case LKListElementType.RADIO:
+                    contentActivity.loadFragmentWithAdd(new MusicFragment());
+                    break;
+                case LKListElementType.FUTURAL:
+                    contentActivity.loadFragmentWithAdd(new MelodyFragment());
+                    break;
+                case LKListElementType.TRAIN:
+                    contentActivity.loadFragmentWithAdd(TrainMapFragment.create());
+                    break;
+                case LKListElementType.OTHER:
                      /*
                     contentActivity.loadFragmentWithAdd(
                                     MapFragment.create(
@@ -98,27 +107,11 @@ public class LKListAdapter extends ArrayAdapter<LKListRow> {
                                             R.drawable.monk, R.drawable.monk,
                                             "VAD ÄR FILIP BRA PÅ?", "ÄTA KEBAB!"));
                     */
-
-            } else if (element.type == LKListElementType.FUN) {
-
-
-                contentActivity.loadFragmentWithAdd(
-                        LandingPageFragment.create(
-                              element)
-                );
-            } else if(element.type == LKListElementType.FUTURAL) {
-                contentActivity.loadFragmentWithAdd(new MelodyFragment());
-
-
-            } else {
-                    contentActivity.loadFragmentWithAdd(
-                            LandingPageFragment.create(element));
-                }
+                    break;
+                default:
+                    contentActivity.loadFragmentWithAdd(LandingPageFragment.create(element));
+                    break;
             }
-
         }
     }
-
-
-
-
+}

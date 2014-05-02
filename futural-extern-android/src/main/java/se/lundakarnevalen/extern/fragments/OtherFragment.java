@@ -55,11 +55,9 @@ public class OtherFragment extends LKFragment{
 
     private void addAllOther() {
         other.add(new LKListElement(
-
                 getString(R.string.radio_title),
                 R.drawable.radio_logo,
                 LKListElementType.RADIO));
-
         other.add(new LKListElement(
                 getString(R.string.security_title),
                 R.drawable.security_logo,
@@ -68,32 +66,25 @@ public class OtherFragment extends LKFragment{
                 getString(R.string.atm_title),
                 R.drawable.atm_logo,
                 LKListElementType.OTHER));
-
-
         other.add(new LKListElement(
-
                 getString(R.string.parking_title),
                 R.drawable.parking_logo,
                 LKListElementType.OTHER));
-
         other.add(new LKListElement(
                 getString(R.string.care_title),
                 R.drawable.health_logo,
                 LKListElementType.OTHER));
-
         other.add(new LKListElement(
                 getString(R.string.toilets_title),
                 R.drawable.toilets_logo,
                 LKListElementType.OTHER));
-
         other.add(new LKListElement(
                 "KARNEVALSLÅTEN",
                 R.drawable.radio_logo,
                 LKListElementType.FUTURAL));
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+        other.add(new LKListElement(
+                getString(R.string.train),
+                R.drawable.train_logo_white,
+                LKListElementType.TRAIN));
     }
 }
