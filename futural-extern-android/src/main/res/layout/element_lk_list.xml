@@ -27,7 +27,7 @@
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="REVYN"
+            android:text="@string/revy_title"
             android:shadowRadius="4"
             android:shadowDy="1"
             android:shadowColor="@color/black"

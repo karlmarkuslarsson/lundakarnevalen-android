@@ -43,6 +43,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="3dp"
+        android:contentDescription="@string/picture"
         android:background="@drawable/scheme_shadow"/>
 
 </RelativeLayout>
