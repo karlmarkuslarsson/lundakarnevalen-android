@@ -131,7 +131,7 @@ public class MapFragment extends LKFragment {
             private Random r = new Random();
             @Override
             public void run() {
-                img.setGpsMarker(r.nextInt(512), r.nextInt(512));
+                img.setGpsMarker(MapFragment.this, r.nextInt(512), r.nextInt(512));
             }
         }, 0, 5000);
 
