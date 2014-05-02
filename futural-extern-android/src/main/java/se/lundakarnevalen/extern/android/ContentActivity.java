@@ -23,7 +23,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
@@ -46,17 +45,13 @@ import static se.lundakarnevalen.extern.util.ViewUtil.*;
 public class ContentActivity extends ActionBarActivity {
     public static final String TAG_MAP = "map";
     public static final String LOG_TAG = ContentActivity.class.getSimpleName();
-    private int counterRight = 0;
     private FragmentManager fragmentMgr;
     private LKRightMenuArrayAdapter adapter;
     private ListView rightMenuList;
     private DrawerLayout drawerLayout;
-    private BottomMenuClickListener listner;
+    private BottomMenuClickListener listener;
     private ActionBar actionBar;
     public MapFragment mapFragment;
-    private ArrayList<LKRightMenuListItem> rightMenuItems = new ArrayList<LKRightMenuListItem>();
-    private LKRightMenuListItem showAllItem;
-    private boolean allItemsActivated = true;
 
     public <T> T find(int id, Class<T> clz) {
         return clz.cast(findViewById(id));
@@ -207,14 +202,14 @@ public class ContentActivity extends ActionBarActivity {
     }
 
     private void populateBottomMenu(LinearLayout bottomMenu) {
-        listner = new BottomMenuClickListener();
+        listener = new BottomMenuClickListener();
         AtomicInteger counter = new AtomicInteger(0);
-        createBottomMenuItem(bottomMenu, listner, counter, new FunFragment(), R.id.button1, R.string.fun, R.drawable.fun_logo);
-        createBottomMenuItem(bottomMenu, listner, counter, new FoodFragment(), R.id.button2, R.string.food, R.drawable.food_logo);
-        createBottomMenuItem(bottomMenu, listner, counter, mapFragment, R.id.button3, R.string.map, R.drawable.map_logo);
-        createBottomMenuItem(bottomMenu, listner, counter, new SchemeFragment(), R.id.button4, R.string.scheme, R.drawable.scheme_logo);
-        createBottomMenuItem(bottomMenu, listner, counter, new OtherFragment(), R.id.button5, R.string.other, R.drawable.other_logo);
-        listner.first(get(bottomMenu, R.id.button3, ViewGroup.class));
+        createBottomMenuItem(bottomMenu, listener, counter, new FunFragment(), R.id.button1, R.string.fun, R.drawable.fun_logo);
+        createBottomMenuItem(bottomMenu, listener, counter, new FoodFragment(), R.id.button2, R.string.food, R.drawable.food_logo);
+        createBottomMenuItem(bottomMenu, listener, counter, mapFragment, R.id.button3, R.string.map, R.drawable.map_logo);
+        createBottomMenuItem(bottomMenu, listener, counter, new SchemeFragment(), R.id.button4, R.string.scheme, R.drawable.scheme_logo);
+        createBottomMenuItem(bottomMenu, listener, counter, new OtherFragment(), R.id.button5, R.string.other, R.drawable.other_logo);
+        listener.first(get(bottomMenu, R.id.button3, ViewGroup.class));
     }
 
     private void createBottomMenuItem(LinearLayout menu, BottomMenuClickListener listener, AtomicInteger counter, Fragment f, int itemId, int textId, int imageId) {
@@ -239,9 +234,9 @@ public class ContentActivity extends ActionBarActivity {
         transaction.setCustomAnimations(R.anim.abc_fade_in,R.anim.abc_fade_out);
         transaction.replace(R.id.content_frame, f);
         transaction.addToBackStack(null);
-        if(listner != null) {
+        if(listener != null) {
             if (f instanceof MapFragment) {
-                listner.onClick(findViewById(R.id.button3));
+                listener.onClick(findViewById(R.id.button3));
             }
         }
         transaction.commit();
@@ -260,6 +255,9 @@ public class ContentActivity extends ActionBarActivity {
         Log.d("ContentActivity", "loadFragmentWithReplaceAnim("+f+")");
         int in = R.anim.abc_fade_in; //left ? R.anim.slide_in_left : R.anim.slide_in_right;
         int out = R.anim.abc_fade_out; //left ? R.anim.slide_out_right : R.anim.slide_out_left;
+
+        // TODO Får nullptr här när man byter fragment efter att ha gått ur appen ett tag för att
+        // sedan återuppta den  (f är null)
         fragmentMgr
             .beginTransaction()
                 .setCustomAnimations(in, out)
@@ -294,8 +292,8 @@ public class ContentActivity extends ActionBarActivity {
     }
 
     public void allBottomsActive() {
-        listner.deselectItem(getResources());
-        listner.selected = null;
+        listener.deselectItem(getResources());
+        listener.selected = null;
     }
 
     public void openRightMenu(View v){
