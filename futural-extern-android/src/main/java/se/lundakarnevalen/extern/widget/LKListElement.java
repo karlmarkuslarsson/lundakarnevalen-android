@@ -3,6 +3,8 @@ package se.lundakarnevalen.extern.widget;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+
 /**
  * Created by Markus on 2014-04-23.
  */
@@ -21,6 +23,8 @@ public class LKListElement implements Parcelable {
     public String question;
     public String info;
     public int type;
+    public ArrayList<String> menu;
+    public ArrayList<String> menuPrice;
 
     public LKListElement(String place, String title, String info, float lat, float lng, int headerPicture, int picture, String question,String timeFriday,String timeSaturday,String timeSunday, int type) {
         this.place = place;
@@ -35,6 +39,24 @@ public class LKListElement implements Parcelable {
         this.timeFriday = timeFriday;
         this.timeSaturday = timeSaturday;
         this.timeSunday = timeSunday;
+    }
+
+
+    public LKListElement(String place, String title, String info, float lat, float lng, int headerPicture, int picture, String question,String timeFriday,String timeSaturday,String timeSunday, int type, ArrayList<String> menu, ArrayList<String> menuPrice) {
+        this.place = place;
+        this.title = title;
+        this.info = info;
+        this.lat = lat;
+        this.lng = lng;
+        this.headerPicture = headerPicture;
+        this.picture = picture;
+        this.question = question;
+        this.type = type;
+        this.timeFriday = timeFriday;
+        this.timeSaturday = timeSaturday;
+        this.timeSunday = timeSunday;
+        this.menu = menu;
+        this.menuPrice = menuPrice;
     }
 
     public LKListElement(String place, String title, String info, float lat, float lng, int headerPicture, int picture, String question ,int type) {
@@ -77,6 +99,7 @@ public class LKListElement implements Parcelable {
         parcel.writeString(timeFriday);
         parcel.writeString(timeSaturday);
         parcel.writeString(timeSunday);
-
+        parcel.writeStringList(menu);
+        parcel.writeStringList(menuPrice);
     }
 }

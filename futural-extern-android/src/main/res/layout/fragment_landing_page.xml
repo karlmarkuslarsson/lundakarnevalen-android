@@ -300,11 +300,46 @@
         android:layout_below="@id/middleLayout"
 
         android:background="@color/white">
+
+        <RelativeLayout
+            android:id="@+id/menu"
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <se.lundakarnevalen.extern.widget.LKTextView
+                android:text="@string/menu_food"
+                android:id="@+id/menu_food"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:padding="5dp"
+                android:textColor="@color/blue_dark"
+                android:layout_marginTop="20dp"
+                android:textSize="22sp"
+                android:background="@color/beige"/>
+
+            <ListView
+                android:layout_below="@id/menu_food"
+                android:cacheColorHint="@color/transparent"
+                android:id="@+id/menu_food_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                android:listSelector="@color/transparent"
+
+                />
+
+        </RelativeLayout>
+
+
         <se.lundakarnevalen.extern.widget.LKTextView
             android:text="@string/dansen_question"
             android:id="@+id/question"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/menu"
             android:textColor="@color/blue_dark"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="20dp"

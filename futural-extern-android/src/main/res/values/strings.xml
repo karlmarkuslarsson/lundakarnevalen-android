@@ -249,6 +249,13 @@ karnevalistisk femstjärning meny för 70 kr!\n\n
     <string name="picture">content=picture</string>
     <string name="karnemel_title">KARNEVALSMELODIN</string>
     <string name="karnemel_year">2014</string>
+    <string name="krog_lajka_title">LAJKA</string>
+    <string name="krog_lajka_place" />
+    <string name="krog_lajka_question">VAD ÄR KROG LAJKA?</string>
+    <string name="krog_thyme_title">THYME TRAVEL</string>
+    <string name="krog_thyme_place" >ATHEN</string>
+    <string name="krog_thyme_question">VAD ÄR KROG TYHME TRAVEL?</string>
+    <string name="menu_food">MENU</string>
 
 
 </resources>

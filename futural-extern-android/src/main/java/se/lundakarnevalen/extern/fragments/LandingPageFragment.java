@@ -10,9 +10,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
@@ -40,7 +44,7 @@ public class LandingPageFragment extends LKFragment{
 
         Bundle bundle = getArguments();
 
-        LKListElement element = bundle.getParcelable("element");
+        final LKListElement element = bundle.getParcelable("element");
         get(rootView,R.id.name,TextView.class).setText(element.title);
         get(rootView,R.id.place,TextView.class).setText(element.place);
 
@@ -116,7 +120,29 @@ public class LandingPageFragment extends LKFragment{
             get(rootView, R.id.text, TextView.class).setText(element.info);
             get(rootView, R.id.middleLayout, RelativeLayout.class).setBackgroundResource(R.color.green_background);
 
-//
+            if(element.menu != null) {
+                ListView lv = (ListView) rootView.findViewById(R.id.menu_food_list);
+
+
+
+        lv.setAdapter(new SimpleAdapter(getContext(),
+                new ArrayList<Map<String, String>>() {{
+
+                    for (int i = 0;i<element.menu.size();i++) {
+                        final int j = i;
+                        add(new HashMap<String, String>() {{
+                            put("name", element.menu.get(j));
+                            put("price", element.menuPrice.get(j));
+                        }});
+
+                    }
+                }}, R.layout.menu_food_element,
+                new String[]{"name", "price"},
+                new int[]{android.R.id.text1, android.R.id.text2}
+        ));
+
+            }
+
         }
             return rootView;
     }
