@@ -11,22 +11,19 @@ import android.graphics.Picture;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.os.Build;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.AnimationSet;
-import android.widget.ViewAnimator;
 
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.map.Marker;
@@ -42,7 +39,7 @@ import static android.graphics.Matrix.*;
 public class LKMapView extends SVGView {
     private static final String LOG_TAG = LKMapView.class.getSimpleName();
 
-    private Map<Integer,Boolean> active = new HashMap<Integer, Boolean>();
+    private Set activeTypes = new HashSet<Integer>();
     private List<Marker> markers = new ArrayList<Marker>();
 
     private Paint mShadowInk;
@@ -123,11 +120,11 @@ public class LKMapView extends SVGView {
         //marker.y = 512;
         //markers.add(marker);
 
-        if(active.size() == 0) {
-            active.put(MarkerType.FOOD, true);
-            active.put(MarkerType.FUN,  true);
-            active.put(MarkerType.HELP, true);
-            active.put(MarkerType.WC,   true);
+        if(activeTypes.size() == 0) {
+            activeTypes.add(MarkerType.FOOD);
+            activeTypes.add(MarkerType.FUN);
+            activeTypes.add(MarkerType.HELP);
+            activeTypes.add(MarkerType.WC);
         }
     }
 
@@ -165,7 +162,7 @@ public class LKMapView extends SVGView {
 
 
         for (Marker m : markers) {
-            if(active.get(m.type) != null && active.get(m.type)) {
+            if(activeTypes.contains(m.type)) {
                 if (m.x == -1) {
                     final float lat = (m.lat - startLatMap) / diffLat;
                     final float lon = (m.lng - startLonMap) / diffLon;
@@ -265,5 +262,11 @@ public class LKMapView extends SVGView {
             mGpsMarkerPos.set(x, y);
             postInvalidate();
         }
+    }
+
+    public void setActiveTypes(Collection<Integer> types) {
+        activeTypes.clear();
+        activeTypes.addAll(types);
+        postInvalidate();
     }
 }

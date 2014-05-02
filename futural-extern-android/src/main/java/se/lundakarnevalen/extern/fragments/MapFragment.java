@@ -15,6 +15,7 @@ import android.widget.ViewFlipper;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
 
+import java.util.Collection;
 import java.util.Random;
 import java.util.TimerTask;
 import java.util.concurrent.Callable;
@@ -65,7 +66,7 @@ public class MapFragment extends LKFragment {
     private float[] mMatrixValues;
     private int displayWidth;
     private int displayHeight;
-    private LKMapView img;
+    private LKMapView mapView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -89,7 +90,7 @@ public class MapFragment extends LKFragment {
         displayWidth = metrics.widthPixels;
         displayHeight = metrics.heightPixels;
 
-        img = get(root, R.id.map_id, LKMapView.class);
+        mapView = get(root, R.id.map_id, LKMapView.class);
 
         final ViewFlipper flipper = get(root, R.id.map_switcher, ViewFlipper.class);
 
@@ -99,8 +100,8 @@ public class MapFragment extends LKFragment {
                 try {
                     Picture picture = preloaded.get(20, TimeUnit.SECONDS);
                     waitForLayout();
-                    float minZoom = calculateMinZoom(img, picture);
-                    img.setSvg(picture, minZoom, mMatrixValues);
+                    float minZoom = calculateMinZoom(mapView, picture);
+                    mapView.setSvg(picture, minZoom, mMatrixValues);
                 } catch (InterruptedException e) {
                     Log.wtf(LOG_TAG, "Future was interrupted", e);
                 } catch (ExecutionException e) {
@@ -109,8 +110,8 @@ public class MapFragment extends LKFragment {
                     try{
                         Picture picture = new SvgLoader(inflater.getContext()).call();
                         waitForLayout();
-                        float minZoom = calculateMinZoom(img, picture);
-                        img.setSvg(picture, minZoom, mMatrixValues);
+                        float minZoom = calculateMinZoom(mapView, picture);
+                        mapView.setSvg(picture, minZoom, mMatrixValues);
                     } catch (Exception ex){
                         Log.wtf(LOG_TAG, "Failed to load image after timeout", ex);
                     }
@@ -129,7 +130,7 @@ public class MapFragment extends LKFragment {
             private Random r = new Random();
             @Override
             public void run() {
-                img.setGpsMarker(MapFragment.this, r.nextInt(512), r.nextInt(512));
+                mapView.setGpsMarker(MapFragment.this, r.nextInt(512), r.nextInt(512));
             }
         }, 0, 5000);
 
@@ -143,13 +144,13 @@ public class MapFragment extends LKFragment {
     public void onResume() {
         super.onResume();
         if(mMatrixValues != null) {
-            img.importMatrixValues(mMatrixValues);
+            mapView.importMatrixValues(mMatrixValues);
         }
     }
 
     @Override
     public void onPause() {
-        mMatrixValues = img.exportMatrixValues();
+        mMatrixValues = mapView.exportMatrixValues();
         super.onPause();
     }
 
@@ -161,8 +162,8 @@ public class MapFragment extends LKFragment {
 
     private void waitForLayout() {
         int counter = 0;
-        while (img.getMeasuredHeight() == 0 && counter++ < 100) Delay.ms(100); //Wait for layout
-        img.updateViewLimitBounds();
+        while (mapView.getMeasuredHeight() == 0 && counter++ < 100) Delay.ms(100); //Wait for layout
+        mapView.updateViewLimitBounds();
     }
 
     private float calculateMinZoom(View root, Picture pic) {
@@ -170,6 +171,10 @@ public class MapFragment extends LKFragment {
         return Math.max(
                     root.getMeasuredHeight() * 1.0f / pic.getHeight(),
                     root.getMeasuredWidth() * 1.0f / pic.getWidth());
+    }
+
+    public void setActiveType(Collection<Integer> types) {
+        mapView.setActiveTypes(types);
     }
 
     public static class SvgLoader implements Callable<Picture> {
@@ -199,7 +204,7 @@ public class MapFragment extends LKFragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         Log.d(LOG_TAG, "onSaveInstanceState() called");
-        outState.putFloatArray(STATE_MATRIX, img.exportMatrixValues());
+        outState.putFloatArray(STATE_MATRIX, mapView.exportMatrixValues());
     }
 
     public static MapFragment create(boolean zoom, float lat, float lng) {
@@ -210,9 +215,5 @@ public class MapFragment extends LKFragment {
         MapFragment fragment = new MapFragment();
         fragment.setArguments(bundle);
         return fragment;
-    }
-
-    public void changeActive(int markerType, boolean enabled) {
-
     }
 }
