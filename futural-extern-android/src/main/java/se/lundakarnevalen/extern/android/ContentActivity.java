@@ -19,6 +19,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -44,13 +46,17 @@ import static se.lundakarnevalen.extern.util.ViewUtil.*;
 
 public class ContentActivity extends ActionBarActivity {
     public static final String TAG_MAP = "map";
+
     public static final String LOG_TAG = ContentActivity.class.getSimpleName();
+
     private FragmentManager fragmentMgr;
     private LKRightMenuArrayAdapter adapter;
+
+    private View mActionBarView;
     private ListView rightMenuList;
     private DrawerLayout drawerLayout;
     private BottomMenuClickListener listener;
-    private ActionBar actionBar;
+
     public MapFragment mapFragment;
 
     public <T> T find(int id, Class<T> clz) {
@@ -63,18 +69,14 @@ public class ContentActivity extends ActionBarActivity {
         setContentView(R.layout.activity_content);
         fragmentMgr = getSupportFragmentManager();
 
-        if(savedInstanceState == null){ // Prevent multiple fragments creations
-            mapFragment = new MapFragment();
-            loadFragmentWithReplace(mapFragment);
-        } else {
-            Log.d("here","here");
-        }
+        mapFragment = new MapFragment();
+        loadFragmentWithReplace(mapFragment);
 
         rightMenuList = find(R.id.right_menu_list, ListView.class);
 
-        drawerLayout = find(R.id.drawer_layout, DrawerLayout.class);
-        drawerLayout.setScrimColor(Color.TRANSPARENT);
-        drawerLayout.openDrawer(Gravity.RIGHT);
+        setupDrawerLayout();
+        setupActionbar();
+        setupTint();
 
         populateBottomMenu(find(R.id.bottom_frame_menu, LinearLayout.class));
 
@@ -86,13 +88,17 @@ public class ContentActivity extends ActionBarActivity {
             }
         }, 300);
 
-        actionBar = setupActionbar();
-        setupTint();
 
         //TODO modify design
 //        createCustomDialog();
 
 
+    }
+
+    private void setupDrawerLayout() {
+        drawerLayout = find(R.id.drawer_layout, DrawerLayout.class);
+        drawerLayout.setScrimColor(Color.TRANSPARENT);
+        drawerLayout.openDrawer(Gravity.RIGHT);
     }
 
     private void createCustomDialog() {
@@ -132,56 +138,32 @@ public class ContentActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void hideBottomMenu(){
-
-        /*
-        final View menu = find(R.id.bottom_frame_menu, View.class);
-        View content = find(R.id.content_frame, View.class);
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            final Animation slideOutBottom = AnimationUtils.loadAnimation(this, R.anim.abc_slide_out_bottom);
-            slideOutBottom.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {}
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    menu.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {}
-            });
-            menu.startAnimation(slideOutBottom);
-        }else{
-            menu.setVisibility(View.GONE);
+    public void hideOpenDrawerButton() {
+        final Button btn = get(mActionBarView, R.id.action_bar_open_right_btn, Button.class);
+        if (btn.getVisibility() != View.VISIBLE) {
+            return;
         }
-        */
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            Animation anim = AnimationUtils.loadAnimation(this, R.anim.abc_fade_out);
+            anim.setAnimationListener(new VisibilityOnComplete(btn, View.INVISIBLE));
+            btn.startAnimation(anim);
+        } else {
+            btn.setVisibility(View.VISIBLE);
+        }
     }
 
-    //@TargetApi(11)
-    public void showBottomMenu(){
-        /*
-        final View menu = find(R.id.bottom_frame_menu, View.class);
-        View content = find(R.id.content_frame, View.class);
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            Animation slideInBottom = AnimationUtils.loadAnimation(this, R.anim.abc_slide_in_bottom);
-            slideInBottom.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
-                    menu.setVisibility(View.VISIBLE);
-                }
-
-                @Override
-                public void onAnimationEnd(Animation animation) {}
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {}
-            });
-            menu.startAnimation(slideInBottom);
-        } else {
-            find(R.id.bottom_frame_menu, View.class).setVisibility(View.VISIBLE);
+    public void showOpenDrawerButton() {
+        final Button btn = get(mActionBarView, R.id.action_bar_open_right_btn, Button.class);
+        if (btn.getVisibility() == View.VISIBLE) {
+            return;
         }
-        */
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            Animation anim = AnimationUtils.loadAnimation(this, R.anim.abc_fade_in);
+            anim.setAnimationListener(new VisibilityOnComplete(btn, View.VISIBLE));
+            btn.startAnimation(anim);
+        } else {
+            btn.setVisibility(View.VISIBLE);
+        }
     }
 
     private void setupTint() {
@@ -199,7 +181,8 @@ public class ContentActivity extends ActionBarActivity {
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        actionBar.setCustomView(inflater.inflate(R.layout.action_bar_layout, null));
+        View view = mActionBarView = inflater.inflate(R.layout.action_bar_layout, null);
+        actionBar.setCustomView(view);
         return actionBar;
     }
 
@@ -353,15 +336,17 @@ public class ContentActivity extends ActionBarActivity {
             selected.setBackgroundColor(res.getColor(R.color.bottom_menu_background_selected));
             get(selected, R.id.bottom_menu_text, TextView.class).setTextColor(res.getColor(R.color.white));
             get(selected, R.id.bottom_menu_shadow, LinearLayout.class).setBackgroundColor(res.getColor(R.color.bottom_menu_shadow_selected));
-            if(Build.VERSION.SDK_INT > 10) {
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                 get(selected, R.id.bottom_menu_image, ImageView.class).setAlpha(1.0f);
             }
-            if(selected.getTag() instanceof MapFragment) {
+            if(selected.getTag(TAG_FRAGMENT) instanceof MapFragment) {
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-            } else {
+                showOpenDrawerButton();
+            } else if(selected.getTag(TAG_FRAGMENT) != null) { //When constructing the tag will be null
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                drawerLayout.closeDrawers();
+                hideOpenDrawerButton();
             }
+            drawerLayout.closeDrawers();
         }
 
         private void deselectItem(Resources res) {
@@ -374,5 +359,24 @@ public class ContentActivity extends ActionBarActivity {
                 }
             }
         }
+    }
+
+    private static class VisibilityOnComplete implements Animation.AnimationListener {
+        private final int visibility;
+        private final View view;
+
+        private VisibilityOnComplete(View view, int invisible) {
+            this.view = view;
+            this.visibility = invisible;
+        }
+
+        @Override
+        public void onAnimationStart(Animation animation) {view.setVisibility(visibility);}
+
+        @Override
+        public void onAnimationEnd(Animation animation) {}
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {}
     }
 }
