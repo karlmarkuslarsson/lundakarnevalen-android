@@ -32,7 +32,7 @@ import static se.lundakarnevalen.extern.util.ViewUtil.get;
 
 public class MapFragment extends LKFragment {
     private static FutureTask<Picture> preloaded = null;
-
+    private java.util.Timer mTimer;
 
     public static Picture preload(Context c) {
         if(preloaded == null){
@@ -98,9 +98,7 @@ public class MapFragment extends LKFragment {
             protected Void doInBackground(Void... params) {
                 try {
                     Picture picture = preloaded.get(20, TimeUnit.SECONDS);
-
                     waitForLayout();
-
                     float minZoom = calculateMinZoom(img, picture);
                     img.setSvg(picture, minZoom, mMatrixValues);
                 } catch (InterruptedException e) {
@@ -126,8 +124,8 @@ public class MapFragment extends LKFragment {
             }
         }.execute();
 
-        java.util.Timer t = new java.util.Timer();
-        t.scheduleAtFixedRate(new TimerTask() {
+        mTimer = new java.util.Timer();
+        mTimer.scheduleAtFixedRate(new TimerTask() {
             private Random r = new Random();
             @Override
             public void run() {
@@ -135,11 +133,9 @@ public class MapFragment extends LKFragment {
             }
         }, 0, 5000);
 
-
         flipper.setAnimateFirstView(true);
         flipper.setInAnimation(AnimationUtils.loadAnimation(inflater.getContext(), R.anim.abc_fade_in));
         flipper.setOutAnimation(AnimationUtils.loadAnimation(inflater.getContext(), R.anim.abc_fade_out));
-
         return root;
     }
 
@@ -155,6 +151,12 @@ public class MapFragment extends LKFragment {
     public void onPause() {
         mMatrixValues = img.exportMatrixValues();
         super.onPause();
+    }
+
+    @Override
+    public void onDestroyView() {
+        mTimer.cancel();
+        super.onDestroyView();
     }
 
     private void waitForLayout() {
@@ -201,18 +203,14 @@ public class MapFragment extends LKFragment {
     }
 
     public static MapFragment create(boolean zoom, float lat, float lng) {
-        MapFragment fragment = new MapFragment();
         Bundle bundle = new Bundle();
-
         bundle.putFloat("lat", lat);
         bundle.putFloat("lng", lng);
         bundle.putBoolean("zoom", zoom);
-
+        MapFragment fragment = new MapFragment();
         fragment.setArguments(bundle);
-        // Add arguments
         return fragment;
     }
-
 
     public void changeActive(int markerType, boolean enabled) {
 
