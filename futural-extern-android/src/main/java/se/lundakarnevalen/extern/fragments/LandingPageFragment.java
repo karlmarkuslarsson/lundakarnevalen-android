@@ -22,8 +22,6 @@ import java.util.Map;
 
 import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
-import se.lundakarnevalen.extern.widget.LKFoodMenuAdapter;
-import se.lundakarnevalen.extern.widget.LKFoodMenuElement;
 import se.lundakarnevalen.extern.widget.LKListElement;
 import se.lundakarnevalen.extern.widget.LKListElementType;
 import se.lundakarnevalen.extern.widget.LKSchemeAdapter;
@@ -132,11 +130,10 @@ public class LandingPageFragment extends LKFragment{
 
 
                 for(int i = 0;i< element.menu.size();i++){
-//                    View view = inflater.inflate(getContext(), R.layout.menu_food_element, null);
-
-  //                  ll.addView();
-
-    //                    element.menu.get(i), element.menuPrice.get(i);
+                    View view = inflater.inflate(R.layout.menu_food_element, null);
+                    ((TextView)view.findViewById(R.id.name)).setText(element.menu.get(i));
+                    ((TextView)view.findViewById(R.id.price)).setText(element.menuPrice.get(i));
+                    ll.addView(view);
                 }
 
 

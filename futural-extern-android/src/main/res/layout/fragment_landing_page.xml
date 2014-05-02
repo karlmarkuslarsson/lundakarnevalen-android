@@ -313,16 +313,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:padding="5dp"
+                android:padding="10dp"
                 android:textColor="@color/blue_dark"
                 android:layout_marginTop="20dp"
                 android:textSize="22sp"
                 android:background="@color/beige"/>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_alignLeft="@id/menu_food"
+                android:layout_alignRight="@id/menu_food"
+                android:layout_below="@id/menu_food"
+                android:background="@color/beige_shadow"
+                />
+
             <LinearLayout
+                android:layout_marginTop="10dp"
                 android:layout_below="@id/menu_food"
                 android:id="@+id/menu_food_list"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 

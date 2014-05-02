@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.*;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -23,9 +24,9 @@ import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 
 public class MusicFragment extends LKFragment implements View.OnClickListener {
-    private Button buttonPlay;
+    private View buttonPlay;
 
-    private Button buttonStopPlay;
+    private boolean play = true;
     private boolean finish = false;
     private MediaPlayer player;
     private ProgressBar playSeekBar;
@@ -49,12 +50,9 @@ public class MusicFragment extends LKFragment implements View.OnClickListener {
         playSeekBar.setMax(100);
         playSeekBar.setVisibility(View.INVISIBLE);
 
-        buttonPlay = (Button) rootView.findViewById(R.id.button);
+        buttonPlay = (View) rootView.findViewById(R.id.button);
         buttonPlay.setOnClickListener(this);
 
-        buttonStopPlay = (Button) rootView.findViewById(R.id.buttonStop);
-        buttonStopPlay.setEnabled(false);
-        buttonStopPlay.setOnClickListener(this);
 
     }
 
@@ -64,8 +62,10 @@ public class MusicFragment extends LKFragment implements View.OnClickListener {
     }
 
     public void onClick(View v) {
-        if (v == buttonPlay) {
-            if(checkInternet()) {
+        if(play) {
+            if (checkInternet()) {
+                ((ImageView)v).setImageResource(R.drawable.radio_pause);
+                play = false;
                 startPlaying();
             } else {
                 Context context = getActivity().getApplicationContext();
@@ -76,9 +76,11 @@ public class MusicFragment extends LKFragment implements View.OnClickListener {
                 toast.show();
             }
 
-        } else if (v == buttonStopPlay) {
-            stopPlaying();
-        }
+        }else{
+            ((ImageView)v).setImageResource(R.drawable.radio_play);
+           play= true;
+                stopPlaying();
+            }
     }
 
     private boolean checkInternet() {
@@ -100,16 +102,12 @@ public class MusicFragment extends LKFragment implements View.OnClickListener {
             initializeMediaPlayer();
         }
         finish = false;
-        buttonPlay.setEnabled(true);
-        buttonStopPlay.setEnabled(false);
         playSeekBar.setVisibility(View.INVISIBLE);
     }
 
 
     private void startPlaying() {
 
-        buttonStopPlay.setEnabled(true);
-        buttonPlay.setEnabled(false);
 
         playSeekBar.setVisibility(View.VISIBLE);
 

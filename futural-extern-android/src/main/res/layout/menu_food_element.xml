@@ -3,49 +3,66 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 >
-<LinearLayout
+
+    <RelativeLayout
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
-    android:id="@+id/scheme_element"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
     android:layout_marginLeft="20dp"
-    android:layout_marginTop="5dp"
-    android:layout_marginBottom="5dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
     android:layout_marginRight="20dp"
-    android:weightSum="10"
+
     >
 
 
 
-
         <se.lundakarnevalen.extern.widget.LKTextView
-            android:id="@+id/name"
-            android:layout_weight="8"
-            android:layout_width="0dp"
+            android:layout_alignParentRight="true"
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/blue_dark"
             android:textSize="16sp"
-            android:padding="5dp"
+            android:padding="10dp"
+            android:gravity="center"
+            android:background="@color/beige"
+            android:text="16:0011"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_alignLeft="@id/price"
+            android:layout_alignRight="@id/price"
+            android:layout_below="@id/price"
+            android:background="@color/beige_shadow"
+            />
+
+
+        <se.lundakarnevalen.extern.widget.LKTextView
+            android:id="@+id/name"
+            android:layout_toLeftOf="@id/price"
+            android:layout_marginRight="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/blue_dark"
+            android:textSize="16sp"
+            android:padding="10dp"
             android:gravity="left"
             android:text="16:00"
             android:background="@color/beige"
             />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_alignLeft="@id/name"
+                android:layout_alignRight="@id/name"
+                android:layout_below="@id/name"
+                android:background="@color/beige_shadow"
+                />
 
-    <se.lundakarnevalen.extern.widget.LKTextView
-        android:id="@+id/price"
-        android:layout_weight="2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
 
-        android:textColor="@color/blue_dark"
-        android:textSize="16sp"
-        android:padding="5dp"
-        android:gravity="center"
-        android:layout_marginLeft="5dp"
-        android:background="@color/beige"
-        android:text="16:00"/>
+</RelativeLayout>
 
-</LinearLayout>
 </RelativeLayout>
