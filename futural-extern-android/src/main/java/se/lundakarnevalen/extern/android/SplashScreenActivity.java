@@ -9,6 +9,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 
 import se.lundakarnevalen.extern.fragments.MapFragment;
+import se.lundakarnevalen.extern.fragments.TrainMapFragment;
 
 public class SplashScreenActivity extends Activity {
     private static final String LOG_TAG = SplashScreenActivity.class.getSimpleName();
@@ -45,6 +46,7 @@ public class SplashScreenActivity extends Activity {
         }
 
         MapFragment.preload(this);
+        TrainMapFragment.preload(this);
     }
 
     public <T> T find(int id, Class<T> clz) {
