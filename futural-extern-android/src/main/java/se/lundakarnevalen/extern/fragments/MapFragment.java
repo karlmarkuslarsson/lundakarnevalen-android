@@ -15,6 +15,8 @@ import android.widget.ViewFlipper;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
 
+import java.util.Random;
+import java.util.TimerTask;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
@@ -123,6 +125,16 @@ public class MapFragment extends LKFragment {
                 flipper.showNext();
             }
         }.execute();
+
+        java.util.Timer t = new java.util.Timer();
+        t.scheduleAtFixedRate(new TimerTask() {
+            private Random r = new Random();
+            @Override
+            public void run() {
+                img.setGpsMarker(r.nextInt(512), r.nextInt(512));
+            }
+        }, 0, 5000);
+
 
         flipper.setAnimateFirstView(true);
         flipper.setInAnimation(AnimationUtils.loadAnimation(inflater.getContext(), R.anim.abc_fade_in));

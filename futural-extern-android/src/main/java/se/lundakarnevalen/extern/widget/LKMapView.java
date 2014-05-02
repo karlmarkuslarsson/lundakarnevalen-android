@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.map.Marker;
@@ -40,15 +39,21 @@ public class LKMapView extends SVGView {
     private Paint mLightBlueInk;
     private Paint mBlueInk;
 
-    private Picture gpsMarker;
-    private Picture bubble;
+    private Picture mGpsMarker;
+    private Picture mBubble;
+
     private float mGpsMarkerSize;
     private float mGpsShadowXRadius;
     private float mGpsShadowYRadius;
 
-    private PointF lastPos = new PointF(320, 260);
-    private RectF dest = new RectF();
-    private Random r = new Random();
+    private float mBubbleSize;
+    private float mBubbleShadowXRadius;
+    private float mBubbleShadowYRadius;
+
+    private PointF mGpsMarkerPos = new PointF(0,0);
+    private PointF lastPos = new PointF(0,0);
+
+    private RectF dst = new RectF();
 
     private static final float startLonMap = 13.1910161648f;
     private static final float startLatMap = 55.707371322f;
@@ -58,6 +63,7 @@ public class LKMapView extends SVGView {
 
     private static final float diffLon = endLonMap - startLonMap;
     private static final float diffLat = endLatMap - startLatMap;
+
 
     public LKMapView(Context context) {
         super(context);
@@ -87,8 +93,8 @@ public class LKMapView extends SVGView {
         mLightBlueInk.setShadowLayer(1.5f, 0f, 0f, Color.BLACK);
 
         try {
-            gpsMarker = SVG.getFromResource(context, R.raw.gps_marker).renderToPicture();
-            bubble = SVG.getFromResource(context, R.raw.bubble).renderToPicture();
+            mGpsMarker = SVG.getFromResource(context, R.raw.gps_marker).renderToPicture();
+            mBubble = SVG.getFromResource(context, R.raw.bubble).renderToPicture();
         } catch (SVGParseException e) {
             e.printStackTrace();
         }
@@ -97,7 +103,15 @@ public class LKMapView extends SVGView {
         mGpsShadowXRadius = dpToPx(context, 10);
         mGpsShadowYRadius = dpToPx(context, 6);
 
+        mBubbleSize = dpToPx(context, 10);
+        mBubbleShadowXRadius = dpToPx(context, 2);
+        mBubbleShadowYRadius = dpToPx(context, 1);
+
         Markers.addMarkers(markers);
+        //final Marker marker = new Marker(0f,0f, R.drawable.radio_logo, MarkerType.FUN);
+        //marker.x = 256;
+        //marker.y = 512;
+        //markers.add(marker);
 
         if(active.size() == 0) {
             active.put(MarkerType.FOOD, true);
@@ -112,6 +126,11 @@ public class LKMapView extends SVGView {
         return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 
+    public static int dpToPx(Context c, float dp) {
+        DisplayMetrics displayMetrics = c.getResources().getDisplayMetrics();
+        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+    }
+
     @Override
     protected boolean onClick(float xInSvg, float yInSvg) {
         Logf.d(LOG_TAG, "click(%f, %f)", xInSvg, yInSvg);
@@ -122,30 +141,37 @@ public class LKMapView extends SVGView {
     protected void onDrawObjects(Canvas canvas) {
         super.onDrawObjects(canvas); // Must be called to draw map
         float scale = mMatrixValues[MSCALE_X];
+        float pictureHeight = mPictureEndPoint[AXIS_X];
+        float pictureWidth = mPictureEndPoint[AXIS_Y];
 
-        int pictureHeight = mPicture.getHeight();
-        int pictureWidth = mPicture.getWidth();
-/*
         for (Marker m : markers) {
-            //canvas.drawCircle(marker.x, marker.y, 10, mShadowInk);
             if(active.get(m.type) != null && active.get(m.type)) {
                 if (m.x == -1) {
-                    float lat = (m.lat - startLatMap) / diffLat;
-                    float lon = (m.lng - startLonMap) / diffLon;
+                    final float lat = (m.lat - startLatMap) / diffLat;
+                    final float lon = (m.lng - startLonMap) / diffLon;
                     m.x = lon * pictureWidth;
-                    m.y = pictureHeight - lat * pictureHeight;
+                    m.y = lat * pictureHeight;
                 }
-                canvas.drawCircle(m.x, m.y, mGpsShadowXRadius/scale, mBlueInk);
+                dst.set(m.x - mBubbleShadowXRadius,
+                        m.y - mBubbleShadowYRadius,
+                        m.x + mBubbleShadowXRadius,
+                        m.y + mBubbleShadowYRadius);
+                //normalizeToMidpointBottom(dst);
+                canvas.drawOval(dst, mShadowInk);
+                dst.set(m.x,
+                        m.y,
+                        m.x + mBubbleSize,
+                        m.y + mBubbleSize);
+                normalizeToMidpointBottom(dst);
+                canvas.drawPicture(mBubble, dst);
             }
         }
-*/
+
         float lat1 = (55.705655f - startLatMap) / diffLat;
         float lon1 = (13.194277f - startLonMap) / diffLon;
         float m1x = lon1 * pictureWidth;
         float m1y = lat1 * pictureHeight;
         canvas.drawCircle(m1x, m1y, mGpsShadowXRadius/scale, mBlueInk);
-
-
 
         float lat2 = (55.705439f - startLatMap) / diffLat; //y
         float lon2 = (13.193153f - startLonMap) / diffLon;
@@ -153,19 +179,38 @@ public class LKMapView extends SVGView {
         float m2y = lat2 * pictureHeight;
         canvas.drawCircle(m2x, m2y, mGpsShadowXRadius/scale, mLightBlueInk);
 
-        // Do a random walk +-2 steps
-        lastPos.set(r.nextInt(5) - 2 + lastPos.x, r.nextInt(5) - 2 + lastPos.y);
+        dst.set(mGpsMarkerPos.x,
+                mGpsMarkerPos.y,
+                mGpsMarkerPos.x + 2.0f * mGpsShadowXRadius / scale,
+                mGpsMarkerPos.y + 2.0f * mGpsShadowYRadius / scale);
+        normalizeToMidpointBottom(dst);
+        canvas.drawOval(dst, mShadowInk);
 
-        dest.set(lastPos.x +(mGpsMarkerSize * 0.5f - mGpsShadowXRadius) /scale,
-                lastPos.y + (mGpsMarkerSize - 2.0f * mGpsShadowYRadius) /scale,
-                lastPos.x + (mGpsMarkerSize * 0.5f + mGpsShadowXRadius) /scale,
-                lastPos.y + (mGpsMarkerSize - 0    * mGpsShadowYRadius) /scale);
-        canvas.drawOval(dest, mShadowInk);
+        dst.set(mGpsMarkerPos.x,
+                mGpsMarkerPos.y,
+                mGpsMarkerPos.x + mGpsMarkerSize / scale,
+                mGpsMarkerPos.y + mGpsMarkerSize / scale);
+        normalizeToMidpointBottom(dst);
+        canvas.drawPicture(mGpsMarker, dst);
+    }
 
-        dest.set(lastPos.x,
-                lastPos.y,
-                lastPos.x + mGpsMarkerSize/scale,
-                lastPos.y + mGpsMarkerSize/scale);
-        canvas.drawPicture(gpsMarker, dest);
+    private void normalizeToMidpointBottom(RectF rect) {
+        rect.offset(-0.5f * rect.width(), -rect.height());
+    }
+
+    public void setGpsMarker(float lat, float lng){
+        float pictureHeight = mPictureEndPoint[AXIS_X];
+        float pictureWidth = mPictureEndPoint[AXIS_Y];
+        float lLat = (55.705439f - startLatMap) / diffLat; //y
+        float lLon = (13.193153f - startLonMap) / diffLon;
+        float mx = lLon * pictureWidth;
+        float my = lLat * pictureHeight;
+        mGpsMarkerPos.set(mx, my);
+        postInvalidate();
+    }
+
+    public void setGpsMarker(int x, int y){
+        mGpsMarkerPos.set(x, y);
+        postInvalidate();
     }
 }
