@@ -319,17 +319,15 @@
                 android:textSize="22sp"
                 android:background="@color/beige"/>
 
-            <ListView
+            <LinearLayout
                 android:layout_below="@id/menu_food"
-                android:cacheColorHint="@color/transparent"
                 android:id="@+id/menu_food_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:divider="@null"
-                android:dividerHeight="0dp"
-                android:listSelector="@color/transparent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                />
+
+                </LinearLayout>
 
         </RelativeLayout>
 

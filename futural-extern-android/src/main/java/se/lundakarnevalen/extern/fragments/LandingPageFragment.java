@@ -2,12 +2,14 @@ package se.lundakarnevalen.extern.fragments;
 
 import static se.lundakarnevalen.extern.util.ViewUtil.*;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
@@ -20,6 +22,8 @@ import java.util.Map;
 
 import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
+import se.lundakarnevalen.extern.widget.LKFoodMenuAdapter;
+import se.lundakarnevalen.extern.widget.LKFoodMenuElement;
 import se.lundakarnevalen.extern.widget.LKListElement;
 import se.lundakarnevalen.extern.widget.LKListElementType;
 import se.lundakarnevalen.extern.widget.LKSchemeAdapter;
@@ -120,29 +124,25 @@ public class LandingPageFragment extends LKFragment{
             get(rootView, R.id.text, TextView.class).setText(element.info);
             get(rootView, R.id.middleLayout, RelativeLayout.class).setBackgroundResource(R.color.green_background);
 
-            if(element.menu != null) {
-                ListView lv = (ListView) rootView.findViewById(R.id.menu_food_list);
+            if (element.menu != null) {
+                LinearLayout ll = (LinearLayout) rootView.findViewById(R.id.menu_food_list);
+
+                //LayoutInflater inflater2 = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                //View layout = inflater.inflate(R.layout.menu_food_element, parent, false);
+
+
+                for(int i = 0;i< element.menu.size();i++){
+//                    View view = inflater.inflate(getContext(), R.layout.menu_food_element, null);
+
+  //                  ll.addView();
+
+    //                    element.menu.get(i), element.menuPrice.get(i);
+                }
 
 
 
-        lv.setAdapter(new SimpleAdapter(getContext(),
-                new ArrayList<Map<String, String>>() {{
-
-                    for (int i = 0;i<element.menu.size();i++) {
-                        final int j = i;
-                        add(new HashMap<String, String>() {{
-                            put("name", element.menu.get(j));
-                            put("price", element.menuPrice.get(j));
-                        }});
-
-                    }
-                }}, R.layout.menu_food_element,
-                new String[]{"name", "price"},
-                new int[]{android.R.id.text1, android.R.id.text2}
-        ));
-
+                Log.d("Size menu", element.menu.size() + "");
             }
-
         }
             return rootView;
     }

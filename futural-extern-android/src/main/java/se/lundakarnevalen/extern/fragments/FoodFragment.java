@@ -104,9 +104,10 @@ public class FoodFragment extends LKFragment {
 
         ArrayList<String> menu = new ArrayList<String>();
         ArrayList<String> menuPrice = new ArrayList<String>();
-    menu.add("hejburgare");
-        menu.add("12");
-
+        menu.add("hejburgare");
+        menu.add("tomteburgare");
+        menuPrice.add("12");
+        menuPrice.add("16");
 
         food.add(new LKListElement(
                 getString(R.string.krog_undervatten_place),
