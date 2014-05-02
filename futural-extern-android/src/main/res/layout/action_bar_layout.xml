@@ -18,6 +18,7 @@
             />
 
         <Button
+            android:id="@+id/action_bar_open_right_btn"
             android:onClick="openRightMenu"
             android:paddingLeft="2dp"
             android:paddingRight="6dp"
