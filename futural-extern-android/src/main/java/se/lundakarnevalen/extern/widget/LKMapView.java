@@ -144,6 +144,15 @@ public class LKMapView extends SVGView {
         float pictureHeight = mPictureEndPoint[AXIS_X];
         float pictureWidth = mPictureEndPoint[AXIS_Y];
 
+        // TODO TEST
+        markers = new ArrayList<Marker>();
+
+        markers.add(new Marker(55.7048333f, 13.195352777777778f, R.drawable.cirkusen_logo, MarkerType.FUN));
+
+        markers.add(new Marker(55.7059389f, 13.194805555555556f, R.drawable.filmen_logo, MarkerType.FUN));
+
+
+
         for (Marker m : markers) {
             if(active.get(m.type) != null && active.get(m.type)) {
                 if (m.x == -1) {

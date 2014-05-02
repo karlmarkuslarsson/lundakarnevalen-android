@@ -15,6 +15,7 @@
             android:background="@color/white"
             >
         <ImageView
+            android:contentDescription="@string/picture"
             android:id="@+id/myHeart"
             android:layout_centerVertical="true"
             android:layout_width="14dp"
@@ -53,6 +54,7 @@
         android:layout_below="@id/heartText">
 
         <ImageView
+            android:contentDescription="@string/picture"
             android:id="@+id/left_arrow_text"
             android:layout_width="30dp"
             android:layout_height="30dp"
