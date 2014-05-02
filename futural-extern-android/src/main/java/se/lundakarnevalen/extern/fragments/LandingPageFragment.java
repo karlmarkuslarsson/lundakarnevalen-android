@@ -39,9 +39,11 @@ public class LandingPageFragment extends LKFragment{
         View rootView = inflater.inflate(R.layout.fragment_landing_page, null);
 
         Bundle bundle = getArguments();
-        get(rootView,R.id.name,TextView.class).setText(bundle.getString("name"));
-        get(rootView,R.id.place,TextView.class).setText(bundle.getString("place"));
+
         LKListElement element = bundle.getParcelable("element");
+        get(rootView,R.id.name,TextView.class).setText(element.title);
+        get(rootView,R.id.place,TextView.class).setText(element.place);
+
         Calendar c = Calendar.getInstance();
 
         switch (c.DAY_OF_MONTH) {
