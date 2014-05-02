@@ -254,7 +254,7 @@
                         android:layout_height="match_parent"
                         android:layout_below="@id/map_info"
                         android:layout_above="@id/map_shadow"
-                        android:background="@color/white"/>
+                        android:background="@drawable/go_to_map"/>
 
 
 
