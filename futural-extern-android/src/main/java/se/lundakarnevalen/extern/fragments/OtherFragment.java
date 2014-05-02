@@ -80,11 +80,11 @@ public class OtherFragment extends LKFragment{
                 LKListElementType.OTHER));
         other.add(new LKListElement(
                 "KARNEVALSLÅTEN",
-                R.drawable.radio_logo,
+                R.drawable.music_logo,
                 LKListElementType.FUTURAL));
         other.add(new LKListElement(
                 getString(R.string.train),
-                R.drawable.train_logo_white,
+                R.drawable.train_logo_other,
                 LKListElementType.TRAIN));
     }
 }

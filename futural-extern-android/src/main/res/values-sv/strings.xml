@@ -89,14 +89,11 @@
     <string name="krog_lajka_info">
     Med härlig atmosfär och en stor uteservering mitt i karnevalens kaos skapar Krog Lajka ditt
         perfekta karnevalshäng! Kom till oss och ät god mat, släck törsten med en svalkande
-        karnevöl och slå dig ner på karnevalens bästa plats: mitt framför stora scenen.\n\n
-    Betalning: Kort och kontant (har inte hört något om futuralbetal, men tror inte att vi kommer att ha det)\n\n
-    Serverar: öl, vin och cider
+        karnevöl och slå dig ner på karnevalens bästa plats: mitt framför stora scenen.\n\nBetalning: Kort och kontant\n\nServerar: öl, vin och cider
     </string>
 
     <string name="krog_undervatten_info">
-    Öppet: 12-01\n\n
-    Betalning: kort, kontant, vet inget om futuralbetal
+   Åren gick och polarisarna smälte. Skåne översvämmades och endast domkyrkans torn stack upp. Folket skrek efter vällagad mat, och en krog svarade. Vi bjuder på härlig mat i havets tecken och en utmärkt utsikt över lundagård från vår uteservering vid kungshusets gavel!\n\nÖppet: 12-01\n\nBetalning: kort, kontant, vet inget om futuralbetal
 
     </string>
 
@@ -107,11 +104,7 @@
  Dagen börjar med en 50-tals amerikansk diner och i högtalarna spelas
 tidstypisk musik På kvällen kröker vi tid och rum och svirar om till en
 bar i sann studio 54 anda. Räkna med att vi alltid kommer leverera en
-karnevalistisk femstjärning meny för 70 kr!\n\n
-    Betalning: kort och kontant\n\n
-    Serverar: Alkohol
-
-
+karnevalistisk femstjärning meny för 70 kr!\n\nBetalning: kort och kontant\n\nServerar: Alkohol
     </string>
 
     <string name="open">ÖPPET</string>
@@ -175,8 +168,8 @@ karnevalistisk femstjärning meny för 70 kr!\n\n
     <string name="play">SPELA</string>
     <string name="stop">STOPPA</string>
     <string name="krog_undervatten_place" />
-    <string name="krog_undervatten_title">KROG UNDERVATTEN</string>
-    <string name="krog_undervatten_question">VAD ÄR KROG UNDERVATTEN?</string>
+    <string name="krog_undervatten_title">UNDERVATTEN</string>
+    <string name="krog_undervatten_question">VAD ÄR UNDERVATTEN?</string>
     <string name="lundakarnevalen_actionbar">LUNDAKARNEVALEN</string>
     <string name="radio_title">RADION</string>
     <string name="security_title">SÄKERHET</string>
@@ -187,12 +180,16 @@ karnevalistisk femstjärning meny för 70 kr!\n\n
     <string name="no_internet">Kontrollera din internetanslutning!</string>
     <string name="dansen_place">AF BORGEN</string>
     <string name="dansen_title">DANSEN</string>
-    <string name="dansen_info" />
+    <string name="dansen_info" >EN DANS.</string>
     <string name="dansen_question">VAD ÄR DANSEN?</string>
     <string name="emil_och_david">EMIL OCH DAVID</string>
     <string name="krog_thyme_title">THYME TRAVEL</string>
     <string name="krog_thyme_question">VAD ÄR KROG TYHME TRAVEL?</string>
     <string name="menu_food">MENY</string>
+    <string name="undervatten_food1">BOUILLABAISSE MED ROUILLE</string>
+    <string name="undervatten_food2">KRÄMIG LAXRÖRA MED FRANSK POTATISSALLAD</string>
+    <string name="thyme_food1">KYCKLINGFILÈ MED POTATISSALLAD, TIMJAN, CITRONOLJA OCH MANGODRESSING</string>
+    <string name="thyme_food2">KANTARELL OCH VÄSTERBOTTENPAJ MED SALLAD OCH RHODE ISLAND DRESSING</string>
 
 
 </resources>

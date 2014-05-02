@@ -143,9 +143,9 @@
     </string>
 
     <string name="krog_undervatten_info">
-    Öppet: 12-01\n\n
-    Betalning: kort, kontant, vet inget om futuralbetal
+   Åren gick och polarisarna smälte. Skåne översvämmades och endast domkyrkans torn stack upp. Folket skrek efter vällagad mat, och en krog svarade. Vi bjuder på härlig mat i havets tecken och en utmärkt utsikt över lundagård från vår uteservering vid kungshusets gavel!\n\nÖppet: 12-01\n\nBetalning: kort, kontant, vet inget om futuralbetal
     </string>
+
 
 <string name="krog_thyme_info">
     Öppet: 14-02\n\n
@@ -160,7 +160,7 @@ karnevalistisk femstjärning meny för 70 kr!\n\n
     </string>
     <string name="krog_undervatten_place" />
     <string name="krog_undervatten_title">KROG UNDERVATTEN</string>
-    <string name="krog_undervatten_question">WHAT IS KROG UNDERVATTEN?</string>
+    <string name="krog_undervatten_question">WHAT IS UNDERVATTEN?</string>
 
     <string name="empty" />
     <string name="folkan_question">VAD FINNS PÅ FOLKAN?</string>
@@ -241,7 +241,7 @@ karnevalistisk femstjärning meny för 70 kr!\n\n
     <string name="playPart34">EXPLODERAR PÅ EN SEKUND</string>
     <string name="dansen_place">AF BORGEN</string>
     <string name="dansen_title">DANSEN</string>
-    <string name="dansen_info" />
+    <string name="dansen_info" >EN DANS.</string>
     <string name="dansen_question">VAD ÄR DANSEN?</string>
     <string name="the_bland_band">THE BLAND BAND</string>
     <string name="emil_och_david">EMIL AND DAVID</string>
@@ -256,6 +256,11 @@ karnevalistisk femstjärning meny för 70 kr!\n\n
     <string name="krog_thyme_place" >ATHEN</string>
     <string name="krog_thyme_question">VAD ÄR KROG TYHME TRAVEL?</string>
     <string name="menu_food">MENU</string>
+    <string name="undervatten_food1">BOUILLABAISSE MED ROUILLE</string>
+    <string name="undervatten_food2">KRÄMIG LAXRÖRA MED FRANSK POTATISSALLAD</string>
+    <string name="undervatten_food3">FRANSK LINSSOPPA</string>
+    <string name="thyme_food1">KYCKLINGFILÈ MED POTATISSALLAD, TIMJAN, CITRONOLJA OCH MANGODRESSING</string>
+    <string name="thyme_food2">KANTARELL OCH VÄSTERBOTTENPAJ MED SALLAD OCH RHODE ISLAND DRESSING</string>
 
 
 </resources>

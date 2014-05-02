@@ -123,6 +123,7 @@ public class LandingPageFragment extends LKFragment{
             get(rootView, R.id.middleLayout, RelativeLayout.class).setBackgroundResource(R.color.green_background);
 
             if (element.menu != null) {
+                get(rootView,R.id.menu,RelativeLayout.class).setVisibility(View.VISIBLE);
                 LinearLayout ll = (LinearLayout) rootView.findViewById(R.id.menu_food_list);
 
                 //LayoutInflater inflater2 = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -131,7 +132,7 @@ public class LandingPageFragment extends LKFragment{
 
                 for(int i = 0;i< element.menu.size();i++){
                     View view = inflater.inflate(R.layout.menu_food_element, null);
-                    ((TextView)view.findViewById(R.id.name)).setText(element.menu.get(i));
+                    ((TextView)view.findViewById(R.id.name)).setText((i+1)+". "+element.menu.get(i));
                     ((TextView)view.findViewById(R.id.price)).setText(element.menuPrice.get(i));
                     ll.addView(view);
                 }

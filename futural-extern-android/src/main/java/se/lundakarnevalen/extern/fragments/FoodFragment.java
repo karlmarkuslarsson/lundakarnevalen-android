@@ -73,7 +73,7 @@ public class FoodFragment extends LKFragment {
                 getString(R.string.cocktail_info),
                 55.706362f, 13.195165f,
                 R.drawable.monk,
-                R.drawable.header_kabare,
+                R.drawable.nagilima_logo,
                 getString(R.string.cocktail_question),
                 "15:30-22:30","15:30-23:30","15:30-22:30",
                 LKListElementType.FOOD
@@ -85,7 +85,7 @@ public class FoodFragment extends LKFragment {
                 getString(R.string.hipp_baren_info),
                 55.706521f, 13.195431f,
                 R.drawable.monk,
-                R.drawable.header_kabare,
+                R.drawable.nagilima_logo,
                 getString(R.string.hipp_baren_question),
                 "15:30-22:30","15:30-23:30","15:30-22:30",
                 LKListElementType.FOOD));
@@ -97,17 +97,20 @@ public class FoodFragment extends LKFragment {
                 getString(R.string.folkan_info),
                 55.706841f, 13.196030f,
                 R.drawable.monk,
-                R.drawable.header_kabare,
+                R.drawable.nagilima_logo,
                 getString(R.string.folkan_question),
                 "15:30-22:30","15:30-23:30","15:30-22:30",
                 LKListElementType.FOOD));
 
         ArrayList<String> menu = new ArrayList<String>();
         ArrayList<String> menuPrice = new ArrayList<String>();
-        menu.add("hejburgare");
-        menu.add("tomteburgare");
-        menuPrice.add("12");
-        menuPrice.add("16");
+        menu.add(getString(R.string.undervatten_food1));
+        menu.add(getString(R.string.undervatten_food2));
+        menu.add(getString(R.string.undervatten_food3));
+     //   menu.add("");
+        menuPrice.add("??");
+        menuPrice.add("??");
+        menuPrice.add("??");
 
         food.add(new LKListElement(
                 getString(R.string.krog_undervatten_place),
@@ -130,6 +133,13 @@ public class FoodFragment extends LKFragment {
                 getString(R.string.krog_lajka_question),
                 "12:00-01:00","12:00-01:00","12:00-24:00",
                 LKListElementType.FOOD));
+        menu = new ArrayList<String>();
+        menuPrice = new ArrayList<String>();
+        menu.add(getString(R.string.thyme_food1));
+        menu.add(getString(R.string.thyme_food2));
+        //   menu.add("");
+        menuPrice.add("??");
+        menuPrice.add("??");
 
 
         food.add(new LKListElement(
@@ -138,12 +148,12 @@ public class FoodFragment extends LKFragment {
                 getString(R.string.krog_lajka_info),
                 55.705697f, 13.194630f,
                 R.drawable.monk,
-                R.drawable.undervatten_logo,
+                R.drawable.fine_dine_logo,
                 getString(R.string.krog_thyme_question),
                 "14:00-02:00","14:00-02:00","14:00-02:00",
-                LKListElementType.FOOD));
+                LKListElementType.FOOD,
+                menu, menuPrice));
 
-        // add all fun here...
 
     }
 
