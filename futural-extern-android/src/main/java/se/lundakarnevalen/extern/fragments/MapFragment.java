@@ -32,6 +32,8 @@ import static se.lundakarnevalen.extern.util.ViewUtil.get;
 
 public class MapFragment extends LKFragment {
     private static FutureTask<Picture> preloaded = null;
+    private java.util.Timer mTimer;
+
     public static Picture preload(Context c) {
         if(preloaded == null){
             preloaded = new FutureTask<Picture>(new SvgLoader(c));
@@ -122,10 +124,9 @@ public class MapFragment extends LKFragment {
             }
         }.execute();
 
-        java.util.Timer t = new java.util.Timer();
-        t.scheduleAtFixedRate(new TimerTask() {
+        mTimer = new java.util.Timer();
+        mTimer.scheduleAtFixedRate(new TimerTask() {
             private Random r = new Random();
-
             @Override
             public void run() {
                 img.setGpsMarker(MapFragment.this, r.nextInt(512), r.nextInt(512));
@@ -150,6 +151,12 @@ public class MapFragment extends LKFragment {
     public void onPause() {
         mMatrixValues = img.exportMatrixValues();
         super.onPause();
+    }
+
+    @Override
+    public void onDestroyView() {
+        mTimer.cancel();
+        super.onDestroyView();
     }
 
     private void waitForLayout() {
