@@ -15,6 +15,7 @@
         android:layout_height="180dp">
 
         <ImageView
+            android:contentDescription="@string/picture"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
@@ -23,6 +24,7 @@
             />
 
         <ImageView
+            android:contentDescription="@string/picture"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/header_clouds"
@@ -33,7 +35,7 @@
             android:layout_marginRight="10dp"
             />
         <se.lundakarnevalen.extern.widget.LKTextView
-            android:text="AF-BORGEN"
+            android:text="@string/dansen_place"
             android:id="@+id/place"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,7 +53,7 @@
             android:textSize="16sp"/>
 
         <se.lundakarnevalen.extern.widget.LKTextView
-            android:text="REVYN"
+            android:text="@string/dansen_title"
             android:id="@+id/name"
             android:lineSpacingMultiplier="1.3"
             android:gravity="right"
@@ -80,7 +82,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:weightSum="2">
+                android:weightSum="2"
+                android:baselineAligned="false">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -115,6 +118,7 @@
                 </RelativeLayout>
 
                 <ImageView
+                    android:contentDescription="@string/picture"
                     android:layout_width="match_parent"
                     android:layout_height="3dp"
                     android:layout_alignLeft="@id/open_box"
@@ -130,21 +134,18 @@
                     android:layout_alignRight="@id/open_box"
                     android:layout_alignLeft="@id/open_box"
                     android:layout_below="@id/open_box"
-                    >
+                    android:baselineAligned="false">
 
 
                 <RelativeLayout
-
                     android:id="@+id/cash_box"
                     android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-
-                    android:layout_below="@id/open_box">
+                    android:layout_marginTop="6dp">
 
                     <ImageView
-
+                        android:contentDescription="@string/picture"
                         android:layout_centerHorizontal="true"
                         android:id="@+id/cash_picture"
                         android:layout_width="24dp"
@@ -165,7 +166,7 @@
                         android:layout_alignRight="@+id/cash_picture"
                         android:gravity="center"
                         android:textColor="@color/white"
-                        android:textSize="8dp"
+                        android:textSize="8sp"
 
                         />
 
@@ -188,6 +189,7 @@
                         android:layout_height="12dp"
                         android:paddingRight="3dp"
                         android:paddingTop="3dp"
+                        android:contentDescription="@string/picture"
                         android:background="@drawable/card_logo"/>
                     <se.lundakarnevalen.extern.widget.LKTextView
                         android:text="@string/card"
@@ -201,7 +203,7 @@
                         android:layout_alignLeft="@+id/card_picture"
                         android:layout_alignRight="@+id/card_picture"
                         android:textColor="@color/white"
-                        android:textSize="8dp"
+                        android:textSize="8sp"
 
                         />
 
@@ -220,6 +222,7 @@
                     >
 
                     <ImageView
+                        android:contentDescription="@string/picture"
                         android:id="@+id/map_shadow"
                         android:layout_width="60dp"
                         android:layout_height="3dp"
@@ -236,11 +239,12 @@
                         android:gravity="center"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
-                        android:textSize="8dp"
+                        android:textSize="8sp"
 
                         />
 
                     <ImageView
+                        android:contentDescription="@string/picture"
                         android:layout_marginTop="2dp"
                         android:id="@+id/map_picture"
                         android:layout_width="match_parent"
@@ -262,6 +266,7 @@
             </RelativeLayout>
         </LinearLayout>
             <ImageView
+                android:contentDescription="@string/picture"
                 android:id="@+id/header_background"
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
@@ -284,6 +289,7 @@
                 android:id="@+id/picture"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
+                android:contentDescription="@string/picture"
                 android:src="@drawable/test_nojen"/>
 
         </RelativeLayout>
@@ -295,14 +301,14 @@
 
         android:background="@color/white">
         <se.lundakarnevalen.extern.widget.LKTextView
-            android:text="VAD ÄR REVYN?"
+            android:text="@string/dansen_question"
             android:id="@+id/question"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/blue_dark"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="20dp"
-            android:textSize="20dp"/>
+            android:textSize="20sp"/>
 
         <se.lundakarnevalen.extern.widget.LKTextView
             android:text="@string/ipsum"
@@ -315,11 +321,12 @@
             android:layout_marginRight="30dp"
             android:layout_below="@id/question"
             android:textStyle="italic"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:lineSpacingMultiplier="1.1"
             />
 
         <ImageView
+            android:contentDescription="@string/picture"
             android:id="@+id/middleLayoutShadow"
             android:layout_width="match_parent"
             android:layout_height="3dp"
