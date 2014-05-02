@@ -66,6 +66,8 @@ public class ContentActivity extends ActionBarActivity {
         if(savedInstanceState == null){ // Prevent multiple fragments creations
             mapFragment = new MapFragment();
             loadFragmentWithReplace(mapFragment);
+        } else {
+            Log.d("here","here");
         }
 
         rightMenuList = find(R.id.right_menu_list, ListView.class);

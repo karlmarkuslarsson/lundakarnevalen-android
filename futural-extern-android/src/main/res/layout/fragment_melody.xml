@@ -22,6 +22,7 @@
             <include layout="@layout/layout_clouds_moving" />
 
             <ImageView
+                android:contentDescription="@string/picture"
                 android:id="@+id/melody_heart"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -45,7 +46,7 @@
                     android:shadowDy="5"
                     android:shadowRadius="0.1"
                     android:gravity="bottom|center"
-                    android:text="KARNEVALSMELODIN"
+                    android:text="@string/karnemel_title"
                     android:textSize="20sp"
                     android:layout_weight="4"
                     android:textColor="#F0533E"
@@ -59,7 +60,7 @@
                     android:shadowDy="5"
                     android:gravity="center_horizontal"
                     android:shadowRadius="0.1"
-                    android:text="2014"
+                    android:text="@string/karnemel_year"
                     android:layout_weight="6"
                     android:textColor="@color/red"
                     android:textSize="30sp" />
@@ -152,6 +153,7 @@
             android:orientation="vertical" >
 
             <ImageView
+                android:contentDescription="@string/picture"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -165,16 +167,18 @@
                 android:layout_marginTop="20dp" >
 
                 <ImageView
+                    android:contentDescription="@string/picture"
                     android:id="@+id/countdown_playbutton"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginLeft="15dp"
                     android:clickable="true"
                     android:scaleType="fitXY"
-                    android:src="@drawable/playerbutton"></ImageView>
+                    android:src="@drawable/playerbutton"/>
 
 
                 <ImageView
+                    android:contentDescription="@string/picture"
                     android:id="@+id/rewind_button"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
@@ -187,6 +191,7 @@
                 </ImageView>
 
                 <ImageView
+                    android:contentDescription="@string/picture"
                     android:id="@+id/countdown_waves"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -201,6 +206,7 @@
 
 
                 <ImageView
+                    android:contentDescription="@string/picture"
                     android:id="@+id/music_handle1"
                     android:layout_width="match_parent"
                     android:layout_height="38dp"
@@ -211,6 +217,7 @@
                     android:src="@drawable/music_handle1" />
 
                 <ImageView
+                    android:contentDescription="@string/picture"
                     android:id="@+id/countdown_waves_line"
                     android:layout_width="wrap_content"
                     android:layout_height="3dp"

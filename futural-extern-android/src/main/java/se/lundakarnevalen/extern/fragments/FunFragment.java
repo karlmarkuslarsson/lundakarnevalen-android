@@ -94,7 +94,7 @@ public class FunFragment extends LKFragment {
                 getString(R.string.barneval_info),
                 55.7037889f, 13.194647222222223f,
                 R.drawable.monk,
-                R.drawable.header_kabare,
+                R.drawable.barnevalen_logo,
                 getString(R.string.barneval_question),
                 "14:00-20:00","14:00-21:00","14:00-20:00",LKListElementType.FUN));
 
@@ -125,7 +125,7 @@ public class FunFragment extends LKFragment {
                 getString(R.string.kabare_info),
                 55.7042667f, 13.193833333333334f,
                 R.drawable.monk,
-                R.drawable.header_kabare,
+                R.drawable.kabaren_logo,
                 getString(R.string.kabare_question),
                 "15:30-22:30","15:30-23:30","15:30-22:30",LKListElementType.FUN));
 
@@ -145,7 +145,7 @@ public class FunFragment extends LKFragment {
                 getString(R.string.show_info),
                 55.7055444f, 13.195588888888889f,
                 R.drawable.monk,
-                R.drawable.header_kabare,
+                R.drawable.showen_logo,
                 getString(R.string.showen_question),
                 "14:00-21:30","14:00-21:30","14:00-21:30",LKListElementType.FUN));
 
@@ -165,7 +165,7 @@ public class FunFragment extends LKFragment {
                 getString(R.string.dansen_info),
                 55.70572f, 13.19544f,
                 R.drawable.monk,
-                R.drawable.spexet_logo,
+                R.drawable.dansen_logo,
                 getString(R.string.dansen_question),
                 "23:00-04:00","23:00-04:00","23:00-04:00",LKListElementType.FUN));
 
