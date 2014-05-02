@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.ViewFlipper;
 
 import com.caverock.androidsvg.SVG;
@@ -24,6 +25,7 @@ import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.util.Delay;
 import se.lundakarnevalen.extern.util.Timer;
@@ -92,6 +94,13 @@ public class MapFragment extends LKFragment {
 
         mapView = get(root, R.id.map_id, LKMapView.class);
 
+        get(root, R.id.map_pull_out, View.class).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ContentActivity.class.cast(getActivity()).toggleRightDrawer();
+            }
+        });
+
         final ViewFlipper flipper = get(root, R.id.map_switcher, ViewFlipper.class);
 
         new AsyncTask<Void, Void, Void>(){
@@ -132,7 +141,7 @@ public class MapFragment extends LKFragment {
             public void run() {
                 mapView.setGpsMarker(MapFragment.this, r.nextInt(512), r.nextInt(512));
             }
-        }, 0, 5000);
+        }, 0, 60000);
 
         flipper.setAnimateFirstView(true);
         flipper.setInAnimation(AnimationUtils.loadAnimation(inflater.getContext(), R.anim.abc_fade_in));

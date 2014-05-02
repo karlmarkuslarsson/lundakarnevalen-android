@@ -1,21 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_gravity="right"
-    android:layout_height="match_parent"
-    android:layout_width="wrap_content"
-    >
-
-    <View
-        android:id="@+id/tab"
-        android:layout_width="10dp"
-        android:layout_height="40dp"
-        android:background="@color/yellow"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"/>
-    <LinearLayout
-        android:layout_toRightOf="@id/tab"
-        android:orientation="vertical"
-        android:id="@+id/list"
+    android:orientation="vertical"
+    android:id="@+id/list"
     android:layout_width="wrap_content"
     android:layout_height="match_parent">
 
@@ -32,5 +19,3 @@
         android:background="@color/right_menu_background" />
 
 </LinearLayout>
-
-</RelativeLayout>

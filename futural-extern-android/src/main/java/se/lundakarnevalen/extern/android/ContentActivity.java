@@ -4,12 +4,13 @@ import android.app.Dialog;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Handler;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.view.Gravity;
 import android.view.View.OnClickListener;
 import android.graphics.Color;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
@@ -91,16 +92,21 @@ public class ContentActivity extends ActionBarActivity {
         }, 300);
 
 
-        //TODO modify design
-//        createCustomDialog();
-
-
+        // TODO modify design
+        // createCustomDialog();
     }
 
     private void setupDrawerLayout() {
         drawerLayout = find(R.id.drawer_layout, DrawerLayout.class);
         drawerLayout.setScrimColor(Color.TRANSPARENT);
-        drawerLayout.openDrawer(Gravity.RIGHT);
+    }
+
+    public void toggleRightDrawer(){
+        if (drawerLayout.isDrawerOpen(Gravity.RIGHT)) {
+            drawerLayout.closeDrawer(Gravity.RIGHT);
+        } else {
+            drawerLayout.openDrawer(Gravity.RIGHT);
+        }
     }
 
     private void createCustomDialog() {

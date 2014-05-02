@@ -221,6 +221,9 @@ public class SVGView extends View {
     @Override
     protected final void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+
+        if(isInEditMode()) return;
+
         t0 = System.currentTimeMillis();
         //canvas.save();
         filterMatrix(mMatrix);
