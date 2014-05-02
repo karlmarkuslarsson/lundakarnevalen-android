@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,21 +17,21 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 
 import static se.lundakarnevalen.extern.util.ViewUtil.get;
 
 public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapter.LKRightMenuListItem> implements OnItemClickListener {
+    private static final String LOG_TAG = LKRightMenuArrayAdapter.class.getSimpleName();
 
-    private final DrawerLayout mDrawerLayout;
     private final LayoutInflater mInflater;
     private final Context mContext;
 
-    public LKRightMenuArrayAdapter(Context context, List<LKRightMenuListItem> items, DrawerLayout drawerLayout){
+    public LKRightMenuArrayAdapter(Context context, List<LKRightMenuListItem> items){
         super(context, android.R.layout.activity_list_item, items);
         this.mContext = context;
         this.mInflater = LayoutInflater.from(context);
-        this.mDrawerLayout = drawerLayout;
     }
 
     @Override
@@ -72,6 +73,12 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
             getItem(showAllIdx).setSelected(c, false);
         }
 
+        ContentActivity activity = ContentActivity.class.cast(c);
+        if (activity != null) {
+            activity.updateMapView(selectedTypes());
+        } else {
+            Log.wtf(LOG_TAG, "ContentActivity was null");
+        }
     }
 
     private void deselectAll() {

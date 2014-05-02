@@ -30,6 +30,7 @@ import android.widget.TextView;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -38,6 +39,7 @@ import se.lundakarnevalen.extern.fragments.FunFragment;
 import se.lundakarnevalen.extern.fragments.MapFragment;
 import se.lundakarnevalen.extern.fragments.OtherFragment;
 import se.lundakarnevalen.extern.fragments.SchemeFragment;
+import se.lundakarnevalen.extern.fragments.TrainMapFragment;
 import se.lundakarnevalen.extern.map.MarkerType;
 import se.lundakarnevalen.extern.widget.LKRightMenuArrayAdapter;
 import se.lundakarnevalen.extern.widget.LKRightMenuArrayAdapter.*;
@@ -124,8 +126,9 @@ public class ContentActivity extends ActionBarActivity {
 
     @Override
     protected void onDestroy() {
-        Log.d(LOG_TAG, "onDestroy()!? null=>preloaded");
+        Log.d(LOG_TAG, "onDestroy()!? null => preloaded");
         MapFragment.clean();
+        TrainMapFragment.clean();
         super.onDestroy();
     }
 
@@ -261,7 +264,7 @@ public class ContentActivity extends ActionBarActivity {
         LayoutInflater inflater = LayoutInflater.from(this);
 
         List<LKRightMenuListItem> listItems = new ArrayList<LKRightMenuListItem>();
-        adapter = new LKRightMenuArrayAdapter(this, listItems, drawerLayout);
+        adapter = new LKRightMenuArrayAdapter(this, listItems);
 
         adapter.add(new LKRightMenuListItem(getString(R.string.food),R.drawable.food_logo, MarkerType.FOOD));
         adapter.add(new LKRightMenuListItem(getString(R.string.fun),R.drawable.fun_logo, MarkerType.FUN));
@@ -289,6 +292,10 @@ public class ContentActivity extends ActionBarActivity {
             if (Build.VERSION.SDK_INT > 10) v.setRotation(180);
             drawerLayout.openDrawer(Gravity.RIGHT);
         }
+    }
+
+    public void updateMapView(Collection<Integer> types) {
+        mapFragment.setActiveType(types);
     }
 
     private class BottomMenuClickListener implements OnClickListener {
