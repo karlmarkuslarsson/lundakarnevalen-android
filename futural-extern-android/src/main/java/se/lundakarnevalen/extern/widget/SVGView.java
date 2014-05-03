@@ -4,7 +4,9 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Picture;
+import android.graphics.PointF;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -12,6 +14,10 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
+
+import com.nineoldandroids.animation.AnimatorSet;
+import com.nineoldandroids.animation.PropertyValuesHolder;
+import com.nineoldandroids.animation.ValueAnimator;
 
 import se.lundakarnevalen.extern.util.Logf;
 
@@ -115,19 +121,26 @@ public class SVGView extends View {
         public boolean onScale(ScaleGestureDetector detector) {
             mTempScale = detector.getScaleFactor();
 
-            //mScaleFactor *= Math.max(1.005f, Math.min(mTempScale, 0.995f));
-            mScaleFactor *= mTempScale;
-
             final float focusX = detector.getFocusX();
             final float focusY = detector.getFocusY();
 
             mMatrix.getValues(mMatrixValues);
 
-            if(mMinZoom >= mMatrixValues[MSCALE_X] * mScaleFactor){
+            if(mMinZoom >= mMatrixValues[MSCALE_X] * mTempScale){
+                if(DEBUG) Logf.d(LOG_TAG, "Reached min zoom!");
                 mLastFocusX = focusX;
                 mLastFocusY = focusY;
-                mScaleFactor /= mTempScale;
+                mTempScale = 1.0f;
             }
+
+            if(MAX_ZOOM <= mMatrixValues[MSCALE_X] * mTempScale){
+                if(DEBUG) Logf.d(LOG_TAG, "Reached max zoom!");
+                mLastFocusX = focusX;
+                mLastFocusY = focusY;
+                mTempScale = 1.0f;
+            }
+
+            mScaleFactor *= mTempScale;
 
             if(DEBUG) Logf.d(LOG_TAG, "minZoom: %f, mTemp: %f, mScaleFactor: %f, mScaleFactor * matrix[scale]: %f",
                     mMinZoom, mTempScale, mScaleFactor, mMatrixValues[MSCALE_X] * mScaleFactor);
@@ -183,6 +196,12 @@ public class SVGView extends View {
 
         @Override
         public void onLongPress(MotionEvent e) {
+            final PointF scroll = getScrollXY();
+            Logf.d(LOG_TAG, "scroll(%f, %f)", scroll.x, scroll.y);
+            RectF r = new RectF(mCurrentViewBound.left, mCurrentViewBound.top, mCurrentViewBound.right, mCurrentViewBound.bottom);
+            mMatrix.mapRect(r);
+            Logf.d(LOG_TAG, "currentViewBound(%s, w: %f, h: %f)",
+                    r.toString(), r.width(), r.height());
         }
 
         @Override
@@ -204,6 +223,11 @@ public class SVGView extends View {
 
     private boolean scroll(float distanceX, float distanceY) {
         return mMatrix.postTranslate(-distanceX, -distanceY);
+    }
+
+    private PointF getScrollXY(){
+        mMatrix.getValues(mMatrixValues);
+        return new PointF(mMatrixValues[MTRANS_X], mMatrixValues[MTRANS_Y]);
     }
 
     @Override
@@ -228,7 +252,7 @@ public class SVGView extends View {
         //canvas.save();
         filterMatrix(mMatrix);
         canvas.setMatrix(mMatrix);
-        //canvas.getClipBounds(mCurrentViewBound);
+        canvas.getClipBounds(mCurrentViewBound);
         onDrawObjects(canvas);
         //canvas.restore();
         acc += System.currentTimeMillis() - t0;
@@ -299,6 +323,36 @@ public class SVGView extends View {
         }
 
         postInvalidate();
+    }
+
+    public void zoomTo(float x, float y, final float scale){
+        float target = limit(mMinZoom, scale, MAX_ZOOM);
+        final PointF scroll = getScrollXY();
+        final float[] svgXY = new float[] {x, y};
+        mMatrix.mapPoints(svgXY);
+        final PointF midScreen = new PointF(mViewEndPoint[0] * 0.5f, mViewEndPoint[1] * 0.5f);
+
+        final float[] pictureXY = getPictureXYbyScreenXY(midScreen.x, midScreen.y);
+        //svgXY[0] -= mCurrentViewBound.width() * 0.5f;
+        //svgXY[1] -= mCurrentViewBound.height() * 0.5f;
+        Logf.d(LOG_TAG, "Animate to xy(%f, %f) => svgXY(%f, %f)", x, y, -svgXY[0], -svgXY[1]);
+        final PropertyValuesHolder xHolder = PropertyValuesHolder.ofFloat("x", scroll.x, svgXY[0]);
+        final PropertyValuesHolder yHolder = PropertyValuesHolder.ofFloat("y", scroll.y, svgXY[1]);
+        //final PropertyValuesHolder sHolder = PropertyValuesHolder.ofFloat("s", mScaleFactor, mMinZoom, target);
+        final ValueAnimator anim = ValueAnimator.ofPropertyValuesHolder(xHolder, yHolder);
+        anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                final float newX = (Float) animation.getAnimatedValue("x");
+                final float newY = (Float) animation.getAnimatedValue("y");
+                //final float newScale = (Float) animation.getAnimatedValue("s");
+                scroll(newX, newY);
+                //mScaleFactor = newScale;
+                invalidate();
+            }
+        });
+        anim.setDuration(1000);
+        anim.start();
     }
 
     public void importMatrixValues(float[] floatArray) {

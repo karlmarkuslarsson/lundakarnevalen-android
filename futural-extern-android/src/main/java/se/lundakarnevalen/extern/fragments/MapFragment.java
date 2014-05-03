@@ -139,9 +139,22 @@ public class MapFragment extends LKFragment {
             private Random r = new Random();
             @Override
             public void run() {
-                mapView.setGpsMarker(MapFragment.this, r.nextInt(512), r.nextInt(512));
+                final int x = r.nextInt(512);
+                final int y = 256;
+                final float scale = 5.0f;
+
+                if(preloaded != null && !preloaded.isDone()) return;
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mapView.setGpsMarker(x, y);
+                        //mapView.zoomTo(x, y, scale);
+                    }
+                });
+
             }
-        }, 0, 60000);
+        }, 4000, 20000);
 
         flipper.setAnimateFirstView(true);
         flipper.setInAnimation(AnimationUtils.loadAnimation(inflater.getContext(), R.anim.abc_fade_in));

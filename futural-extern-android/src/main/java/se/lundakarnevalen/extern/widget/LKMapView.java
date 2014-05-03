@@ -1,7 +1,5 @@
 package se.lundakarnevalen.extern.widget;
 
-import android.animation.AnimatorSet;
-import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -13,14 +11,14 @@ import android.graphics.Picture;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.os.Build;
-import android.support.v4.app.Fragment;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.LruCache;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
+import com.nineoldandroids.animation.AnimatorSet;
+import com.nineoldandroids.animation.ValueAnimator;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -33,7 +31,6 @@ import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.map.Marker;
 import se.lundakarnevalen.extern.map.MarkerType;
 import se.lundakarnevalen.extern.map.Markers;
-import se.lundakarnevalen.extern.util.BitmapUtil;
 import se.lundakarnevalen.extern.util.Logf;
 
 import static android.graphics.Matrix.*;
@@ -246,42 +243,29 @@ public class LKMapView extends SVGView {
         postInvalidate();
     }
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public void setGpsMarker(Fragment a, int x, int y) {
+    public void setGpsMarker(int x, int y) {
         Logf.d(LOG_TAG, "GPSMarker moved to (%d, %d)", x, y);
-        if(Build.VERSION.SDK_INT > 10){
-            ValueAnimator animX =  ValueAnimator.ofFloat(mGpsMarkerPos.x, x);
-            animX.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator animation) {
-                    mGpsMarkerPos.x = (Float) animation.getAnimatedValue();
-                    invalidate();
-                }
-            });
-            ValueAnimator animY =  ValueAnimator.ofFloat(mGpsMarkerPos.x, x);
-            animY.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator animation) {
-                    mGpsMarkerPos.y = (Float) animation.getAnimatedValue();
-                    invalidate();
-                }
-            });
-
-            final AnimatorSet animation = new AnimatorSet();
-            animation.playTogether(animX, animY);
-            animation.setInterpolator(new AccelerateDecelerateInterpolator());
-            animation.setDuration(1000);
-
-            a.getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    animation.start();
-                }
-            });
-        } else {
-            mGpsMarkerPos.set(x, y);
-            postInvalidate();
-        }
+        ValueAnimator animX =  ValueAnimator.ofFloat(mGpsMarkerPos.x, x);
+        animX.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                mGpsMarkerPos.x = (Float) animation.getAnimatedValue();
+                invalidate();
+            }
+        });
+        ValueAnimator animY =  ValueAnimator.ofFloat(mGpsMarkerPos.y, y);
+        animY.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                mGpsMarkerPos.y = (Float) animation.getAnimatedValue();
+                invalidate();
+            }
+        });
+        final AnimatorSet animation = new AnimatorSet();
+        animation.playTogether(animX, animY);
+        animation.setInterpolator(new AccelerateDecelerateInterpolator());
+        animation.setDuration(1000);
+        animation.start();
     }
 
     public void setActiveTypes(Collection<Integer> types) {
