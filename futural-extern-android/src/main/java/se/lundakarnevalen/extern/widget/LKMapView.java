@@ -113,12 +113,11 @@ public class LKMapView extends SVGView {
         mGpsShadowXRadius = dpToPx(context, 10);
         mGpsShadowYRadius = dpToPx(context, 6);
 
-        mBubbleSize = dpToPx(context, 10);
-        mBubbleShadowXRadius = dpToPx(context, 2);
-        mBubbleShadowYRadius = dpToPx(context, 1);
+        mBubbleSize = dpToPx(context, 14);
+        mBubbleShadowXRadius = dpToPx(context, 3);
+        mBubbleShadowYRadius = dpToPx(context, 2);
 
         // @TODO: Add all markers
-
         Markers.addMarkers(markers);
         bitmaps = new HashMap<Integer, Bitmap>();
         for (Marker m : markers) {
@@ -166,12 +165,9 @@ public class LKMapView extends SVGView {
         // TODO TEST
         /*
         markers = new ArrayList<Marker>();
-
         markers.add(new Marker(55.7048333f, 13.195352777777778f, R.drawable.cirkusen_logo, MarkerType.FUN));
-
         markers.add(new Marker(55.7059389f, 13.194805555555556f, R.drawable.filmen_logo, MarkerType.FUN));
         */
-
 
         for (Marker m : markers) {
             if(activeTypes.contains(m.type)) {
