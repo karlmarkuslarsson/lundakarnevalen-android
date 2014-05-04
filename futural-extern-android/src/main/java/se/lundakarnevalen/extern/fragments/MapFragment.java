@@ -2,8 +2,10 @@ package se.lundakarnevalen.extern.fragments;
 
 import android.content.Context;
 import android.graphics.Picture;
+import android.graphics.PointF;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -135,26 +137,25 @@ public class MapFragment extends LKFragment {
         }.execute();
 
         mTimer = new java.util.Timer();
-        mTimer.scheduleAtFixedRate(new TimerTask() {
+        mTimer.schedule(new TimerTask() {
             private Random r = new Random();
             @Override
             public void run() {
-                final int x = r.nextInt(512);
-                final int y = 256;
-                final float scale = 5.0f;
-
                 if(preloaded != null && !preloaded.isDone()) return;
-
-                getActivity().runOnUiThread(new Runnable() {
+                final Handler h = new Handler(getActivity().getMainLooper());
+                h.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        int x = r.nextInt(512);
+                        int y = r.nextInt(512);
+                        float zoom = r.nextFloat() * 30.0f;
                         mapView.setGpsMarker(x, y);
-                        //mapView.zoomTo(x, y, scale);
+                        mapView.zoomTo(x, y, zoom);
+                        h.postDelayed(this, 5000);
                     }
-                });
-
+                }, 0);
             }
-        }, 4000, 20000);
+        }, 2000);
 
         flipper.setAnimateFirstView(true);
         flipper.setInAnimation(AnimationUtils.loadAnimation(inflater.getContext(), R.anim.abc_fade_in));
