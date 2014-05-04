@@ -61,7 +61,6 @@ public class FoodFragment extends LKFragment {
         return rootView;
     }
 
-
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
