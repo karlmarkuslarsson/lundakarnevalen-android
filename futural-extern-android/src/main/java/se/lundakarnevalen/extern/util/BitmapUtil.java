@@ -68,7 +68,7 @@ public class BitmapUtil {
         final int height = bitmap.getHeight();
         final int borderWidth = width/15;
 
-        Bitmap canvasBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Bitmap canvasBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_4444);
         BitmapShader shader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
         Paint paint = new Paint();
         paint.setAntiAlias(true);
@@ -82,6 +82,7 @@ public class BitmapUtil {
         paint.setColor(Color.WHITE);
         paint.setStrokeWidth(borderWidth);
         canvas.drawCircle(width / 2, height / 2, radius - borderWidth / 2, paint);
+
         return canvasBitmap;
     }
 
