@@ -113,16 +113,17 @@ public class LKMapView extends SVGView {
         mGpsShadowXRadius = dpToPx(context, 10);
         mGpsShadowYRadius = dpToPx(context, 6);
 
-        mBubbleSize = dpToPx(context, 10);
-        mBubbleShadowXRadius = dpToPx(context, 2);
-        mBubbleShadowYRadius = dpToPx(context, 1);
+        mBubbleSize = dpToPx(context, 14);
+        mBubbleShadowXRadius = dpToPx(context, 3);
+        mBubbleShadowYRadius = dpToPx(context, 2);
 
         // @TODO: Add all markers
+        Markers.addMarkers(markers);
 
-//        Markers.addMarkers(markers);
         markers.add(new Marker(55.70497849657609f, 13.19363857294538f, R.drawable.kabaren_logo, MarkerType.FUN));
         markers.add(new Marker(55.7047557721988f, 13.19537105245979f, R.drawable.kabaren_logo, MarkerType.FUN));
         markers.add(new Marker(55.706504880685f, 13.19547491457354f, R.drawable.kabaren_logo, MarkerType.FOOD));
+
         bitmaps = new HashMap<Integer, Bitmap>();
         for (Marker m : markers) {
             if(!bitmaps.containsKey(m.picture)) {
@@ -169,12 +170,9 @@ public class LKMapView extends SVGView {
         // TODO TEST
         /*
         markers = new ArrayList<Marker>();
-
         markers.add(new Marker(55.7048333f, 13.195352777777778f, R.drawable.cirkusen_logo, MarkerType.FUN));
-
         markers.add(new Marker(55.7059389f, 13.194805555555556f, R.drawable.filmen_logo, MarkerType.FUN));
         */
-
 
         for (Marker m : markers) {
             if(activeTypes.contains(m.type)) {
