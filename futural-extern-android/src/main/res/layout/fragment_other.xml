@@ -6,14 +6,15 @@
     tools:context="se.lundakarnevalen.extern.fragments.OtherFragment">
 
     <ListView
-    android:id="@+id/fragment_other_list"
-        android:cacheColorHint="@color/transparent"
+        android:id="@+id/fragment_other_list"
         android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:divider="@null"
-    android:dividerHeight="0dp"
-    android:listSelector="@color/transparent"
-    android:scrollbars="none">
+        android:layout_height="match_parent"
+        android:cacheColorHint="@color/transparent"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:listSelector="@color/transparent"
+        android:overScrollFooter="@null"
+        android:scrollbars="none">
 
     </ListView>
 
