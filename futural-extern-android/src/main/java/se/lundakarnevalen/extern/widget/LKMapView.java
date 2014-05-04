@@ -119,7 +119,10 @@ public class LKMapView extends SVGView {
 
         // @TODO: Add all markers
 
-        Markers.addMarkers(markers);
+//        Markers.addMarkers(markers);
+        markers.add(new Marker(55.70497849657609f, 13.19363857294538f, R.drawable.kabaren_logo, MarkerType.FUN));
+        markers.add(new Marker(55.7047557721988f, 13.19537105245979f, R.drawable.kabaren_logo, MarkerType.FUN));
+        markers.add(new Marker(55.706504880685f, 13.19547491457354f, R.drawable.kabaren_logo, MarkerType.FOOD));
         bitmaps = new HashMap<Integer, Bitmap>();
         for (Marker m : markers) {
             if(!bitmaps.containsKey(m.picture)) {
