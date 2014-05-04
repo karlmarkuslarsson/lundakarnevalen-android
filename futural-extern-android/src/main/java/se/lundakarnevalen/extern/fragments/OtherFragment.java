@@ -4,37 +4,29 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
-import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
+import se.lundakarnevalen.extern.data.DataContainer;
+import se.lundakarnevalen.extern.data.DataElement;
+import se.lundakarnevalen.extern.data.DataType;
 import se.lundakarnevalen.extern.widget.LKListAdapter;
-import se.lundakarnevalen.extern.widget.LKListElement;
-import se.lundakarnevalen.extern.widget.LKListElementType;
 import se.lundakarnevalen.extern.widget.LKListRow;
 
 /**
  * Created by Markus on 2014-04-16.
  */
 public class OtherFragment extends LKFragment{
-    private ArrayList<LKListElement> other = new ArrayList<LKListElement>();
-
+    private List<DataElement> other = DataContainer.getDataOfType(DataType.OTHER);
 
     // Every time you switch to this fragment.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_other, null);
         ListView lv = (ListView) rootView.findViewById(R.id.fragment_other_list);
-        if(other.isEmpty()) {
-            addAllOther();
-        }
-
 
         ArrayList<LKListRow> items = new ArrayList<LKListRow>();
 
@@ -52,39 +44,4 @@ public class OtherFragment extends LKFragment{
         return rootView;
     }
 
-
-    private void addAllOther() {
-        other.add(new LKListElement(
-                getString(R.string.karne_name),
-                R.drawable.music_logo,
-                LKListElementType.FUTURAL));
-        other.add(new LKListElement(
-                getString(R.string.train),
-                R.drawable.train_logo_other,
-                LKListElementType.TRAIN));
-        other.add(new LKListElement(
-                getString(R.string.radio_title),
-                R.drawable.radio_logo,
-                LKListElementType.RADIO));
-        other.add(new LKListElement(
-                getString(R.string.toilets_title),
-                R.drawable.toilets_logo,
-                LKListElementType.OTHER));
-        other.add(new LKListElement(
-                getString(R.string.security_title),
-                R.drawable.security_logo,
-                LKListElementType.OTHER));
-        other.add(new LKListElement(
-                getString(R.string.atm_title),
-                R.drawable.atm_logo,
-                LKListElementType.OTHER));
-        other.add(new LKListElement(
-                getString(R.string.parking_title),
-                R.drawable.parking_logo,
-                LKListElementType.OTHER));
-        other.add(new LKListElement(
-                getString(R.string.care_title),
-                R.drawable.health_logo,
-                LKListElementType.OTHER));
-        }
 }

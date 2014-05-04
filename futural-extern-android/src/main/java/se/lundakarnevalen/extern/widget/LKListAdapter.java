@@ -3,28 +3,24 @@ package se.lundakarnevalen.extern.widget;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.PorterDuff;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
 
 import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
+import se.lundakarnevalen.extern.data.DataElement;
+import se.lundakarnevalen.extern.data.DataType;
 import se.lundakarnevalen.extern.fragments.LandingPageFragment;
 import se.lundakarnevalen.extern.fragments.MelodyFragment;
 import se.lundakarnevalen.extern.fragments.MusicFragment;
 import se.lundakarnevalen.extern.fragments.TrainMapFragment;
-
-import static se.lundakarnevalen.extern.util.ViewUtil.get;
 
 
 /**
@@ -72,10 +68,10 @@ public class LKListAdapter extends ArrayAdapter<LKListRow> {
 
 
     private class ItemListener implements View.OnClickListener {
-        LKListElement element;
+        DataElement element;
         Activity activity;
 
-        public ItemListener(LKListElement element, Activity activity) {
+        public ItemListener(DataElement element, Activity activity) {
             this.element = element;
             this.activity = activity;
         }
@@ -88,16 +84,16 @@ public class LKListAdapter extends ArrayAdapter<LKListRow> {
             ContentActivity contentActivity = ContentActivity.class.cast(activity);
 
             switch (element.type) {
-                case LKListElementType.RADIO:
+                case RADIO:
                     contentActivity.loadFragmentWithAdd(new MusicFragment());
                     break;
-                case LKListElementType.FUTURAL:
+                case FUTURAL:
                     contentActivity.loadFragmentWithAdd(new MelodyFragment());
                     break;
-                case LKListElementType.TRAIN:
+                case TRAIN:
                     contentActivity.loadFragmentWithAdd(TrainMapFragment.create());
                     break;
-                case LKListElementType.OTHER:
+                case OTHER:
                      /*
                     contentActivity.loadFragmentWithAdd(
                                     MapFragment.create(
