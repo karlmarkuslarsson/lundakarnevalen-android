@@ -261,6 +261,10 @@ karnevalistisk femstjärning meny för 70 kr!\n\n
     <string name="undervatten_food3">FRANSK LINSSOPPA</string>
     <string name="thyme_food1">KYCKLINGFILÈ MED POTATISSALLAD, TIMJAN, CITRONOLJA OCH MANGODRESSING</string>
     <string name="thyme_food2">KANTARELL OCH VÄSTERBOTTENPAJ MED SALLAD OCH RHODE ISLAND DRESSING</string>
+    <string name="karne_name">KARNEVALSLÅTEN</string>
+    <string name="david">DAVID STRÖMBÄCK</string>
+    <string name="emil">EMIL SUNESSON</string>
+    <string name="lillebror">LILLEBROR CHARLIE</string>
 
 
 </resources>

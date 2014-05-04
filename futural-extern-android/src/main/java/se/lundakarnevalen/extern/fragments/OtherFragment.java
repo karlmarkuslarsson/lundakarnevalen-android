@@ -55,9 +55,21 @@ public class OtherFragment extends LKFragment{
 
     private void addAllOther() {
         other.add(new LKListElement(
+                getString(R.string.karne_name),
+                R.drawable.music_logo,
+                LKListElementType.FUTURAL));
+        other.add(new LKListElement(
+                getString(R.string.train),
+                R.drawable.train_logo_other,
+                LKListElementType.TRAIN));
+        other.add(new LKListElement(
                 getString(R.string.radio_title),
                 R.drawable.radio_logo,
                 LKListElementType.RADIO));
+        other.add(new LKListElement(
+                getString(R.string.toilets_title),
+                R.drawable.toilets_logo,
+                LKListElementType.OTHER));
         other.add(new LKListElement(
                 getString(R.string.security_title),
                 R.drawable.security_logo,
@@ -74,17 +86,5 @@ public class OtherFragment extends LKFragment{
                 getString(R.string.care_title),
                 R.drawable.health_logo,
                 LKListElementType.OTHER));
-        other.add(new LKListElement(
-                getString(R.string.toilets_title),
-                R.drawable.toilets_logo,
-                LKListElementType.OTHER));
-        other.add(new LKListElement(
-                "KARNEVALSLÅTEN",
-                R.drawable.music_logo,
-                LKListElementType.FUTURAL));
-        other.add(new LKListElement(
-                getString(R.string.train),
-                R.drawable.train_logo_other,
-                LKListElementType.TRAIN));
-    }
+        }
 }

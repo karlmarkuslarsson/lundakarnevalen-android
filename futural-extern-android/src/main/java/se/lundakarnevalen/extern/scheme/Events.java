@@ -41,6 +41,23 @@ public class Events {
                 R.drawable.test_nojen, myDate, myDateEnd);
         events.add(e);
 
+                    /*
+        Fredag:
+        Lillebror charlie, lilla scenen 13:30
+            Lat: 55°42'26.07"N  Long:  13°11'45.45"O
+            55.7072417f, 13.195958333333333f
+        */
+        cal.set(Calendar.MINUTE, 30);
+        cal.set(Calendar.HOUR_OF_DAY, 13);
+        myDate = cal.getTime();
+        cal.set(Calendar.HOUR_OF_DAY, 15);
+        cal.set(Calendar.MINUTE, 30);
+        myDateEnd = cal.getTime();
+
+        e = new Event(context.getString(R.string.small_scene), context.getString(R.string.lillebror), R.drawable.test_nojen, myDate, myDateEnd);
+        events.add(e);
+
+
 
 /*
         Fredag:
@@ -72,6 +89,22 @@ public class Events {
         e = new Event(context.getString(R.string.small_scene), context.getString(R.string.brothers_among_eva), R.drawable.brothersamongwera, myDate, myDateEnd);
         events.add(e);
 
+
+            /*
+        Fredag:
+        Brothers among Eva, lilla scenen 15:30
+            Lat: 55°42'26.07"N  Long:  13°11'45.45"O
+            55.7072417f, 13.195958333333333f
+        */
+        cal.set(Calendar.MINUTE, 30);
+        cal.set(Calendar.HOUR_OF_DAY, 17);
+        myDate = cal.getTime();
+        cal.set(Calendar.HOUR_OF_DAY, 17);
+        cal.set(Calendar.MINUTE, 00);
+        myDateEnd = cal.getTime();
+
+        e = new Event(context.getString(R.string.small_scene), context.getString(R.string.brothers_among_eva), R.drawable.brothersamongwera, myDate, myDateEnd);
+        events.add(e);
 
 
 
@@ -233,19 +266,36 @@ public class Events {
 
                    /*
         Lördag:
-        Emil och david, lilla scenen 19:00
+        david, lilla scenen 19:00
             Lat: 55°42'26.07"N  Long:  13°11'45.45"O
             55.7072417f, 13.195958333333333f
         */
         cal.set(Calendar.MINUTE, 00);
         cal.set(Calendar.HOUR_OF_DAY, 19);
         myDate = cal.getTime();
+        cal.set(Calendar.HOUR_OF_DAY, 20);
+        cal.set(Calendar.MINUTE, 30);
+        myDateEnd = cal.getTime();
+
+        e = new Event(context.getString(R.string.small_scene), context.getString(R.string.david), R.drawable.david_ikon, myDate, myDateEnd);
+        events.add(e);
+
+                   /*
+        Lördag:
+        Emil och david, lilla scenen 20:30
+            Lat: 55°42'26.07"N  Long:  13°11'45.45"O
+            55.7072417f, 13.195958333333333f
+        */
+        cal.set(Calendar.MINUTE, 30);
+        cal.set(Calendar.HOUR_OF_DAY, 20);
+        myDate = cal.getTime();
         cal.set(Calendar.HOUR_OF_DAY, 22);
         cal.set(Calendar.MINUTE, 00);
         myDateEnd = cal.getTime();
 
-        e = new Event(context.getString(R.string.small_scene), context.getString(R.string.emil_och_david), R.drawable.emilochdavid, myDate, myDateEnd);
+        e = new Event(context.getString(R.string.small_scene), context.getString(R.string.emil), R.drawable.emil_icon, myDate, myDateEnd);
         events.add(e);
+
 
 /*
         Lördag:
