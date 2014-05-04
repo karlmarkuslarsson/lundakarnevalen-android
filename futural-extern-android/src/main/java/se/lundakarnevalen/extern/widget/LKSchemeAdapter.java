@@ -47,21 +47,28 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
     public View getView(int pos, View convertView, ViewGroup parent){
         final LKSchemeItem item = getItem(pos);
 
+        // Recycle old bitmaps, from the converter view
+        //if (convertView != null && convertView.findViewById(R.id.bottom_menu_image) != null)
+        //    Bitmap.class.cast(convertView.findViewById(R.id.bottom_menu_image).getTag()).recycle();
+
         if(item.dot) {
             RelativeLayout wrapper = (RelativeLayout) inflater.inflate(R.layout.scheme_element_top, null);
 
             return wrapper;
         }
 
-        RelativeLayout wrapper = (RelativeLayout) inflater.inflate(R.layout.scheme_element, null);
+        RelativeLayout wrapper = (RelativeLayout) inflater.inflate(R.layout.scheme_element, parent, false);
 
         ImageView image = (ImageView) wrapper.findViewById(R.id.bottom_menu_image);
         //image.setImageResource(item.icon);
-        Bitmap bm = BitmapFactory.decodeResource(getContext().getResources(),item.icon);
-        bm = BitmapUtil.getRoundedShape(bm);
+        //Bitmap bm = BitmapFactory.decodeResource(getContext().getResources(),item.icon);
+//        Bitmap bm = BitmapUtil.decodeSampledBitmapFromResource(getContext().getResources(),item.icon,200,200);
+ //       Bitmap bm2 = BitmapUtil.getRoundedShape(bm);
+   //     bm.recycle();
 
-        image.setImageBitmap(bm);
-
+     //   image.setImageBitmap(bm2);
+    //    image.setTag(bm2);
+    image.setImageResource(item.icon);
         TextView start = (TextView) wrapper.findViewById(R.id.time1);
         TextView end = (TextView) wrapper.findViewById(R.id.time2);
         start.setText(item.getStartTime());
