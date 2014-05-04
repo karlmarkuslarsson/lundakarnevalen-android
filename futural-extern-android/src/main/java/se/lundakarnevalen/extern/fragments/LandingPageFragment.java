@@ -2,7 +2,6 @@ package se.lundakarnevalen.extern.fragments;
 
 import static se.lundakarnevalen.extern.util.ViewUtil.*;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,20 +11,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 
 import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
-import se.lundakarnevalen.extern.widget.LKListElement;
-import se.lundakarnevalen.extern.widget.LKListElementType;
+import se.lundakarnevalen.extern.data.DataElement;
+import se.lundakarnevalen.extern.data.DataType;
 import se.lundakarnevalen.extern.widget.LKSchemeAdapter;
-import se.lundakarnevalen.extern.widget.LKTimeObject;
 
 /**
  * Created by Markus on 2014-04-16.
@@ -46,7 +40,7 @@ public class LandingPageFragment extends LKFragment{
 
         Bundle bundle = getArguments();
 
-        final LKListElement element = bundle.getParcelable("element");
+        final DataElement element = bundle.getParcelable("element");
         get(rootView,R.id.name,TextView.class).setText(element.title);
         get(rootView,R.id.place,TextView.class).setText(element.place);
 
@@ -87,7 +81,7 @@ public class LandingPageFragment extends LKFragment{
         }
         lat = element.lat;
         lng = element.lng;
-        int type = element.type;
+        DataType type = element.type;
 
         get(rootView,R.id.picture,ImageView.class).setImageResource(element.picture);
         get(rootView,R.id.header_background,ImageView.class).setImageResource(element.headerPicture);
@@ -113,11 +107,11 @@ public class LandingPageFragment extends LKFragment{
         });
 
 
-        if(type==LKListElementType.FUN) {
+        if(type== DataType.FUN) {
             get(rootView, R.id.question, TextView.class).setText(element.question);
             get(rootView, R.id.text, TextView.class).setText(element.info);
 //        rootView.findViewById(R.id.name).;
-        } else if(type == LKListElementType.FOOD) {
+        } else if(type == DataType.FOOD) {
             get(rootView, R.id.question, TextView.class).setText(element.question);
             get(rootView, R.id.text, TextView.class).setText(element.info);
             get(rootView, R.id.middleLayout, RelativeLayout.class).setBackgroundResource(R.color.green_background);
@@ -132,7 +126,7 @@ public class LandingPageFragment extends LKFragment{
 
                 for(int i = 0;i< element.menu.size();i++){
                     View view = inflater.inflate(R.layout.menu_food_element, null);
-                    ((TextView)view.findViewById(R.id.name)).setText((i+1)+". "+element.menu.get(i));
+                    ((TextView)view.findViewById(R.id.name)).setText((i+1)+". "+getString(element.menu.get(i)));
                     ((TextView)view.findViewById(R.id.price)).setText(element.menuPrice.get(i));
                     ll.addView(view);
                 }
@@ -160,7 +154,7 @@ public class LandingPageFragment extends LKFragment{
         super.onStop();
     }
 
-    public static LandingPageFragment create(LKListElement element) {
+    public static LandingPageFragment create(DataElement element) {
         LandingPageFragment fragment = new LandingPageFragment();
         Bundle bundle = new Bundle();
     /*
