@@ -41,6 +41,23 @@ public class Events {
                 R.drawable.test_nojen, myDate, myDateEnd);
         events.add(e);
 
+                    /*
+        Fredag:
+        Lillebror charlie, lilla scenen 13:30
+            Lat: 55°42'26.07"N  Long:  13°11'45.45"O
+            55.7072417f, 13.195958333333333f
+        */
+        cal.set(Calendar.MINUTE, 30);
+        cal.set(Calendar.HOUR_OF_DAY, 13);
+        myDate = cal.getTime();
+        cal.set(Calendar.HOUR_OF_DAY, 15);
+        cal.set(Calendar.MINUTE, 30);
+        myDateEnd = cal.getTime();
+
+        e = new Event(context.getString(R.string.small_scene), context.getString(R.string.lillebror), R.drawable.test_nojen, myDate, myDateEnd);
+        events.add(e);
+
+
 
 /*
         Fredag:
@@ -73,6 +90,22 @@ public class Events {
         events.add(e);
 
 
+            /*
+        Fredag:
+        Kings Lounge, lilla scenen 17:00
+            Lat: 55°42'26.07"N  Long:  13°11'45.45"O
+            55.7072417f, 13.195958333333333f
+        */
+        cal.set(Calendar.MINUTE, 00);
+        cal.set(Calendar.HOUR_OF_DAY, 17);
+        myDate = cal.getTime();
+        cal.set(Calendar.HOUR_OF_DAY, 18);
+        cal.set(Calendar.MINUTE, 30);
+        myDateEnd = cal.getTime();
+
+        e = new Event(context.getString(R.string.small_scene), context.getString(R.string.kings), R.drawable.test_nojen, myDate, myDateEnd);
+        events.add(e);
+
 
 
 /*
@@ -88,6 +121,24 @@ public class Events {
 
         e = new Event(context.getString(R.string.big_scene), context.getString(R.string.sousou), R.drawable.sousoumahercissoko, myDate, myDateEnd);
         events.add(e);
+
+                    /*
+        Fredag:
+        Bobbe, lilla scenen 18:30
+            Lat: 55°42'26.07"N  Long:  13°11'45.45"O
+            55.7072417f, 13.195958333333333f
+        */
+        cal.set(Calendar.MINUTE, 30);
+        cal.set(Calendar.HOUR_OF_DAY, 18);
+        myDate = cal.getTime();
+        cal.set(Calendar.HOUR_OF_DAY, 20);
+        cal.set(Calendar.MINUTE, 00);
+        myDateEnd = cal.getTime();
+
+        e = new Event(context.getString(R.string.small_scene), context.getString(R.string.bobbe), R.drawable.test_nojen, myDate, myDateEnd);
+        events.add(e);
+
+
 /*
         Fredag:
         Bo Kaspers, stora scenen 19:15
@@ -100,6 +151,22 @@ public class Events {
         myDateEnd = cal.getTime();
 
         e = new Event(context.getString(R.string.big_scene), context.getString(R.string.bo_kasper),R.drawable.bokaspersorkester , myDate, myDateEnd);
+        events.add(e);
+
+                    /*
+        Fredag:
+        Bernhard, lilla scenen 20:00
+            Lat: 55°42'26.07"N  Long:  13°11'45.45"O
+            55.7072417f, 13.195958333333333f
+        */
+        cal.set(Calendar.MINUTE, 00);
+        cal.set(Calendar.HOUR_OF_DAY, 20);
+        myDate = cal.getTime();
+        cal.set(Calendar.HOUR_OF_DAY, 22);
+        cal.set(Calendar.MINUTE, 00);
+        myDateEnd = cal.getTime();
+
+        e = new Event(context.getString(R.string.small_scene), context.getString(R.string.barnard), R.drawable.test_nojen, myDate, myDateEnd);
         events.add(e);
 
 
@@ -185,6 +252,37 @@ public class Events {
         events.add(e);
 
 
+                   /*
+        Lördag:
+        syskonen roth, lilla scenen 14:30
+            Lat: 55°42'26.07"N  Long:  13°11'45.45"O
+            55.7072417f, 13.195958333333333f
+        */
+        cal.set(Calendar.MINUTE, 30);
+        cal.set(Calendar.HOUR_OF_DAY, 14);
+        myDate = cal.getTime();
+        cal.set(Calendar.HOUR_OF_DAY, 16);
+        cal.set(Calendar.MINUTE, 00);
+        myDateEnd = cal.getTime();
+
+        e = new Event(context.getString(R.string.small_scene), context.getString(R.string.roth), R.drawable.test_nojen, myDate, myDateEnd);
+        events.add(e);
+
+                   /*
+        Lördag:
+        first love, lilla scenen 16:00
+            Lat: 55°42'26.07"N  Long:  13°11'45.45"O
+            55.7072417f, 13.195958333333333f
+        */
+        cal.set(Calendar.MINUTE, 00);
+        cal.set(Calendar.HOUR_OF_DAY, 16);
+        myDate = cal.getTime();
+        cal.set(Calendar.HOUR_OF_DAY, 17);
+        cal.set(Calendar.MINUTE, 30);
+        myDateEnd = cal.getTime();
+
+        e = new Event(context.getString(R.string.small_scene), context.getString(R.string.love), R.drawable.test_nojen, myDate, myDateEnd);
+        events.add(e);
 
 
             /*
@@ -201,6 +299,26 @@ public class Events {
 
         e = new Event(context.getString(R.string.big_scene), context.getString(R.string.ida), R.drawable.idaredig, myDate, myDateEnd);
         events.add(e);
+
+
+                   /*
+        Lördag:
+        arts factory, lilla scenen 17:30
+            Lat: 55°42'26.07"N  Long:  13°11'45.45"O
+            55.7072417f, 13.195958333333333f
+        */
+        cal.set(Calendar.MINUTE, 30);
+        cal.set(Calendar.HOUR_OF_DAY, 17);
+        myDate = cal.getTime();
+        cal.set(Calendar.HOUR_OF_DAY, 19);
+        cal.set(Calendar.MINUTE, 00);
+        myDateEnd = cal.getTime();
+
+        e = new Event(context.getString(R.string.small_scene), context.getString(R.string.arts), R.drawable.test_nojen, myDate, myDateEnd);
+        events.add(e);
+
+
+
             /*
         Lördag:
         Hurricane Love, stora scenen 19:00
@@ -233,19 +351,36 @@ public class Events {
 
                    /*
         Lördag:
-        Emil och david, lilla scenen 19:00
+        david, lilla scenen 19:00
             Lat: 55°42'26.07"N  Long:  13°11'45.45"O
             55.7072417f, 13.195958333333333f
         */
         cal.set(Calendar.MINUTE, 00);
         cal.set(Calendar.HOUR_OF_DAY, 19);
         myDate = cal.getTime();
+        cal.set(Calendar.HOUR_OF_DAY, 20);
+        cal.set(Calendar.MINUTE, 30);
+        myDateEnd = cal.getTime();
+
+        e = new Event(context.getString(R.string.small_scene), context.getString(R.string.david), R.drawable.david_ikon, myDate, myDateEnd);
+        events.add(e);
+
+                   /*
+        Lördag:
+        Emil och david, lilla scenen 20:30
+            Lat: 55°42'26.07"N  Long:  13°11'45.45"O
+            55.7072417f, 13.195958333333333f
+        */
+        cal.set(Calendar.MINUTE, 30);
+        cal.set(Calendar.HOUR_OF_DAY, 20);
+        myDate = cal.getTime();
         cal.set(Calendar.HOUR_OF_DAY, 22);
         cal.set(Calendar.MINUTE, 00);
         myDateEnd = cal.getTime();
 
-        e = new Event(context.getString(R.string.small_scene), context.getString(R.string.emil_och_david), R.drawable.emilochdavid, myDate, myDateEnd);
+        e = new Event(context.getString(R.string.small_scene), context.getString(R.string.emil), R.drawable.emil_icon, myDate, myDateEnd);
         events.add(e);
+
 
 /*
         Lördag:
@@ -321,14 +456,30 @@ public class Events {
             Lat: 55°42'26.07"N  Long:  13°11'45.45"O
             55.7072417f, 13.195958333333333f
         */
-        cal.set(Calendar.MINUTE, 14);
-        cal.set(Calendar.HOUR_OF_DAY, 30);
+        cal.set(Calendar.MINUTE, 30);
+        cal.set(Calendar.HOUR_OF_DAY, 14);
         myDate = cal.getTime();
         cal.set(Calendar.HOUR_OF_DAY, 16);
         cal.set(Calendar.MINUTE, 00);
         myDateEnd = cal.getTime();
 
         e = new Event(context.getString(R.string.small_scene), context.getString(R.string.the_bland_band), R.drawable.theblandband, myDate, myDateEnd);
+        events.add(e);
+
+                /*
+        Söndag:
+        The stomping, lilla scenen 16:00
+            Lat: 55°42'26.07"N  Long:  13°11'45.45"O
+            55.7072417f, 13.195958333333333f
+        */
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.HOUR_OF_DAY, 16);
+        myDate = cal.getTime();
+        cal.set(Calendar.HOUR_OF_DAY, 17);
+        cal.set(Calendar.MINUTE, 30);
+        myDateEnd = cal.getTime();
+
+        e = new Event(context.getString(R.string.small_scene), context.getString(R.string.stomping), R.drawable.test_nojen, myDate, myDateEnd);
         events.add(e);
 
 
@@ -380,6 +531,25 @@ public class Events {
 
         e = new Event(context.getString(R.string.big_scene), context.getString(R.string.wintergatan), R.drawable.wintergatan, myDate, myDateEnd);
         events.add(e);
+
+      /*
+        Söndag:
+        Musse, lilla scenen 19:00
+            Lat: 55°42'26.07"N  Long:  13°11'45.45"O
+            55.7072417f, 13.195958333333333f
+        */
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.HOUR_OF_DAY, 19);
+        myDate = cal.getTime();
+        cal.set(Calendar.HOUR_OF_DAY, 20);
+        cal.set(Calendar.MINUTE, 30);
+        myDateEnd = cal.getTime();
+
+        e = new Event(context.getString(R.string.small_scene), context.getString(R.string.musse), R.drawable.test_nojen, myDate, myDateEnd);
+        events.add(e);
+
+
+
 /*
         Söndag:
         TIMBAKTU, stora scenen 20:30
@@ -393,6 +563,39 @@ public class Events {
         myDateEnd = cal.getTime();
 
          e = new Event(context.getString(R.string.big_scene), context.getString(R.string.timbaktu), R.drawable.timbuktuochdamn, myDate, myDateEnd);
+        events.add(e);
+
+              /*
+        Söndag:
+        Hampus Lavin, lilla scenen 20:30
+            Lat: 55°42'26.07"N  Long:  13°11'45.45"O
+            55.7072417f, 13.195958333333333f
+        */
+        cal.set(Calendar.MINUTE, 30);
+        cal.set(Calendar.HOUR_OF_DAY, 20);
+        myDate = cal.getTime();
+        cal.set(Calendar.HOUR_OF_DAY, 22);
+        cal.set(Calendar.MINUTE, 0);
+        myDateEnd = cal.getTime();
+
+        e = new Event(context.getString(R.string.small_scene), context.getString(R.string.hampus), R.drawable.test_nojen, myDate, myDateEnd);
+        events.add(e);
+
+
+              /*
+        Söndag:
+        AXel, lilla scenen 22:00
+            Lat: 55°42'26.07"N  Long:  13°11'45.45"O
+            55.7072417f, 13.195958333333333f
+        */
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.HOUR_OF_DAY, 22);
+        myDate = cal.getTime();
+        cal.set(Calendar.HOUR_OF_DAY, 24);
+        cal.set(Calendar.MINUTE, 0);
+        myDateEnd = cal.getTime();
+
+        e = new Event(context.getString(R.string.small_scene), context.getString(R.string.axel), R.drawable.test_nojen, myDate, myDateEnd);
         events.add(e);
 
             /*

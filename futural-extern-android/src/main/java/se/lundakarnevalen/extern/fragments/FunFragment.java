@@ -93,7 +93,7 @@ public class FunFragment extends LKFragment {
                 getString(R.string.barneval_title),
                 getString(R.string.barneval_info),
                 55.7037889f, 13.194647222222223f,
-                R.drawable.monk,
+                R.drawable.header_barnevalen,
                 R.drawable.barnevalen_logo,
                 getString(R.string.barneval_question),
                 "14:00-20:00","14:00-21:00","14:00-20:00",LKListElementType.FUN));
@@ -103,7 +103,7 @@ public class FunFragment extends LKFragment {
                 getString(R.string.cirkus_title),
                 getString(R.string.cirkus_info),
                 55.7048333f, 13.195352777777778f,
-                R.drawable.monk,
+                R.drawable.header_cirkusen,
                 R.drawable.cirkusen_logo,
                 getString(R.string.cirkus_question),
                 "15:00-22:00","15:00-23:00","15:00-22:00",LKListElementType.FUN));
@@ -124,7 +124,7 @@ public class FunFragment extends LKFragment {
                 getString(R.string.kabare_title),
                 getString(R.string.kabare_info),
                 55.7042667f, 13.193833333333334f,
-                R.drawable.monk,
+                R.drawable.header_kabaren,
                 R.drawable.kabaren_logo,
                 getString(R.string.kabare_question),
                 "15:30-22:30","15:30-23:30","15:30-22:30",LKListElementType.FUN));
@@ -134,7 +134,7 @@ public class FunFragment extends LKFragment {
                 getString(R.string.revy_title),
                 getString(R.string.revy_info),
                 55.705775f, 13.193555555555555f,
-                R.drawable.monk,
+                R.drawable.header_revyn,
                 R.drawable.revyn_logo,
                 getString(R.string.revy_question),
                 "15:30-22:30","15:30-23:30","15:30-22:30",LKListElementType.FUN));
@@ -164,7 +164,7 @@ public class FunFragment extends LKFragment {
                 getString(R.string.dansen_title),
                 getString(R.string.dansen_info),
                 55.70572f, 13.19544f,
-                R.drawable.monk,
+                R.drawable.header_dansen,
                 R.drawable.dansen_logo,
                 getString(R.string.dansen_question),
                 "23:00-04:00","23:00-04:00","23:00-04:00",LKListElementType.FUN));

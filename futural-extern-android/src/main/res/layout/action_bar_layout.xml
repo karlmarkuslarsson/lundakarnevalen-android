@@ -7,7 +7,7 @@
 
 
         <se.lundakarnevalen.extern.widget.LKActionBarTextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
             android:padding="10dp"
@@ -16,15 +16,5 @@
             android:textColor="@color/white"
             android:text="@string/lundakarnevalen_actionbar"
             />
-
-        <Button
-            android:id="@+id/action_bar_open_right_btn"
-            android:onClick="openRightMenu"
-            android:paddingLeft="2dp"
-            android:paddingRight="6dp"
-            android:layout_height="match_parent"
-            android:layout_width="wrap_content"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/selector_action_menu_out" />
 
 </RelativeLayout>

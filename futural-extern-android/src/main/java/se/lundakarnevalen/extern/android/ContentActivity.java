@@ -147,33 +147,7 @@ public class ContentActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void hideOpenDrawerButton() {
-        final Button btn = get(mActionBarView, R.id.action_bar_open_right_btn, Button.class);
-        if (btn.getVisibility() != View.VISIBLE) {
-            return;
-        }
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            Animation anim = AnimationUtils.loadAnimation(this, R.anim.abc_fade_out);
-            anim.setAnimationListener(new VisibilityOnComplete(btn, View.INVISIBLE));
-            btn.startAnimation(anim);
-        } else {
-            btn.setVisibility(View.VISIBLE);
-        }
-    }
 
-    public void showOpenDrawerButton() {
-        final Button btn = get(mActionBarView, R.id.action_bar_open_right_btn, Button.class);
-        if (btn.getVisibility() == View.VISIBLE) {
-            return;
-        }
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            Animation anim = AnimationUtils.loadAnimation(this, R.anim.abc_fade_in);
-            anim.setAnimationListener(new VisibilityOnComplete(btn, View.VISIBLE));
-            btn.startAnimation(anim);
-        } else {
-            btn.setVisibility(View.VISIBLE);
-        }
-    }
 
     private void setupTint() {
         SystemBarTintManager tintManager = new SystemBarTintManager(this);
@@ -354,10 +328,8 @@ public class ContentActivity extends ActionBarActivity {
             }
             if(selected.getTag(TAG_FRAGMENT) instanceof MapFragment) {
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-                showOpenDrawerButton();
             } else if(selected.getTag(TAG_FRAGMENT) != null) { //When constructing the tag will be null
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                hideOpenDrawerButton();
             }
             drawerLayout.closeDrawers();
         }

@@ -247,6 +247,7 @@ public class SchemeFragment extends LKFragment {
             container.addView(view);
 
             ListView lv = get(view, R.id.scheme_list, ListView.class);
+            lv.setCacheColorHint(0); //For keeping the background (not black) while scrolling on API 10
             lv.setAdapter(new LKSchemeAdapter(container.getContext(), getSchemeForDay(position)));
 
             view.setTag(position);
