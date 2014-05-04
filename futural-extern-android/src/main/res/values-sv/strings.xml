@@ -194,6 +194,15 @@ karnevalistisk femstjärning meny för 70 kr!\n\nBetalning: kort och kontant\n\n
     <string name="david">DAVID STRÖMBÄCK</string>
     <string name="emil">EMIL SUNESSON</string>
     <string name="lillebror">LILLEBROR CHARLIE</string>
+    <string name="kings">KINGS LOUNGE</string>
+    <string name="bobbe">BOBBE BIG BAND</string>
+    <string name="barnard">BERNARD HORN</string>
+    <string name="roth">SYSKONEN ROTH</string>
+    <string name="arts">ARTS FACTORY</string>
+    <string name="stomping">THE STOMPING ACADEMY</string>
+    <string name="musse">MUSSE</string>
+    <string name="hampus">HAMPUS LAVIN</string>
+    <string name="axel">AXEL BOMAN</string>
 
 
 </resources>
