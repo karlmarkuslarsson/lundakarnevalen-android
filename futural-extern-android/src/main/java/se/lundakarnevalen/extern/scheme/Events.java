@@ -38,7 +38,7 @@ public class Events {
         */
         Event e = new Event(context.getString(R.string.big_scene),
                 context.getString(R.string.inauguration),
-                R.drawable.test_nojen, myDate, myDateEnd);
+                R.drawable.invigning_icon, myDate, myDateEnd);
         events.add(e);
 
                     /*
@@ -70,7 +70,7 @@ public class Events {
         cal.set(Calendar.HOUR_OF_DAY, 15);
         myDateEnd = cal.getTime();
 
-        e = new Event(context.getString(R.string.big_scene), context.getString(R.string.orchestra), R.drawable.test_nojen, myDate, myDateEnd);
+        e = new Event(context.getString(R.string.big_scene), context.getString(R.string.orchestra), R.drawable.orkesterkampen_icon, myDate, myDateEnd);
         events.add(e);
 
             /*
