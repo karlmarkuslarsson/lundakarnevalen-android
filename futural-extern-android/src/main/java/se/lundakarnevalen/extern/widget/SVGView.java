@@ -15,7 +15,6 @@ import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 
-import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.PropertyValuesHolder;
 import com.nineoldandroids.animation.ValueAnimator;
 
@@ -196,12 +195,9 @@ public class SVGView extends View {
 
         @Override
         public void onLongPress(MotionEvent e) {
-            final PointF scroll = getScrollXY();
-            Logf.d(LOG_TAG, "scroll(%f, %f)", scroll.x, scroll.y);
-            RectF r = new RectF(mCurrentViewBound.left, mCurrentViewBound.top, mCurrentViewBound.right, mCurrentViewBound.bottom);
-            mMatrix.mapRect(r);
-            Logf.d(LOG_TAG, "currentViewBound(%s, w: %f, h: %f)",
-                    r.toString(), r.width(), r.height());
+            final PointF scroll = getTransXY();
+            Logf.d(LOG_TAG, "currentT(%f, %f)", scroll.x, scroll.y);
+            zoomTo(256, 256, mScaleFactor);
         }
 
         @Override
@@ -221,12 +217,28 @@ public class SVGView extends View {
         }
     }
 
-    private boolean scroll(float distanceX, float distanceY) {
-        return mMatrix.postTranslate(-distanceX, -distanceY);
+    public boolean scroll(float distanceX, float distanceY) {
+        boolean result = mMatrix.postTranslate(-distanceX, -distanceY);
+        postInvalidate();
+        return result;
     }
 
-    private PointF getScrollXY(){
+    public boolean translate(float distanceX, float distanceY) {
         mMatrix.getValues(mMatrixValues);
+        mMatrixValues[MTRANS_X] = distanceX;
+        mMatrixValues[MTRANS_Y] = distanceY;
+        mMatrix.setValues(mMatrixValues);
+        postInvalidate();
+        return true;
+    }
+
+    public PointF getTransXY(){
+        mMatrix.getValues(mMatrixValues);
+        return new PointF(mMatrixValues[MTRANS_X], mMatrixValues[MTRANS_Y]);
+    }
+
+    public PointF getTransXY(Matrix m){
+        m.getValues(mMatrixValues);
         return new PointF(mMatrixValues[MTRANS_X], mMatrixValues[MTRANS_Y]);
     }
 
@@ -327,32 +339,45 @@ public class SVGView extends View {
 
     public void zoomTo(float x, float y, final float scale){
         float target = limit(mMinZoom, scale, MAX_ZOOM);
-        final PointF scroll = getScrollXY();
-        final float[] svgXY = new float[] {x, y};
-        mMatrix.mapPoints(svgXY);
-        final PointF midScreen = new PointF(mViewEndPoint[0] * 0.5f, mViewEndPoint[1] * 0.5f);
 
-        final float[] pictureXY = getPictureXYbyScreenXY(midScreen.x, midScreen.y);
-        //svgXY[0] -= mCurrentViewBound.width() * 0.5f;
-        //svgXY[1] -= mCurrentViewBound.height() * 0.5f;
-        Logf.d(LOG_TAG, "Animate to xy(%f, %f) => svgXY(%f, %f)", x, y, -svgXY[0], -svgXY[1]);
-        final PropertyValuesHolder xHolder = PropertyValuesHolder.ofFloat("x", scroll.x, svgXY[0]);
-        final PropertyValuesHolder yHolder = PropertyValuesHolder.ofFloat("y", scroll.y, svgXY[1]);
-        //final PropertyValuesHolder sHolder = PropertyValuesHolder.ofFloat("s", mScaleFactor, mMinZoom, target);
+        Matrix m = new Matrix(mMatrix);
+
+        final PointF startXY = getTransXY(m);
+
+        final float[] targetXY = {x, y};
+        m.mapPoints(targetXY);
+
+        final float[] centerOnViewXY = getPictureXYbyScreenXY(mViewEndPoint[0] * 0.5f, mViewEndPoint[1] * 0.5f);
+        m.mapPoints(centerOnViewXY);
+
+        final float[] end = {targetXY[0] - centerOnViewXY[0], targetXY[1] - centerOnViewXY[1]};
+
+        float resX = startXY.x - end[0];
+        float resY = startXY.y - end[1];
+
+        if (DEBUG) Logf.d(LOG_TAG, "Animate to xy(%f, %f) => currentT(%f, %f) + deltaT(%f, %f) = (%f, %f)",
+                x, y, startXY.x, startXY.y, end[0], end[1], resX, resY);
+
+        final PropertyValuesHolder xHolder = PropertyValuesHolder.ofFloat("x", startXY.x, resX);
+        final PropertyValuesHolder yHolder = PropertyValuesHolder.ofFloat("y", startXY.y, resY);
+
         final ValueAnimator anim = ValueAnimator.ofPropertyValuesHolder(xHolder, yHolder);
         anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 final float newX = (Float) animation.getAnimatedValue("x");
                 final float newY = (Float) animation.getAnimatedValue("y");
-                //final float newScale = (Float) animation.getAnimatedValue("s");
-                scroll(newX, newY);
-                //mScaleFactor = newScale;
-                invalidate();
+                translate(newX, newY);
             }
         });
-        anim.setDuration(1000);
+        anim.setDuration(600);
         anim.start();
+    }
+
+    private void zoom(float newScale) {
+        mScaleFactor = newScale;
+        mMatrix.setScale(newScale, newScale);
+        postInvalidate();
     }
 
     public void importMatrixValues(float[] floatArray) {

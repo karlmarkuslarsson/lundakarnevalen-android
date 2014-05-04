@@ -2,8 +2,10 @@ package se.lundakarnevalen.extern.fragments;
 
 import android.content.Context;
 import android.graphics.Picture;
+import android.graphics.PointF;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -66,8 +68,6 @@ public class MapFragment extends LKFragment {
     private static final String STATE_MATRIX = "matrix";
 
     private float[] mMatrixValues;
-    private int displayWidth;
-    private int displayHeight;
     private LKMapView mapView;
 
     @Override
@@ -87,17 +87,12 @@ public class MapFragment extends LKFragment {
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_map, container, false);
 
-        DisplayMetrics metrics = inflater.getContext().getResources().getDisplayMetrics();
-
-        displayWidth = metrics.widthPixels;
-        displayHeight = metrics.heightPixels;
-
         mapView = get(root, R.id.map_id, LKMapView.class);
 
         get(root, R.id.map_pull_out, View.class).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ContentActivity.class.cast(getActivity()).toggleRightDrawer();
+            ContentActivity.class.cast(getActivity()).toggleRightDrawer();
             }
         });
 
@@ -135,26 +130,25 @@ public class MapFragment extends LKFragment {
         }.execute();
 
         mTimer = new java.util.Timer();
-        mTimer.scheduleAtFixedRate(new TimerTask() {
+        mTimer.schedule(new TimerTask() {
             private Random r = new Random();
             @Override
             public void run() {
-                final int x = r.nextInt(512);
-                final int y = 256;
-                final float scale = 5.0f;
-
                 if(preloaded != null && !preloaded.isDone()) return;
-
-                getActivity().runOnUiThread(new Runnable() {
+                final Handler h = new Handler(getActivity().getMainLooper());
+                h.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        int x = r.nextInt(512);
+                        int y = r.nextInt(512);
+                        float zoom = r.nextFloat() * 30.0f;
                         mapView.setGpsMarker(x, y);
-                        //mapView.zoomTo(x, y, scale);
+                        mapView.zoomTo(x, y, zoom);
+                        h.postDelayed(this, 5000);
                     }
-                });
-
+                }, 0);
             }
-        }, 4000, 20000);
+        }, 2000);
 
         flipper.setAnimateFirstView(true);
         flipper.setInAnimation(AnimationUtils.loadAnimation(inflater.getContext(), R.anim.abc_fade_in));
@@ -229,11 +223,10 @@ public class MapFragment extends LKFragment {
         outState.putFloatArray(STATE_MATRIX, mapView.exportMatrixValues());
     }
 
-    public static MapFragment create(boolean zoom, float lat, float lng) {
+    public static MapFragment create(float lat, float lng) {
         Bundle bundle = new Bundle();
         bundle.putFloat("lat", lat);
         bundle.putFloat("lng", lng);
-        bundle.putBoolean("zoom", zoom);
         MapFragment fragment = new MapFragment();
         fragment.setArguments(bundle);
         return fragment;
