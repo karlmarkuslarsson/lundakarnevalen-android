@@ -41,18 +41,20 @@ import static se.lundakarnevalen.extern.util.ViewUtil.get;
 public class SchemeFragment extends LKFragment {
 
     private ArrayList<Event> fridayEvents;
-
+ //   private float lastOff = 0;
     private ArrayList<Event> saturdayEvents;
 
     private ArrayList<Event> sundayEvents;
+    RelativeLayout leftArrowLayout;
+    RelativeLayout rightArrowLayout;
 
     // Every time you switch to this fragment.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_scheme, null);
 
-        final RelativeLayout leftArrowLayout = get(view, R.id.left_arrow, RelativeLayout.class);
-        final RelativeLayout rightArrowLayout = get(view, R.id.right_arrow, RelativeLayout.class);
+        leftArrowLayout = get(view, R.id.left_arrow, RelativeLayout.class);
+        rightArrowLayout = get(view, R.id.right_arrow, RelativeLayout.class);
         final TextView header = get(view, R.id.dayText, TextView.class);
         final ViewPager vp = get(view, R.id.scheme_viewpager, ViewPager.class);
 
@@ -61,22 +63,31 @@ public class SchemeFragment extends LKFragment {
         vp.setAdapter(new SchemeViewAdapter());
         vp.setCurrentItem(currentDay);
         vp.setPageTransformer(true, new ZoomOutPageTransformer());
+
         vp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
             @TargetApi(Build.VERSION_CODES.HONEYCOMB)
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                /*
                 if(Build.VERSION.SDK_INT < 11) return;
                 float absOffset = Math.abs(positionOffset);
                 if(absOffset < 0.5f) {
+
+                    if(lastOff > absOffset && header.getTag().equals(Integer.valueOf(position))) {
+                        setDayText(header, position + (positionOffset > 0 ? 1 : -1) );
+                    }
+
                     header.setAlpha(1 - absOffset * 2);
                 }
                 if(absOffset > 0.5f) {
-                    if(header.getTag() != Integer.valueOf(position)) {
+                    if(lastOff < absOffset && header.getTag().equals(Integer.valueOf(position))) {
                         setDayText(header, position + (positionOffset > 0 ? 1 : -1) );
-                    }
+                   }
                     header.setAlpha(1 - (1 - absOffset) * 2);
                 }
+                lastOff = absOffset;
+                */
             }
 
             @Override
@@ -120,10 +131,12 @@ public class SchemeFragment extends LKFragment {
         int currentItem = vp.getCurrentItem();
         if(currentItem - 1 < 0){
             arrowPlaceholder.setEnabled(false);
-            arrowPlaceholder.setBackgroundResource(R.drawable.arrow_empty);
+            //arrowPlaceholder.setBackgroundResource(R.drawable.arrow_empty);
+            leftArrowLayout.setVisibility(View.INVISIBLE);
         } else {
+            leftArrowLayout.setVisibility(View.VISIBLE);
             arrowPlaceholder.setEnabled(true);
-            arrowPlaceholder.setBackgroundResource(R.drawable.arrow_left);
+            //arrowPlaceholder.setBackgroundResource(R.drawable.arrow_left);
         }
     }
 
@@ -133,10 +146,12 @@ public class SchemeFragment extends LKFragment {
         int currentItem = vp.getCurrentItem();
         if(currentItem + 1 == count){
             arrowPlaceholder.setEnabled(false);
-            arrowPlaceholder.setBackgroundResource(R.drawable.arrow_empty);
+         //   arrowPlaceholder.setBackgroundResource(R.drawable.arrow_empty);
+            rightArrowLayout.setVisibility(View.INVISIBLE);
         } else {
+            rightArrowLayout.setVisibility(View.VISIBLE);
             arrowPlaceholder.setEnabled(true);
-            arrowPlaceholder.setBackgroundResource(R.drawable.arrow_right);
+           // arrowPlaceholder.setBackgroundResource(R.drawable.arrow_right);
         }
     }
 
