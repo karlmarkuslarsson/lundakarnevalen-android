@@ -343,6 +343,7 @@ public class SVGView extends View {
         Matrix m = new Matrix(mMatrix);
 
         final PointF startXY = getTransXY(m);
+
         final float[] targetXY = {x, y};
         m.mapPoints(targetXY);
 

@@ -68,8 +68,6 @@ public class MapFragment extends LKFragment {
     private static final String STATE_MATRIX = "matrix";
 
     private float[] mMatrixValues;
-    private int displayWidth;
-    private int displayHeight;
     private LKMapView mapView;
 
     @Override
@@ -89,17 +87,12 @@ public class MapFragment extends LKFragment {
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_map, container, false);
 
-        DisplayMetrics metrics = inflater.getContext().getResources().getDisplayMetrics();
-
-        displayWidth = metrics.widthPixels;
-        displayHeight = metrics.heightPixels;
-
         mapView = get(root, R.id.map_id, LKMapView.class);
 
         get(root, R.id.map_pull_out, View.class).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ContentActivity.class.cast(getActivity()).toggleRightDrawer();
+            ContentActivity.class.cast(getActivity()).toggleRightDrawer();
             }
         });
 
@@ -230,11 +223,10 @@ public class MapFragment extends LKFragment {
         outState.putFloatArray(STATE_MATRIX, mapView.exportMatrixValues());
     }
 
-    public static MapFragment create(boolean zoom, float lat, float lng) {
+    public static MapFragment create(float lat, float lng) {
         Bundle bundle = new Bundle();
         bundle.putFloat("lat", lat);
         bundle.putFloat("lng", lng);
-        bundle.putBoolean("zoom", zoom);
         MapFragment fragment = new MapFragment();
         fragment.setArguments(bundle);
         return fragment;
