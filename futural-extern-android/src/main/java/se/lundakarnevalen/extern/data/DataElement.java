@@ -111,4 +111,7 @@ public class DataElement implements Parcelable {
         parcel.writeStringList(menuPrice);
     }
 
+    public boolean hasLandingPage() {
+        return info > 0;
+    }
 }
