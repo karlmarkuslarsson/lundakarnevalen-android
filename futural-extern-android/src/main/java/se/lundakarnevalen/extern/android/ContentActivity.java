@@ -249,8 +249,9 @@ public class ContentActivity extends ActionBarActivity {
 
         adapter = new LKRightMenuArrayAdapter(this);
         adapter.addItem(getString(R.string.food),R.drawable.food_logo, new DataType[]{DataType.FOOD});
-        adapter.addItem(getString(R.string.fun),R.drawable.fun_logo, new DataType[]{DataType.FUN});
-        adapter.addItem(getString(R.string.help),R.drawable.help_logo, new DataType[]{});
+        adapter.addItem(getString(R.string.fun),R.drawable.fun_logo, new DataType[]{DataType.FUN, DataType.SMALL_FUN, DataType.TENT_FUN, DataType.TOMBOLAN,
+                DataType.SCENE, DataType.RADIO});
+        adapter.addItem(getString(R.string.help),R.drawable.help_logo, new DataType[]{DataType.POLICE, DataType.CARE});
         adapter.addItem(getString(R.string.wc),R.drawable.wc_logo,new DataType[]{DataType.TOILETS});
         adapter.addItem(getString(R.string.show_all),0, DataType.values());
 

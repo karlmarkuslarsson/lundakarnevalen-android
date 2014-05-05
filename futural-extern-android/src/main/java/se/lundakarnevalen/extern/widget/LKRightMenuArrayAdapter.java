@@ -66,18 +66,26 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
         LKRightMenuListItem item = getItem(pos);
         Context c = parent.getContext();
 
-        int showAllIdx = getCount() - 1;
-        boolean showAllSelected = showAllIdx == pos;
+        int showAllElementIdx = getCount() - 1;
+        boolean showAllSelected = (showAllElementIdx == pos);
+
         if (showAllSelected) { // is showAll item
             deselectAll();
-            getItem(showAllIdx).setSelected(c, true);
+            getItem(showAllElementIdx).setSelected(c, true);
         } else {
             item.setSelected(c, !item.selected); // Flip state
-            getItem(showAllIdx).setSelected(c, false);
+            getItem(showAllElementIdx).setSelected(c, false);
+        }
+
+        final List<DataType> types = selectedTypes();
+
+        if(types.isEmpty()) {
+            deselectAll();
+            getItem(showAllElementIdx).setSelected(c, true);
         }
 
         if (c != null) {
-            ContentActivity.class.cast(c).updateMapView(selectedTypes());
+            ContentActivity.class.cast(c).updateMapView(types);
         } else {
             Log.wtf(LOG_TAG, "ContentActivity was null");
         }
