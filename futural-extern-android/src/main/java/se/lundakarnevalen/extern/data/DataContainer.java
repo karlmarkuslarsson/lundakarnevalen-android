@@ -267,16 +267,25 @@ public class DataContainer {
 
         data.add(new DataElement(R.string.care_title, R.string.care_title, 55.70589745349834f, 13.195349039021f, R.drawable.health_logo, DataType.CARE));
 
+        //TODO: fix logo for biljetteriet below
         data.add(new DataElement(R.string.biljetteriet, R.string.biljetteriet, 55.70502736279169f, 13.19517650439325f, R.drawable.barnevalen_logo, DataType.BILJETTERIET));
-        //TODO: fix logo 1 line above
 
-        //TODO: fix logo 2 lines below
+
+        //TODO: fix logo for police below
         data.add(new DataElement(R.string.police, R.string.police, 55.70566708948963f, 13.19601302178581f, R.drawable.barnevalen_logo, DataType.POLICE));
         data.add(new DataElement(R.string.police, R.string.police, 55.7052602564826f, 13.19401040144301f, R.drawable.barnevalen_logo, DataType.POLICE));
 
         data.add(new DataElement(R.string.radio, R.string.radio, 55.70537955178818f, 13.19494142376257f, R.drawable.radio_logo, DataType.RADIO));
-        
 
+        //TODO: fix logo for entre below
+        data.add(new DataElement(R.string.entre, R.string.en_lundensares_guide_till_galaxen, 55.7056318688607f, 13.19298738463846f, R.drawable.radio_logo, DataType.ENTRANCE));
+        data.add(new DataElement(R.string.entre, R.string.futopia, 55.7060196455733f, 13.19565500654615f, R.drawable.radio_logo, DataType.ENTRANCE));
+        data.add(new DataElement(R.string.entre, R.string.botaniska_ar_3014, 55.7051354472479f, 13.19293492729316f, R.drawable.radio_logo, DataType.ENTRANCE));
+        data.add(new DataElement(R.string.entre, R.string.futuralteleportal, 55.7043920444683f, 13.19313558627814f, R.drawable.radio_logo, DataType.ENTRANCE));
+        data.add(new DataElement(R.string.entre, R.string.intergalaktisk_invandring, 55.7037410100921f, 13.19423114265037f, R.drawable.radio_logo, DataType.ENTRANCE));
+        data.add(new DataElement(R.string.entre, R.string.ett_svart_hal, 55.7044690873277f, 13.19560129896877f, R.drawable.radio_logo, DataType.ENTRANCE));
+
+        
 
         return data;
     }

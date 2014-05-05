@@ -327,6 +327,14 @@ karnevalistisk femstjärning meny för 70 kr!\n\n
     <string name="biljetteriet">TICKETS</string>
     <string name="police">POLICE</string>
     <string name="radio">RADIO</string>
+    <string name="entre">ENTRANCE</string>
+
+    <string name="en_lundensares_guide_till_galaxen">En lundensares guide till galaxen</string>
+    <string name="futopia">Futopia</string>
+    <string name="botaniska_ar_3014">Botaniska år 3014</string>
+    <string name="futuralteleportal">Futuralteleportal</string>
+    <string name="intergalaktisk_invandring">Intergalaktisk invandring</string>
+    <string name="ett_svart_hal">Ett svart hål</string>
 
 
     <string name="click_for_more">(Click to show more info)</string>
