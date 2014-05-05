@@ -93,8 +93,14 @@ public class TrainMapFragment extends LKFragment{
                 try {
                     Picture picture = preloaded.get(20, TimeUnit.SECONDS);
                     waitForLayout();
-                    float minZoom = calculateMinZoom(img, picture);
-                    img.setSvg(picture, minZoom, null);
+                    final float scale = calculateMinZoom(img, picture) / 2.0f;
+                    img.setSvg(picture, scale, null);
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            img.zoomTo(420.0f, 300.0f, scale);
+                        }
+                    });
                 } catch (InterruptedException e) {
                     Log.wtf(LOG_TAG, "Future was interrupted", e);
                 } catch (ExecutionException e) {
@@ -109,8 +115,14 @@ public class TrainMapFragment extends LKFragment{
                 try{
                     Picture picture = new SvgLoader(inflater.getContext()).call();
                     waitForLayout();
-                    float minZoom = calculateMinZoom(img, picture);
-                    img.setSvg(picture, minZoom, null);
+                    final float scale = calculateMinZoom(img, picture) / 2.0f;
+                    img.setSvg(picture, scale, null);
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            img.zoomTo(420.0f, 300.0f, scale);
+                        }
+                    });
                 } catch (Exception ex){
                     Log.wtf(LOG_TAG, "Failed to load image after timeout", ex);
                 }
@@ -151,7 +163,7 @@ public class TrainMapFragment extends LKFragment{
 
     private float calculateMinZoom(View root, Picture pic) {
         //We assume that the svg image is 512x512 for now
-        return Math.min(
+        return Math.max(
                 root.getMeasuredHeight() * 1.0f / pic.getHeight(),
                 root.getMeasuredWidth() * 1.0f / pic.getWidth());
     }
