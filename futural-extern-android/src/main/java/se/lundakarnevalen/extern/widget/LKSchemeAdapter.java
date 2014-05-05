@@ -120,14 +120,14 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
 
 
                     NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext());
-
+                    Log.d("time",": "+(item.startDate.getTime()-1000*60*60+","+System.currentTimeMillis()));
                     builder = builder
                             .setContentIntent(pIntent)
                             .setContentTitle(item.name)
                             .setContentText(item.place+" "+item.getStartTime())
                             .setAutoCancel(true)
-                            .setSmallIcon(R.drawable.test_spexet)
-                            .setWhen(item.startDate.getTime()-1000*60*60)
+                            .setSmallIcon(R.drawable.splash)
+                            .setWhen(item.startDate.getTime())
                             .setSound(Uri.parse("android.resource://" + getContext().getPackageName() + "/" + R.raw.futufutu));
 
 
