@@ -10,7 +10,7 @@ import android.graphics.Picture;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.caverock.androidsvg.SVG;
@@ -30,8 +30,6 @@ import se.lundakarnevalen.extern.data.DataContainer;
 import se.lundakarnevalen.extern.data.DataElement;
 import se.lundakarnevalen.extern.data.DataType;
 import se.lundakarnevalen.extern.map.Marker;
-import se.lundakarnevalen.extern.map.MarkerType;
-import se.lundakarnevalen.extern.map.Markers;
 import se.lundakarnevalen.extern.util.Logf;
 
 import static android.graphics.Matrix.*;
@@ -41,6 +39,9 @@ import static se.lundakarnevalen.extern.util.ViewUtil.*;
  * Created by Filip on 2014-04-27.
  */
 public class LKMapView extends SVGView {
+    private static final float CLOSE_THRESHOLD = 40.0f;
+    public static final float BUBBLE_SIZE_MULTIPLIER = 3.0f;
+
     public interface OnMarkerSelectedListener {
         /** null of unselect */
         public void onMarkerSelected(Marker m);
@@ -81,7 +82,7 @@ public class LKMapView extends SVGView {
 
     private HashMap<Integer, Bitmap> bitmaps;
 
-    private float preDrawScale;
+    private float mPreDrawScale;
     private float[] mTmpPoint = new float[2];
 
     private Marker mFocusedMarker;
@@ -158,21 +159,38 @@ public class LKMapView extends SVGView {
 
     @Override
     protected boolean onClick(float xInSvg, float yInSvg) {
-        Logf.d(LOG_TAG, "click(%f, %f)", xInSvg, yInSvg);
-        boolean found = false;
+        Logf.d(LOG_TAG, "click(%f, %f, %f)", xInSvg, yInSvg, mPreDrawScale);
+
+        final float offsetY = -10.0f / mPreDrawScale;
+        float min = Float.MAX_VALUE;
+        Marker closest = null;
         for (Marker m : markers) {
-            if (m.x != -1 && m.isClose(xInSvg, yInSvg)) {
-                m.isFocusedInMap = found = true;
-                mFocusedMarker = m;
-                zoomTo(xInSvg, yInSvg, 1.0f);
-                if (mListener != null) {
-                    mListener.onMarkerSelected(m);
+            if (m.x != -1) {
+                final float distance = m.distance(xInSvg, yInSvg - offsetY) / mPreDrawScale;
+                if(distance < min){
+                    min = distance;
+                    closest = m;
                 }
             } else {
                 m.isFocusedInMap = false;
             }
         }
-        if (!found) {
+
+        boolean found = (closest != null && min < CLOSE_THRESHOLD);
+        Logf.d(LOG_TAG, "Dist: %f, Closest: %s",min, closest);
+
+        if(mFocusedMarker != null) {
+            mFocusedMarker.isFocusedInMap = false;
+        }
+
+        if (found) {
+            closest.isFocusedInMap = true;
+            mFocusedMarker = closest;
+            zoomTo(xInSvg, yInSvg, 1.0f);
+            if (mListener != null) {
+                mListener.onMarkerSelected(closest);
+            }
+        } else {
             mFocusedMarker = null;
             mListener.onMarkerSelected(null);
         }
@@ -182,10 +200,10 @@ public class LKMapView extends SVGView {
     @Override
     protected void onDrawObjects(Canvas canvas) {
         super.onDrawObjects(canvas); // Must be called to draw map
-        preDrawScale = mMatrixValues[MSCALE_X];
+        mPreDrawScale = mMatrixValues[MSCALE_X];
 
         for (Marker m : markers) {
-            if(activeTypes.contains(m.type)) {
+            if(activeTypes.contains(m.element.type)) {
                 if (m.x == -1) {
                     getPointFromCoordinates(m);
                 }
@@ -197,22 +215,22 @@ public class LKMapView extends SVGView {
         }
 
         if(mFocusedMarker != null) {
-            mBubbleSize *= 2.0f;
+            mBubbleSize *= BUBBLE_SIZE_MULTIPLIER;
             paintMarker(canvas, mFocusedMarker);
-            mBubbleSize /= 2.0f;
+            mBubbleSize /= BUBBLE_SIZE_MULTIPLIER;
         }
 
         dst.set(mGpsMarkerPos.x,
                 mGpsMarkerPos.y,
-                mGpsMarkerPos.x + 2.0f * mGpsShadowXRadius / preDrawScale,
-                mGpsMarkerPos.y + 2.0f * mGpsShadowYRadius / preDrawScale);
+                mGpsMarkerPos.x + 2.0f * mGpsShadowXRadius / mPreDrawScale,
+                mGpsMarkerPos.y + 2.0f * mGpsShadowYRadius / mPreDrawScale);
         normalizeToMidpointBottom(dst);
         canvas.drawOval(dst, mShadowInk);
 
         dst.set(mGpsMarkerPos.x,
                 mGpsMarkerPos.y,
-                mGpsMarkerPos.x + mGpsMarkerSize / preDrawScale,
-                mGpsMarkerPos.y + mGpsMarkerSize / preDrawScale);
+                mGpsMarkerPos.x + mGpsMarkerSize / mPreDrawScale,
+                mGpsMarkerPos.y + mGpsMarkerSize / mPreDrawScale);
         normalizeToMidpointBottom(dst);
         canvas.drawPicture(mGpsMarker, dst);
     }
@@ -246,8 +264,8 @@ public class LKMapView extends SVGView {
     }
 
     private void getPointFromCoordinates(Marker m) {
-        float lat = (m.lat - startLatMap) / diffLat;
-        float lon = (m.lng - startLonMap) / diffLon;
+        float lat = (m.element.lat - startLatMap) / diffLat;
+        float lon = (m.element.lng - startLonMap) / diffLon;
         m.x = lon * mPictureEndPoint[AXIS_X];
         m.y = lat * mPictureEndPoint[AXIS_Y];
     }

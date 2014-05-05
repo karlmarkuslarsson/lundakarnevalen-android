@@ -139,8 +139,8 @@ public class MapFragment extends LKFragment {
                 h.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        int x = 100+r.nextInt(300);
-                        int y = 100+r.nextInt(300);
+                        int x = 100 + r.nextInt(300);
+                        int y = 100 + r.nextInt(300);
                         float zoom = r.nextFloat() * 30.0f;
                         mapView.setGpsMarker(x, y);
                         mapView.zoomTo(x, y, zoom);
@@ -158,7 +158,8 @@ public class MapFragment extends LKFragment {
             @Override
             public void onMarkerSelected(Marker m) {
                 boolean wasSelected = (m != null);
-                get(root, R.id.map_info_text, TextView.class).setText(String.valueOf(m));
+                if(!wasSelected) return;
+                get(root, R.id.map_info_text, TextView.class).setText(String.valueOf(getString(m.element.title)));
                 get(root, R.id.map_info_layout, ViewGroup.class).setVisibility(wasSelected ? View.VISIBLE : View.INVISIBLE);
                 get(root, R.id.map_info_layout, ViewGroup.class).setOnClickListener(new View.OnClickListener() {
                     @Override
