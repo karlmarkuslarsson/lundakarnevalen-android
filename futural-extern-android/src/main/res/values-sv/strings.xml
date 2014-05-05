@@ -255,5 +255,8 @@ karnevalistisk femstjärning meny för 70 kr!\n\nBetalning: kort och kontant\n\n
     <string name="hampus">HAMPUS LAVIN</string>
     <string name="axel">AXEL BOMAN</string>
 
+    <string name="police">POLIS</string>
+    <string name="biljetteriet">BILJETTERIET</string>
+
 
 </resources>

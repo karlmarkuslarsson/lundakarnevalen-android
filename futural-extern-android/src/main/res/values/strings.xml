@@ -323,6 +323,12 @@ karnevalistisk femstjärning meny för 70 kr!\n\n
     <string name="forbjudna_taltet">Förbjudna tältet</string>
     <string name="bak_och_framtidsresan">Bak- och framtidsresan</string>
     <string name="astronautakademin">Astronautakademin</string>
+
+    <string name="biljetteriet">TICKETS</string>
+    <string name="police">POLICE</string>
+    <string name="radio">RADIO</string>
+
+
     <string name="click_for_more">(Click to show more info)</string>
 
 

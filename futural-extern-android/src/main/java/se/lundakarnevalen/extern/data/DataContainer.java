@@ -267,6 +267,16 @@ public class DataContainer {
 
         data.add(new DataElement(R.string.care_title, R.string.care_title, 55.70589745349834f, 13.195349039021f, R.drawable.health_logo, DataType.CARE));
 
+        data.add(new DataElement(R.string.biljetteriet, R.string.biljetteriet, 55.70502736279169f, 13.19517650439325f, R.drawable.barnevalen_logo, DataType.BILJETTERIET));
+        //TODO: fix logo 1 line above
+
+        //TODO: fix logo 2 lines below
+        data.add(new DataElement(R.string.police, R.string.police, 55.70566708948963f, 13.19601302178581f, R.drawable.barnevalen_logo, DataType.POLICE));
+        data.add(new DataElement(R.string.police, R.string.police, 55.7052602564826f, 13.19401040144301f, R.drawable.barnevalen_logo, DataType.POLICE));
+
+        data.add(new DataElement(R.string.radio, R.string.radio, 55.70537955178818f, 13.19494142376257f, R.drawable.radio_logo, DataType.RADIO));
+        
+
 
         return data;
     }
