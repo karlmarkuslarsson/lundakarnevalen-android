@@ -27,8 +27,8 @@ public class FoodFragment extends LKFragment {
     // Every time you switch to this fragment.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_food, null);
-        ListView lv = (ListView) rootView.findViewById(R.id.fragment_food_list);
+        View root = inflater.inflate(R.layout.fragment_food, container, false);
+        ListView lv = (ListView) root.findViewById(R.id.fragment_food_list);
 
         if (food.isEmpty()) {
             food.addAll(DataContainer.getDataOfType(DataType.FOOD));
@@ -61,7 +61,7 @@ public class FoodFragment extends LKFragment {
         }
         lv.setAdapter(new LKListAdapter(getContext(), items,getActivity()));
 
-        return rootView;
+        return root;
     }
 
     @Override

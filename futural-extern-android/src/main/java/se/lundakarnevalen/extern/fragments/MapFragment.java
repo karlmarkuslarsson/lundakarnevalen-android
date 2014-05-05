@@ -23,6 +23,7 @@ import java.util.Random;
 import java.util.TimerTask;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -37,9 +38,8 @@ import static se.lundakarnevalen.extern.util.ViewUtil.get;
 
 public class MapFragment extends LKFragment {
     private static FutureTask<Picture> preloaded = null;
-    private java.util.Timer mTimer;
 
-    public static Picture preload(Context c) {
+    public static Future<Picture> preload(Context c) {
         if(preloaded == null){
             preloaded = new FutureTask<Picture>(new SvgLoader(c));
             new AsyncTask<Void,Void,Void>(){
@@ -50,14 +50,7 @@ public class MapFragment extends LKFragment {
                 }
             }.execute();
         }
-        try {
-            return preloaded.get(1, TimeUnit.MILLISECONDS);
-        } catch (InterruptedException e) {
-            Log.wtf(LOG_TAG, "Future was interrupted", e);
-        } catch (ExecutionException e) {
-            Log.wtf(LOG_TAG, "ExecutionException", e);
-        } catch (TimeoutException e) {}
-        return null;
+        return preloaded;
     }
 
     public static void clean(){
@@ -67,6 +60,7 @@ public class MapFragment extends LKFragment {
     private static final String LOG_TAG = MapFragment.class.getSimpleName();
     private static final String STATE_MATRIX = "matrix";
 
+    private java.util.Timer mTimer;
     private float[] mMatrixValues;
     private LKMapView mapView;
 
@@ -92,7 +86,7 @@ public class MapFragment extends LKFragment {
         get(root, R.id.map_pull_out, View.class).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            ContentActivity.class.cast(getActivity()).toggleRightDrawer();
+                ContentActivity.class.cast(getActivity()).toggleRightDrawer();
             }
         });
 
@@ -102,7 +96,7 @@ public class MapFragment extends LKFragment {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    Picture picture = preloaded.get(20, TimeUnit.SECONDS); // TODO nullptr !!
+                    Picture picture = preload(inflater.getContext()).get(20, TimeUnit.SECONDS);
                     waitForLayout();
                     float minZoom = calculateMinZoom(mapView, picture);
                     mapView.setSvg(picture, minZoom, mMatrixValues);

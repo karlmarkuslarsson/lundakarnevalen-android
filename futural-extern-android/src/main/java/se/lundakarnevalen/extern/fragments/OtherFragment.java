@@ -25,13 +25,14 @@ public class OtherFragment extends LKFragment{
     // Every time you switch to this fragment.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_other, null);
-        ListView lv = (ListView) rootView.findViewById(R.id.fragment_other_list);
+        View root = inflater.inflate(R.layout.fragment_other, container, false);
+        ListView lv = (ListView) root.findViewById(R.id.fragment_other_list);
 
         if (other.isEmpty()) {
+            other.addAll(DataContainer.getDataOfType(DataType.FUTURAL));
             other.addAll(DataContainer.getDataOfType(DataType.TRAIN));
             other.addAll(DataContainer.getDataOfType(DataType.RADIO));
-            other.addAll(DataContainer.getDataOfType(DataType.OTHER));
+            other.addAll(DataContainer.getDataOfType(DataType.OTHER)); // @TODO: Fix order, markus
         }
 
         ArrayList<LKListRow> items = new ArrayList<LKListRow>();
@@ -48,7 +49,7 @@ public class OtherFragment extends LKFragment{
         lv.setAdapter(new LKListAdapter(getContext(), items,getActivity()));
 
 
-        return rootView;
+        return root;
     }
 
 }

@@ -16,6 +16,7 @@ import com.caverock.androidsvg.SVGParseException;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -34,7 +35,7 @@ import static se.lundakarnevalen.extern.util.ViewUtil.get;
 public class TrainMapFragment extends LKFragment{
     private static FutureTask<Picture> preloaded = null;
 
-    public static Picture preload(Context c) {
+    public static Future<Picture> preload(Context c) {
         if(preloaded == null){
             preloaded = new FutureTask<Picture>(new SvgLoader(c));
             new AsyncTask<Void,Void,Void>(){
@@ -45,14 +46,7 @@ public class TrainMapFragment extends LKFragment{
                 }
             }.execute();
         }
-        try {
-            return preloaded.get(1, TimeUnit.MILLISECONDS);
-        } catch (InterruptedException e) {
-            Log.wtf(LOG_TAG, "Future was interrupted", e);
-        } catch (ExecutionException e) {
-            Log.wtf(LOG_TAG, "ExecutionException", e);
-        } catch (TimeoutException e) {}
-        return null;
+        return preloaded;
     }
 
     public static void clean(){
@@ -91,7 +85,7 @@ public class TrainMapFragment extends LKFragment{
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    Picture picture = preloaded.get(20, TimeUnit.SECONDS);
+                    Picture picture = preload(inflater.getContext()).get(20, TimeUnit.SECONDS);
                     waitForLayout();
                     final float scale = calculateMinZoom(img, picture) / 2.0f;
                     img.setSvg(picture, scale, null);
