@@ -3,5 +3,5 @@
     <item android:drawable="@drawable/action_menu_out_pressed" android:state_focused="true" android:state_pressed="true"/>
     <item android:drawable="@drawable/action_menu_out_pressed" android:state_focused="false" android:state_pressed="true"/>
     <item android:drawable="@drawable/action_menu_out_pressed" android:state_focused="true"/>
-    <item android:drawable="@drawable/ic_action_menu_out" android:state_focused="false" android:state_pressed="false"/>
+    <item android:drawable="@color/transparent" android:state_focused="false" android:state_pressed="false"/>
 </selector>
