@@ -180,7 +180,13 @@ karnevalistisk femstjärning meny för 70 kr!\n\nBetalning: kort och kontant\n\n
     <string name="no_internet">Kontrollera din internetanslutning!</string>
     <string name="dansen_place">AF BORGEN</string>
     <string name="dansen_title">DANSEN</string>
-    <string name="dansen_info" >EN DANS.</string>
+    <string name="dansen_info" >En vis person sa en gång ”Varför gå genom livet när du kan dansa?”.
+        En ypperlig devis som Lundakarnevalen tagit till sig och kommer att efterleva
+        – med råge! Under de tre karnevalsnätterna i maj så kan Lundakarnevalen stoltsera
+        med Sveriges största nattklubb, Dansen, på AF-borgen! Under dessa nätter så kommer
+        AF-borgen att transformeras till en mullrande dansinferno utan jämlike. Tillsammans
+        kommer över 6000 personer dansa nätterna genom på Dansens fyra olika dansgolv i Tégners,
+        Stora salen och Lilla salen till tonerna av våra fantastiska DJ:s och artister.</string>
     <string name="dansen_question">VAD ÄR DANSEN?</string>
     <string name="emil_och_david">EMIL OCH DAVID</string>
     <string name="krog_thyme_title">THYME TRAVEL</string>

@@ -22,7 +22,7 @@ import se.lundakarnevalen.extern.widget.LKListRow;
 public class FoodFragment extends LKFragment {
 
 
-    private List<DataElement> food = DataContainer.getDataOfType(DataType.FOOD);
+    private List<DataElement> food = new ArrayList<DataElement>();
 
     // Every time you switch to this fragment.
     @Override
@@ -30,6 +30,9 @@ public class FoodFragment extends LKFragment {
         View rootView = inflater.inflate(R.layout.fragment_food, null);
         ListView lv = (ListView) rootView.findViewById(R.id.fragment_food_list);
 
+        if (food.isEmpty()) {
+            food.addAll(DataContainer.getDataOfType(DataType.FOOD));
+        }
 /*
         lv.setAdapter(new SimpleAdapter(getContext(),
                 new ArrayList<Map<String, String>>(){{

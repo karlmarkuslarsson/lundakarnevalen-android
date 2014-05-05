@@ -102,7 +102,7 @@ public class MapFragment extends LKFragment {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    Picture picture = preloaded.get(20, TimeUnit.SECONDS);
+                    Picture picture = preloaded.get(20, TimeUnit.SECONDS); // TODO nullptr !!
                     waitForLayout();
                     float minZoom = calculateMinZoom(mapView, picture);
                     mapView.setSvg(picture, minZoom, mMatrixValues);
