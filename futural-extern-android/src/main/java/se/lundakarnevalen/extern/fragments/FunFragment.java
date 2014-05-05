@@ -26,9 +26,9 @@ public class FunFragment extends LKFragment {
     // Every time you switch to this fragment.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_fun, null);
+        View root = inflater.inflate(R.layout.fragment_fun, container, false);
 
-        ListView lv = (ListView) rootView.findViewById(R.id.fragment_fun_list);
+        ListView lv = (ListView) root.findViewById(R.id.fragment_fun_list);
 
         if (fun.isEmpty()) {
             fun.addAll(DataContainer.getDataOfType(DataType.FUN));
@@ -85,7 +85,7 @@ public class FunFragment extends LKFragment {
             }
         });
         */
-        return rootView;
+        return root;
     }
 
     @Override
