@@ -29,9 +29,9 @@ public class OtherFragment extends LKFragment{
         ListView lv = (ListView) root.findViewById(R.id.fragment_other_list);
 
         if (other.isEmpty()) {
-            other.addAll(DataContainer.getDataOfType(DataType.FUTURAL));
+            other.addAll(DataContainer.getDataOfType(DataType.PLAYER_FUTURAL));
             other.addAll(DataContainer.getDataOfType(DataType.TRAIN));
-            other.addAll(DataContainer.getDataOfType(DataType.RADIO));
+            other.addAll(DataContainer.getDataOfType(DataType.PLAYER_RADIO));
             other.addAll(DataContainer.getDataOfType(DataType.OTHER)); // @TODO: Fix order, markus
         }
 
