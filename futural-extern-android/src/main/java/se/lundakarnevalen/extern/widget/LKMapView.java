@@ -15,7 +15,6 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
-import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.PropertyValuesHolder;
 import com.nineoldandroids.animation.ValueAnimator;
 
@@ -38,6 +37,11 @@ import static android.graphics.Matrix.*;
  * Created by Filip on 2014-04-27.
  */
 public class LKMapView extends SVGView {
+    public interface OnMarkerSelectedListener {
+        /** null of unselect */
+        public void onMarkerSelected(Marker m);
+    }
+
     private static final String LOG_TAG = LKMapView.class.getSimpleName();
 
     private Set<Integer> activeTypes = new HashSet<Integer>();
@@ -75,6 +79,9 @@ public class LKMapView extends SVGView {
 
     private float preDrawScale;
     private float[] mTmpPoint = new float[2];
+
+    private Marker mFocusedMarker;
+    private OnMarkerSelectedListener mListener;
 
     public LKMapView(Context context) {
         super(context);
@@ -145,6 +152,10 @@ public class LKMapView extends SVGView {
         }
     }
 
+    public void setListener(OnMarkerSelectedListener listener) {
+        this.mListener = listener;
+    }
+
     public static int dpToPx(Context c, int dp) {
         DisplayMetrics displayMetrics = c.getResources().getDisplayMetrics();
         return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
@@ -158,7 +169,24 @@ public class LKMapView extends SVGView {
     @Override
     protected boolean onClick(float xInSvg, float yInSvg) {
         Logf.d(LOG_TAG, "click(%f, %f)", xInSvg, yInSvg);
-        return true;
+        boolean found = false;
+        for (Marker m : markers) {
+            if (m.x != -1 && m.isClose(xInSvg, yInSvg)) {
+                m.isFocusedInMap = found = true;
+                mFocusedMarker = m;
+                zoomTo(xInSvg, yInSvg, 1.0f);
+                if (mListener != null) {
+                    mListener.onMarkerSelected(m);
+                }
+            } else {
+                m.isFocusedInMap = false;
+            }
+        }
+        if (!found) {
+            mFocusedMarker = null;
+            mListener.onMarkerSelected(null);
+        }
+        return false;
     }
 
     @Override
@@ -166,38 +194,22 @@ public class LKMapView extends SVGView {
         super.onDrawObjects(canvas); // Must be called to draw map
         preDrawScale = mMatrixValues[MSCALE_X];
 
-        // TODO TEST
-        /*
-        markers = new ArrayList<Marker>();
-        markers.add(new Marker(55.7048333f, 13.195352777777778f, R.drawable.cirkusen_logo, MarkerType.FUN));
-        markers.add(new Marker(55.7059389f, 13.194805555555556f, R.drawable.filmen_logo, MarkerType.FUN));
-        */
-
         for (Marker m : markers) {
             if(activeTypes.contains(m.type)) {
                 if (m.x == -1) {
-                    getPointFromCoordinates(m.lat, m.lng, mTmpPoint);
+                    getPointFromCoordinates(m);
                 }
 
-                dst.set(m.x, m.y, m.x, m.y);
-                dst.inset(-mBubbleShadowXRadius, -mBubbleShadowYRadius);
-                canvas.drawOval(dst, mShadowInk);
+                if(m.isFocusedInMap) continue;
 
-                dst.set(m.x,
-                        m.y,
-                        m.x + mBubbleSize,
-                        m.y + mBubbleSize);
-                normalizeToMidpointBottom(dst);
-                canvas.drawPicture(mBubble, dst);
-
-                dst.set(m.x,
-                        m.y,
-                        m.x + mBubbleSize*0.8f,
-                        m.y + mBubbleSize*0.8f);
-                normalizeToMidpointBottom(dst);
-                dst.offset(0f, mBubbleSize * -0.18f);
-                canvas.drawBitmap(bitmaps.get(m.picture), null, dst, null);
+                paintMarker(canvas, m);
             }
+        }
+
+        if(mFocusedMarker != null) {
+            mBubbleSize *= 2.0f;
+            paintMarker(canvas, mFocusedMarker);
+            mBubbleSize /= 2.0f;
         }
 
         getPointFromCoordinates(55.705439f, 13.193153f, mTmpPoint);
@@ -218,11 +230,39 @@ public class LKMapView extends SVGView {
         canvas.drawPicture(mGpsMarker, dst);
     }
 
+    private void paintMarker(Canvas canvas, Marker m) {
+        dst.set(m.x, m.y, m.x, m.y);
+        dst.inset(-mBubbleShadowXRadius, -mBubbleShadowYRadius);
+        canvas.drawOval(dst, mShadowInk);
+
+        dst.set(m.x,
+                m.y,
+                m.x + mBubbleSize,
+                m.y + mBubbleSize);
+        normalizeToMidpointBottom(dst);
+        canvas.drawPicture(mBubble, dst);
+
+        dst.set(m.x,
+                m.y,
+                m.x + mBubbleSize*0.8f,
+                m.y + mBubbleSize*0.8f);
+        normalizeToMidpointBottom(dst);
+        dst.offset(0f, mBubbleSize * -0.18f);
+        canvas.drawBitmap(bitmaps.get(m.picture), null, dst, null);
+    }
+
     private void getPointFromCoordinates(float lat, float lon, float[] dst) {
         float lat1 = (lat - startLatMap) / diffLat;
         float lon1 = (lon - startLonMap) / diffLon;
         dst[0] = lon1 * mPictureEndPoint[AXIS_X];
         dst[1] = lat1 * mPictureEndPoint[AXIS_Y];
+    }
+
+    private void getPointFromCoordinates(Marker m) {
+        float lat = (m.lat - startLatMap) / diffLat;
+        float lon = (m.lng - startLonMap) / diffLon;
+        m.x = lon * mPictureEndPoint[AXIS_X];
+        m.y = lat * mPictureEndPoint[AXIS_Y];
     }
 
     private void normalizeToMidpointBottom(RectF rect) {
