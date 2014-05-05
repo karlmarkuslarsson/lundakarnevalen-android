@@ -557,7 +557,7 @@ public class MelodyFragment extends LKFragment {
     @Override
     public void onStart() {
         super.onStart();
-        ContentActivity.class.cast(getActivity()).allBottomsActive();
+        ContentActivity.class.cast(getActivity()).allBottomsUnfocus();
     }
 
     @Override

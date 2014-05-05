@@ -259,7 +259,7 @@ public class ContentActivity extends ActionBarActivity {
 
     }
 
-    public void allBottomsActive() {
+    public void allBottomsUnfocus() {
         listener.deselectItem(getResources());
         listener.selected = null;
     }
