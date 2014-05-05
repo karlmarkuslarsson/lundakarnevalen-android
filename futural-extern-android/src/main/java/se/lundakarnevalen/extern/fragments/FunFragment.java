@@ -21,7 +21,7 @@ import se.lundakarnevalen.extern.widget.LKListRow;
  */
 public class FunFragment extends LKFragment {
 
-    private List<DataElement> fun = DataContainer.getDataOfType(DataType.FUN);
+    private List<DataElement> fun = new ArrayList<DataElement>();
 
     // Every time you switch to this fragment.
     @Override
@@ -29,6 +29,10 @@ public class FunFragment extends LKFragment {
         View rootView = inflater.inflate(R.layout.fragment_fun, null);
 
         ListView lv = (ListView) rootView.findViewById(R.id.fragment_fun_list);
+
+        if (fun.isEmpty()) {
+            fun.addAll(DataContainer.getDataOfType(DataType.FUN));
+        }
 
         /*
         lv.setAdapter(new SimpleAdapter(getContext(),
