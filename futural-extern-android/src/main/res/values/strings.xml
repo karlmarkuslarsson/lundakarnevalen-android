@@ -323,6 +323,41 @@ karnevalistisk femstjärning meny för 70 kr!\n\n
     <string name="forbjudna_taltet">Förbjudna tältet</string>
     <string name="bak_och_framtidsresan">Bak- och framtidsresan</string>
     <string name="astronautakademin">Astronautakademin</string>
+
+    <string name="biljetteriet">TICKETS</string>
+    <string name="police">POLICE</string>
+    <string name="radio">RADIO</string>
+    <string name="entre">ENTRANCE</string>
+
+    <string name="en_lundensares_guide_till_galaxen">En lundensares guide till galaxen</string>
+    <string name="futopia">Futopia</string>
+    <string name="botaniska_ar_3014">Botaniska år 3014</string>
+    <string name="futuralteleportal">Futuralteleportal</string>
+    <string name="intergalaktisk_invandring">Intergalaktisk invandring</string>
+    <string name="ett_svart_hal">Ett svart hål</string>
+
+    <string name="snacks">SNACKS</string>
+    <string name="discokaffetalt">Discokaffetält</string>
+    <string name="snacks_iv">SNACKS IV</string>
+    <string name="lyxbrygghus">Lyxbrygghus</string>
+    <string name="kungliga_snacksboden_estrelle">Kungliga snacksboden Estrelle</string>
+    <string name="bacon_oriley">Bacon O\'Riley</string>
+
+    <string name="tombolan">TOMBOLAN</string>
+    <string name="putins_bodega_put_in_putin">Putins bodega; Put in Putin</string>
+    <string name="rysk_roulette">Rysk Roulette</string>
+    <string name="hipster_eller_hobo">Hipster eller hobo?</string>
+    <string name="ligga_i_lund">Ligga i Lund</string>
+    <string name="war_of_karnewall_street">War of Karne-wall street</string>
+    <string name="tillbaka_till_samtiden">Tillbaka till samtiden</string>
+    <string name="strike_for_the_future">Strike for the future</string>
+    <string name="futuralbucks">Futuralbucks</string>
+
+    <string name="trashcan">TRASHCAN</string>
+    <string name="shoppen">SHOP</string>
+
+
+
     <string name="click_for_more">(Click to show more info)</string>
 
 

@@ -16,7 +16,6 @@ import java.util.List;
 import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.data.DataElement;
-import se.lundakarnevalen.extern.data.DataType;
 import se.lundakarnevalen.extern.fragments.LandingPageFragment;
 import se.lundakarnevalen.extern.fragments.MelodyFragment;
 import se.lundakarnevalen.extern.fragments.MusicFragment;
@@ -84,10 +83,10 @@ public class LKListAdapter extends ArrayAdapter<LKListRow> {
             ContentActivity contentActivity = ContentActivity.class.cast(activity);
 
             switch (element.type) {
-                case RADIO:
+                case PLAYER_RADIO:
                     contentActivity.loadFragmentWithAdd(new MusicFragment());
                     break;
-                case FUTURAL:
+                case PLAYER_FUTURAL:
                     contentActivity.loadFragmentWithAdd(new MelodyFragment());
                     break;
                 case TRAIN:

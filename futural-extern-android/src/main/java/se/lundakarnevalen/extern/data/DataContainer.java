@@ -1,7 +1,5 @@
 package se.lundakarnevalen.extern.data;
 
-import android.text.Html;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -194,7 +192,7 @@ public class DataContainer {
         data.add(new DataElement(
                 R.string.karne_name,
                 R.drawable.music_logo,
-                DataType.FUTURAL));
+                DataType.PLAYER_FUTURAL));
         data.add(new DataElement(
                 R.string.train,
                 R.drawable.train_logo_other,
@@ -202,7 +200,7 @@ public class DataContainer {
         data.add(new DataElement(
                 R.string.radio_title,
                 R.drawable.radio_logo,
-                DataType.RADIO));
+                DataType.PLAYER_RADIO));
         data.add(new DataElement(
                 R.string.toilets_title,
                 R.drawable.toilets_logo,
@@ -267,6 +265,54 @@ public class DataContainer {
 
         data.add(new DataElement(R.string.care_title, R.string.care_title, 55.70589745349834f, 13.195349039021f, R.drawable.health_logo, DataType.CARE));
 
+        //TODO: fix logo for biljetteriet below
+        data.add(new DataElement(R.string.biljetteriet, R.string.biljetteriet, 55.70502736279169f, 13.19517650439325f, R.drawable.barnevalen_logo, DataType.BILJETTERIET));
+
+
+        //TODO: fix logo for police below
+        data.add(new DataElement(R.string.police, R.string.police, 55.70566708948963f, 13.19601302178581f, R.drawable.barnevalen_logo, DataType.POLICE));
+        data.add(new DataElement(R.string.police, R.string.police, 55.7052602564826f, 13.19401040144301f, R.drawable.barnevalen_logo, DataType.POLICE));
+
+        data.add(new DataElement(R.string.radio, R.string.radio, 55.70537955178818f, 13.19494142376257f, R.drawable.radio_logo, DataType.RADIO));
+
+        //TODO: fix logo for entre below
+        data.add(new DataElement(R.string.entre, R.string.en_lundensares_guide_till_galaxen, 55.7056318688607f, 13.19298738463846f, R.drawable.radio_logo, DataType.ENTRANCE));
+        data.add(new DataElement(R.string.entre, R.string.futopia, 55.7060196455733f, 13.19565500654615f, R.drawable.radio_logo, DataType.ENTRANCE));
+        data.add(new DataElement(R.string.entre, R.string.botaniska_ar_3014, 55.7051354472479f, 13.19293492729316f, R.drawable.radio_logo, DataType.ENTRANCE));
+        data.add(new DataElement(R.string.entre, R.string.futuralteleportal, 55.7043920444683f, 13.19313558627814f, R.drawable.radio_logo, DataType.ENTRANCE));
+        data.add(new DataElement(R.string.entre, R.string.intergalaktisk_invandring, 55.7037410100921f, 13.19423114265037f, R.drawable.radio_logo, DataType.ENTRANCE));
+        data.add(new DataElement(R.string.entre, R.string.ett_svart_hal, 55.7044690873277f, 13.19560129896877f, R.drawable.radio_logo, DataType.ENTRANCE));
+
+        data.add(new DataElement(R.string.snacks, R.string.discokaffetalt, 55.70519298937666f, 13.19317860493478f, R.drawable.snaxeriet_logo, DataType.SNACKS));
+        data.add(new DataElement(R.string.snacks, R.string.snacks_iv, 55.70585795050108f, 13.1943144945812f, R.drawable.snaxeriet_logo, DataType.SNACKS));
+        data.add(new DataElement(R.string.snacks, R.string.lyxbrygghus, 55.70547249304708f, 13.19451161073117f, R.drawable.snaxeriet_logo, DataType.SNACKS));
+        data.add(new DataElement(R.string.snacks, R.string.lyxbrygghus, 55.70479839152454f, 13.19472215029551f, R.drawable.snaxeriet_logo, DataType.SNACKS));
+        data.add(new DataElement(R.string.snacks, R.string.kungliga_snacksboden_estrelle, 55.70520990752672f, 13.19387434532636f, R.drawable.snaxeriet_logo, DataType.SNACKS));
+        data.add(new DataElement(R.string.snacks, R.string.bacon_oriley, 55.70642208831894f, 13.1957497314886f, R.drawable.snaxeriet_logo, DataType.SNACKS));
+
+        data.add(new DataElement(R.string.tombolan, R.string.putins_bodega_put_in_putin, 55.70652897496141f, 13.19567109412686f, R.drawable.bubble_tombolan, DataType.TOMBOLAN));
+        data.add(new DataElement(R.string.tombolan, R.string.rysk_roulette, 55.70598296464737f, 13.19420818471242f, R.drawable.bubble_tombolan, DataType.TOMBOLAN));
+        data.add(new DataElement(R.string.tombolan, R.string.hipster_eller_hobo, 55.70597691961526f, 13.19425780556136f, R.drawable.bubble_tombolan, DataType.TOMBOLAN));
+        data.add(new DataElement(R.string.tombolan, R.string.ligga_i_lund, 55.7052623716287f, 13.1933726994219f, R.drawable.bubble_tombolan, DataType.TOMBOLAN));
+        data.add(new DataElement(R.string.tombolan, R.string.war_of_karnewall_street, 55.70497261402468f, 13.19400101442841f, R.drawable.bubble_tombolan, DataType.TOMBOLAN));
+        data.add(new DataElement(R.string.tombolan, R.string.tillbaka_till_samtiden, 55.7046899767097f, 13.19470679837929f, R.drawable.bubble_tombolan, DataType.TOMBOLAN));
+        data.add(new DataElement(R.string.tombolan, R.string.strike_for_the_future, 55.7045492497648f, 13.19459512816178f, R.drawable.bubble_tombolan, DataType.TOMBOLAN));
+        data.add(new DataElement(R.string.tombolan, R.string.futuralbucks, 55.7046234675636f, 13.19465534628458f, R.drawable.bubble_tombolan, DataType.TOMBOLAN));
+
+        //TODO: Fix logo for trashcan below
+        data.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.70688332580387f, 13.19570738052719f, R.drawable.bubble_tombolan, DataType.TRASHCAN));
+        data.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.70521696656937f, 13.19372387921223f, R.drawable.bubble_tombolan, DataType.TRASHCAN));
+        data.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.7039572412542f, 13.19453665220126f, R.drawable.bubble_tombolan, DataType.TRASHCAN));
+        data.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.70457677586199f, 13.19544640504312f, R.drawable.bubble_tombolan, DataType.TRASHCAN));
+        data.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.70556189423078f, 13.19477811180374f, R.drawable.bubble_tombolan, DataType.TRASHCAN));
+        data.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.7048783266619f, 13.19446443948018f, R.drawable.bubble_tombolan, DataType.TRASHCAN));
+        data.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.7046984808458f, 13.19383546152834f, R.drawable.bubble_tombolan, DataType.TRASHCAN));
+
+        data.add(new DataElement(R.string.shoppen, R.string.shoppen, 55.70557904967363f, 13.19512260551833f, R.drawable.bubble_shoppen, DataType.SHOPPEN));
+
+        //TODO: Fix logo for scenes below
+        data.add(new DataElement(R.string.small_scene, R.string.small_scene, 55.7071037170697f, 13.19599227169824f, R.drawable.bubble_shoppen, DataType.SCENE));
+        data.add(new DataElement(R.string.big_scene, R.string.big_scene, 55.70558532232642f, 13.19365336887898f, R.drawable.bubble_shoppen, DataType.SCENE));
 
         return data;
     }

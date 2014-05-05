@@ -1,6 +1,8 @@
 package se.lundakarnevalen.extern.widget;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import android.content.Context;
@@ -19,6 +21,7 @@ import android.widget.TextView;
 
 import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
+import se.lundakarnevalen.extern.data.DataType;
 
 import static se.lundakarnevalen.extern.util.ViewUtil.get;
 
@@ -28,8 +31,8 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
     private final LayoutInflater mInflater;
     private final Context mContext;
 
-    public LKRightMenuArrayAdapter(Context context, List<LKRightMenuListItem> items){
-        super(context, android.R.layout.activity_list_item, items);
+    public LKRightMenuArrayAdapter(Context context){
+        super(context, android.R.layout.activity_list_item, new ArrayList<LKRightMenuListItem>());
         this.mContext = context;
         this.mInflater = LayoutInflater.from(context);
     }
@@ -73,9 +76,8 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
             getItem(showAllIdx).setSelected(c, false);
         }
 
-        ContentActivity activity = ContentActivity.class.cast(c);
-        if (activity != null) {
-            activity.updateMapView(selectedTypes());
+        if (c != null) {
+            ContentActivity.class.cast(c).updateMapView(selectedTypes());
         } else {
             Log.wtf(LOG_TAG, "ContentActivity was null");
         }
@@ -87,23 +89,23 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
         }
     }
 
-    public List<Integer> selectedTypes(){
-        List<Integer> markerTypes = new ArrayList<Integer>();
+    public List<DataType> selectedTypes(){
+        List<DataType> markerTypes = new ArrayList<DataType>();
         for (int i = 0; i < getCount(); i++) {
             LKRightMenuListItem item = getItem(i);
             if(item.selected){
-                markerTypes.add(item.markerType);
+                markerTypes.addAll(Arrays.asList(item.markerType));
             }
         }
         return markerTypes;
     }
 
-    /**
-     * Class representing a single row in the menu. Used with the LKMenuArrayAdapter.
-     * @author alexander
-     */
-    public static class LKRightMenuListItem {
-        private final int markerType;
+    public void addItem(String title, int logo, DataType[] types) {
+        add(new LKRightMenuListItem(title, logo, types));
+    }
+
+    static class LKRightMenuListItem {
+        private final DataType[] markerType;
         private final int icon;
         private final String title;
 
@@ -113,7 +115,7 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
         private TextView text;
         private ImageView image;
 
-        public LKRightMenuListItem(String title, int icon, int markerType){
+        public LKRightMenuListItem(String title, int icon, DataType[] markerType) {
             this.title = title;
             this.icon = icon;
             this.markerType = markerType;

@@ -26,12 +26,16 @@ import java.util.List;
 import java.util.Set;
 
 import se.lundakarnevalen.extern.android.R;
+import se.lundakarnevalen.extern.data.DataContainer;
+import se.lundakarnevalen.extern.data.DataElement;
+import se.lundakarnevalen.extern.data.DataType;
 import se.lundakarnevalen.extern.map.Marker;
 import se.lundakarnevalen.extern.map.MarkerType;
 import se.lundakarnevalen.extern.map.Markers;
 import se.lundakarnevalen.extern.util.Logf;
 
 import static android.graphics.Matrix.*;
+import static se.lundakarnevalen.extern.util.ViewUtil.*;
 
 /**
  * Created by Filip on 2014-04-27.
@@ -44,7 +48,7 @@ public class LKMapView extends SVGView {
 
     private static final String LOG_TAG = LKMapView.class.getSimpleName();
 
-    private Set<Integer> activeTypes = new HashSet<Integer>();
+    private Set<DataType> activeTypes = new HashSet<DataType>();
     private List<Marker> markers = new ArrayList<Marker>();
 
     private Paint mShadowInk;
@@ -121,49 +125,35 @@ public class LKMapView extends SVGView {
         mGpsShadowXRadius = dpToPx(context, 10);
         mGpsShadowYRadius = dpToPx(context, 6);
 
-        mBubbleSize = dpToPx(context, 14);
-        mBubbleShadowXRadius = dpToPx(context, 3);
-        mBubbleShadowYRadius = dpToPx(context, 2);
+        mBubbleSize = dpToPx(context, 8);
+        mBubbleShadowXRadius = dpToPx(context, 2);
+        mBubbleShadowYRadius = dpToPx(context, 1);
 
-        // @TODO: Add all markers
-        Markers.addMarkers(markers);
+        markers.clear();
+        for (DataElement elm : DataContainer.getAllData()) {
+            markers.add(new Marker(elm));
+        }
 
-        markers.add(new Marker(55.70497849657609f, 13.19363857294538f, R.drawable.kabaren_logo, MarkerType.FUN));
-        markers.add(new Marker(55.7047557721988f, 13.19537105245979f, R.drawable.kabaren_logo, MarkerType.FUN));
-        markers.add(new Marker(55.706504880685f, 13.19547491457354f, R.drawable.kabaren_logo, MarkerType.FOOD));
+        initBitmapCache(context);
 
+        if(activeTypes.size() == 0) {
+            for (DataType type : DataType.values()) {
+                activeTypes.add(type);
+            }
+        }
+    }
+
+    private void initBitmapCache(Context context) {
         bitmaps = new HashMap<Integer, Bitmap>();
         for (Marker m : markers) {
             if(!bitmaps.containsKey(m.picture)) {
                 bitmaps.put(m.picture, BitmapFactory.decodeResource(context.getResources(), m.picture));
             }
         }
-
-        //final Marker marker = new Marker(0f,0f, R.drawable.radio_logo, MarkerType.FUN);
-        //marker.x = 256;
-        //marker.y = 512;
-        //markers.add(marker);
-
-        if(activeTypes.size() == 0) {
-            activeTypes.add(MarkerType.FOOD);
-            activeTypes.add(MarkerType.FUN);
-            activeTypes.add(MarkerType.HELP);
-            activeTypes.add(MarkerType.WC);
-        }
     }
 
     public void setListener(OnMarkerSelectedListener listener) {
         this.mListener = listener;
-    }
-
-    public static int dpToPx(Context c, int dp) {
-        DisplayMetrics displayMetrics = c.getResources().getDisplayMetrics();
-        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
-    }
-
-    public static int dpToPx(Context c, float dp) {
-        DisplayMetrics displayMetrics = c.getResources().getDisplayMetrics();
-        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 
     @Override
@@ -211,9 +201,6 @@ public class LKMapView extends SVGView {
             paintMarker(canvas, mFocusedMarker);
             mBubbleSize /= 2.0f;
         }
-
-        getPointFromCoordinates(55.705439f, 13.193153f, mTmpPoint);
-        canvas.drawCircle(mTmpPoint[AXIS_X], mTmpPoint[AXIS_Y], mGpsShadowXRadius/ preDrawScale, mLightBlueInk);
 
         dst.set(mGpsMarkerPos.x,
                 mGpsMarkerPos.y,
@@ -293,7 +280,7 @@ public class LKMapView extends SVGView {
         anim.start();
     }
 
-    public void setActiveTypes(Collection<Integer> types) {
+    public void setActiveTypes(Collection<DataType> types) {
         activeTypes.clear();
         activeTypes.addAll(types);
         postInvalidate();

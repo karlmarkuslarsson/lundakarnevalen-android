@@ -32,6 +32,7 @@ import java.util.concurrent.TimeoutException;
 
 import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
+import se.lundakarnevalen.extern.data.DataType;
 import se.lundakarnevalen.extern.map.Marker;
 import se.lundakarnevalen.extern.util.Delay;
 import se.lundakarnevalen.extern.util.Timer;
@@ -211,7 +212,7 @@ public class MapFragment extends LKFragment {
                     root.getMeasuredWidth() * 1.0f / pic.getWidth());
     }
 
-    public void setActiveType(Collection<Integer> types) {
+    public void setActiveType(Collection<DataType> types) {
         mapView.setActiveTypes(types);
     }
 
