@@ -1,5 +1,7 @@
 package se.lundakarnevalen.extern.data;
 
+import android.text.Html;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -211,6 +213,11 @@ public class DataContainer {
                 R.string.care_title,
                 R.drawable.health_logo,
                 DataType.OTHER));
+
+        data.add(new DataElement(R.string.smanojen, R.string.sketchera, 55.70483928999759f, 13.19305851161833f, R.drawable.bubble_smanojen, DataType.SMALL_FUN));
+        data.add(new DataElement(R.string.smanojen, R.string.undergangen, 55.70460881490317f, 13.19352521597889f, R.drawable.bubble_smanojen, DataType.SMALL_FUN));
+        data.add(new DataElement(R.string.smanojen, R.string.futuralfuneral, 55.70450982359015f, 13.19322614967337f, R.drawable.bubble_smanojen, DataType.SMALL_FUN));
+
 
         return data;
     }

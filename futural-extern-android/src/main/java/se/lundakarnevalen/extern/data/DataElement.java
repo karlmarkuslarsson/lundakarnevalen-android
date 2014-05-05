@@ -75,7 +75,15 @@ public class DataElement implements Parcelable {
         this.title = title;
         this.picture = picture;
         this.type = type;
+    }
 
+    public DataElement(int place, int title, float lat, float lng, int picture, DataType type) {
+        this.place = place;
+        this.title = title;
+        this.lat = lat;
+        this.lng = lng;
+        this.picture = picture;
+        this.type = type;
     }
 
     @Override
