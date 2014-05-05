@@ -6,6 +6,7 @@ import android.util.Log;
  * Created by Filip on 2014-04-18.
  */
 public class Marker {
+    public static final String LOG_TAG = "Marker";
     public float x = -1;
     public float y = -1;
     public float lat;
@@ -23,10 +24,10 @@ public class Marker {
     // scale to??
     public boolean isClose(float relativeX, float relativeY) {
         if ((x - relativeX) * (x - relativeX) + (y - relativeY) * (y - relativeY) < 600) {
-            Log.d("realy close", "yeah close");
+            Log.d(LOG_TAG, "yeah close");
             return true;
         }
-        Log.d("dist:", "" + ((x - relativeX) * (x - relativeX) + (y - relativeY) * (y - relativeY)));
+        Log.d(LOG_TAG, "dist" + ((x - relativeX) * (x - relativeX) + (y - relativeY) * (y - relativeY)));
         return false;
     }
 }
