@@ -20,13 +20,17 @@ import se.lundakarnevalen.extern.widget.LKListRow;
  * Created by Markus on 2014-04-16.
  */
 public class OtherFragment extends LKFragment{
-    private List<DataElement> other = DataContainer.getDataOfType(DataType.OTHER);
+    private List<DataElement> other = new ArrayList<DataElement>();
 
     // Every time you switch to this fragment.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_other, null);
         ListView lv = (ListView) rootView.findViewById(R.id.fragment_other_list);
+
+        if (other.isEmpty()) {
+            other.addAll(DataContainer.getDataOfType(DataType.OTHER));
+        }
 
         ArrayList<LKListRow> items = new ArrayList<LKListRow>();
 

@@ -16,6 +16,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
 import com.nineoldandroids.animation.AnimatorSet;
+import com.nineoldandroids.animation.PropertyValuesHolder;
 import com.nineoldandroids.animation.ValueAnimator;
 
 import java.util.ArrayList;
@@ -236,27 +237,20 @@ public class LKMapView extends SVGView {
 
     public void setGpsMarker(int x, int y) {
         Logf.d(LOG_TAG, "GPSMarker moved to (%d, %d)", x, y);
-        ValueAnimator animX =  ValueAnimator.ofFloat(mGpsMarkerPos.x, x);
-        animX.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+        PropertyValuesHolder xh = PropertyValuesHolder.ofFloat("x",mGpsMarkerPos.x, x);
+        PropertyValuesHolder yh = PropertyValuesHolder.ofFloat("y",mGpsMarkerPos.y, y);
+        ValueAnimator anim = ValueAnimator.ofPropertyValuesHolder(xh, yh);
+        anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                mGpsMarkerPos.x = (Float) animation.getAnimatedValue();
-                invalidate();
+                mGpsMarkerPos.x = (Float) animation.getAnimatedValue("x");
+                mGpsMarkerPos.y = (Float) animation.getAnimatedValue("y");
+                postInvalidate();
             }
         });
-        ValueAnimator animY =  ValueAnimator.ofFloat(mGpsMarkerPos.y, y);
-        animY.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                mGpsMarkerPos.y = (Float) animation.getAnimatedValue();
-                invalidate();
-            }
-        });
-        final AnimatorSet animation = new AnimatorSet();
-        animation.playTogether(animX, animY);
-        animation.setInterpolator(new AccelerateDecelerateInterpolator());
-        animation.setDuration(1000);
-        animation.start();
+        anim.setInterpolator(new AccelerateDecelerateInterpolator());
+        anim.setDuration(1000);
+        anim.start();
     }
 
     public void setActiveTypes(Collection<Integer> types) {
