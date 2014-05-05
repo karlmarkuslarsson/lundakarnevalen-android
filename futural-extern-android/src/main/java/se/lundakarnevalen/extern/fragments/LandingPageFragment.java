@@ -3,6 +3,7 @@ package se.lundakarnevalen.extern.fragments;
 import static se.lundakarnevalen.extern.util.ViewUtil.*;
 
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -109,8 +110,9 @@ public class LandingPageFragment extends LKFragment{
 
         if(type== DataType.FUN) {
             get(rootView, R.id.question, TextView.class).setText(element.question);
-            get(rootView, R.id.text, TextView.class).setText(element.info);
+            get(rootView, R.id.text, TextView.class).setText(Html.fromHtml(getString(element.info)));
 //        rootView.findViewById(R.id.name).;
+
         } else if(type == DataType.FOOD) {
             get(rootView, R.id.question, TextView.class).setText(element.question);
             get(rootView, R.id.text, TextView.class).setText(element.info);

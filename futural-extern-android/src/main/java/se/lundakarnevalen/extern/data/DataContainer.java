@@ -1,5 +1,7 @@
 package se.lundakarnevalen.extern.data;
 
+import android.text.Html;
+
 import java.util.ArrayList;
 import java.util.List;
 
