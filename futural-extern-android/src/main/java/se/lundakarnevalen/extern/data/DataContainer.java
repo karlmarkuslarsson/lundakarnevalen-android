@@ -250,6 +250,24 @@ public class DataContainer {
         data.add(new DataElement(R.string.taltnojen, R.string.bucket_list, 55.70434433369048f, 13.19434999518406f, R.drawable.taltnojen_logo, DataType.TENT_FUN));
         data.add(new DataElement(R.string.taltnojen, R.string.karneroj, 55.70440176403623f, 13.1943178086826f, R.drawable.taltnojen_logo, DataType.TENT_FUN));
 
+        data.add(new DataElement(R.string.barnevalen, R.string.festtaltet, 55.70418149695015f, 13.19458440352848f, R.drawable.barnevalen_logo, DataType.BARNEVALEN));
+        data.add(new DataElement(R.string.barnevalen, R.string.gassimulator_3000, 55.7040650548606f, 13.19468165205387f, R.drawable.barnevalen_logo, DataType.BARNEVALEN));
+        data.add(new DataElement(R.string.barnevalen, R.string.cafe_kosmos, 55.70409508582605f, 13.19495755442542f, R.drawable.barnevalen_logo, DataType.BARNEVALEN));
+        data.add(new DataElement(R.string.barnevalen, R.string.forbjudna_taltet, 55.70399958255682f, 13.19495661742418f, R.drawable.barnevalen_logo, DataType.BARNEVALEN));
+        data.add(new DataElement(R.string.barnevalen, R.string.bak_och_framtidsresan, 55.7039678443762f, 13.19482518919924f, R.drawable.barnevalen_logo, DataType.BARNEVALEN));
+        data.add(new DataElement(R.string.barnevalen, R.string.astronautakademin, 55.7038136872786f, 13.19461463574077f, R.drawable.barnevalen_logo, DataType.BARNEVALEN));
+
+        data.add(new DataElement(R.string.toilets_title, R.string.toilets_title, 55.70648780072795f, 13.1958402043337f, R.drawable.toilets_logo, DataType.TOILETS));
+        data.add(new DataElement(R.string.toilets_title, R.string.toilets_title, 55.70603133250371f, 13.19404062814232f, R.drawable.toilets_logo, DataType.TOILETS));
+        data.add(new DataElement(R.string.toilets_title, R.string.toilets_title, 55.70485187667411f, 13.19570665852305f, R.drawable.toilets_logo, DataType.TOILETS));
+        data.add(new DataElement(R.string.toilets_title, R.string.toilets_title, 55.705228407599f, 13.19285637404313f, R.drawable.toilets_logo, DataType.TOILETS));
+        data.add(new DataElement(R.string.toilets_title, R.string.toilets_title, 55.70372639868275f, 13.19470515375246f, R.drawable.toilets_logo, DataType.TOILETS));
+        data.add(new DataElement(R.string.toilets_title, R.string.toilets_title, 55.70531936414573f, 13.19419428089188f, R.drawable.toilets_logo, DataType.TOILETS));
+        data.add(new DataElement(R.string.toilets_title, R.string.toilets_title, 55.70438108228282f, 13.19472544482855f, R.drawable.toilets_logo, DataType.TOILETS));
+
+        data.add(new DataElement(R.string.care_title, R.string.care_title, 55.70589745349834f, 13.195349039021f, R.drawable.health_logo, DataType.CARE));
+
+
         return data;
     }
 
