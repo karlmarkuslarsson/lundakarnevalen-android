@@ -82,7 +82,7 @@ public class MapFragment extends LKFragment {
         final View root = inflater.inflate(R.layout.fragment_map, container, false);
 
         mapView = get(root, R.id.map_id, LKMapView.class);
-
+        ContentActivity.class.cast(getActivity()).activateTrainButton();
         get(root, R.id.map_pull_out, View.class).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -162,6 +162,13 @@ public class MapFragment extends LKFragment {
     public void onPause() {
         mMatrixValues = mapView.exportMatrixValues();
         super.onPause();
+    }
+
+
+    @Override
+    public void onStop() {
+        ContentActivity.class.cast(getActivity()).inactivateTrainButton();
+        super.onStop();
     }
 
     @Override

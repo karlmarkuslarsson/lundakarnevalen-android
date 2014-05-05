@@ -2,6 +2,8 @@ package se.lundakarnevalen.extern.android;
 
 import android.app.Dialog;
 import android.content.res.Resources;
+import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
 import android.support.v4.view.GravityCompat;
@@ -23,6 +25,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -346,7 +349,51 @@ public class ContentActivity extends ActionBarActivity {
         }
     }
 
-    private static class VisibilityOnComplete implements Animation.AnimationListener {
+    private class MusicThread extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            MediaPlayer mp = MediaPlayer.create(ContentActivity.this, R.raw.train_sound);
+            mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    mp.release();
+                }
+
+            });
+            mp.start();
+            Log.d("Train","TRAIN");
+
+            return null;
+        }
+        //Code goes here
+    }
+        public void activateTrainButton() {
+        ImageButton b = get(mActionBarView, R.id.train, ImageButton.class);
+        b.setVisibility(View.VISIBLE);
+        b.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+//                MusicThread thread = new MusicThread();
+//                thread.execute();
+
+
+                loadFragmentWithAdd(TrainMapFragment.create(true));
+
+
+
+           }
+        });
+    }
+
+    public void inactivateTrainButton() {
+        get(mActionBarView,R.id.train,ImageButton.class).setVisibility(View.INVISIBLE);
+    }
+
+
+
+private static class VisibilityOnComplete implements Animation.AnimationListener {
         private final int visibility;
         private final View view;
 

@@ -2,6 +2,8 @@ package se.lundakarnevalen.extern.fragments;
 
 import android.content.Context;
 import android.graphics.Picture;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +16,7 @@ import android.widget.ViewFlipper;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
 
+import java.io.IOException;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -34,6 +37,7 @@ import static se.lundakarnevalen.extern.util.ViewUtil.get;
  */
 public class TrainMapFragment extends LKFragment{
     private static FutureTask<Picture> preloaded = null;
+    private MediaPlayer mp;
 
     public static Future<Picture> preload(Context c) {
         if(preloaded == null){
@@ -60,9 +64,14 @@ public class TrainMapFragment extends LKFragment{
 
     private SVGView img;
 
+
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
 
         if(savedInstanceState != null && savedInstanceState.containsKey(STATE_MATRIX)){
             Log.d(LOG_TAG, "Matrix values restored");
@@ -80,6 +89,24 @@ public class TrainMapFragment extends LKFragment{
         img = get(root, R.id.map_id, SVGView.class);
 
         final ViewFlipper flipper = get(root, R.id.map_switcher, ViewFlipper.class);
+
+        Bundle bundle = getArguments();
+
+        if(bundle.getBoolean("sound")) {
+
+            mp = MediaPlayer.create(getContext(), R.raw.train_sound);
+
+            mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    mp.release();
+                }
+
+            });
+
+            mp.start();
+        }
 
         new AsyncTask<Void, Void, Void>(){
             @Override
@@ -191,6 +218,17 @@ public class TrainMapFragment extends LKFragment{
         Log.d(LOG_TAG, "onSaveInstanceState() called");
         outState.putFloatArray(STATE_MATRIX, img.exportMatrixValues());
     }
+
+    public static TrainMapFragment create(boolean startSound) {
+        TrainMapFragment fragment = new TrainMapFragment();
+        Bundle bundle = new Bundle();
+
+        bundle.putBoolean("sound", startSound);
+
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
 
     public static TrainMapFragment create() {
         Bundle bundle = new Bundle();
