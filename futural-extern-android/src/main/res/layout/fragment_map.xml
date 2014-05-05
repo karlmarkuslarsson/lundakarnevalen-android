@@ -40,6 +40,36 @@
             android:layout_height="60dp"
             android:layout_alignParentTop="false"
             android:layout_marginBottom="60dp" />
+
+        <LinearLayout
+            android:id="@+id/map_info_layout"
+            android:drawableBottom="@color/beige_shadow"
+            android:background="@color/beige"
+            android:padding="6dp"
+            android:orientation="vertical"
+            android:visibility="invisible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <se.lundakarnevalen.extern.widget.LKTextView
+                android:id="@+id/map_info_text"
+                android:text="CIRKUS"
+                android:textSize="32sp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/red"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <se.lundakarnevalen.extern.widget.LKTextView
+                android:text="@string/click_for_more"
+                android:textSize="12sp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/grey"
+                android:background="@color/beige"
+                android:layout_width="match_parent"
+                android:drawableBottom="@color/beige_shadow"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
     </RelativeLayout>
 
 </ViewFlipper>

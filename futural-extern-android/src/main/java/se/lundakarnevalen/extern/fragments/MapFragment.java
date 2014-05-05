@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.caverock.androidsvg.SVG;
@@ -30,6 +32,7 @@ import java.util.concurrent.TimeoutException;
 
 import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
+import se.lundakarnevalen.extern.map.Marker;
 import se.lundakarnevalen.extern.util.Delay;
 import se.lundakarnevalen.extern.util.Timer;
 import se.lundakarnevalen.extern.widget.LKMapView;
@@ -123,6 +126,8 @@ public class MapFragment extends LKFragment {
             }
         }.execute();
 
+        if(mTimer != null) mTimer.cancel();
+
         mTimer = new java.util.Timer();
         mTimer.schedule(new TimerTask() {
             private Random r = new Random();
@@ -133,12 +138,12 @@ public class MapFragment extends LKFragment {
                 h.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        int x = r.nextInt(512);
-                        int y = r.nextInt(512);
+                        int x = 100+r.nextInt(300);
+                        int y = 100+r.nextInt(300);
                         float zoom = r.nextFloat() * 30.0f;
                         mapView.setGpsMarker(x, y);
                         mapView.zoomTo(x, y, zoom);
-                        h.postDelayed(this, 60000);
+                        //h.postDelayed(this, 60000);
                     }
                 }, 0);
             }
@@ -147,6 +152,22 @@ public class MapFragment extends LKFragment {
         flipper.setAnimateFirstView(true);
         flipper.setInAnimation(AnimationUtils.loadAnimation(inflater.getContext(), R.anim.abc_fade_in));
         flipper.setOutAnimation(AnimationUtils.loadAnimation(inflater.getContext(), R.anim.abc_fade_out));
+
+        mapView.setListener(new LKMapView.OnMarkerSelectedListener() {
+            @Override
+            public void onMarkerSelected(Marker m) {
+                boolean wasSelected = (m != null);
+                get(root, R.id.map_info_text, TextView.class).setText(String.valueOf(m));
+                get(root, R.id.map_info_layout, ViewGroup.class).setVisibility(wasSelected ? View.VISIBLE : View.INVISIBLE);
+                get(root, R.id.map_info_layout, ViewGroup.class).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getActivity(), "Open landingPage!!!", Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        });
+
         return root;
     }
 
