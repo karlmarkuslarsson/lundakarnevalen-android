@@ -134,12 +134,11 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
                             .setContentText(item.place+" "+item.getStartTime())
                             .setAutoCancel(true)
                             .setSmallIcon(R.drawable.test_spexet)
-                            .setSound(Uri.parse("android.resource://"
-                                    + getContext().getPackageName() + "/" + R.raw.futufutu));
+                            .setWhen(item.startDate.getTime()-1000*60*60)
+                            .setSound(Uri.parse("android.resource://" + getContext().getPackageName() + "/" + R.raw.futufutu));
 
 
                     builder.build();
-                    // .setWhen(item.startDate.getTime()-1000*60*60)
                     // .setSound() add cool sound
 
                     Notification notification = builder.getNotification();
