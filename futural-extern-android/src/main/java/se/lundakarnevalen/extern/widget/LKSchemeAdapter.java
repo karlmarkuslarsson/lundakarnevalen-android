@@ -60,15 +60,8 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
         RelativeLayout wrapper = (RelativeLayout) inflater.inflate(R.layout.scheme_element, parent, false);
 
         ImageView image = (ImageView) wrapper.findViewById(R.id.bottom_menu_image);
-        //image.setImageResource(item.icon);
-        //Bitmap bm = BitmapFactory.decodeResource(getContext().getResources(),item.icon);
-//        Bitmap bm = BitmapUtil.decodeSampledBitmapFromResource(getContext().getResources(),item.icon,200,200);
- //       Bitmap bm2 = BitmapUtil.getRoundedShape(bm);
-   //     bm.recycle();
+        image.setImageResource(item.icon);
 
-     //   image.setImageBitmap(bm2);
-    //    image.setTag(bm2);
-    image.setImageResource(item.icon);
         TextView start = (TextView) wrapper.findViewById(R.id.time1);
         TextView end = (TextView) wrapper.findViewById(R.id.time2);
         start.setText(item.getStartTime());

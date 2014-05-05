@@ -1,5 +1,7 @@
 package se.lundakarnevalen.extern.data;
 
+import android.text.Html;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -221,6 +223,32 @@ public class DataContainer {
                 R.string.care_title,
                 R.drawable.health_logo,
                 DataType.OTHER));
+
+        data.add(new DataElement(R.string.smanojen, R.string.sketchera, 55.70483928999759f, 13.19305851161833f, R.drawable.bubble_smanojen, DataType.SMALL_FUN));
+        data.add(new DataElement(R.string.smanojen, R.string.undergangen, 55.70460881490317f, 13.19352521597889f, R.drawable.bubble_smanojen, DataType.SMALL_FUN));
+        data.add(new DataElement(R.string.smanojen, R.string.futuralfuneral, 55.70450982359015f, 13.19322614967337f, R.drawable.bubble_smanojen, DataType.SMALL_FUN));
+
+        data.add(new DataElement(R.string.taltnojen, R.string.studenthistoriska_riksmuseet, 55.705053732349f, 13.1930051727718f, R.drawable.taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.babe_gone_bad, 55.70670843454561f, 13.19557811034903f, R.drawable.taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.vem_vet_sex, 55.7066857659761f, 13.1956639410537f, R.drawable.taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.ga_pa_vatten_med_jesus, 55.70497849657609f, 13.19363857294538f, R.drawable.taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.the_moon_exhibition, 55.70496791748455f, 13.19374988460371f, R.drawable.taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.future, 55.70487490800033f, 13.19361516583629f, R.drawable.taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.radda_lundagard, 55.70477162149118f, 13.19366770773009f, R.drawable.taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.futurel, 55.70474327928672f, 13.19386755037008f, R.drawable.taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.gudtyckligt, 55.70487120205509f, 13.19399670036882f, R.drawable.taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.robotic_orchestra, 55.70491716219782f, 13.19410953667312f, R.drawable.taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.ristorante_del_futuro, 55.70460616403029f, 13.19484501185647f, R.drawable.taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.framtidens_foto, 55.70460846205428f, 13.1940932229268f, R.drawable.taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.max_iv, 55.70477698351564f, 13.19424548398832f, R.drawable.taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.siartaltet, 55.70471570305888f, 13.19412313135794f, R.drawable.taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.the_day_after_tomorrow, 55.70464216642544f, 13.1939776676648f, R.drawable.taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.futural_sjukcentral, 55.70455254336257f, 13.19378734132492f, R.drawable.taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.moocs, 55.70445066216406f, 13.19348825390201f, R.drawable.taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.tidsresorse, 55.70437865703956f, 13.19333871179819f, R.drawable.taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.lunara_nationen, 55.70428614757939f, 13.19436877064109f, R.drawable.taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.bucket_list, 55.70434433369048f, 13.19434999518406f, R.drawable.taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.karneroj, 55.70440176403623f, 13.1943178086826f, R.drawable.taltnojen_logo, DataType.TENT_FUN));
 
         return data;
     }

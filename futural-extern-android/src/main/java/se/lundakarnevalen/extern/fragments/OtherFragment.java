@@ -30,6 +30,8 @@ public class OtherFragment extends LKFragment{
 
         if (other.isEmpty()) {
             other.addAll(DataContainer.getDataOfType(DataType.OTHER));
+            other.addAll(DataContainer.getDataOfType(DataType.RADIO));
+            other.addAll(DataContainer.getDataOfType(DataType.TRAIN));
         }
 
         ArrayList<LKListRow> items = new ArrayList<LKListRow>();
@@ -42,6 +44,7 @@ public class OtherFragment extends LKFragment{
             }
 
         }
+
         lv.setAdapter(new LKListAdapter(getContext(), items,getActivity()));
 
 

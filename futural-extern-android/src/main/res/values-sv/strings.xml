@@ -178,16 +178,60 @@ karnevalistisk femstjärning meny för 70 kr!\n\nBetalning: kort och kontant\n\n
     <string name="parking_title">PARKERING</string>
     <string name="care_title">SJUKVÅRD</string>
     <string name="toilets_title">TOALETTER</string>
-    <string name="no_internet">Kontrollera din internetanslutning!</string>
+    <string name="no_internet"><Kontrolle></Kontrolle>ra din internetanslutning!</string>
     <string name="dansen_place">AF BORGEN</string>
     <string name="dansen_title">DANSEN</string>
-    <string name="dansen_info" >En vis person sa en gång ”Varför gå genom livet när du kan dansa?”.
+    <string name="dansen_info" ><![CDATA[En vis person sa en gång ”Varför gå genom livet när du kan dansa?”.
         En ypperlig devis som Lundakarnevalen tagit till sig och kommer att efterleva
         – med råge! Under de tre karnevalsnätterna i maj så kan Lundakarnevalen stoltsera
         med Sveriges största nattklubb, Dansen, på AF-borgen! Under dessa nätter så kommer
         AF-borgen att transformeras till en mullrande dansinferno utan jämlike. Tillsammans
         kommer över 6000 personer dansa nätterna genom på Dansens fyra olika dansgolv i Tégners,
-        Stora salen och Lilla salen till tonerna av våra fantastiska DJ:s och artister.</string>
+        Stora salen och Lilla salen till tonerna av våra fantastiska DJ:s och artister.<br><br>
+        <b>Spelschema:</b><br><br>
+        <b>Fredag:</b><br>
+        Frostbite – Stora Salen<br>
+        23.30-01 Simon Rosemarin<br>
+        01-03 DJS FROM MARS (IT)<br>
+        03-04 Hugo Kalm<br><br>
+        Jangala – Tegnérs, Stora Golvet<br>
+        23.30-01 Baigi och Boboo Djoon<br>
+        01-02 SOM FAN (Live)<br>
+        02-04 Baigi och Boboo Djoon<br><br>
+        Jangala – Tegnérs, Lilla Golvet<br>
+        23.30-02 Lil Gates<br>
+        02-04 Louie<br><br>
+        Inferno – Festvåningen<br>
+        23.30-04 Alexander Svensson<br><br>
+        <b>Lördag:</b><br>
+        Frostbite – Stora Salen<br>
+        23.30-01 Simon Alexander Lindholm<br>
+        01-03 DUBVISION (NL)<br>
+        03-04 Simon Alexander Lindholm<br><br>
+        Jangala – Tegnérs, Stora Golvet<br>
+        23.30-01 Andreas Melin<br>
+        01-02 NIELLO (Live)<br>
+        02-04 Andreas Melin<br><br>
+        Jangala – Tegnérs, Lilla Golvet<br>
+        23.30-04 DJ Kaffi<br><br>
+        Inferno – Festvåningen<br>
+        23.30-04 Andreas Almén<br>
+        <br>
+        <b>Söndag:</b><br>
+        Frostbite – Stora Salen<br>
+        23.30-01 Karan<br>
+        01-03 MRTN<br>
+        03-04 Illjas och Melles<br><br>
+        Jangala – Tegnérs, Stora Golvet<br>
+        23.30-01 Systerkollektivet (Jeschka och Kikki Hermansson)<br>
+        01-02 CLEO och KRISTIN AMPARO + BROKE’N TIPSY (Live)<br>
+        02-04 Systerkollektivet (Jeschka och Kikki Hermansson)<br><br>
+        Jangala – Tegnérs, Lilla Golvet<br>
+        23.30-02 Joel Montan<br>
+        02-04 Mathilde Bojén<br><br>
+        Inferno – Festvåningen<br>
+        23.30-04 Kevin Ohlsson]]>
+    </string>
     <string name="dansen_question">VAD ÄR DANSEN?</string>
     <string name="emil_och_david">EMIL OCH DAVID</string>
     <string name="krog_thyme_title">THYME TRAVEL</string>

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Picture;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +20,7 @@ import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.util.Delay;
 import se.lundakarnevalen.extern.util.Timer;
@@ -63,8 +63,6 @@ public class TrainMapFragment extends LKFragment{
     private static final String STATE_MATRIX = "matrix";
 
     private float[] mMatrixValues;
-    private int displayWidth;
-    private int displayHeight;
 
     private SVGView img;
 
@@ -85,11 +83,6 @@ public class TrainMapFragment extends LKFragment{
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_map_train, container, false);
 
-        DisplayMetrics metrics = inflater.getContext().getResources().getDisplayMetrics();
-
-        displayWidth = metrics.widthPixels;
-        displayHeight = metrics.heightPixels;
-
         img = get(root, R.id.map_id, SVGView.class);
 
         final ViewFlipper flipper = get(root, R.id.map_switcher, ViewFlipper.class);
@@ -101,7 +94,7 @@ public class TrainMapFragment extends LKFragment{
                     Picture picture = preloaded.get(20, TimeUnit.SECONDS);
                     waitForLayout();
                     float minZoom = calculateMinZoom(img, picture);
-                    img.setSvg(picture, minZoom, mMatrixValues);
+                    img.setSvg(picture, minZoom, null);
                 } catch (InterruptedException e) {
                     Log.wtf(LOG_TAG, "Future was interrupted", e);
                 } catch (ExecutionException e) {
@@ -117,7 +110,7 @@ public class TrainMapFragment extends LKFragment{
                     Picture picture = new SvgLoader(inflater.getContext()).call();
                     waitForLayout();
                     float minZoom = calculateMinZoom(img, picture);
-                    img.setSvg(picture, minZoom, mMatrixValues);
+                    img.setSvg(picture, minZoom, null);
                 } catch (Exception ex){
                     Log.wtf(LOG_TAG, "Failed to load image after timeout", ex);
                 }
@@ -138,6 +131,7 @@ public class TrainMapFragment extends LKFragment{
     @Override
     public void onResume() {
         super.onResume();
+        ContentActivity.class.cast(getActivity()).allBottomsUnfocus();
         if(mMatrixValues != null) {
             img.importMatrixValues(mMatrixValues);
         }
@@ -157,7 +151,7 @@ public class TrainMapFragment extends LKFragment{
 
     private float calculateMinZoom(View root, Picture pic) {
         //We assume that the svg image is 512x512 for now
-        return Math.max(
+        return Math.min(
                 root.getMeasuredHeight() * 1.0f / pic.getHeight(),
                 root.getMeasuredWidth() * 1.0f / pic.getWidth());
     }
