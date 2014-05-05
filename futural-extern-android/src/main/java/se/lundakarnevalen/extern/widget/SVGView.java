@@ -350,7 +350,9 @@ public class SVGView extends View {
         final float[] centerOnViewXY = getPictureXYbyScreenXY(mViewEndPoint[0] * 0.5f, mViewEndPoint[1] * 0.5f);
         m.mapPoints(centerOnViewXY);
 
-        final float[] end = {targetXY[0] - centerOnViewXY[0], targetXY[1] - centerOnViewXY[1]};
+        final float[] end = {
+                targetXY[0] - centerOnViewXY[0],
+                targetXY[1] - centerOnViewXY[1]};
 
         float resX = startXY.x - end[0];
         float resY = startXY.y - end[1];
