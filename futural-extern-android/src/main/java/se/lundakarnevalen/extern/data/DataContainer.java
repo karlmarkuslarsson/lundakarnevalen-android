@@ -156,7 +156,7 @@ public class DataContainer {
                 R.string.krog_lajka_info,
                 55.705697f, 13.194630f,
                 R.drawable.monk,
-                R.drawable.undervatten_logo,
+                R.drawable.lajka_icon,
                 R.string.krog_lajka_question,
                 "12:00-01:00", "12:00-01:00", "12:00-24:00",
                 DataType.FOOD));
