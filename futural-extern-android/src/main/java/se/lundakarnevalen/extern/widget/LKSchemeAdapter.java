@@ -118,7 +118,8 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
                     Intent intent = new Intent(getContext(), ContentActivity.class);
                     PendingIntent pIntent = PendingIntent.getActivity(getContext(), 0, intent, 0);
 
-
+                    // TODO Change to
+                    // http://androidideasblog.blogspot.co.uk/2011/07/alarmmanager-and-notificationmanager.html
                     NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext());
                     Log.d("time",": "+(item.startDate.getTime()-1000*60*60+","+System.currentTimeMillis()));
                     builder = builder
@@ -139,6 +140,7 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
                     // hide the notification after its selected
                     builder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
                     notificationManager.notify(item.getStartTime()+item.place+item.name,0,notification);
+
 
 
                     SharedPreferences sharedPref = getContext().getSharedPreferences("lundkarnevalen",Context.MODE_PRIVATE);

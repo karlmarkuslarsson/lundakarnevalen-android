@@ -315,13 +315,15 @@ public class MelodyFragment extends LKFragment {
             if (playing) {
                 factory.stopAll();
             }
-            rewindMarker();
-            rewindLyrics();
-            handler.removeCallbacks(r);
-            moveHandler.removeCallbacks(r2);
-            playing = false;
-            started = false;
-            play.setImageResource(R.drawable.playerbutton);
+            if(started) {
+                rewindMarker();
+                rewindLyrics();
+                handler.removeCallbacks(r);
+                moveHandler.removeCallbacks(r2);
+                playing = false;
+                started = false;
+                play.setImageResource(R.drawable.playerbutton);
+            }
         }
     }
 
