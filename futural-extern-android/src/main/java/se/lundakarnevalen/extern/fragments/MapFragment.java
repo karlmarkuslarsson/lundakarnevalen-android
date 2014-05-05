@@ -128,7 +128,7 @@ public class MapFragment extends LKFragment {
             private Random r = new Random();
             @Override
             public void run() {
-                if(preloaded != null && !preloaded.isDone()) return;
+                if(preloaded != null && !preloaded.isDone() && !mapView.isShown()) return;
                 final Handler h = new Handler(getActivity().getMainLooper());
                 h.postDelayed(new Runnable() {
                     @Override
@@ -138,7 +138,7 @@ public class MapFragment extends LKFragment {
                         float zoom = r.nextFloat() * 30.0f;
                         mapView.setGpsMarker(x, y);
                         mapView.zoomTo(x, y, zoom);
-                        h.postDelayed(this, 5000);
+                        h.postDelayed(this, 60000);
                     }
                 }, 0);
             }

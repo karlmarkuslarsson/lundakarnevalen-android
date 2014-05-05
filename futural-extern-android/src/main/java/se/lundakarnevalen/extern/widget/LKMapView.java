@@ -158,6 +158,11 @@ public class LKMapView extends SVGView {
     @Override
     protected boolean onClick(float xInSvg, float yInSvg) {
         Logf.d(LOG_TAG, "click(%f, %f)", xInSvg, yInSvg);
+        for (Marker m : markers){
+            if(m.x != -1 && m.isClose(m.x, m.y)) {
+                zoomTo(xInSvg, yInSvg, 1.0f);
+            }
+        }
         return true;
     }
 
@@ -166,17 +171,10 @@ public class LKMapView extends SVGView {
         super.onDrawObjects(canvas); // Must be called to draw map
         preDrawScale = mMatrixValues[MSCALE_X];
 
-        // TODO TEST
-        /*
-        markers = new ArrayList<Marker>();
-        markers.add(new Marker(55.7048333f, 13.195352777777778f, R.drawable.cirkusen_logo, MarkerType.FUN));
-        markers.add(new Marker(55.7059389f, 13.194805555555556f, R.drawable.filmen_logo, MarkerType.FUN));
-        */
-
         for (Marker m : markers) {
             if(activeTypes.contains(m.type)) {
                 if (m.x == -1) {
-                    getPointFromCoordinates(m.lat, m.lng, mTmpPoint);
+                    getPointFromCoordinates(m);
                 }
 
                 dst.set(m.x, m.y, m.x, m.y);
@@ -223,6 +221,13 @@ public class LKMapView extends SVGView {
         float lon1 = (lon - startLonMap) / diffLon;
         dst[0] = lon1 * mPictureEndPoint[AXIS_X];
         dst[1] = lat1 * mPictureEndPoint[AXIS_Y];
+    }
+
+    private void getPointFromCoordinates(Marker m) {
+        float lat = (m.lat - startLatMap) / diffLat;
+        float lon = (m.lng - startLonMap) / diffLon;
+        m.x = lon * mPictureEndPoint[AXIS_X];
+        m.y = lat * mPictureEndPoint[AXIS_Y];
     }
 
     private void normalizeToMidpointBottom(RectF rect) {
