@@ -38,6 +38,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import se.lundakarnevalen.extern.data.DataType;
 import se.lundakarnevalen.extern.fragments.FoodFragment;
 import se.lundakarnevalen.extern.fragments.FunFragment;
 import se.lundakarnevalen.extern.fragments.MapFragment;
@@ -246,20 +247,17 @@ public class ContentActivity extends ActionBarActivity {
     private void populateRightMenuDrawer() {
         LayoutInflater inflater = LayoutInflater.from(this);
 
-        List<LKRightMenuListItem> listItems = new ArrayList<LKRightMenuListItem>();
-        adapter = new LKRightMenuArrayAdapter(this, listItems);
-
-        adapter.add(new LKRightMenuListItem(getString(R.string.food),R.drawable.food_logo, MarkerType.FOOD));
-        adapter.add(new LKRightMenuListItem(getString(R.string.fun),R.drawable.fun_logo, MarkerType.FUN));
-        adapter.add(new LKRightMenuListItem(getString(R.string.help),R.drawable.help_logo, MarkerType.HELP));
-        adapter.add(new LKRightMenuListItem(getString(R.string.wc),R.drawable.wc_logo, MarkerType.WC));
-        adapter.add(new LKRightMenuListItem(getString(R.string.show_all),0, MarkerType.SHOW));
+        adapter = new LKRightMenuArrayAdapter(this);
+        adapter.addItem(getString(R.string.food),R.drawable.food_logo, new DataType[]{DataType.FOOD});
+        adapter.addItem(getString(R.string.fun),R.drawable.fun_logo, new DataType[]{DataType.FUN});
+        adapter.addItem(getString(R.string.help),R.drawable.help_logo, new DataType[]{});
+        adapter.addItem(getString(R.string.wc),R.drawable.wc_logo,new DataType[]{DataType.TOILETS});
+        adapter.addItem(getString(R.string.show_all),0, DataType.values());
 
         rightMenuList.setAdapter(adapter);
         rightMenuList.setOnItemClickListener(adapter);
         rightMenuList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         rightMenuList.setItemsCanFocus(false);
-
     }
 
     public void allBottomsUnfocus() {
@@ -277,7 +275,7 @@ public class ContentActivity extends ActionBarActivity {
         }
     }
 
-    public void updateMapView(Collection<Integer> types) {
+    public void updateMapView(Collection<DataType> types) {
         mapFragment.setActiveType(types);
     }
 
