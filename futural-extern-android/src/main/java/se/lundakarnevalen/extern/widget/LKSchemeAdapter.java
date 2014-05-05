@@ -2,10 +2,12 @@ package se.lundakarnevalen.extern.widget;
 
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -33,14 +35,18 @@ import android.widget.TextView;
 import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.util.BitmapUtil;
+import se.lundakarnevalen.extern.util.SchemeAlarm;
 
 public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> implements OnItemClickListener {
     private LayoutInflater inflater;
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+    private Context context;
+    private PendingIntent mAlarmSender;
 
     public LKSchemeAdapter(Context context, List<LKSchemeItem> items){
         super(context, android.R.layout.simple_list_item_1, items);
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.context = context;
     }
 
     @Override
@@ -115,11 +121,13 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
                     // Build notification
                     // Actions are just fake
 
-                    Intent intent = new Intent(getContext(), ContentActivity.class);
-                    PendingIntent pIntent = PendingIntent.getActivity(getContext(), 0, intent, 0);
+                    //Intent intent = new Intent(getContext(), ContentActivity.class);
+                    //PendingIntent pIntent = PendingIntent.getActivity(getContext(), 0, intent, 0);
 
                     // TODO Change to
                     // http://androidideasblog.blogspot.co.uk/2011/07/alarmmanager-and-notificationmanager.html
+
+                    /*
                     NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext());
                     Log.d("time",": "+(item.startDate.getTime()-1000*60*60+","+System.currentTimeMillis()));
                     builder = builder
@@ -133,14 +141,25 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
 
 
                     builder.build();
-                    // .setSound() add cool sound
 
+                    */
+
+                    Intent alarmIntent = new Intent(context, SchemeAlarm.class);
+
+                    alarmIntent.putExtra("Title", item.name);
+                    alarmIntent.putExtra("Desc", item.place+" "+item.getStartTime());
+                    mAlarmSender = PendingIntent.getBroadcast(context, 0, alarmIntent, 0);
+
+                    startAlarm();
+                    // .setSound() add cool sound
+                    /*
                     Notification notification = builder.getNotification();
                     NotificationManager notificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
                     // hide the notification after its selected
                     builder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
-                    notificationManager.notify(item.getStartTime()+item.place+item.name,0,notification);
 
+                    notificationManager.notify(item.getStartTime()+item.place+item.name,0,notification);
+                    */
 
 
                     SharedPreferences sharedPref = getContext().getSharedPreferences("lundkarnevalen",Context.MODE_PRIVATE);
@@ -220,6 +239,10 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
 
         }
 
+
+
+
+
         public String getStartTime() {return dateFormat.format(startDate);}
         public String getEndTime() {
             return dateFormat.format(endDate);
@@ -227,5 +250,14 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
         public void setOnClickListener(OnClickListener listener) {
             this.listener = listener;
         }
+    }
+    public void startAlarm(){
+        //Set the alarm to 10 seconds from now
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.SECOND, 10);
+        long firstTime = c.getTimeInMillis();
+        // Schedule the alarm!
+        AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        am.set(AlarmManager.RTC_WAKEUP, firstTime, mAlarmSender);
     }
 }

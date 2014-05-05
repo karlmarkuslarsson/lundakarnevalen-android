@@ -29,6 +29,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <receiver android:process=":remote" android:name="se.lundakarnevalen.extern.util.SchemeAlarm"></receiver>
     </application>
 
 </manifest>
