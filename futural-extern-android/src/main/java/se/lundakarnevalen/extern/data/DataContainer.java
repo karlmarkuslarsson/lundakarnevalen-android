@@ -147,10 +147,20 @@ public class DataContainer {
                 R.drawable.header_krogundervatten,
                 R.drawable.undervatten_logo,
                 R.string.krog_undervatten_question,
-                "15:30-22:30", "15:30-23:30", "15:30-22:30",
+                "12:00-01:00", "12:00-01:00", "12:00-01:00",
                 DataType.FOOD, menu, menuPrice));
 
+        menu = new ArrayList<Integer>();
+        menuPrice = new ArrayList<String>();
+        menu.add(R.string.lajka_food1);
+        menu.add(R.string.lajka_food2);
+        //   menu.add("");
+        menuPrice.add("50");
+        menuPrice.add("50");
+
+//TODO check time
         data.add(new DataElement(
+
                 R.string.krog_lajka_place,
                 R.string.krog_lajka_title,
                 R.string.krog_lajka_info,
@@ -159,20 +169,20 @@ public class DataContainer {
                 R.drawable.lajka_icon,
                 R.string.krog_lajka_question,
                 "12:00-01:00", "12:00-01:00", "12:00-24:00",
-                DataType.FOOD));
+                DataType.FOOD, menu, menuPrice));
         menu = new ArrayList<Integer>();
         menuPrice = new ArrayList<String>();
         menu.add(R.string.thyme_food1);
         menu.add(R.string.thyme_food2);
         //   menu.add("");
-        menuPrice.add("??");
-        menuPrice.add("??");
+        menuPrice.add("70");
+        menuPrice.add("70");
 
 
         data.add(new DataElement(
                 R.string.krog_thyme_place,
                 R.string.krog_thyme_title,
-                R.string.krog_lajka_info,
+                R.string.krog_thyme_info,
                 55.705697f, 13.194630f,
                 R.drawable.monk,
                 R.drawable.fine_dine_logo,

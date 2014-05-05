@@ -125,12 +125,12 @@
     </string>
 
     <string name="cocktail_question">VAD FINNS PÅ COCKTAILBAREN?</string>
-    <string name="cocktail_place">FOODSTOCK</string>
+    <string name="cocktail_place"></string>
     <string name="cocktail_title">COCKTAILBAREN</string>
     <string name="cocktail_info">Drinkar: (drinkmeny om ca 10 st max), karnevöl, karnevale, cider, läsk och vin.\n\nMat: Ej mat\n\nBetalning: kort och kontant. DOCK, cash is king!</string>
 
     <string name="hipp_baren_question">VAD FINNS PÅ HIPP I BAREN?</string>
-    <string name="hipp_baren_place">FOODSTOCK</string>
+    <string name="hipp_baren_place"></string>
     <string name="hipp_baren_title">HIPP I BAREN</string>
     <string name="hipp_baren_info">Drinkar: karnevöl, cider, läsk och eventuellt vin.\n\nMat: Ej mat\n\nBetalning: kort och kontant. DOCK, cash is king!</string>
 
@@ -138,7 +138,8 @@
     Med härlig atmosfär och en stor uteservering mitt i karnevalens kaos skapar Krog Lajka ditt
         perfekta karnevalshäng! Kom till oss och ät god mat, släck törsten med en svalkande
         karnevöl och slå dig ner på karnevalens bästa plats: mitt framför stora scenen.\n\n
-    Betalning: Kort och kontant (har inte hört något om futuralbetal, men tror inte att vi kommer att ha det)\n\n
+    Betalning: Kort och kontant\n\n
+    Betalning: Kort och kontant\n\n
     Serverar: öl, vin och cider
     </string>
 
@@ -148,10 +149,9 @@
 
 
 <string name="krog_thyme_info">
-    Öppet: 14-02\n\n
-    Café Athen i AF-borgen kommer du mellan 14 och 2 finna tidsmaskinen som
- tar dig på en kulinarisk tidsresa som kryddar din karnevalsupplevelse.\n\n
- Dagen börjar med en 50-tals amerikansk diner och i högtalarna spelas
+Café Athen i AF-borgen kommer du mellan 14 och 2 finna tidsmaskinen som
+tar dig på en kulinarisk tidsresa som kryddar din karnevalsupplevelse.\n\n
+Dagen börjar med en 50-tals amerikansk diner och i högtalarna spelas
 tidstypisk musik På kvällen kröker vi tid och rum och svirar om till en
 bar i sann studio 54 anda. Räkna med att vi alltid kommer leverera en
 karnevalistisk femstjärning meny för 70 kr!\n\n
@@ -159,12 +159,12 @@ karnevalistisk femstjärning meny för 70 kr!\n\n
     Serverar: Alkohol
     </string>
     <string name="krog_undervatten_place" />
-    <string name="krog_undervatten_title">KROG UNDERVATTEN</string>
-    <string name="krog_undervatten_question">WHAT IS UNDERVATTEN?</string>
+    <string name="krog_undervatten_title">UNDERVATTEN</string>
+    <string name="krog_undervatten_question">VAD ÄR KROG UNDERVATTEN?</string>
 
     <string name="empty" />
     <string name="folkan_question">VAD FINNS PÅ FOLKAN?</string>
-    <string name="folkan_place">FOODSTOCK</string>
+    <string name="folkan_place"></string>
     <string name="folkan_title">FOLKAN</string>
     <string name="folkan_info">Drinkar: karnevöl, cider, läsk och eventuellt vin.\n\nMat: Ej mat\n\nBetalning: kort och kontant. DOCK, cash is king!</string>
     <string name="sousou">CISSOKO</string>
@@ -179,7 +179,7 @@ karnevalistisk femstjärning meny för 70 kr!\n\n
     <string name="timbaktu">TIMBUKTU</string>
     <string name="discoteka">DISCOTEKA</string>
     <string name="e_type">E-TYPE</string>
-    <string name="small_scene">LILLA SCENEN</string>
+    <string name="small_scene">SMALL SCENE</string>
     <string name="hammar">PER HAMMAR</string>
     <string name="sandra">SANDRA MOSH</string>
     <string name="partiet">PARTIET</string>
@@ -269,6 +269,9 @@ karnevalistisk femstjärning meny för 70 kr!\n\n
     <string name="undervatten_food3">FRANSK LINSSOPPA</string>
     <string name="thyme_food1">KYCKLINGFILÈ MED POTATISSALLAD, TIMJAN, CITRONOLJA OCH MANGODRESSING</string>
     <string name="thyme_food2">KANTARELL OCH VÄSTERBOTTENPAJ MED SALLAD OCH RHODE ISLAND DRESSING</string>
+    <string name="lajka_food1">PAELLA</string>
+    <string name="lajka_food2">VEGETARISK LASAGNE</string>
+
     <string name="karne_name">KARNEVALSLÅTEN</string>
     <string name="david">DAVID STRÖMBÄCK</string>
     <string name="emil">EMIL SUNESSON</string>
