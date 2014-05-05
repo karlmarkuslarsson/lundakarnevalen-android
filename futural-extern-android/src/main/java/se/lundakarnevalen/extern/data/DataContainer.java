@@ -299,6 +299,21 @@ public class DataContainer {
         data.add(new DataElement(R.string.tombolan, R.string.strike_for_the_future, 55.7045492497648f, 13.19459512816178f, R.drawable.bubble_tombolan, DataType.TOMBOLAN));
         data.add(new DataElement(R.string.tombolan, R.string.futuralbucks, 55.7046234675636f, 13.19465534628458f, R.drawable.bubble_tombolan, DataType.TOMBOLAN));
 
+        //TODO: Fix logo for trashcan below
+        data.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.70688332580387f, 13.19570738052719f, R.drawable.bubble_tombolan, DataType.TRASHCAN));
+        data.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.70521696656937f, 13.19372387921223f, R.drawable.bubble_tombolan, DataType.TRASHCAN));
+        data.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.7039572412542f, 13.19453665220126f, R.drawable.bubble_tombolan, DataType.TRASHCAN));
+        data.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.70457677586199f, 13.19544640504312f, R.drawable.bubble_tombolan, DataType.TRASHCAN));
+        data.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.70556189423078f, 13.19477811180374f, R.drawable.bubble_tombolan, DataType.TRASHCAN));
+        data.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.7048783266619f, 13.19446443948018f, R.drawable.bubble_tombolan, DataType.TRASHCAN));
+        data.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.7046984808458f, 13.19383546152834f, R.drawable.bubble_tombolan, DataType.TRASHCAN));
+
+        data.add(new DataElement(R.string.shoppen, R.string.shoppen, 55.70557904967363f, 13.19512260551833f, R.drawable.bubble_shoppen, DataType.SHOPPEN));
+
+        //TODO: Fix logo for scenes below
+        data.add(new DataElement(R.string.small_scene, R.string.small_scene, 55.7071037170697f, 13.19599227169824f, R.drawable.bubble_shoppen, DataType.SCENE));
+        data.add(new DataElement(R.string.big_scene, R.string.big_scene, 55.70558532232642f, 13.19365336887898f, R.drawable.bubble_shoppen, DataType.SCENE));
+
         return data;
     }
 
