@@ -316,4 +316,14 @@ karnevalistisk femstjärning meny för 70 kr!\n\n
     <string name="bucket_list">Bucket List</string>
     <string name="karneroj">Karneröj</string>
 
+    <string name="barnevalen">BARNEVALEN</string>
+    <string name="festtaltet">Festtältet</string>
+    <string name="gassimulator_3000">Gåssimulator 3000</string>
+    <string name="cafe_kosmos">Café Kosmos</string>
+    <string name="forbjudna_taltet">Förbjudna tältet</string>
+    <string name="bak_och_framtidsresan">Bak- och framtidsresan</string>
+    <string name="astronautakademin">Astronautakademin</string>
+
+
+
 </resources>
