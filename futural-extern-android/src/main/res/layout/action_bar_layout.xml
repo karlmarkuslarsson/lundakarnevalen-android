@@ -16,5 +16,19 @@
             android:textColor="@color/white"
             android:text="@string/lundakarnevalen_actionbar"
             />
+    <ImageButton
+        android:src="@drawable/train_logo_small"
+        android:scaleType="fitCenter"
+        android:id="@+id/train"
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:background="@drawable/selector_action_menu_out"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginRight="5dp"
+        android:layout_alignParentRight="true"
+
+        />
 
 </RelativeLayout>
