@@ -265,8 +265,7 @@ public class DataContainer {
 
         data.add(new DataElement(R.string.care_title, R.string.care_title, 55.70589745349834f, 13.195349039021f, R.drawable.map_health_logo, DataType.CARE));
 
-        //TODO: fix logo for biljetteriet below
-        data.add(new DataElement(R.string.biljetteriet, R.string.biljetteriet, 55.70502736279169f, 13.19517650439325f, R.drawable.barnevalen_logo, DataType.BILJETTERIET));
+        data.add(new DataElement(R.string.biljetteriet, R.string.biljetteriet, 55.70502736279169f, 13.19517650439325f, R.drawable.map_biljetteriet_icon, DataType.BILJETTERIET));
 
 
         data.add(new DataElement(R.string.police, R.string.police, 55.70566708948963f, 13.19601302178581f, R.drawable.map_security_logo, DataType.POLICE));
@@ -274,13 +273,12 @@ public class DataContainer {
 
         data.add(new DataElement(R.string.radio, R.string.radio, 55.70537955178818f, 13.19494142376257f, R.drawable.radio_logo, DataType.RADIO));
 
-        //TODO: fix logo for entre below
-        data.add(new DataElement(R.string.entre, R.string.en_lundensares_guide_till_galaxen, 55.7056318688607f, 13.19298738463846f, R.drawable.radio_logo, DataType.ENTRANCE));
-        data.add(new DataElement(R.string.entre, R.string.futopia, 55.7060196455733f, 13.19565500654615f, R.drawable.radio_logo, DataType.ENTRANCE));
-        data.add(new DataElement(R.string.entre, R.string.botaniska_ar_3014, 55.7051354472479f, 13.19293492729316f, R.drawable.radio_logo, DataType.ENTRANCE));
-        data.add(new DataElement(R.string.entre, R.string.futuralteleportal, 55.7043920444683f, 13.19313558627814f, R.drawable.radio_logo, DataType.ENTRANCE));
-        data.add(new DataElement(R.string.entre, R.string.intergalaktisk_invandring, 55.7037410100921f, 13.19423114265037f, R.drawable.radio_logo, DataType.ENTRANCE));
-        data.add(new DataElement(R.string.entre, R.string.ett_svart_hal, 55.7044690873277f, 13.19560129896877f, R.drawable.radio_logo, DataType.ENTRANCE));
+        data.add(new DataElement(R.string.entre, R.string.en_lundensares_guide_till_galaxen, 55.7056318688607f, 13.19298738463846f, R.drawable.map_entrance_icon, DataType.ENTRANCE));
+        data.add(new DataElement(R.string.entre, R.string.futopia, 55.7060196455733f, 13.19565500654615f, R.drawable.map_entrance_icon, DataType.ENTRANCE));
+        data.add(new DataElement(R.string.entre, R.string.botaniska_ar_3014, 55.7051354472479f, 13.19293492729316f, R.drawable.map_entrance_icon, DataType.ENTRANCE));
+        data.add(new DataElement(R.string.entre, R.string.futuralteleportal, 55.7043920444683f, 13.19313558627814f, R.drawable.map_entrance_icon, DataType.ENTRANCE));
+        data.add(new DataElement(R.string.entre, R.string.intergalaktisk_invandring, 55.7037410100921f, 13.19423114265037f, R.drawable.map_entrance_icon, DataType.ENTRANCE));
+        data.add(new DataElement(R.string.entre, R.string.ett_svart_hal, 55.7044690873277f, 13.19560129896877f, R.drawable.map_entrance_icon, DataType.ENTRANCE));
 
         data.add(new DataElement(R.string.snacks, R.string.discokaffetalt, 55.70519298937666f, 13.19317860493478f, R.drawable.map_snaxeriet_logo, DataType.SNACKS));
         data.add(new DataElement(R.string.snacks, R.string.snacks_iv, 55.70585795050108f, 13.1943144945812f, R.drawable.map_snaxeriet_logo, DataType.SNACKS));
@@ -298,20 +296,19 @@ public class DataContainer {
         data.add(new DataElement(R.string.tombolan, R.string.strike_for_the_future, 55.7045492497648f, 13.19459512816178f, R.drawable.bubble_tombolan, DataType.TOMBOLAN));
         data.add(new DataElement(R.string.tombolan, R.string.futuralbucks, 55.7046234675636f, 13.19465534628458f, R.drawable.bubble_tombolan, DataType.TOMBOLAN));
 
-        //TODO: Fix logo for trashcan below
-        data.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.70688332580387f, 13.19570738052719f, R.drawable.bubble_tombolan, DataType.TRASHCAN));
-        data.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.70521696656937f, 13.19372387921223f, R.drawable.bubble_tombolan, DataType.TRASHCAN));
-        data.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.7039572412542f, 13.19453665220126f, R.drawable.bubble_tombolan, DataType.TRASHCAN));
-        data.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.70457677586199f, 13.19544640504312f, R.drawable.bubble_tombolan, DataType.TRASHCAN));
-        data.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.70556189423078f, 13.19477811180374f, R.drawable.bubble_tombolan, DataType.TRASHCAN));
-        data.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.7048783266619f, 13.19446443948018f, R.drawable.bubble_tombolan, DataType.TRASHCAN));
-        data.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.7046984808458f, 13.19383546152834f, R.drawable.bubble_tombolan, DataType.TRASHCAN));
+        data.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.70688332580387f, 13.19570738052719f, R.drawable.map_soptunna_icon, DataType.TRASHCAN));
+        data.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.70521696656937f, 13.19372387921223f, R.drawable.map_soptunna_icon, DataType.TRASHCAN));
+        data.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.7039572412542f, 13.19453665220126f, R.drawable.map_soptunna_icon, DataType.TRASHCAN));
+        data.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.70457677586199f, 13.19544640504312f, R.drawable.map_soptunna_icon, DataType.TRASHCAN));
+        data.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.70556189423078f, 13.19477811180374f, R.drawable.map_soptunna_icon, DataType.TRASHCAN));
+        data.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.7048783266619f, 13.19446443948018f, R.drawable.map_soptunna_icon, DataType.TRASHCAN));
+        data.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.7046984808458f, 13.19383546152834f, R.drawable.map_soptunna_icon, DataType.TRASHCAN));
 
         data.add(new DataElement(R.string.shoppen, R.string.shoppen, 55.70557904967363f, 13.19512260551833f, R.drawable.bubble_shoppen, DataType.SHOPPEN));
 
         //TODO: Fix logo for scenes below
-        data.add(new DataElement(R.string.small_scene, R.string.small_scene, 55.7071037170697f, 13.19599227169824f, R.drawable.bubble_shoppen, DataType.SCENE));
-        data.add(new DataElement(R.string.big_scene, R.string.big_scene, 55.70558532232642f, 13.19365336887898f, R.drawable.bubble_shoppen, DataType.SCENE));
+        data.add(new DataElement(R.string.small_scene, R.string.small_scene, 55.7071037170697f, 13.19599227169824f, R.drawable.map_scene_logo, DataType.SCENE));
+        data.add(new DataElement(R.string.big_scene, R.string.big_scene, 55.70558532232642f, 13.19365336887898f, R.drawable.map_scene_logo, DataType.SCENE));
 
         return data;
     }
