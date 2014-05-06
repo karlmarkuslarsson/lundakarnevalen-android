@@ -28,7 +28,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/header_clouds"
-            android:id="@+id/header_background"
             android:layout_marginBottom="3dp"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
