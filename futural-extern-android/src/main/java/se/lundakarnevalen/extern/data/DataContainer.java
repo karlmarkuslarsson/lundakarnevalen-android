@@ -222,27 +222,27 @@ public class DataContainer {
                 R.string.toilets_title,
                 R.drawable.toilets_logo,
                 R.drawable.toilets_logo,
-                DataType.OTHER));
+                DataType.TOILET));
         data.add(new DataElement(
                 R.string.security_title,
                 R.drawable.security_logo,
                 R.drawable.security_logo,
-                DataType.OTHER));
+                DataType.SECURITY));
         data.add(new DataElement(
                 R.string.atm_title,
                 R.drawable.atm_logo,
                 R.drawable.atm_logo,
-                DataType.OTHER));
+                DataType.ATM));
         data.add(new DataElement(
                 R.string.parking_title,
                 R.drawable.parking_logo,
                 R.drawable.parking_logo,
-                DataType.OTHER));
+                DataType.PARKING));
         data.add(new DataElement(
                 R.string.care_title,
                 R.drawable.health_logo,
                 R.drawable.health_logo,
-                DataType.OTHER));
+                DataType.CARE1));
 
         data.add(new DataElement(R.string.smanojen, R.string.sketchera, 55.70483928999759f, 13.19305851161833f, R.drawable.bubble_smanojen, DataType.SMALL_FUN));
         data.add(new DataElement(R.string.smanojen, R.string.undergangen, 55.70460881490317f, 13.19352521597889f, R.drawable.bubble_smanojen, DataType.SMALL_FUN));

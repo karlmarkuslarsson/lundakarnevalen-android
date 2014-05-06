@@ -11,11 +11,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.data.DataElement;
+import se.lundakarnevalen.extern.data.DataType;
 import se.lundakarnevalen.extern.fragments.LandingPageFragment;
 import se.lundakarnevalen.extern.fragments.MelodyFragment;
 import se.lundakarnevalen.extern.fragments.MusicFragment;
@@ -81,7 +83,7 @@ public class LKListAdapter extends ArrayAdapter<LKListRow> {
                 view.setAlpha(0.5f);
             }
             ContentActivity contentActivity = ContentActivity.class.cast(activity);
-
+            List<DataType> types;
             switch (element.type) {
                 case PLAYER_RADIO:
                     contentActivity.loadFragmentAddingBS(new MusicFragment());
@@ -92,16 +94,39 @@ public class LKListAdapter extends ArrayAdapter<LKListRow> {
                 case TRAIN:
                     contentActivity.loadFragmentAddingBS(TrainMapFragment.create());
                     break;
-                case OTHER:
-                     /*
-                    contentActivity.loadFragmentAddingBS(
-                                    MapFragment.create(
-                                            "Filip", "Lindqvist",
-                                            false, true, true,
-                                            56.055876056f, 12.9737800f,
-                                            R.drawable.monk, R.drawable.monk,
-                                            "VAD ÄR FILIP BRA PÅ?", "ÄTA KEBAB!"));
-                    */
+                case TOILET:
+                    types = new ArrayList<DataType>();
+                    types.add(DataType.TOILETS);
+                    if(context!=null) {
+                        contentActivity.loadFragmentAddingBS(contentActivity.mapFragment);
+                        //ContentActivity.class.cast(context).updateMapView(types); //TODO FIX FILTERING!!!
+                    }
+                    break;
+                case SECURITY:
+                    types = new ArrayList<DataType>();
+                    types.add(DataType.SECURITY);
+                    if(context!=null) {
+                        contentActivity.loadFragmentAddingBS(contentActivity.mapFragment);
+                        //ContentActivity.class.cast(context).updateMapView(types);
+                    }
+                    break;
+                case PARKING:
+                    break;
+                case CARE1:
+                    types = new ArrayList<DataType>();
+                    types.add(DataType.CARE);
+                    if(context!=null) {
+                        contentActivity.loadFragmentAddingBS(contentActivity.mapFragment);
+                        //ContentActivity.class.cast(context).updateMapView(types);
+                    }
+                    break;
+                case ATM:
+                    types = new ArrayList<DataType>();
+                    types.add(DataType.ATM);
+                    if(context!=null) {
+                        contentActivity.loadFragmentAddingBS(contentActivity.mapFragment);
+                        //ContentActivity.class.cast(context).updateMapView(types);
+                    }
                     break;
                 default:
                     contentActivity.loadFragmentAddingBS(LandingPageFragment.create(element));
