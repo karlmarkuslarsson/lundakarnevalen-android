@@ -6,7 +6,6 @@ import android.graphics.Matrix;
 import android.graphics.Picture;
 import android.graphics.PointF;
 import android.graphics.Rect;
-import android.graphics.RectF;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -15,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 
+import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.PropertyValuesHolder;
 import com.nineoldandroids.animation.ValueAnimator;
 
@@ -30,7 +30,7 @@ public class SVGView extends View {
 
     public static final boolean DEBUG = false;
 
-    public static final float MAX_ZOOM = 50.0f;
+    public static final float MAX_ZOOM = 14.0f;
 
     public static final int AXIS_X = 0;
     public static final int AXIS_Y = 1;
@@ -45,6 +45,7 @@ public class SVGView extends View {
     private float mLastFocusY;
     private float mLastFocusX;
 
+    protected boolean mDisableTouch = false;
     protected float[] mMatrixValues = new float[9];
     protected float mMinZoom;
     protected Matrix mMatrix;
@@ -87,6 +88,8 @@ public class SVGView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
+        if(mDisableTouch) return false;
+
         // Let the ScaleGestureDetector inspect all events first.
         boolean result = mScaleDetector.onTouchEvent(ev);
         if(!mScaleDetector.isInProgress()){
@@ -194,11 +197,7 @@ public class SVGView extends View {
         }
 
         @Override
-        public void onLongPress(MotionEvent e) {
-            final PointF scroll = getTransXY();
-            Logf.d(LOG_TAG, "currentT(%f, %f)", scroll.x, scroll.y);
-            zoomTo(256, 256, mScaleFactor);
-        }
+        public void onLongPress(MotionEvent e) {}
 
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {return false;}
@@ -306,6 +305,7 @@ public class SVGView extends View {
         if(w > 0 && h > 0) { //Ignore if layout is not calculated yet
             this.mViewEndPoint[AXIS_X] = w;
             this.mViewEndPoint[AXIS_Y] = h;
+            postInvalidate();
             return true;
         } else {
             return false;
@@ -337,9 +337,7 @@ public class SVGView extends View {
         postInvalidate();
     }
 
-    public void zoomTo(float x, float y, final float scale){
-        float target = limit(mMinZoom, scale, MAX_ZOOM);
-
+    public void panTo(float x, float y){
         Matrix m = new Matrix(mMatrix);
 
         final PointF startXY = getTransXY(m);
@@ -371,6 +369,25 @@ public class SVGView extends View {
                 final float newY = (Float) animation.getAnimatedValue("y");
                 translate(newX, newY);
             }
+        });
+        anim.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                mDisableTouch = true;
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mDisableTouch = false;
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                mDisableTouch = false;
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {}
         });
         anim.setDuration(600);
         anim.start();

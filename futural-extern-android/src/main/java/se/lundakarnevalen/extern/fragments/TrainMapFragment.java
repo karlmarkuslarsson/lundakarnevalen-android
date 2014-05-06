@@ -2,7 +2,6 @@ package se.lundakarnevalen.extern.fragments;
 
 import android.content.Context;
 import android.graphics.Picture;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,7 +15,6 @@ import android.widget.ViewFlipper;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
 
-import java.io.IOException;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -119,7 +117,7 @@ public class TrainMapFragment extends LKFragment{
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            img.zoomTo(420.0f, 300.0f, scale);
+                            img.panTo(420.0f, 300.0f);
                         }
                     });
                 } catch (InterruptedException e) {
@@ -141,7 +139,7 @@ public class TrainMapFragment extends LKFragment{
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            img.zoomTo(420.0f, 300.0f, scale);
+                            img.panTo(420.0f, 300.0f);
                         }
                     });
                 } catch (Exception ex){

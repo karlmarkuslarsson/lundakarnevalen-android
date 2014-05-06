@@ -6,7 +6,6 @@ import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.view.Gravity;
@@ -22,8 +21,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -33,9 +30,7 @@ import android.widget.TextView;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import se.lundakarnevalen.extern.data.DataType;
@@ -45,9 +40,7 @@ import se.lundakarnevalen.extern.fragments.MapFragment;
 import se.lundakarnevalen.extern.fragments.OtherFragment;
 import se.lundakarnevalen.extern.fragments.SchemeFragment;
 import se.lundakarnevalen.extern.fragments.TrainMapFragment;
-import se.lundakarnevalen.extern.map.MarkerType;
 import se.lundakarnevalen.extern.widget.LKRightMenuArrayAdapter;
-import se.lundakarnevalen.extern.widget.LKRightMenuArrayAdapter.*;
 
 import static se.lundakarnevalen.extern.util.ViewUtil.*;
 
@@ -62,7 +55,7 @@ public class ContentActivity extends ActionBarActivity {
     private View mActionBarView;
     private ListView rightMenuList;
     private DrawerLayout drawerLayout;
-    private BottomMenuClickListener listener;
+    private BottomMenuClickListener bottomMenuListener;
 
     public MapFragment mapFragment;
 
@@ -77,7 +70,7 @@ public class ContentActivity extends ActionBarActivity {
         fragmentMgr = getSupportFragmentManager();
 
         mapFragment = new MapFragment();
-        loadFragmentWithReplace(mapFragment);
+        loadFragmentReplaceBS(mapFragment);
 
         rightMenuList = find(R.id.right_menu_list, ListView.class);
 
@@ -105,7 +98,7 @@ public class ContentActivity extends ActionBarActivity {
         drawerLayout.setScrimColor(Color.TRANSPARENT);
     }
 
-    public void toggleRightDrawer(){
+    public void toggleRightDrawer() {
         if (drawerLayout.isDrawerOpen(Gravity.RIGHT)) {
             drawerLayout.closeDrawer(Gravity.RIGHT);
         } else {
@@ -152,7 +145,6 @@ public class ContentActivity extends ActionBarActivity {
     }
 
 
-
     private void setupTint() {
         SystemBarTintManager tintManager = new SystemBarTintManager(this);
         tintManager.setStatusBarTintEnabled(true);
@@ -174,21 +166,21 @@ public class ContentActivity extends ActionBarActivity {
     }
 
     private void populateBottomMenu(LinearLayout bottomMenu) {
-        listener = new BottomMenuClickListener();
+        bottomMenuListener = new BottomMenuClickListener();
         AtomicInteger counter = new AtomicInteger(0);
-        createBottomMenuItem(bottomMenu, listener, counter, new FunFragment(), R.id.button1, R.string.fun, R.drawable.fun_logo);
-        createBottomMenuItem(bottomMenu, listener, counter, new FoodFragment(), R.id.button2, R.string.food, R.drawable.food_logo);
-        createBottomMenuItem(bottomMenu, listener, counter, mapFragment, R.id.button3, R.string.map, R.drawable.map_logo);
-        createBottomMenuItem(bottomMenu, listener, counter, new SchemeFragment(), R.id.button4, R.string.scheme, R.drawable.scheme_logo);
-        createBottomMenuItem(bottomMenu, listener, counter, new OtherFragment(), R.id.button5, R.string.other, R.drawable.other_logo);
-        listener.first(get(bottomMenu, R.id.button3, ViewGroup.class));
+        createBottomMenuItem(bottomMenu, bottomMenuListener, counter, new FunFragment(), R.id.button1, R.string.fun, R.drawable.fun_logo);
+        createBottomMenuItem(bottomMenu, bottomMenuListener, counter, new FoodFragment(), R.id.button2, R.string.food, R.drawable.food_logo);
+        createBottomMenuItem(bottomMenu, bottomMenuListener, counter, mapFragment, R.id.button3, R.string.map, R.drawable.map_logo);
+        createBottomMenuItem(bottomMenu, bottomMenuListener, counter, new SchemeFragment(), R.id.button4, R.string.scheme, R.drawable.scheme_logo);
+        createBottomMenuItem(bottomMenu, bottomMenuListener, counter, new OtherFragment(), R.id.button5, R.string.other, R.drawable.other_logo);
+        bottomMenuListener.first(get(bottomMenu, R.id.button3, ViewGroup.class));
     }
 
     private void createBottomMenuItem(LinearLayout menu, BottomMenuClickListener listener, AtomicInteger counter, Fragment f, int itemId, int textId, int imageId) {
         ViewGroup group = get(menu, itemId, ViewGroup.class);
         get(group, R.id.bottom_menu_text, TextView.class).setText(textId);
         get(group, R.id.bottom_menu_image, ImageView.class).setImageResource(imageId);
-        if(Build.VERSION.SDK_INT >= 11){
+        if (Build.VERSION.SDK_INT >= 11) {
             get(group, R.id.bottom_menu_image, ImageView.class).setAlpha(0.7f);
         }
         group.setTag(BottomMenuClickListener.TAG_FRAGMENT, f);
@@ -200,41 +192,21 @@ public class ContentActivity extends ActionBarActivity {
         setTitle(title);
     }
 
-    public void loadFragmentWithAdd(Fragment f) {
-        Log.d("ContentActivity", "loadFragmentWithAdd("+f+")");
-        FragmentTransaction transaction = fragmentMgr.beginTransaction();
-        transaction.setCustomAnimations(R.anim.abc_fade_in,R.anim.abc_fade_out);
-        transaction.replace(R.id.content_frame, f);
-        transaction.addToBackStack(null);
-        if(listener != null) {
-            if (f instanceof MapFragment) {
-                listener.onClick(findViewById(R.id.button3));
-            }
-        }
-        transaction.commit();
+    public void loadFragmentAddingBS(Fragment f) {
+        Log.d("ContentActivity", "loadFragmentAddingBS(" + f + ")");
+        FragmentTransaction t = fragmentMgr.beginTransaction();
+        t.setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out);
+        t.replace(R.id.content_frame, f);
+        t.addToBackStack(null);
+        t.commit();
     }
 
-    private void loadFragmentWithReplace(Fragment f) {
-        Log.d("ContentActivity", "loadFragmentWithReplace("+f+")");
-        fragmentMgr
-            .beginTransaction()
-                .setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out)
-                .replace(R.id.content_frame, f)
-            .commit();
-    }
-
-    private void loadFragmentWithReplaceAnimated(Fragment f, boolean left) {
-        Log.d("ContentActivity", "loadFragmentWithReplaceAnim("+f+")");
-        int in = R.anim.abc_fade_in; //left ? R.anim.slide_in_left : R.anim.slide_in_right;
-        int out = R.anim.abc_fade_out; //left ? R.anim.slide_out_right : R.anim.slide_out_left;
-
-        // TODO Får nullptr här när man byter fragment efter att ha gått ur appen ett tag för att
-        // sedan återuppta den  (f är null)
-        fragmentMgr
-            .beginTransaction()
-                .setCustomAnimations(in, out)
-                .replace(R.id.content_frame, f)
-            .commit();
+    private void loadFragmentReplaceBS(Fragment f) {
+        Log.d("ContentActivity", "loadFragmentReplaceBS(" + f + ")");
+        FragmentTransaction t = fragmentMgr.beginTransaction();
+        t.setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out);
+        t.replace(R.id.content_frame, f);
+        t.commit();
     }
 
     public void popFragmentStack() {
@@ -248,12 +220,12 @@ public class ContentActivity extends ActionBarActivity {
         LayoutInflater inflater = LayoutInflater.from(this);
 
         adapter = new LKRightMenuArrayAdapter(this);
-        adapter.addItem(getString(R.string.food),R.drawable.food_logo, new DataType[]{DataType.FOOD});
-        adapter.addItem(getString(R.string.fun),R.drawable.fun_logo, new DataType[]{DataType.FUN, DataType.SMALL_FUN, DataType.TENT_FUN, DataType.TOMBOLAN,
+        adapter.addItem(getString(R.string.food), R.drawable.food_logo, new DataType[]{DataType.FOOD});
+        adapter.addItem(getString(R.string.fun), R.drawable.fun_logo, new DataType[]{DataType.FUN, DataType.SMALL_FUN, DataType.TENT_FUN, DataType.TOMBOLAN,
                 DataType.SCENE, DataType.RADIO});
-        adapter.addItem(getString(R.string.help),R.drawable.help_logo, new DataType[]{DataType.POLICE, DataType.CARE});
-        adapter.addItem(getString(R.string.wc),R.drawable.wc_logo,new DataType[]{DataType.TOILETS});
-        adapter.addItem(getString(R.string.show_all),0, DataType.values());
+        adapter.addItem(getString(R.string.help), R.drawable.help_logo, new DataType[]{DataType.POLICE, DataType.CARE});
+        adapter.addItem(getString(R.string.wc), R.drawable.wc_logo, new DataType[]{DataType.TOILETS});
+        adapter.addItem(getString(R.string.show_all), 0, DataType.values());
 
         rightMenuList.setAdapter(adapter);
         rightMenuList.setOnItemClickListener(adapter);
@@ -262,22 +234,25 @@ public class ContentActivity extends ActionBarActivity {
     }
 
     public void allBottomsUnfocus() {
-        listener.deselectItem(getResources());
-        listener.selected = null;
+        bottomMenuListener.deselectItem(getResources());
+        bottomMenuListener.selected = null;
     }
 
-    public void openRightMenu(View v){
-        if(drawerLayout.isDrawerOpen(Gravity.RIGHT)){
-            if (Build.VERSION.SDK_INT > 10) v.setRotation(0);
-            drawerLayout.closeDrawer(Gravity.RIGHT);
-        } else {
-            if (Build.VERSION.SDK_INT > 10) v.setRotation(180);
-            drawerLayout.openDrawer(Gravity.RIGHT);
-        }
+    public void focusBottomItem(int nbr) {
+        bottomMenuListener.deselectItem(getResources());
+        final View child = find(R.id.bottom_frame_menu, LinearLayout.class).getChildAt(nbr);
+        bottomMenuListener.selectItem(child, getResources());
     }
 
     public void updateMapView(Collection<DataType> types) {
         mapFragment.setActiveType(types);
+    }
+
+    public void showMapAndPanTo(float lat, float lng) {
+        focusBottomItem(2);
+        mapFragment.addZoomHintForNextCreate(lat, lng);
+        popFragmentStack();
+        loadFragmentReplaceBS(mapFragment);
     }
 
     private class BottomMenuClickListener implements OnClickListener {
@@ -286,54 +261,39 @@ public class ContentActivity extends ActionBarActivity {
 
         private final Resources r = getResources();
 
-        private ViewGroup selected;
+        private View selected;
 
-        private BottomMenuClickListener() {}
+        private BottomMenuClickListener() {
+        }
 
-        public void first(ViewGroup first){
+        public void first(View first) {
             selected = first;
             selectItem(first, r);
         }
 
         @Override
         public void onClick(View v) {
-            if(v == this.selected) return;
-
-            ViewGroup newSelection = (ViewGroup) v;
+            if (v == this.selected) return;
             Fragment f = (Fragment) v.getTag(TAG_FRAGMENT);
-
-            int newIdx = Integer.class.cast(v.getTag(TAG_IDX));
-            if(selected == null) {
-                selectItem(newSelection, r);
-                loadFragmentWithReplaceAnimated(f, true);
-                this.selected = newSelection;
-                return;
-            }
-
-            int oldIdx = Integer.class.cast(selected.getTag(TAG_IDX));
-            boolean moveLeft = (newIdx > oldIdx);
-
-            loadFragmentWithReplaceAnimated(f, moveLeft);
-
-            selectItem(newSelection, r);
             deselectItem(r);
-
-            this.selected = newSelection;
+            selectItem(v, r);
+            loadFragmentReplaceBS(f);
         }
 
-        private void selectItem(ViewGroup selected, Resources res) {
-            selected.setBackgroundColor(res.getColor(R.color.bottom_menu_background_selected));
-            get(selected, R.id.bottom_menu_text, TextView.class).setTextColor(res.getColor(R.color.white));
-            get(selected, R.id.bottom_menu_shadow, LinearLayout.class).setBackgroundColor(res.getColor(R.color.bottom_menu_shadow_selected));
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                get(selected, R.id.bottom_menu_image, ImageView.class).setAlpha(1.0f);
+        private void selectItem(View target, Resources res) {
+            target.setBackgroundColor(res.getColor(R.color.bottom_menu_background_selected));
+            get(target, R.id.bottom_menu_text, TextView.class).setTextColor(res.getColor(R.color.white));
+            get(target, R.id.bottom_menu_shadow, LinearLayout.class).setBackgroundColor(res.getColor(R.color.bottom_menu_shadow_selected));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                get(target, R.id.bottom_menu_image, ImageView.class).setAlpha(1.0f);
             }
-            if(selected.getTag(TAG_FRAGMENT) instanceof MapFragment) {
+            if (target.getTag(TAG_FRAGMENT) instanceof MapFragment) {
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-            } else if(selected.getTag(TAG_FRAGMENT) != null) { //When constructing the tag will be null
+            } else if (target.getTag(TAG_FRAGMENT) != null) { //When constructing the tag will be null
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
             }
             drawerLayout.closeDrawers();
+            this.selected = target;
         }
 
         private void deselectItem(Resources res) {
@@ -341,7 +301,7 @@ public class ContentActivity extends ActionBarActivity {
                 selected.setBackgroundColor(res.getColor(R.color.red));
                 get(selected, R.id.bottom_menu_text, TextView.class).setTextColor(res.getColor(R.color.white_unselected));
                 get(selected, R.id.bottom_menu_shadow, LinearLayout.class).setBackgroundColor(res.getColor(R.color.bottom_menu_shadow));
-                if(Build.VERSION.SDK_INT >10) {
+                if (Build.VERSION.SDK_INT > 10) {
                     get(selected, R.id.bottom_menu_image, ImageView.class).setAlpha(0.7f);
                 }
             }
@@ -361,13 +321,14 @@ public class ContentActivity extends ActionBarActivity {
 
             });
             mp.start();
-            Log.d("Train","TRAIN");
+            Log.d("Train", "TRAIN");
 
             return null;
         }
         //Code goes here
     }
-        public void activateTrainButton() {
+
+    public void activateTrainButton() {
         ImageButton b = get(mActionBarView, R.id.train, ImageButton.class);
         b.setVisibility(View.VISIBLE);
         b.setOnClickListener(new OnClickListener() {
@@ -378,36 +339,15 @@ public class ContentActivity extends ActionBarActivity {
 //                thread.execute();
 
 
-                loadFragmentWithAdd(TrainMapFragment.create(true));
+                loadFragmentAddingBS(TrainMapFragment.create(true));
 
 
-
-           }
+            }
         });
     }
 
     public void inactivateTrainButton() {
-        get(mActionBarView,R.id.train,ImageButton.class).setVisibility(View.INVISIBLE);
+        get(mActionBarView, R.id.train, ImageButton.class).setVisibility(View.INVISIBLE);
     }
 
-
-
-private static class VisibilityOnComplete implements Animation.AnimationListener {
-        private final int visibility;
-        private final View view;
-
-        private VisibilityOnComplete(View view, int invisible) {
-            this.view = view;
-            this.visibility = invisible;
-        }
-
-        @Override
-        public void onAnimationStart(Animation animation) {view.setVisibility(visibility);}
-
-        @Override
-        public void onAnimationEnd(Animation animation) {}
-
-        @Override
-        public void onAnimationRepeat(Animation animation) {}
-    }
 }
