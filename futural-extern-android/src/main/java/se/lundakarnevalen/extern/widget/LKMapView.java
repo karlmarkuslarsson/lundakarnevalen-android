@@ -10,7 +10,7 @@ import android.graphics.Picture;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.util.AttributeSet;
-import android.util.Log;
+import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.caverock.androidsvg.SVG;
@@ -39,7 +39,7 @@ import static se.lundakarnevalen.extern.util.ViewUtil.*;
  * Created by Filip on 2014-04-27.
  */
 public class LKMapView extends SVGView {
-    private static final float CLOSE_THRESHOLD = 40.0f;
+    private static final float CLOSE_THRESHOLD = 46.0f; //last 40
     public static final float BUBBLE_SIZE_MULTIPLIER = 3.0f;
 
     public interface OnMarkerSelectedListener {
@@ -83,7 +83,6 @@ public class LKMapView extends SVGView {
     private HashMap<Integer, Bitmap> bitmaps;
 
     private float mPreDrawScale;
-    private float[] mTmpPoint = new float[2];
 
     private Marker mFocusedMarker;
     private OnMarkerSelectedListener mListener;
@@ -144,6 +143,12 @@ public class LKMapView extends SVGView {
         }
     }
 
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        updateViewLimitBounds();
+    }
+
     private void initBitmapCache(Context context) {
         bitmaps = new HashMap<Integer, Bitmap>();
         for (Marker m : markers) {
@@ -155,6 +160,10 @@ public class LKMapView extends SVGView {
 
     public void setListener(OnMarkerSelectedListener listener) {
         this.mListener = listener;
+    }
+
+    public boolean triggerClick(float xInSvg, float yInSvg) {
+        return onClick(xInSvg, yInSvg);
     }
 
     @Override
@@ -186,7 +195,7 @@ public class LKMapView extends SVGView {
         if (found) {
             closest.isFocusedInMap = true;
             mFocusedMarker = closest;
-            zoomTo(xInSvg, yInSvg, 1.0f);
+            panTo(xInSvg, yInSvg);
             if (mListener != null) {
                 mListener.onMarkerSelected(closest);
             }
@@ -256,7 +265,7 @@ public class LKMapView extends SVGView {
         canvas.drawBitmap(bitmaps.get(m.picture), null, dst, null);
     }
 
-    private void getPointFromCoordinates(float lat, float lon, float[] dst) {
+    public void getPointFromCoordinates(float lat, float lon, float[] dst) {
         float lat1 = (lat - startLatMap) / diffLat;
         float lon1 = (lon - startLonMap) / diffLon;
         dst[0] = lon1 * mPictureEndPoint[AXIS_X];

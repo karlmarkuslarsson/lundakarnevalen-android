@@ -84,17 +84,17 @@ public class LKListAdapter extends ArrayAdapter<LKListRow> {
 
             switch (element.type) {
                 case PLAYER_RADIO:
-                    contentActivity.loadFragmentWithAdd(new MusicFragment());
+                    contentActivity.loadFragmentAddingBS(new MusicFragment());
                     break;
                 case PLAYER_FUTURAL:
-                    contentActivity.loadFragmentWithAdd(new MelodyFragment());
+                    contentActivity.loadFragmentAddingBS(new MelodyFragment());
                     break;
                 case TRAIN:
-                    contentActivity.loadFragmentWithAdd(TrainMapFragment.create());
+                    contentActivity.loadFragmentAddingBS(TrainMapFragment.create());
                     break;
                 case OTHER:
                      /*
-                    contentActivity.loadFragmentWithAdd(
+                    contentActivity.loadFragmentAddingBS(
                                     MapFragment.create(
                                             "Filip", "Lindqvist",
                                             false, true, true,
@@ -104,7 +104,7 @@ public class LKListAdapter extends ArrayAdapter<LKListRow> {
                     */
                     break;
                 default:
-                    contentActivity.loadFragmentWithAdd(LandingPageFragment.create(element));
+                    contentActivity.loadFragmentAddingBS(LandingPageFragment.create(element));
                     break;
             }
         }

@@ -70,7 +70,7 @@ public class FunFragment extends LKFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ContentActivity.class
                         .cast(getActivity())
-                        .loadFragmentWithAdd(
+                        .loadFragmentAddingBS(
                                 LandingPageFragment.create(
                                         fun.get(position).title,
                                         fun.get(position).place,

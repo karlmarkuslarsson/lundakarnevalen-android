@@ -26,7 +26,7 @@
     <color name="green_background">#72B89E</color>
 
     <color name="beige">#F6EAD4</color>
-
+    <color name="beige_half_trans">#EEF6EAD4</color>
 
     <color name="transparent">#0000</color>
     <color name="bg_map">#7DC9AD</color>

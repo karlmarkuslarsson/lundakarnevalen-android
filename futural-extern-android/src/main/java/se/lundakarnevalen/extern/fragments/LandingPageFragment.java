@@ -91,19 +91,7 @@ public class LandingPageFragment extends LKFragment{
         mapView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("lat,lng","Lat: "+lat+"lng: "+lng);
-                ContentActivity contentActivity = ContentActivity.class.cast(getActivity());
-
-                MapFragment mapFragment = contentActivity.mapFragment;
-                //mapFragment.zoomInto(lat,lng);
-
-                contentActivity.loadFragmentWithAdd(mapFragment);
-                //
-                /*ContentActivity.class
-                        .cast(getActivity())
-                        .loadFragmentWithAdd(MapFragment.create(true,lat,lng) ,true);
-                // Add something ...
-            */
+                ContentActivity.class.cast(getActivity()).showMapAndPanTo(lat, lng);
             }
         });
 
@@ -111,7 +99,6 @@ public class LandingPageFragment extends LKFragment{
         if(type== DataType.FUN) {
             get(rootView, R.id.question, TextView.class).setText(element.question);
             get(rootView, R.id.text, TextView.class).setText(Html.fromHtml(getString(element.info)));
-//        rootView.findViewById(R.id.name).;
 
         } else if(type == DataType.FOOD) {
             get(rootView, R.id.question, TextView.class).setText(element.question);
@@ -125,17 +112,12 @@ public class LandingPageFragment extends LKFragment{
                 //LayoutInflater inflater2 = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 //View layout = inflater.inflate(R.layout.menu_food_element, parent, false);
 
-
                 for(int i = 0;i< element.menu.size();i++){
-                    View view = inflater.inflate(R.layout.menu_food_element, null);
+                    View view = inflater.inflate(R.layout.menu_food_element, ll, false);
                     ((TextView)view.findViewById(R.id.name)).setText((i+1)+". "+getString(element.menu.get(i)));
                     ((TextView)view.findViewById(R.id.price)).setText(element.menuPrice.get(i));
                     ll.addView(view);
                 }
-
-
-
-                Log.d("Size menu", element.menu.size() + "");
             }
         }
             return rootView;
