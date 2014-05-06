@@ -183,14 +183,16 @@ public class LKMapView extends SVGView {
         float min = Float.MAX_VALUE;
         Marker closest = null;
         for (Marker m : markers) {
-            if (m.x != -1) {
-                final float distance = m.distance(xInSvg, yInSvg - offsetY) / mPreDrawScale;
-                if(distance < min){
-                    min = distance;
-                    closest = m;
+            if(activeTypes.contains(m.element.type)) {
+                if (m.x != -1) {
+                    final float distance = m.distance(xInSvg, yInSvg - offsetY) / mPreDrawScale;
+                    if (distance < min) {
+                        min = distance;
+                        closest = m;
+                    }
+                } else {
+                    m.isFocusedInMap = false;
                 }
-            } else {
-                m.isFocusedInMap = false;
             }
         }
 
