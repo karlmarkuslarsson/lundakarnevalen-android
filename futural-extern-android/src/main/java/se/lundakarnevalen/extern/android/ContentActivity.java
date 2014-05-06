@@ -250,6 +250,8 @@ public class ContentActivity extends ActionBarActivity {
                 DataType.SCENE, DataType.RADIO});
         adapter.addItem(getString(R.string.help), R.drawable.help_logo, new DataType[]{DataType.POLICE, DataType.CARE});
         adapter.addItem(getString(R.string.wc), R.drawable.wc_logo, new DataType[]{DataType.TOILETS});
+        adapter.addItem(getString(R.string.entre), R.drawable.entrance_filter_icon, new DataType[]{DataType.ENTRANCE});
+        adapter.addItem(getString(R.string.trashcan), R.drawable.soptunna_filter_icon, new DataType[]{DataType.TRASHCAN});
         adapter.addItem(getString(R.string.show_all), 0, DataType.values());
 
         rightMenuList.setAdapter(adapter);
