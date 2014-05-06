@@ -58,7 +58,8 @@ public class SchemeFragment extends LKFragment {
         final TextView header = get(view, R.id.dayText, TextView.class);
         final ViewPager vp = get(view, R.id.scheme_viewpager, ViewPager.class);
 
-        int currentDay = getCurrentDay(getStartingDate());
+        int currentDay = getCurrentDay();
+        Log.d("currentDay","cur: "+currentDay);
         vp.setBackgroundColor(Color.TRANSPARENT);
         vp.setAdapter(new SchemeViewAdapter());
         vp.setCurrentItem(currentDay);
@@ -184,7 +185,7 @@ public class SchemeFragment extends LKFragment {
                 Events.getFridayEvents(fridayEvents, getContext());
             }
             for (Event e : fridayEvents) {
-                LKSchemeAdapter.LKSchemeItem item = new LKSchemeAdapter.LKSchemeItem(e.place, e.title, e.image, e.startDate, e.endDate, activated);
+                LKSchemeAdapter.LKSchemeItem item = new LKSchemeAdapter.LKSchemeItem(e.place, e.title, e.image, e.startDate, e.endDate, activated, e.id);
                 listItems.add(item);
             }
 
@@ -194,7 +195,7 @@ public class SchemeFragment extends LKFragment {
                 Events.getSaturdayEvents(saturdayEvents, getContext());
             }
             for (Event e : saturdayEvents) {
-                LKSchemeAdapter.LKSchemeItem item = new LKSchemeAdapter.LKSchemeItem(e.place, e.title, e.image, e.startDate, e.endDate, activated);
+                LKSchemeAdapter.LKSchemeItem item = new LKSchemeAdapter.LKSchemeItem(e.place, e.title, e.image, e.startDate, e.endDate, activated, e.id);
                 listItems.add(item);
             }
         } else {
@@ -203,7 +204,7 @@ public class SchemeFragment extends LKFragment {
                 Events.getSundayEvents(sundayEvents, getContext());
             }
             for (Event e : sundayEvents) {
-                LKSchemeAdapter.LKSchemeItem item = new LKSchemeAdapter.LKSchemeItem(e.place, e.title, e.image, e.startDate, e.endDate, activated);
+                LKSchemeAdapter.LKSchemeItem item = new LKSchemeAdapter.LKSchemeItem(e.place, e.title, e.image, e.startDate, e.endDate, activated, e.id);
                 listItems.add(item);
             }
 
@@ -213,16 +214,6 @@ public class SchemeFragment extends LKFragment {
     }
 
 
-    private Calendar getStartingDate() {
-        Calendar startOfScheme = Calendar.getInstance();
-        startOfScheme.set(Calendar.MONTH, Calendar.MAY);
-        startOfScheme.set(Calendar.DATE, 16);
-        startOfScheme.set(Calendar.YEAR, 2014);
-        startOfScheme.set(Calendar.MINUTE, 0);
-        startOfScheme.set(Calendar.HOUR_OF_DAY, 0);
-        startOfScheme.set(Calendar.SECOND, 0);
-        return startOfScheme;
-    }
 
     private HashSet<String> getActiveNotifications() {
         SharedPreferences sharedPref = getContext().getSharedPreferences("lundkarnevalen", Context.MODE_PRIVATE);
@@ -236,10 +227,22 @@ public class SchemeFragment extends LKFragment {
         return activated;
     }
 
-    private int getCurrentDay(Calendar startOfScheme) {
-        long millisNow = Calendar.getInstance().getTimeInMillis();
-        long millisStart = startOfScheme.getTimeInMillis();
-        return Math.max((int) ((millisNow - millisStart) % (3600000L * 24L)), 0);
+    private int getCurrentDay() {
+        Date d = new Date();
+        Log.d("date:",""+d.getDate());
+        switch(d.getDate()) {
+            case 16:
+                return 0;
+            case 17:
+                return 1;
+            case 18:
+                return 2;
+            default:
+                return 0;
+        }
+        //long millisNow = Calendar.getInstance().getTimeInMillis();
+        //long millisStart = startOfScheme.getTimeInMillis();
+        //return Math.max((int) ((millisNow - millisStart) % (3600000L * 24L)), 0);
     }
 
     @Override

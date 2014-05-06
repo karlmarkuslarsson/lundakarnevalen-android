@@ -92,7 +92,7 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
                     item.reminder = false;
                     ((ImageView)view).setImageResource(R.drawable.heart_not_clicked);
 
-                    NotificationManager notificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+             //       NotificationManager notificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
 
                     SharedPreferences sharedPref = getContext().getSharedPreferences("lundkarnevalen",Context.MODE_PRIVATE);
                     String set = sharedPref.getString("notifications", "");
@@ -109,8 +109,15 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putString("notifications", set);
                     editor.apply();
-                    notificationManager.cancel(item.getStartTime()+item.place+item.name,0);
+                    //notificationManager.cancel(item.getStartTime()+item.place+item.name,0);
 
+                    Intent alarmIntent = new Intent(context, SchemeAlarm.class);
+
+                    alarmIntent.putExtra("Title", item.name);
+                    alarmIntent.putExtra("Desc", item.place+" "+item.getStartTime());
+                    mAlarmSender = PendingIntent.getBroadcast(context, item.id, alarmIntent, 0);
+                    AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+                    am.cancel(mAlarmSender);
                 } else {
                     item.reminder = true;
                     ((ImageView)view).setImageResource(R.drawable.heart_clicked);
@@ -124,8 +131,6 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
                     //Intent intent = new Intent(getContext(), ContentActivity.class);
                     //PendingIntent pIntent = PendingIntent.getActivity(getContext(), 0, intent, 0);
 
-                    // TODO Change to
-                    // http://androidideasblog.blogspot.co.uk/2011/07/alarmmanager-and-notificationmanager.html
 
                     /*
                     NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext());
@@ -144,13 +149,17 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
 
                     */
 
-                    Intent alarmIntent = new Intent(context, SchemeAlarm.class);
 
-                    alarmIntent.putExtra("Title", item.name);
-                    alarmIntent.putExtra("Desc", item.place+" "+item.getStartTime());
-                    mAlarmSender = PendingIntent.getBroadcast(context, 0, alarmIntent, 0);
+                    if(item.startDate.after(new Date())) {
+                        Intent alarmIntent = new Intent(context, SchemeAlarm.class);
 
-                    startAlarm();
+                        alarmIntent.putExtra("Title", item.name);
+                        alarmIntent.putExtra("Desc", item.place + " " + item.getStartTime());
+                        mAlarmSender = PendingIntent.getBroadcast(context, item.id, alarmIntent, 0);
+
+
+                        startAlarm(item.startDate);
+                    }
                     // .setSound() add cool sound
                     /*
                     Notification notification = builder.getNotification();
@@ -197,6 +206,7 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
         private OnClickListener listener;
         boolean reminder = false;
         boolean dot = false;
+        public int id;
 
         public LKSchemeItem() {
             this.dot = true;
@@ -206,13 +216,14 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
          * Creates list item..
          * @param icon Icon next to text
          */
-        public LKSchemeItem(String place, String name, int icon, Date startDate, Date endDate, HashSet<String> activated) {
+        public LKSchemeItem(String place, String name, int icon, Date startDate, Date endDate, HashSet<String> activated, int id) {
 
             this.place = place;
             this.name = name;
             this.icon = icon;
             this.startDate = startDate;
             this.endDate = endDate;
+            this.id = id;
             if(activated.contains(getStartTime() + place + name)) {
                 reminder = true;
             } else {
@@ -251,13 +262,15 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
             this.listener = listener;
         }
     }
-    public void startAlarm(){
+    public void startAlarm(Date d){
         //Set the alarm to 10 seconds from now
         Calendar c = Calendar.getInstance();
-        c.add(Calendar.SECOND, 10);
+        c.setTime(d);
+        c.add(Calendar.HOUR_OF_DAY, -1);
         long firstTime = c.getTimeInMillis();
         // Schedule the alarm!
         AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         am.set(AlarmManager.RTC_WAKEUP, firstTime, mAlarmSender);
+
     }
 }
