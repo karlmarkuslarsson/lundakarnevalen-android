@@ -71,7 +71,7 @@ public class SVGView extends View {
         init(context);
     }
 
-    public void init(Context context){
+    private void init(Context context){
         mMatrix = new Matrix();
         mSavedMatrix = new Matrix();
         mInverseMatrix = new Matrix();
@@ -254,7 +254,7 @@ public class SVGView extends View {
     private short counter;
 
     @Override
-    protected final void onDraw(Canvas canvas) {
+    protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
         if(isInEditMode()) return;
@@ -268,7 +268,7 @@ public class SVGView extends View {
         //canvas.restore();
         acc += System.currentTimeMillis() - t0;
 
-        if(++counter % 500 == 0){
+        if(++counter % 200 == 0){
             final long t = acc / counter;
             Logf.d(LOG_TAG, "Rendering, AVG: %d ms, FPS: %f", t, 1000f/t);
             acc = counter = 0;
@@ -280,7 +280,7 @@ public class SVGView extends View {
         //Nothing here yet, extend in subclass
     }
 
-    private void filterMatrix(Matrix matrix) {
+    protected void filterMatrix(Matrix matrix) {
         matrix.getValues(mMatrixValues);
 
         // screenW - svgW * scale is lower limit
