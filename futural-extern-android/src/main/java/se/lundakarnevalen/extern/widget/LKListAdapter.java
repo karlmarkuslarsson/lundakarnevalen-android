@@ -47,7 +47,7 @@ public class LKListAdapter extends ArrayAdapter<LKListRow> {
         TextView textView = (TextView) rowView.findViewById(R.id.text1);
         ImageView image1 = (ImageView) rowView.findViewById(R.id.image1);
         textView.setText(item.element1.title);
-        image1.setImageResource(item.element1.picture);
+        image1.setImageResource(item.element1.picture_list);
         image1.setOnClickListener(new ItemListener(item.element1, activity));
 
         TextView textView2 = (TextView) rowView.findViewById(R.id.text2);
@@ -55,7 +55,7 @@ public class LKListAdapter extends ArrayAdapter<LKListRow> {
         if (item.element2 != null) {
             ImageView image2 = (ImageView) rowView.findViewById(R.id.image2);
             textView2.setText(item.element2.title);
-            image2.setImageResource(item.element2.picture);
+            image2.setImageResource(item.element2.picture_list);
             image2.setOnClickListener(new ItemListener(item.element2, activity));
         } else {
             textView2.setText("");

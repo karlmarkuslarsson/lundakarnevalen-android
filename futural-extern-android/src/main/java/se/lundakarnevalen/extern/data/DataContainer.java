@@ -93,7 +93,7 @@ public class DataContainer {
                 R.string.dansen_place,
                 R.string.dansen_title,
                 R.string.dansen_info,
-                55.70572f, 13.19544f,
+                55.705376f, 13.195363f,
                 R.drawable.header_dansen,
                 R.drawable.map_dansen_logo,
                 R.drawable.dansen_logo,
@@ -206,33 +206,41 @@ public class DataContainer {
         data.add(new DataElement(
                 R.string.karne_name,
                 R.drawable.music_logo,
+                R.drawable.music_logo,
                 DataType.PLAYER_FUTURAL));
         data.add(new DataElement(
                 R.string.train,
+                R.drawable.train_logo_other,
                 R.drawable.train_logo_other,
                 DataType.TRAIN));
         data.add(new DataElement(
                 R.string.radio_title,
                 R.drawable.radio_logo,
+                R.drawable.radio_logo,
                 DataType.PLAYER_RADIO));
         data.add(new DataElement(
                 R.string.toilets_title,
+                R.drawable.toilets_logo,
                 R.drawable.toilets_logo,
                 DataType.OTHER));
         data.add(new DataElement(
                 R.string.security_title,
                 R.drawable.security_logo,
+                R.drawable.security_logo,
                 DataType.OTHER));
         data.add(new DataElement(
                 R.string.atm_title,
+                R.drawable.atm_logo,
                 R.drawable.atm_logo,
                 DataType.OTHER));
         data.add(new DataElement(
                 R.string.parking_title,
                 R.drawable.parking_logo,
+                R.drawable.parking_logo,
                 DataType.OTHER));
         data.add(new DataElement(
                 R.string.care_title,
+                R.drawable.health_logo,
                 R.drawable.health_logo,
                 DataType.OTHER));
 

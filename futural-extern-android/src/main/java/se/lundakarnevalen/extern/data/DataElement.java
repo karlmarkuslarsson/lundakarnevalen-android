@@ -64,10 +64,11 @@ public class DataElement implements Parcelable {
 
 
 
-    public DataElement(int title, int picture, DataType type) {
+    public DataElement(int title, int picture, int picture_list ,DataType type) {
         this.title = title;
         this.picture = picture;
         this.type = type;
+        this.picture_list = picture_list;
     }
 
     public DataElement(int place, int title, float lat, float lng, int picture, DataType type) {
