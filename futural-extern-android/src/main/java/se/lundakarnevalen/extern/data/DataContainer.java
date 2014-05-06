@@ -18,6 +18,7 @@ public class DataContainer {
                 R.string.barneval_info,
                 55.7037889f, 13.194647222222223f,
                 R.drawable.header_barnevalen,
+                R.drawable.map_barnevalen_logo,
                 R.drawable.barnevalen_logo,
                 R.string.barneval_question,
                 "14:00-20:00", "14:00-21:00", "14:00-20:00", DataType.FUN));
@@ -28,6 +29,7 @@ public class DataContainer {
                 R.string.cirkus_info,
                 55.7048333f, 13.195352777777778f,
                 R.drawable.header_cirkusen,
+                R.drawable.map_cirkusen_logo,
                 R.drawable.cirkusen_logo,
                 R.string.cirkus_question,
                 "15:00-22:00", "15:00-23:00", "15:00-22:00", DataType.FUN));
@@ -38,6 +40,7 @@ public class DataContainer {
                 R.string.filmen_info,
                 55.7059389f, 13.194805555555556f,
                 R.drawable.monk,
+                R.drawable.map_filmen_logo,
                 R.drawable.filmen_logo,
                 R.string.filmen_question,
                 "14:00-23:00", "14:00-00:00", "14:00-23:00", DataType.FUN));
@@ -48,6 +51,7 @@ public class DataContainer {
                 R.string.kabare_info,
                 55.7042667f, 13.193833333333334f,
                 R.drawable.header_kabaren,
+                R.drawable.map_kabaren_logo,
                 R.drawable.kabaren_logo,
                 R.string.kabare_question,
                 "15:30-22:30", "15:30-23:30", "15:30-22:30", DataType.FUN));
@@ -58,6 +62,7 @@ public class DataContainer {
                 R.string.revy_info,
                 55.705775f, 13.193555555555555f,
                 R.drawable.header_revyn,
+                R.drawable.map_revyn_logo,
                 R.drawable.revyn_logo,
                 R.string.revy_question,
                 "15:30-22:30", "15:30-23:30", "15:30-22:30", DataType.FUN));
@@ -68,6 +73,7 @@ public class DataContainer {
                 R.string.show_info,
                 55.7055444f, 13.195588888888889f,
                 R.drawable.monk,
+                R.drawable.map_showen_logo,
                 R.drawable.showen_logo,
                 R.string.showen_question,
                 "14:00-21:30", "14:00-21:30", "14:00-21:30", DataType.FUN));
@@ -78,6 +84,7 @@ public class DataContainer {
                 R.string.spexet_info,
                 55.7054111f, 13.195491666666667f,
                 R.drawable.monk,
+                R.drawable.map_spexet_logo,
                 R.drawable.spexet_logo,
                 R.string.spexet_question,
                 "14:00-21:00", "14:00-21:00", "14:00-21:00", DataType.FUN));
@@ -88,6 +95,7 @@ public class DataContainer {
                 R.string.dansen_info,
                 55.70572f, 13.19544f,
                 R.drawable.header_dansen,
+                R.drawable.map_dansen_logo,
                 R.drawable.dansen_logo,
                 R.string.dansen_question,
                 "23:00-04:00", "23:00-04:00", "23:00-04:00", DataType.FUN));
@@ -98,6 +106,7 @@ public class DataContainer {
                 R.string.cocktail_info,
                 55.706362f, 13.195165f,
                 R.drawable.header_nangilima,
+                R.drawable.map_nagilima_logo,
                 R.drawable.nagilima_logo,
                 R.string.cocktail_question,
                 "15:30-22:30", "15:30-23:30", "15:30-22:30",
@@ -110,6 +119,7 @@ public class DataContainer {
                 R.string.hipp_baren_info,
                 55.706521f, 13.195431f,
                 R.drawable.header_nangilima,
+                R.drawable.map_nagilima_logo,
                 R.drawable.nagilima_logo,
                 R.string.hipp_baren_question,
                 "15:30-22:30", "15:30-23:30", "15:30-22:30",
@@ -122,6 +132,7 @@ public class DataContainer {
                 R.string.folkan_info,
                 55.706841f, 13.196030f,
                 R.drawable.header_nangilima,
+                R.drawable.map_nagilima_logo,
                 R.drawable.nagilima_logo,
                 R.string.folkan_question,
                 "15:30-22:30", "15:30-23:30", "15:30-22:30",
@@ -143,6 +154,7 @@ public class DataContainer {
                 R.string.krog_undervatten_info,
                 55.705154f, 13.19458f,
                 R.drawable.header_krogundervatten,
+                R.drawable.map_krog_undervatten_logo,
                 R.drawable.undervatten_logo,
                 R.string.krog_undervatten_question,
                 "12:00-01:00", "12:00-01:00", "12:00-01:00",
@@ -165,6 +177,7 @@ public class DataContainer {
                 55.705697f, 13.194630f,
                 R.drawable.monk,
                 R.drawable.lajka_icon,
+                R.drawable.lajka_icon,
                 R.string.krog_lajka_question,
                 "12:00-01:00", "12:00-01:00", "12:00-24:00",
                 DataType.FOOD, menu, menuPrice));
@@ -183,6 +196,7 @@ public class DataContainer {
                 R.string.krog_thyme_info,
                 55.705697f, 13.194630f,
                 R.drawable.monk,
+                R.drawable.map_fine_dine_logo,
                 R.drawable.fine_dine_logo,
                 R.string.krog_thyme_question,
                 "14:00-02:00", "14:00-02:00", "14:00-02:00",
@@ -271,7 +285,7 @@ public class DataContainer {
         data.add(new DataElement(R.string.police, R.string.police, 55.70566708948963f, 13.19601302178581f, R.drawable.map_security_logo, DataType.POLICE));
         data.add(new DataElement(R.string.police, R.string.police, 55.7052602564826f, 13.19401040144301f, R.drawable.map_security_logo, DataType.POLICE));
 
-        data.add(new DataElement(R.string.radio, R.string.radio, 55.70537955178818f, 13.19494142376257f, R.drawable.radio_logo, DataType.RADIO));
+        data.add(new DataElement(R.string.radio, R.string.radio, 55.70537955178818f, 13.19494142376257f, R.drawable.map_radio_logo, DataType.RADIO));
 
         data.add(new DataElement(R.string.entre, R.string.en_lundensares_guide_till_galaxen, 55.7056318688607f, 13.19298738463846f, R.drawable.map_entrance_icon, DataType.ENTRANCE));
         data.add(new DataElement(R.string.entre, R.string.futopia, 55.7060196455733f, 13.19565500654615f, R.drawable.map_entrance_icon, DataType.ENTRANCE));

@@ -84,7 +84,7 @@ public class LandingPageFragment extends LKFragment{
         lng = element.lng;
         DataType type = element.type;
 
-        get(rootView,R.id.picture,ImageView.class).setImageResource(element.picture);
+        get(rootView,R.id.picture,ImageView.class).setImageResource(element.picture_list);
         get(rootView,R.id.header_background,ImageView.class).setImageResource(element.headerPicture);
 
         ImageView mapView = (ImageView) rootView.findViewById(R.id.map_picture);

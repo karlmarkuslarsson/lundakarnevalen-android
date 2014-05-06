@@ -20,13 +20,14 @@ public class DataElement implements Parcelable {
     public float lng;
     public int headerPicture;
     public int picture;
+    public int picture_list;
     public int question;
     public int info;
     public DataType type;
     public ArrayList<Integer> menu;
     public ArrayList<String> menuPrice;
 
-    public DataElement(int place, int title, int info, float lat, float lng, int headerPicture, int picture, int question, String timeFriday, String timeSaturday, String timeSunday, DataType type) {
+    public DataElement(int place, int title, int info, float lat, float lng, int headerPicture, int picture, int picture_list, int question, String timeFriday, String timeSaturday, String timeSunday, DataType type) {
         this.place = place;
         this.title = title;
         this.info = info;
@@ -39,10 +40,11 @@ public class DataElement implements Parcelable {
         this.timeFriday = timeFriday;
         this.timeSaturday = timeSaturday;
         this.timeSunday = timeSunday;
+        this.picture_list = picture_list;
     }
 
 
-    public DataElement(int place, int title, int info, float lat, float lng, int headerPicture, int picture, int question, String timeFriday, String timeSaturday, String timeSunday, DataType type, ArrayList<Integer> menu, ArrayList<String> menuPrice) {
+    public DataElement(int place, int title, int info, float lat, float lng, int headerPicture, int picture, int picture_list, int question, String timeFriday, String timeSaturday, String timeSunday, DataType type, ArrayList<Integer> menu, ArrayList<String> menuPrice) {
         this.place = place;
         this.title = title;
         this.info = info;
@@ -57,19 +59,10 @@ public class DataElement implements Parcelable {
         this.timeSunday = timeSunday;
         this.menu = menu;
         this.menuPrice = menuPrice;
+        this.picture_list = picture_list;
     }
 
-    public DataElement(int place, int title, int info, float lat, float lng, int headerPicture, int picture, int question, DataType type) {
-        this.place = place;
-        this.title = title;
-        this.info = info;
-        this.lat = lat;
-        this.lng = lng;
-        this.headerPicture = headerPicture;
-        this.picture = picture;
-        this.question = question;
-        this.type = type;
-    }
+
 
     public DataElement(int title, int picture, DataType type) {
         this.title = title;
@@ -97,6 +90,7 @@ public class DataElement implements Parcelable {
         parcel.writeFloat(lng);
         parcel.writeInt(headerPicture);
         parcel.writeInt(picture);
+        parcel.writeInt(picture_list);
         parcel.writeSerializable(type);
         parcel.writeInt(info);
         parcel.writeInt(question);
