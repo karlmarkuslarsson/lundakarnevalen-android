@@ -40,6 +40,7 @@ import se.lundakarnevalen.extern.fragments.MapFragment;
 import se.lundakarnevalen.extern.fragments.OtherFragment;
 import se.lundakarnevalen.extern.fragments.SchemeFragment;
 import se.lundakarnevalen.extern.fragments.TrainMapFragment;
+import se.lundakarnevalen.extern.widget.LKMapView;
 import se.lundakarnevalen.extern.widget.LKRightMenuArrayAdapter;
 
 import static se.lundakarnevalen.extern.util.ViewUtil.*;
@@ -129,10 +130,34 @@ public class ContentActivity extends ActionBarActivity {
 
     @Override
     protected void onDestroy() {
-        Log.d(LOG_TAG, "onDestroy()!? null => preloaded");
+        Log.d(LOG_TAG, "onDestroy()!?  Cleaning allocated resources: MapFragment, TrainMapFragment, LKMapView");
         MapFragment.clean();
         TrainMapFragment.clean();
+        LKMapView.clean();
+        System.gc();
         super.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory() {
+        if(bottomMenuListener.selected != null) {
+            Fragment visibleFragment = Fragment.class.cast(bottomMenuListener.selected.getTag(R.id.bottom_menu_tag_fragment));
+            if (visibleFragment instanceof MapFragment){
+                Log.w(LOG_TAG, "onLowMemory() called: Map showing thus cleaning TrainMapSvg");
+                TrainMapFragment.clean();
+            } else if (visibleFragment instanceof TrainMapFragment){
+                Log.w(LOG_TAG, "onLowMemory() called: TrainMap showing thus cleaning MapSvg");
+                MapFragment.clean();
+                LKMapView.clean();
+            } else {
+                Log.w(LOG_TAG, "onLowMemory() called: No map showing thus cleaning all SVGs and LKMapIcons");
+                TrainMapFragment.clean();
+                MapFragment.clean();
+                LKMapView.clean();
+            }
+        }
+        System.gc();
+        super.onLowMemory();
     }
 
     @Override

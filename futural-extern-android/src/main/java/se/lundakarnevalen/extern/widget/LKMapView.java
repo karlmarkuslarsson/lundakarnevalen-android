@@ -10,6 +10,7 @@ import android.graphics.Picture;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
@@ -30,6 +31,7 @@ import se.lundakarnevalen.extern.data.DataContainer;
 import se.lundakarnevalen.extern.data.DataElement;
 import se.lundakarnevalen.extern.data.DataType;
 import se.lundakarnevalen.extern.map.Marker;
+import se.lundakarnevalen.extern.util.BitmapUtil;
 import se.lundakarnevalen.extern.util.Logf;
 
 import static android.graphics.Matrix.*;
@@ -39,8 +41,26 @@ import static se.lundakarnevalen.extern.util.ViewUtil.*;
  * Created by Filip on 2014-04-27.
  */
 public class LKMapView extends SVGView {
+    private static final float startLonMap = 13.1910161648f;
+    private static final float startLatMap = 55.707371322f;
+
+    private static final float endLonMap = 13.1979612196f;
+    private static final float endLatMap = 55.7034716513f;
+
+    private static final float diffLon = endLonMap - startLonMap;
+    private static final float diffLat = endLatMap - startLatMap;
+
     private static final float CLOSE_THRESHOLD = 46.0f; //last 40
     public static final float BUBBLE_SIZE_MULTIPLIER = 3.0f;
+
+    private static SparseArray<Bitmap> bitmaps = new SparseArray<Bitmap>();
+
+    public static void clean() {
+        for(int i = 0; i < bitmaps.size(); i++) {
+            bitmaps.valueAt(i).recycle();
+        }
+        bitmaps.clear();
+    }
 
     public interface OnMarkerSelectedListener {
         /** null of unselect */
@@ -71,16 +91,7 @@ public class LKMapView extends SVGView {
 
     private RectF dst = new RectF();
 
-    private static final float startLonMap = 13.1910161648f;
-    private static final float startLatMap = 55.707371322f;
 
-    private static final float endLonMap = 13.1979612196f;
-    private static final float endLatMap = 55.7034716513f;
-
-    private static final float diffLon = endLonMap - startLonMap;
-    private static final float diffLat = endLatMap - startLatMap;
-
-    private HashMap<Integer, Bitmap> bitmaps;
 
     private float mPreDrawScale;
 
@@ -150,10 +161,9 @@ public class LKMapView extends SVGView {
     }
 
     private void initBitmapCache(Context context) {
-        bitmaps = new HashMap<Integer, Bitmap>();
         for (Marker m : markers) {
-            if(!bitmaps.containsKey(m.picture)) {
-                bitmaps.put(m.picture, BitmapFactory.decodeResource(context.getResources(), m.picture));
+            if(bitmaps.get(m.picture) == null) {
+                bitmaps.put(m.picture, BitmapUtil.decodeSampledBitmapFromResource(context.getResources(), m.picture, 100, 100));
             }
         }
     }
@@ -168,7 +178,6 @@ public class LKMapView extends SVGView {
 
     @Override
     protected boolean onClick(float xInSvg, float yInSvg) {
-        Logf.d(LOG_TAG, "click(%f, %f, %f)", xInSvg, yInSvg, mPreDrawScale);
 
         final float offsetY = -10.0f / mPreDrawScale;
         float min = Float.MAX_VALUE;
@@ -186,7 +195,7 @@ public class LKMapView extends SVGView {
         }
 
         boolean found = (closest != null && min < CLOSE_THRESHOLD);
-        Logf.d(LOG_TAG, "Dist: %f, Closest: %s",min, closest);
+        Logf.d(LOG_TAG, "click(%f, %f, %f) => Dist: %f, Closest: %s", xInSvg, yInSvg, mPreDrawScale, min, (closest != null) ? closest.element.title : closest);
 
         if(mFocusedMarker != null) {
             mFocusedMarker.isFocusedInMap = false;

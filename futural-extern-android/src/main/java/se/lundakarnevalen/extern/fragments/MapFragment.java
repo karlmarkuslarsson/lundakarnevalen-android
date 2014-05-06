@@ -47,7 +47,7 @@ public class MapFragment extends LKFragment {
             new AsyncTask<Void,Void,Void>(){
                 @Override
                 protected Void doInBackground(Void... params) {
-                    if (preloaded == null) {
+                    if (preloaded == null) { // if async starts after cleanup
                         return null;
                     }
                     preloaded.run();
