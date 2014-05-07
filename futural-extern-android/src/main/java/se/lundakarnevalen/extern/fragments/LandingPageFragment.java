@@ -121,7 +121,7 @@ public class LandingPageFragment extends LKFragment{
             }
         } else if(type == DataType.BILJETTERIET) {
             get(rootView, R.id.question, TextView.class).setText(element.question);
-            get(rootView, R.id.text, TextView.class).setText(element.info);
+            get(rootView, R.id.text, TextView.class).setText(Html.fromHtml(getString(element.info)));
             get(rootView, R.id.middleLayout, RelativeLayout.class).setBackgroundResource(R.color.blue_dark);
             get(rootView, R.id.middleView, View.class).setVisibility(View.INVISIBLE);
 

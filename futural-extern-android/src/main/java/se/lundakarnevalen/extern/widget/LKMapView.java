@@ -163,7 +163,7 @@ public class LKMapView extends SVGView {
     private void initBitmapCache(Context context) {
         for (Marker m : markers) {
             if(bitmaps.get(m.picture) == null) {
-                bitmaps.put(m.picture, BitmapUtil.decodeSampledBitmapFromResource(context.getResources(), m.picture, 96, 96));
+                bitmaps.put(m.picture, BitmapUtil.decodeSampledBitmapFromResource(context.getResources(), m.picture, 224, 224));
             }
         }
     }
