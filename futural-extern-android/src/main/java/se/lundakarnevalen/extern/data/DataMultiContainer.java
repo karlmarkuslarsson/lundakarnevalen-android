@@ -12,7 +12,7 @@ public class DataMultiContainer {
     public static List<DataElement> getAllFunMultiData() {
         List<DataElement> data = new ArrayList<DataElement>();
 
-
+        // TODO fix coordinates
         data.add(new DataElement(
                 R.string.smanojen,
                 R.string.smanojen_question,
@@ -50,4 +50,20 @@ public class DataMultiContainer {
         return data;
     }
 
+    public static List<DataElement> getAllFoodMultiData() {
+        List<DataElement> data = new ArrayList<DataElement>();
+
+        // TODO fix coordinates
+        data.add(new DataElement(
+                R.string.snaxeriet,
+                R.string.snaxeriet_question,
+                R.string.snaxeriet_info,
+                1f,1f,
+                R.drawable.header_snaxeriet,
+                R.drawable.snaxeriet_logo,
+                DataType.SNACKS));
+
+
+        return data;
+    }
 }
