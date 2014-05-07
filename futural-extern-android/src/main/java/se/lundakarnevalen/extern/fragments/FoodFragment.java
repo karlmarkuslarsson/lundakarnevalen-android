@@ -9,6 +9,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
+import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.data.DataContainer;
 import se.lundakarnevalen.extern.data.DataElement;
@@ -20,7 +21,7 @@ import se.lundakarnevalen.extern.widget.LKListRow;
  * Created by Markus on 2014-04-16.
  */
 public class FoodFragment extends LKFragment {
-
+    private final int ID = 1;
 
     private List<DataElement> food = new ArrayList<DataElement>();
 
@@ -29,6 +30,14 @@ public class FoodFragment extends LKFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_food, container, false);
         ListView lv = (ListView) root.findViewById(R.id.fragment_food_list);
+        ContentActivity activity = ContentActivity.class.cast(getActivity());
+        activity.allBottomsUnfocus();
+        activity.focusBottomItem(ID);
+
+
+
+
+
 
         if (food.isEmpty()) {
             food.addAll(DataContainer.getDataOfType(DataType.FOOD));

@@ -9,6 +9,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
+import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.data.DataContainer;
 import se.lundakarnevalen.extern.data.DataElement;
@@ -21,12 +22,16 @@ import se.lundakarnevalen.extern.widget.LKListRow;
  */
 public class OtherFragment extends LKFragment{
     private List<DataElement> other = new ArrayList<DataElement>();
-
+    private final int ID = 4;
     // Every time you switch to this fragment.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_other, container, false);
         ListView lv = (ListView) root.findViewById(R.id.fragment_other_list);
+
+        ContentActivity activity = ContentActivity.class.cast(getActivity());
+        activity.allBottomsUnfocus();
+        activity.focusBottomItem(ID);
 
         if (other.isEmpty()) {
             other.addAll(DataContainer.getDataOfType(DataType.PLAYER_FUTURAL));

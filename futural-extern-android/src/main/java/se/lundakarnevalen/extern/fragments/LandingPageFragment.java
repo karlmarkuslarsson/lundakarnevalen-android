@@ -137,7 +137,6 @@ public class LandingPageFragment extends LKFragment{
     public void onStart() {
         super.onStart();
         //ContentActivity.class.cast(getActivity()).hideBottomMenu();
-
         ContentActivity.class.cast(getActivity()).allBottomsUnfocus();
     }
 

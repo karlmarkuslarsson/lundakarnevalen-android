@@ -26,6 +26,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
+import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.scheme.Event;
 import se.lundakarnevalen.extern.scheme.Events;
@@ -40,6 +41,7 @@ import static se.lundakarnevalen.extern.util.ViewUtil.get;
 @SuppressWarnings("ResourceType")
 public class SchemeFragment extends LKFragment {
 
+    private final int ID = 3;
     private ArrayList<Event> fridayEvents;
  //   private float lastOff = 0;
     private ArrayList<Event> saturdayEvents;
@@ -52,6 +54,10 @@ public class SchemeFragment extends LKFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_scheme, null);
+
+        ContentActivity activity = ContentActivity.class.cast(getActivity());
+        activity.allBottomsUnfocus();
+        activity.focusBottomItem(ID);
 
         leftArrowLayout = get(view, R.id.left_arrow, RelativeLayout.class);
         rightArrowLayout = get(view, R.id.right_arrow, RelativeLayout.class);
