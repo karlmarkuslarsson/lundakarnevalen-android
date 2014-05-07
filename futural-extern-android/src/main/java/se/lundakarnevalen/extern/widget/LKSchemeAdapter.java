@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.FragmentManager;
@@ -84,7 +85,14 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
             vh = (ViewHolder) convertView.getTag();
         }
 
-        vh.image.setImageResource(item.icon);
+        Bitmap bm = null;
+        if(vh.image.getDrawable() != null){
+            BitmapDrawable bmdr = (BitmapDrawable) vh.image.getDrawable();
+        }
+        bm = BitmapUtil.decodeSampledBitmapFromResource(context.getResources(), item.icon, 200, 200, bm);
+
+        vh.image.setImageBitmap(bm);
+
         vh.start.setText(item.getStartTime());
         vh.end.setText(item.getEndTime());
         vh.place.setText(item.place);

@@ -46,9 +46,14 @@ public class BitmapUtil {
         return inSampleSize;
     }
 
-
     public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
                                                          int reqWidth, int reqHeight) {
+        return decodeSampledBitmapFromResource(res, resId, reqWidth, reqHeight, null);
+    }
+
+
+    public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
+                                                         int reqWidth, int reqHeight, Bitmap recycle) {
 
         // First decode with inJustDecodeBounds=true to check dimensions
         final BitmapFactory.Options options = new BitmapFactory.Options();
@@ -60,6 +65,7 @@ public class BitmapUtil {
 
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
+        options.inBitmap = recycle;
         return BitmapFactory.decodeResource(res, resId, options);
     }
 
