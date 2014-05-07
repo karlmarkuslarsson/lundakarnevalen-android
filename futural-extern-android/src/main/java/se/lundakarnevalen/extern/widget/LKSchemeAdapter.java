@@ -49,50 +49,57 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
         this.context = context;
     }
 
+    private static class ViewHolder{
+        private final ImageView image;
+        private final ImageView heart;
+        private final TextView start;
+        private final TextView end;
+        private final TextView place;
+        private final TextView name;
+
+        private ViewHolder(View root) {
+            start = (TextView) root.findViewById(R.id.time1);
+            end = (TextView) root.findViewById(R.id.time2);
+            place = (TextView) root.findViewById(R.id.place);
+            name = (TextView) root.findViewById(R.id.name);
+            image = (ImageView) root.findViewById(R.id.bottom_menu_image);
+            heart = (ImageView) root.findViewById(R.id.heart_image);
+        }
+    }
+
     @Override
     public View getView(int pos, View convertView, ViewGroup parent){
         final LKSchemeItem item = getItem(pos);
 
-        // Recycle old bitmaps, from the converter view
-        //if (convertView != null && convertView.findViewById(R.id.bottom_menu_image) != null)
-        //    Bitmap.class.cast(convertView.findViewById(R.id.bottom_menu_image).getTag()).recycle();
-
         if(item.dot) {
-            RelativeLayout wrapper = (RelativeLayout) inflater.inflate(R.layout.scheme_element_top, null);
-
-            return wrapper;
+            return inflater.inflate(R.layout.scheme_element_top, parent, false);
         }
 
-        RelativeLayout wrapper = (RelativeLayout) inflater.inflate(R.layout.scheme_element, parent, false);
-
-        ImageView image = (ImageView) wrapper.findViewById(R.id.bottom_menu_image);
-        image.setImageResource(item.icon);
-
-        TextView start = (TextView) wrapper.findViewById(R.id.time1);
-        TextView end = (TextView) wrapper.findViewById(R.id.time2);
-        start.setText(item.getStartTime());
-        end.setText(item.getEndTime());
-
-        TextView place = (TextView) wrapper.findViewById(R.id.place);
-        TextView name = (TextView) wrapper.findViewById(R.id.name);
-
-        place.setText(item.place);
-        name.setText(item.name);
-
-        ImageView heart = (ImageView) wrapper.findViewById(R.id.heart_image);
-        if(item.reminder) {
-            heart.setImageResource(R.drawable.heart_clicked);
+        ViewHolder vh;
+        if(convertView == null || convertView.getTag() == null) {
+            convertView = inflater.inflate(R.layout.scheme_element, parent, false);
+            vh = new ViewHolder(convertView);
+            convertView.setTag(vh);
         } else {
-            heart.setImageResource(R.drawable.heart_not_clicked);
+            vh = (ViewHolder) convertView.getTag();
         }
-        heart.setOnClickListener(new OnClickListener() {
+
+        vh.image.setImageResource(item.icon);
+        vh.start.setText(item.getStartTime());
+        vh.end.setText(item.getEndTime());
+        vh.place.setText(item.place);
+        vh.name.setText(item.name);
+
+        int icon = item.reminder ? R.drawable.heart_clicked : R.drawable.heart_not_clicked;
+        vh.heart.setImageResource(icon);
+
+        vh.heart.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
+                ImageView view = (ImageView) v;
                 if(item.reminder) {
                     item.reminder = false;
-                    ((ImageView)view).setImageResource(R.drawable.heart_not_clicked);
-
-             //       NotificationManager notificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+                    view.setImageResource(R.drawable.heart_not_clicked);
 
                     SharedPreferences sharedPref = getContext().getSharedPreferences("lundkarnevalen",Context.MODE_PRIVATE);
                     String set = sharedPref.getString("notifications", "");
@@ -120,35 +127,7 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
                     am.cancel(mAlarmSender);
                 } else {
                     item.reminder = true;
-                    ((ImageView)view).setImageResource(R.drawable.heart_clicked);
-
-                    //Intent intent = new Intent(this, NotificationReceiverActivity.class);
-                    //PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, 0);
-
-                    // Build notification
-                    // Actions are just fake
-
-                    //Intent intent = new Intent(getContext(), ContentActivity.class);
-                    //PendingIntent pIntent = PendingIntent.getActivity(getContext(), 0, intent, 0);
-
-
-                    /*
-                    NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext());
-                    Log.d("time",": "+(item.startDate.getTime()-1000*60*60+","+System.currentTimeMillis()));
-                    builder = builder
-                            .setContentIntent(pIntent)
-                            .setContentTitle(item.name)
-                            .setContentText(item.place+" "+item.getStartTime())
-                            .setAutoCancel(true)
-                            .setSmallIcon(R.drawable.splash)
-                            .setWhen(item.startDate.getTime())
-                            .setSound(Uri.parse("android.resource://" + getContext().getPackageName() + "/" + R.raw.futufutu));
-
-
-                    builder.build();
-
-                    */
-
+                    view.setImageResource(R.drawable.heart_clicked);
 
                     if(item.startDate.after(new Date())) {
                         Intent alarmIntent = new Intent(context, SchemeAlarm.class);
@@ -160,16 +139,6 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
 
                         startAlarm(item.startDate);
                     }
-                    // .setSound() add cool sound
-                    /*
-                    Notification notification = builder.getNotification();
-                    NotificationManager notificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
-                    // hide the notification after its selected
-                    builder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
-
-                    notificationManager.notify(item.getStartTime()+item.place+item.name,0,notification);
-                    */
-
 
                     SharedPreferences sharedPref = getContext().getSharedPreferences("lundkarnevalen",Context.MODE_PRIVATE);
                     String set = sharedPref.getString("notifications", "");
@@ -180,7 +149,8 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
                 }
             }
         });
-        return wrapper;
+
+        return convertView;
     }
 
     @Override
@@ -189,14 +159,8 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
         OnClickListener listener = item.listener;
         listener.onClick(view);
         view.setSelected(true);
-     }
+    }
 
-
-    /**
-     * Class representing a single row in the menu. Used with the LKMenuArrayAdapter.
-     * @author alexander
-     *
-     */
     public static class LKSchemeItem {
         public int icon;
         public String name;
@@ -224,35 +188,18 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
             this.startDate = startDate;
             this.endDate = endDate;
             this.id = id;
+
             if(activated.contains(getStartTime() + place + name)) {
                 reminder = true;
             } else {
                 reminder = false;
             }
+
             this.listener = new OnClickListener() {
-
                 @Override
-                public void onClick(View v) {
-
-                    //            clearBackStack(fragmentMgr);
-
-                    //          fragmentMgr.beginTransaction().replace(R.id.content_frame, fragment).commit();
-                }
-
-                private void clearBackStack(FragmentManager fragmentMgr) {
-
-                    for(int i = 0; i < fragmentMgr.getBackStackEntryCount(); i++) {
-                        Log.d("ContentActivity", "Removed from backstack");
-                        fragmentMgr.popBackStack();
-                    }
-                }
+                public void onClick(View v) {}
             };
-
         }
-
-
-
-
 
         public String getStartTime() {return dateFormat.format(startDate);}
         public String getEndTime() {
@@ -262,6 +209,7 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
             this.listener = listener;
         }
     }
+
     public void startAlarm(Date d){
         //Set the alarm to 10 seconds from now
         Calendar c = Calendar.getInstance();
