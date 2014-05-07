@@ -13,11 +13,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
-import com.caverock.androidsvg.SVG;
-import com.caverock.androidsvg.SVGParseException;
-
 import java.util.Collection;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
@@ -27,9 +23,9 @@ import java.util.concurrent.TimeoutException;
 import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.data.DataType;
+import se.lundakarnevalen.extern.map.LKMapSvgLoader;
 import se.lundakarnevalen.extern.map.Marker;
 import se.lundakarnevalen.extern.util.Delay;
-import se.lundakarnevalen.extern.util.Timer;
 import se.lundakarnevalen.extern.widget.LKMapView;
 import se.lundakarnevalen.extern.widget.SVGView;
 
@@ -48,7 +44,7 @@ public class MapFragment extends LKFragment {
 
     public static Future<Picture> preload(Context c) {
         if(preloaded == null){
-            preloaded = new FutureTask<Picture>(new SvgLoader(c));
+            preloaded = new FutureTask<Picture>(new LKMapSvgLoader(c));
             new AsyncTask<Void,Void,Void>(){
                 @Override
                 protected Void doInBackground(Void... params) {
@@ -118,7 +114,7 @@ public class MapFragment extends LKFragment {
                     Log.wtf(LOG_TAG, "ExecutionException", e);
                 } catch (TimeoutException e) {
                     try{
-                        Picture picture = new SvgLoader(inflater.getContext()).call();
+                        Picture picture = new LKMapSvgLoader(inflater.getContext()).call();
                         waitForLayout();
                         float minZoom = calculateMinZoom(mapView, picture);
                         mapView.setSvg(picture, minZoom, mMatrixValues);
@@ -183,8 +179,7 @@ public class MapFragment extends LKFragment {
 
             lng_marker = 13.194012f;
             lat_marker = 55.705521f;
-            mapView.setGpsMarker(lat_marker,lng_marker);
-           // mapView.setGpsMarker(234,400);
+            mapView.setGpsMarker(lat_marker, lng_marker);
         }
         return root;
     }
@@ -254,29 +249,6 @@ public class MapFragment extends LKFragment {
         this.showOnNextCreateScale = v;
     }
 
-    public static class SvgLoader implements Callable<Picture> {
-        private Context c;
-
-        public SvgLoader(Context c) {
-            this.c = c;
-        }
-
-        @Override
-        public Picture call() throws Exception {
-            try {
-                Timer t = new Timer();
-                SVG svg = SVG.getFromResource(c, R.raw.kartamindre_cleaned);
-                t.tick(LOG_TAG, "getFromResource()");
-                Picture pic = svg.renderToPicture();
-                t.tick(LOG_TAG, "renderToPicture()");
-                return pic;
-            } catch (SVGParseException e) {
-                Log.wtf(LOG_TAG, "This wont happen");
-                return null;
-            }
-        }
-    }
-
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -292,6 +264,7 @@ public class MapFragment extends LKFragment {
         fragment.setArguments(bundle);
         return fragment;
     }
+
     public void zoomToMarker() {
         float[] dst = new float[2];
         //TODO SKA VI HA ZOOM?
