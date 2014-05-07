@@ -95,14 +95,6 @@ public class LKListAdapter extends ArrayAdapter<LKListRow> {
                 case TRAIN:
                     contentActivity.loadFragmentAddingBS(TrainMapFragment.create());
                     break;
-                case TOILET:
-                    types = new ArrayList<DataType>();
-                    types.add(DataType.TOILETS);
-                    if(context!=null) {
-                        contentActivity.loadFragmentAddingBS(contentActivity.mapFragment);
-                        //ContentActivity.class.cast(context).updateMapView(types); //TODO FIX FILTERING!!!
-                    }
-                    break;
                 case SECURITY:
                     types = new ArrayList<DataType>();
                     types.add(DataType.SECURITY);

@@ -203,46 +203,13 @@ public class DataContainer {
                 DataType.FOOD,
                 menu, menuPrice));
 
-        data.add(new DataElement(
-                R.string.karne_name,
-                R.drawable.music_logo,
-                R.drawable.music_logo,
-                DataType.PLAYER_FUTURAL));
-        data.add(new DataElement(
-                R.string.train,
-                R.drawable.train_logo_other,
-                R.drawable.train_logo_other,
-                DataType.TRAIN));
-        data.add(new DataElement(
-                R.string.radio_title,
-                R.drawable.radio_logo,
-                R.drawable.radio_logo,
-                DataType.PLAYER_RADIO));
-        data.add(new DataElement(
-                R.string.toilets_title,
-                R.drawable.toilets_logo,
-                R.drawable.toilets_logo,
-                DataType.TOILET));
-        data.add(new DataElement(
-                R.string.security_title,
-                R.drawable.security_logo,
-                R.drawable.security_logo,
-                DataType.SECURITY));
+        /*
         data.add(new DataElement(
                 R.string.atm_title,
                 R.drawable.atm_logo,
                 R.drawable.atm_logo,
                 DataType.ATM));
-        data.add(new DataElement(
-                R.string.parking_title,
-                R.drawable.parking_logo,
-                R.drawable.parking_logo,
-                DataType.PARKING));
-        data.add(new DataElement(
-                R.string.care_title,
-                R.drawable.health_logo,
-                R.drawable.health_logo,
-                DataType.CARE1));
+        */
 
         data.add(new DataElement(R.string.biljetteriet,R.string.biljetteriet_place,R.string.biljetteriet_question,R.string.biljetteriet_info, 55.70502736279169f, 13.19517650439325f, R.drawable.map_biljetteriet_icon,R.drawable.biljetteriet_logo_list, DataType.BILJETTERIET));
 

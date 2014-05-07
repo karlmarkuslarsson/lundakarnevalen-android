@@ -66,4 +66,57 @@ public class DataMultiContainer {
 
         return data;
     }
+
+
+    public static List<DataElement> getAllOtherMultiData() {
+        List<DataElement> data = new ArrayList<DataElement>();
+
+        // TODO fix coordinates
+
+        data.add(new DataElement(
+                R.string.karne_name,
+                R.drawable.music_logo,
+                R.drawable.music_logo,
+                DataType.PLAYER_FUTURAL));
+        data.add(new DataElement(
+                R.string.train,
+                R.drawable.train_logo_other,
+                R.drawable.train_logo_other,
+                DataType.TRAIN));
+        data.add(new DataElement(
+                R.string.radio_title,
+                R.drawable.radio_logo,
+                R.drawable.radio_logo,
+                DataType.PLAYER_RADIO));
+        data.add(new DataElement(
+                R.string.toilets_title,
+                R.string.empty,
+                R.string.toilets_info,
+                1f,1f,
+                R.drawable.header_other,
+                R.drawable.toilets_logo,
+                DataType.TOILETS));
+        data.add(new DataElement(
+                R.string.security_title,
+                R.string.empty,
+                R.string.security_info,
+                1f,1f,
+                R.drawable.header_other,
+                R.drawable.security_logo,
+                DataType.SECURITY));
+        data.add(new DataElement(
+                R.string.parking_title,
+                R.drawable.parking_logo,
+                R.drawable.parking_logo,
+                DataType.PARKING));
+        data.add(new DataElement(
+                R.string.care_title,
+                R.string.empty,
+                R.string.care_info,
+                1f,1f,
+                R.drawable.header_other,
+                R.drawable.health_logo,
+                DataType.CARE));
+        return data;
+    }
 }

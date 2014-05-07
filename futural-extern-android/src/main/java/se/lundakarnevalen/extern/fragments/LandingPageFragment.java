@@ -124,7 +124,7 @@ public class LandingPageFragment extends LKFragment{
                     ll.addView(view);
                 }
             }
-        } else if(type == DataType.BILJETTERIET) {
+        } else if(type == DataType.BILJETTERIET || type == DataType.SHOPPEN) {
             get(rootView, R.id.question, TextView.class).setText(element.question);
             get(rootView, R.id.text, TextView.class).setText(Html.fromHtml(getString(element.info)));
             get(rootView, R.id.middleLayout, RelativeLayout.class).setBackgroundResource(R.color.blue_dark);
@@ -139,6 +139,11 @@ public class LandingPageFragment extends LKFragment{
             get(rootView, R.id.question, TextView.class).setVisibility(View.GONE);
             get(rootView, R.id.text, TextView.class).setText(element.info);
             get(rootView, R.id.middleLayout, RelativeLayout.class).setBackgroundResource(R.color.green_background);
+            get(rootView, R.id.middleView, View.class).setVisibility(View.INVISIBLE);
+        }else if(type == DataType.TOILETS || type == DataType.SECURITY || type == DataType.CARE) {
+            get(rootView, R.id.question, TextView.class).setVisibility(View.GONE);
+            get(rootView, R.id.text, TextView.class).setText(Html.fromHtml(getString(element.info)));
+            get(rootView, R.id.middleLayout, RelativeLayout.class).setBackgroundResource(R.color.blue_dark);
             get(rootView, R.id.middleView, View.class).setVisibility(View.INVISIBLE);
         }
         return rootView;
