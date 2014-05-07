@@ -1,5 +1,6 @@
 package se.lundakarnevalen.extern.util;
 
+import android.annotation.TargetApi;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,6 +14,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
+import android.os.Build;
 import android.util.Log;
 
 /**
@@ -52,6 +54,7 @@ public class BitmapUtil {
     }
 
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
                                                          int reqWidth, int reqHeight, Bitmap recycle) {
 
