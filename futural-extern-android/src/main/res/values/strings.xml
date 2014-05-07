@@ -359,6 +359,9 @@ karnevalistisk femstjärning meny för 70 kr!\n\n
 
     <string name="click_for_more">(Click to show more info)</string>
     <string name="trash">TRASH</string>
+    <string name="biljetteriet_place" />
+    <string name="biljetteriet_question">VAD ÄR BILJETTERIET?</string>
+    <string name="biljetteriet_info">Här kan du hämta ut dina biljetter.</string>
 
 
 </resources>

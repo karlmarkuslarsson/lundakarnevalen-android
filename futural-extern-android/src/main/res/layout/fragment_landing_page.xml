@@ -83,17 +83,25 @@
                 android:layout_height="match_parent"
                 android:weightSum="2"
                 android:baselineAligned="false">
-                <LinearLayout
+                <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1" >
-                </LinearLayout>
-            <RelativeLayout
+                </View>
+
+
+                <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 >
                 <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/middleView">
+
+
+                    <RelativeLayout
                     android:id="@+id/open_box"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -211,11 +219,13 @@
 
                 </LinearLayout>
 
+
+                </RelativeLayout>
                 <RelativeLayout
                     android:id="@+id/map_box"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/open_box"
+                    android:layout_toRightOf="@id/middleView"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     >
