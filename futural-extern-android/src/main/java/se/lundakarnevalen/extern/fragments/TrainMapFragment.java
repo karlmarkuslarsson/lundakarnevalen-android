@@ -234,4 +234,11 @@ public class TrainMapFragment extends LKFragment{
         fragment.setArguments(bundle);
         return fragment;
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        //ContentActivity.class.cast(getActivity()).hideBottomMenu();
+        ContentActivity.class.cast(getActivity()).allBottomsUnfocus();
+    }
 }

@@ -195,9 +195,9 @@ public class DataContainer {
                 R.string.krog_thyme_title,
                 R.string.krog_thyme_info,
                 55.705697f, 13.194630f,
-                R.drawable.monk,
-                R.drawable.map_fine_dine_logo,
-                R.drawable.fine_dine_logo,
+                R.drawable.header_other,
+                R.drawable.map_thyme_travel,
+                R.drawable.thyme_travel_logo,
                 R.string.krog_thyme_question,
                 "14:00-02:00", "14:00-02:00", "14:00-02:00",
                 DataType.FOOD,
@@ -248,8 +248,9 @@ public class DataContainer {
 
 
 
-        data.add(new DataElement(R.string.smanojen, R.string.sketchera, 55.70483928999759f, 13.19305851161833f, R.drawable.bubble_smanojen, DataType.SMALL_FUN));
+
         data.add(new DataElement(R.string.smanojen, R.string.undergangen, 55.70460881490317f, 13.19352521597889f, R.drawable.bubble_smanojen, DataType.SMALL_FUN));
+        data.add(new DataElement(R.string.smanojen, R.string.sketchera, 55.70483928999759f, 13.19305851161833f, R.drawable.bubble_smanojen, DataType.SMALL_FUN));
         data.add(new DataElement(R.string.smanojen, R.string.futuralfuneral, 55.70450982359015f, 13.19322614967337f, R.drawable.bubble_smanojen, DataType.SMALL_FUN));
 
         data.add(new DataElement(R.string.taltnojen, R.string.studenthistoriska_riksmuseet, 55.705053732349f, 13.1930051727718f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
@@ -347,4 +348,5 @@ public class DataContainer {
         }
         return data;
     }
+
 }

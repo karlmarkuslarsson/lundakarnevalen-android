@@ -9,6 +9,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
+import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.data.DataContainer;
 import se.lundakarnevalen.extern.data.DataElement;
@@ -22,6 +23,7 @@ import se.lundakarnevalen.extern.widget.LKListRow;
 public class FunFragment extends LKFragment {
 
     private List<DataElement> fun = new ArrayList<DataElement>();
+    private final int ID = 0;
 
     // Every time you switch to this fragment.
     @Override
@@ -29,6 +31,11 @@ public class FunFragment extends LKFragment {
         View root = inflater.inflate(R.layout.fragment_fun, container, false);
 
         ListView lv = (ListView) root.findViewById(R.id.fragment_fun_list);
+
+        ContentActivity activity = ContentActivity.class.cast(getActivity());
+        activity.allBottomsUnfocus();
+        activity.focusBottomItem(ID);
+
 
         if (fun.isEmpty()) {
             fun.addAll(DataContainer.getDataOfType(DataType.FUN));

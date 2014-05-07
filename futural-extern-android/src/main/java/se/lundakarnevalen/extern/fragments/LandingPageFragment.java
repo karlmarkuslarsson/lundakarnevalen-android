@@ -2,6 +2,9 @@ package se.lundakarnevalen.extern.fragments;
 
 import static se.lundakarnevalen.extern.util.ViewUtil.*;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -134,7 +137,6 @@ public class LandingPageFragment extends LKFragment{
     public void onStart() {
         super.onStart();
         //ContentActivity.class.cast(getActivity()).hideBottomMenu();
-
         ContentActivity.class.cast(getActivity()).allBottomsUnfocus();
     }
 
@@ -168,4 +170,8 @@ public class LandingPageFragment extends LKFragment{
         // Add arguments
         return fragment;
     }
+
+
 }
+
+

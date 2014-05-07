@@ -39,6 +39,7 @@ public class MapFragment extends LKFragment {
 
     private float showOnNextCreateLat = -1.0f;
     private float showOnNextCreateLng = -1.0f;
+    private final int ID = 2;
 
     public static Future<Picture> preload(Context c) {
         if(preloaded == null){
@@ -85,7 +86,10 @@ public class MapFragment extends LKFragment {
         final View root = inflater.inflate(R.layout.fragment_map, container, false);
 
         mapView = get(root, R.id.map_id, LKMapView.class);
-        ContentActivity.class.cast(getActivity()).activateTrainButton();
+        ContentActivity activity = ContentActivity.class.cast(getActivity());
+        activity.allBottomsUnfocus();
+        activity.focusBottomItem(ID);
+        activity.activateTrainButton();
         get(root, R.id.map_pull_out, View.class).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -278,8 +278,8 @@ public class ContentActivity extends ActionBarActivity {
     public void showMapAndPanTo(float lat, float lng) {
         focusBottomItem(2);
         mapFragment.addZoomHintForNextCreate(lat, lng);
-        popFragmentStack();
-        loadFragmentReplaceBS(mapFragment);
+
+        loadFragmentAddingBS(mapFragment);
     }
 
     private class BottomMenuClickListener implements OnClickListener {
@@ -304,6 +304,7 @@ public class ContentActivity extends ActionBarActivity {
             Fragment f = (Fragment) v.getTag(TAG_FRAGMENT);
             deselectItem(r);
             selectItem(v, r);
+            fragmentMgr.popBackStack(null,FragmentManager.POP_BACK_STACK_INCLUSIVE);
             loadFragmentReplaceBS(f);
         }
 
