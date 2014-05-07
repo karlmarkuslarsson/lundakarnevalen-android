@@ -469,5 +469,7 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="to_traint">TILL TÅGET</string>
     <string name="train_info">Årets tåg består av häftiga tåg i alla dess former, en resa genom tidsrymden.\n\nFör att få veta mer var god köp programbladet som säljs i shoppen på karnevalsområdet.</string>
     <string name="train_question">VAD ÄR TÅGET?</string>
+    <string name="shoppen_info">Här hittar du programblad, souvenirer och andra roliga saker som gör dina (kanske vaga) minnen från karnevalen ännu klarare.</string>
+    <string name="shoppen_question">VAD FINNS I SHOPPEN?</string>
 
 </resources>

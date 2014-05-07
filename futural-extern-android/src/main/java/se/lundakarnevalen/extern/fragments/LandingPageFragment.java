@@ -71,8 +71,12 @@ public class LandingPageFragment extends LKFragment{
                 get(rootView,R.id.open_info,TextView.class).setText(element.timeSunday);
                 break;
             default:
-                get(rootView,R.id.open_info,TextView.class).setText(element.timeSunday);
-                break;
+                if(c.DAY_OF_MONTH > 25) {
+                    get(rootView, R.id.open_info, TextView.class).setText(element.timeSunday);
+                } else {
+                    get(rootView,R.id.open_info,TextView.class).setText(element.timeFriday);
+                }
+                    break;
         }
 
         if(element.cash == 1) {

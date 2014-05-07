@@ -282,7 +282,9 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="security_info">Karnevalsområdet har även en egen polisstation (se karta). Här kan du till exempel anmäla en stöld eller lämna in hittegods, och få hjälp med nästan allt som du får hjälp med på en vanlig polisstation.</string>
     <string name="care_info">På området finns en sjukstuga (se karta) med läkare och sjuksköterskor som mer än gärna plåstrar om dig när du blir skadad, det är bara att gå dit! Utöver detta så kan du få hjälp av sjukvårdsteam som hela tiden rör sig på området.</string>
     <string name="to_traint">TILL TÅGET</string>
-    <string name="train_info">Årets tåg består av häftiga tåg i alla dess former, en resa genom tidsrymden. \n\n För att få veta mer var god köp programbladet som säljs i shoppen på karnevalsområdet.</string>
+    <string name="train_info">Årets tåg består av häftiga tåg i alla dess former, en resa genom tidsrymden.\n\nFör att få veta mer var god köp programbladet som säljs i shoppen på karnevalsområdet.</string>
     <string name="train_question">VAD ÄR TÅGET?</string>
+    <string name="shoppen_info">Här hittar du programblad, souvenirer och andra roliga saker som gör dina (kanske vaga) minnen från karnevalen ännu klarare.</string>
+    <string name="shoppen_question">VAD FINNS I SHOPPEN?</string>
 
 </resources>

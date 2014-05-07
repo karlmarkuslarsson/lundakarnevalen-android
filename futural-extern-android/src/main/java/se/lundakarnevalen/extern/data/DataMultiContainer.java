@@ -90,8 +90,6 @@ public class DataMultiContainer {
                 "LÖR/SÖN", "13:00-15:00", "13:00-15:00",
                 DataType.TRAIN));
 
-
-
                 data.add(new DataElement(
                 R.string.radio_title,
                 R.drawable.radio_logo,
@@ -118,6 +116,15 @@ public class DataMultiContainer {
                 R.drawable.parking_logo,
                 R.drawable.parking_logo,
                 DataType.PARKING));
+        data.add(new DataElement(
+                R.string.shoppen,
+                R.string.shoppen_question,
+                R.string.shoppen_info,
+                55.70557904967363f, 13.19512260551833f,
+                R.drawable.header_other,
+                R.drawable.shoppen_logo_other,
+                DataType.SHOPPEN));
+
         data.add(new DataElement(
                 R.string.care_title,
                 R.string.empty,
