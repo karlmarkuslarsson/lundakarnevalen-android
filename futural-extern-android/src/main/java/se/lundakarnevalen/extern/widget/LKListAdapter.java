@@ -21,6 +21,7 @@ import se.lundakarnevalen.extern.data.DataType;
 import se.lundakarnevalen.extern.fragments.LandingPageFragment;
 import se.lundakarnevalen.extern.fragments.MelodyFragment;
 import se.lundakarnevalen.extern.fragments.MusicFragment;
+import se.lundakarnevalen.extern.fragments.ParkingFragment;
 import se.lundakarnevalen.extern.fragments.TrainMapFragment;
 
 
@@ -111,6 +112,8 @@ public class LKListAdapter extends ArrayAdapter<LKListRow> {
                     }
                     break;
                 case PARKING:
+                    contentActivity.loadFragmentAddingBS(new ParkingFragment());
+
                     break;
                 case CARE1:
                     types = new ArrayList<DataType>();
