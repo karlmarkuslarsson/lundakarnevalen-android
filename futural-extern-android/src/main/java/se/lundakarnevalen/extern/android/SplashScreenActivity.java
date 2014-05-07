@@ -14,8 +14,8 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import se.lundakarnevalen.extern.fragments.MapFragment;
-import se.lundakarnevalen.extern.fragments.TrainMapFragment;
+import se.lundakarnevalen.extern.map.MapLoader;
+import se.lundakarnevalen.extern.map.TrainMapLoader;
 
 public class SplashScreenActivity extends Activity {
     private static final String LOG_TAG = SplashScreenActivity.class.getSimpleName();
@@ -52,8 +52,8 @@ public class SplashScreenActivity extends Activity {
         }
 
         startMovingClouds(findViewById(android.R.id.content));
-        MapFragment.preload(this);
-        TrainMapFragment.preload(this);
+        MapLoader.preload(this);
+        TrainMapLoader.preload(this);
     }
 
 

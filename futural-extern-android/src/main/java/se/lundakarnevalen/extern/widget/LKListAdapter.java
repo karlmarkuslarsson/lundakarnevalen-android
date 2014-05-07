@@ -99,7 +99,7 @@ public class LKListAdapter extends ArrayAdapter<LKListRow> {
                     types = new ArrayList<DataType>();
                     types.add(DataType.TOILETS);
                     if(context!=null) {
-                        contentActivity.loadFragmentAddingBS(contentActivity.mapFragment);
+                        contentActivity.loadFragmentAddingBS(contentActivity.mMapFragment);
                         //ContentActivity.class.cast(context).updateMapView(types); //TODO FIX FILTERING!!!
                     }
                     break;
@@ -107,7 +107,7 @@ public class LKListAdapter extends ArrayAdapter<LKListRow> {
                     types = new ArrayList<DataType>();
                     types.add(DataType.SECURITY);
                     if(context!=null) {
-                        contentActivity.loadFragmentAddingBS(contentActivity.mapFragment);
+                        contentActivity.loadFragmentAddingBS(contentActivity.mMapFragment);
                         //ContentActivity.class.cast(context).updateMapView(types);
                     }
                     break;
@@ -119,7 +119,7 @@ public class LKListAdapter extends ArrayAdapter<LKListRow> {
                     types = new ArrayList<DataType>();
                     types.add(DataType.CARE);
                     if(context!=null) {
-                        contentActivity.loadFragmentAddingBS(contentActivity.mapFragment);
+                        contentActivity.loadFragmentAddingBS(contentActivity.mMapFragment);
                         //ContentActivity.class.cast(context).updateMapView(types);
                     }
                     break;
@@ -127,7 +127,7 @@ public class LKListAdapter extends ArrayAdapter<LKListRow> {
                     types = new ArrayList<DataType>();
                     types.add(DataType.ATM);
                     if(context!=null) {
-                        contentActivity.loadFragmentAddingBS(contentActivity.mapFragment);
+                        contentActivity.loadFragmentAddingBS(contentActivity.mMapFragment);
                         //ContentActivity.class.cast(context).updateMapView(types);
                     }
                     break;

@@ -1,6 +1,5 @@
 package se.lundakarnevalen.extern.fragments;
 
-import android.content.Context;
 import android.graphics.Picture;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
@@ -12,20 +11,16 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.ViewFlipper;
 
-import com.caverock.androidsvg.SVG;
-import com.caverock.androidsvg.SVGParseException;
-
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
+import se.lundakarnevalen.extern.map.GPSTracker;
+import se.lundakarnevalen.extern.map.TrainMapLoader;
 import se.lundakarnevalen.extern.util.Delay;
-import se.lundakarnevalen.extern.util.Timer;
+import se.lundakarnevalen.extern.util.Logf;
 import se.lundakarnevalen.extern.widget.SVGView;
 
 import static se.lundakarnevalen.extern.util.ViewUtil.get;
@@ -33,43 +28,18 @@ import static se.lundakarnevalen.extern.util.ViewUtil.get;
 /**
  * Created by Markus on 2014-04-16.
  */
-public class TrainMapFragment extends LKFragment{
-    private static FutureTask<Picture> preloaded = null;
-    private MediaPlayer mp;
-
-    public static Future<Picture> preload(Context c) {
-        if(preloaded == null){
-            preloaded = new FutureTask<Picture>(new SvgLoader(c));
-            new AsyncTask<Void,Void,Void>(){
-                @Override
-                protected Void doInBackground(Void... params) {
-                    preloaded.run();
-                    return null;
-                }
-            }.execute();
-        }
-        return preloaded;
-    }
-
-    public static void clean(){
-        preloaded = null;
-    }
-
+public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListener {
     private static final String LOG_TAG = TrainMapFragment.class.getSimpleName();
+
     private static final String STATE_MATRIX = "matrix";
 
     private float[] mMatrixValues;
-
+    private MediaPlayer mp;
     private SVGView img;
-
-
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
 
         if(savedInstanceState != null && savedInstanceState.containsKey(STATE_MATRIX)){
             Log.d(LOG_TAG, "Matrix values restored");
@@ -110,7 +80,7 @@ public class TrainMapFragment extends LKFragment{
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    Picture picture = preload(inflater.getContext()).get(20, TimeUnit.SECONDS);
+                    Picture picture = TrainMapLoader.preload(inflater.getContext()).get(20, TimeUnit.SECONDS);
                     waitForLayout();
                     final float scale = calculateMinZoom(img, picture) / 2.0f;
                     img.setSvg(picture, scale, null);
@@ -132,7 +102,7 @@ public class TrainMapFragment extends LKFragment{
 
             private void loadMap() {
                 try{
-                    Picture picture = new SvgLoader(inflater.getContext()).call();
+                    Picture picture = new TrainMapLoader(inflater.getContext()).call();
                     waitForLayout();
                     final float scale = calculateMinZoom(img, picture) / 2.0f;
                     img.setSvg(picture, scale, null);
@@ -174,6 +144,21 @@ public class TrainMapFragment extends LKFragment{
         super.onPause();
     }
 
+    @Override
+    public void onStop() {
+        ContentActivity.class.cast(getActivity()).inactivateTrainButton();
+        ContentActivity.class.cast(getActivity()).unregisterForLocationUpdates(this);
+        super.onStop();
+    }
+
+    @Override
+    public void onStart() {
+        ContentActivity.class.cast(getActivity()).activateTrainButton();
+        ContentActivity.class.cast(getActivity()).registerForLocationUpdates(this);
+        super.onStart();
+    }
+
+
     private void waitForLayout() {
         int counter = 0;
         while (img.getMeasuredHeight() == 0 && counter++ < 100) Delay.ms(100); //Wait for layout
@@ -187,29 +172,6 @@ public class TrainMapFragment extends LKFragment{
                 root.getMeasuredWidth() * 1.0f / pic.getWidth());
     }
 
-    public static class SvgLoader implements Callable<Picture> {
-        private Context c;
-
-        public SvgLoader(Context c) {
-            this.c = c;
-        }
-
-        @Override
-        public Picture call() throws Exception {
-            try {
-                Timer t = new Timer();
-                SVG svg = SVG.getFromResource(c, R.raw.train_map_cleaned);
-                t.tick(LOG_TAG, "getFromResource()");
-                Picture pic = svg.renderToPicture();
-                t.tick(LOG_TAG, "renderToPicture()");
-                return pic;
-            } catch (SVGParseException e) {
-                Log.wtf(LOG_TAG, "This wont happen");
-                return null;
-            }
-        }
-    }
-
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -220,13 +182,10 @@ public class TrainMapFragment extends LKFragment{
     public static TrainMapFragment create(boolean startSound) {
         TrainMapFragment fragment = new TrainMapFragment();
         Bundle bundle = new Bundle();
-
         bundle.putBoolean("sound", startSound);
-
         fragment.setArguments(bundle);
         return fragment;
     }
-
 
     public static TrainMapFragment create() {
         Bundle bundle = new Bundle();
@@ -236,9 +195,7 @@ public class TrainMapFragment extends LKFragment{
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        //ContentActivity.class.cast(getActivity()).hideBottomMenu();
-        ContentActivity.class.cast(getActivity()).allBottomsUnfocus();
+    public void onNewLocation(double lat, double lng) {
+        Logf.d(LOG_TAG, "Got new location (%f, %f)", lat, lng);
     }
 }

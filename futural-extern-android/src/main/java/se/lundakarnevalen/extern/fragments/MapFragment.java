@@ -1,6 +1,5 @@
 package se.lundakarnevalen.extern.fragments;
 
-import android.content.Context;
 import android.graphics.Picture;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,15 +14,14 @@ import android.widget.ViewFlipper;
 
 import java.util.Collection;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.data.DataType;
-import se.lundakarnevalen.extern.map.LKMapSvgLoader;
+import se.lundakarnevalen.extern.map.GPSTracker;
+import se.lundakarnevalen.extern.map.MapLoader;
 import se.lundakarnevalen.extern.map.Marker;
 import se.lundakarnevalen.extern.util.Delay;
 import se.lundakarnevalen.extern.widget.LKMapView;
@@ -31,8 +29,8 @@ import se.lundakarnevalen.extern.widget.SVGView;
 
 import static se.lundakarnevalen.extern.util.ViewUtil.get;
 
-public class MapFragment extends LKFragment {
-    private static FutureTask<Picture> preloaded = null;
+public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
+    private final int ID = 2;
 
     private float lng_marker = -1;
     private float lat_marker = -1;
@@ -40,28 +38,6 @@ public class MapFragment extends LKFragment {
     private float showOnNextCreateLat = -1.0f;
     private float showOnNextCreateLng = -1.0f;
     private float showOnNextCreateScale = -1.0f;
-    private final int ID = 2;
-
-    public static Future<Picture> preload(Context c) {
-        if(preloaded == null){
-            preloaded = new FutureTask<Picture>(new LKMapSvgLoader(c));
-            new AsyncTask<Void,Void,Void>(){
-                @Override
-                protected Void doInBackground(Void... params) {
-                    if (preloaded == null) { // if async starts after cleanup
-                        return null;
-                    }
-                    preloaded.run();
-                    return null;
-                }
-            }.execute();
-        }
-        return preloaded;
-    }
-
-    public static void clean(){
-        preloaded = null;
-    }
 
     private static final String LOG_TAG = MapFragment.class.getSimpleName();
     private static final String STATE_MATRIX = "matrix";
@@ -104,7 +80,7 @@ public class MapFragment extends LKFragment {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    Picture picture = preload(inflater.getContext()).get(20, TimeUnit.SECONDS);
+                    Picture picture = MapLoader.preload(inflater.getContext()).get(20, TimeUnit.SECONDS);
                     waitForLayout();
                     float minZoom = calculateMinZoom(mapView, picture);
                     mapView.setSvg(picture, minZoom, mMatrixValues);
@@ -114,7 +90,7 @@ public class MapFragment extends LKFragment {
                     Log.wtf(LOG_TAG, "ExecutionException", e);
                 } catch (TimeoutException e) {
                     try{
-                        Picture picture = new LKMapSvgLoader(inflater.getContext()).call();
+                        Picture picture = new MapLoader(inflater.getContext()).call();
                         waitForLayout();
                         float minZoom = calculateMinZoom(mapView, picture);
                         mapView.setSvg(picture, minZoom, mMatrixValues);
@@ -164,6 +140,9 @@ public class MapFragment extends LKFragment {
             }
         });
 
+        lng_marker = 13.194012f;
+        lat_marker = 55.705521f;
+
         if(showOnNextCreateLat > 0.0f && showOnNextCreateLng > 0.0f) {
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -174,13 +153,8 @@ public class MapFragment extends LKFragment {
                     showOnNextCreateScale = 1.0f;
                 }
             }, 500);
-        } else {
-            //TODO: Animate to gps marker!? (only if first time)
-
-            lng_marker = 13.194012f;
-            lat_marker = 55.705521f;
-            mapView.setGpsMarker(lat_marker, lng_marker);
         }
+        mapView.setGpsMarker(lat_marker, lng_marker, (savedInstanceState != null));
         return root;
     }
 
@@ -202,11 +176,13 @@ public class MapFragment extends LKFragment {
     @Override
     public void onStop() {
         ContentActivity.class.cast(getActivity()).inactivateTrainButton();
+        ContentActivity.class.cast(getActivity()).unregisterForLocationUpdates(this);
         super.onStop();
     }
     @Override
     public void onStart() {
         ContentActivity.class.cast(getActivity()).activateTrainButton();
+        ContentActivity.class.cast(getActivity()).registerForLocationUpdates(this);
         super.onStart();
     }
 
@@ -269,8 +245,12 @@ public class MapFragment extends LKFragment {
         float[] dst = new float[2];
         //TODO SKA VI HA ZOOM?
         mapView.zoom(SVGView.MAX_ZOOM);
-
         mapView.getPointFromCoordinates(lat_marker, lng_marker, dst);
         mapView.panTo(dst[0],dst[1]);
+    }
+
+    @Override
+    public void onNewLocation(double lat, double lng) {
+        mapView.setGpsMarker((float) lat, (float) lng, false);
     }
 }

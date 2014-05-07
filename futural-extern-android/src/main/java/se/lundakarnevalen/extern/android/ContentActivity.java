@@ -1,7 +1,10 @@
 package se.lundakarnevalen.extern.android;
 
 import android.app.Dialog;
+import android.content.pm.ApplicationInfo;
 import android.content.res.Resources;
+import android.location.LocationManager;
+import android.location.LocationProvider;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -37,9 +40,13 @@ import se.lundakarnevalen.extern.data.DataType;
 import se.lundakarnevalen.extern.fragments.FoodFragment;
 import se.lundakarnevalen.extern.fragments.FunFragment;
 import se.lundakarnevalen.extern.fragments.MapFragment;
+import se.lundakarnevalen.extern.fragments.MockLocationProvider;
 import se.lundakarnevalen.extern.fragments.OtherFragment;
 import se.lundakarnevalen.extern.fragments.SchemeFragment;
 import se.lundakarnevalen.extern.fragments.TrainMapFragment;
+import se.lundakarnevalen.extern.map.GPSTracker;
+import se.lundakarnevalen.extern.map.MapLoader;
+import se.lundakarnevalen.extern.map.TrainMapLoader;
 import se.lundakarnevalen.extern.widget.LKMapView;
 import se.lundakarnevalen.extern.widget.LKRightMenuArrayAdapter;
 import se.lundakarnevalen.extern.widget.SVGView;
@@ -51,15 +58,16 @@ public class ContentActivity extends ActionBarActivity {
 
     public static final String LOG_TAG = ContentActivity.class.getSimpleName();
 
-    private FragmentManager fragmentMgr;
-    private LKRightMenuArrayAdapter adapter;
+    private FragmentManager mFragmentMgr;
+
+    private BottomMenuClickListener mBottomMenuListener;
+    private ListView mRightMenuList;
 
     private View mActionBarView;
-    private ListView rightMenuList;
-    private DrawerLayout drawerLayout;
-    private BottomMenuClickListener bottomMenuListener;
+    private DrawerLayout mDrawerLayout;
 
-    public MapFragment mapFragment;
+    public MapFragment mMapFragment;
+    private GPSTracker mGpsTracker;
 
     public <T> T find(int id, Class<T> clz) {
         return clz.cast(findViewById(id));
@@ -69,12 +77,12 @@ public class ContentActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content);
-        fragmentMgr = getSupportFragmentManager();
+        mFragmentMgr = getSupportFragmentManager();
 
-        mapFragment = new MapFragment();
-        loadFragmentReplaceBS(mapFragment);
+        mMapFragment = new MapFragment();
+        loadFragmentReplaceBS(mMapFragment);
 
-        rightMenuList = find(R.id.right_menu_list, ListView.class);
+        mRightMenuList = find(R.id.right_menu_list, ListView.class);
 
         setupDrawerLayout();
         setupActionbar();
@@ -90,21 +98,27 @@ public class ContentActivity extends ActionBarActivity {
             }
         }, 300);
 
-
         // TODO modify design
         // createCustomDialog();
+        
+        mGpsTracker = new GPSTracker(this);
+
+        if ((getApplication().getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0) {
+            MockLocationProvider mock = new MockLocationProvider(LocationManager.GPS_PROVIDER, ContentActivity.this);
+            mock.pushLocation(55.706085, 13.19417);
+        }
     }
 
     private void setupDrawerLayout() {
-        drawerLayout = find(R.id.drawer_layout, DrawerLayout.class);
-        drawerLayout.setScrimColor(Color.TRANSPARENT);
+        mDrawerLayout = find(R.id.drawer_layout, DrawerLayout.class);
+        mDrawerLayout.setScrimColor(Color.TRANSPARENT);
     }
 
     public void toggleRightDrawer() {
-        if (drawerLayout.isDrawerOpen(Gravity.RIGHT)) {
-            drawerLayout.closeDrawer(Gravity.RIGHT);
+        if (mDrawerLayout.isDrawerOpen(Gravity.RIGHT)) {
+            mDrawerLayout.closeDrawer(Gravity.RIGHT);
         } else {
-            drawerLayout.openDrawer(Gravity.RIGHT);
+            mDrawerLayout.openDrawer(Gravity.RIGHT);
         }
     }
 
@@ -129,11 +143,13 @@ public class ContentActivity extends ActionBarActivity {
 
     }
 
+
     @Override
     protected void onDestroy() {
         Log.d(LOG_TAG, "onDestroy()!?  Cleaning allocated resources: MapFragment, TrainMapFragment, LKMapView");
-        MapFragment.clean();
-        TrainMapFragment.clean();
+        mGpsTracker.stopUsingGPS();
+        MapLoader.clean();
+        TrainMapLoader.clean();
         LKMapView.clean();
         System.gc();
         super.onDestroy();
@@ -141,19 +157,19 @@ public class ContentActivity extends ActionBarActivity {
 
     @Override
     public void onLowMemory() {
-        if(bottomMenuListener.selected != null) {
-            Fragment visibleFragment = Fragment.class.cast(bottomMenuListener.selected.getTag(R.id.bottom_menu_tag_fragment));
+        if(mBottomMenuListener.selected != null) {
+            Fragment visibleFragment = Fragment.class.cast(mBottomMenuListener.selected.getTag(R.id.bottom_menu_tag_fragment));
             if (visibleFragment instanceof MapFragment){
                 Log.w(LOG_TAG, "onLowMemory() called: Map showing thus cleaning TrainMapSvg");
-                TrainMapFragment.clean();
+                TrainMapLoader.clean();
             } else if (visibleFragment instanceof TrainMapFragment){
                 Log.w(LOG_TAG, "onLowMemory() called: TrainMap showing thus cleaning MapSvg");
-                MapFragment.clean();
+                MapLoader.clean();
                 LKMapView.clean();
             } else {
                 Log.w(LOG_TAG, "onLowMemory() called: No map showing thus cleaning all SVGs and LKMapIcons");
-                TrainMapFragment.clean();
-                MapFragment.clean();
+                TrainMapLoader.clean();
+                MapLoader.clean();
                 LKMapView.clean();
             }
         }
@@ -192,14 +208,14 @@ public class ContentActivity extends ActionBarActivity {
     }
 
     private void populateBottomMenu(LinearLayout bottomMenu) {
-        bottomMenuListener = new BottomMenuClickListener();
+        mBottomMenuListener = new BottomMenuClickListener();
         AtomicInteger counter = new AtomicInteger(0);
-        createBottomMenuItem(bottomMenu, bottomMenuListener, counter, new FunFragment(), R.id.button1, R.string.fun, R.drawable.fun_logo);
-        createBottomMenuItem(bottomMenu, bottomMenuListener, counter, new FoodFragment(), R.id.button2, R.string.food, R.drawable.food_logo);
-        createBottomMenuItem(bottomMenu, bottomMenuListener, counter, mapFragment, R.id.button3, R.string.map, R.drawable.map_logo);
-        createBottomMenuItem(bottomMenu, bottomMenuListener, counter, new SchemeFragment(), R.id.button4, R.string.scheme, R.drawable.scheme_logo);
-        createBottomMenuItem(bottomMenu, bottomMenuListener, counter, new OtherFragment(), R.id.button5, R.string.other, R.drawable.other_logo);
-        bottomMenuListener.first(get(bottomMenu, R.id.button3, ViewGroup.class));
+        createBottomMenuItem(bottomMenu, mBottomMenuListener, counter, new FunFragment(), R.id.button1, R.string.fun, R.drawable.fun_logo);
+        createBottomMenuItem(bottomMenu, mBottomMenuListener, counter, new FoodFragment(), R.id.button2, R.string.food, R.drawable.food_logo);
+        createBottomMenuItem(bottomMenu, mBottomMenuListener, counter, mMapFragment, R.id.button3, R.string.map, R.drawable.map_logo);
+        createBottomMenuItem(bottomMenu, mBottomMenuListener, counter, new SchemeFragment(), R.id.button4, R.string.scheme, R.drawable.scheme_logo);
+        createBottomMenuItem(bottomMenu, mBottomMenuListener, counter, new OtherFragment(), R.id.button5, R.string.other, R.drawable.other_logo);
+        mBottomMenuListener.first(get(bottomMenu, R.id.button3, ViewGroup.class));
     }
 
     private void createBottomMenuItem(LinearLayout menu, BottomMenuClickListener listener, AtomicInteger counter, Fragment f, int itemId, int textId, int imageId) {
@@ -220,7 +236,7 @@ public class ContentActivity extends ActionBarActivity {
 
     public void loadFragmentAddingBS(Fragment f) {
         Log.d("ContentActivity", "loadFragmentAddingBS(" + f + ")");
-        FragmentTransaction t = fragmentMgr.beginTransaction();
+        FragmentTransaction t = mFragmentMgr.beginTransaction();
         t.setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out);
         t.replace(R.id.content_frame, f);
         t.addToBackStack(null);
@@ -229,14 +245,14 @@ public class ContentActivity extends ActionBarActivity {
 
     private void loadFragmentReplaceBS(Fragment f) {
         Log.d("ContentActivity", "loadFragmentReplaceBS(" + f + ")");
-        FragmentTransaction t = fragmentMgr.beginTransaction();
+        FragmentTransaction t = mFragmentMgr.beginTransaction();
         t.setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out);
         t.replace(R.id.content_frame, f);
         t.commit();
     }
 
     public void popFragmentStack() {
-        fragmentMgr.popBackStack();
+        mFragmentMgr.popBackStack();
     }
 
     /**
@@ -245,42 +261,51 @@ public class ContentActivity extends ActionBarActivity {
     private void populateRightMenuDrawer() {
         LayoutInflater inflater = LayoutInflater.from(this);
 
-        adapter = new LKRightMenuArrayAdapter(this);
-        adapter.addItem(getString(R.string.food), R.drawable.food_logo, new DataType[]{DataType.FOOD});
-        adapter.addItem(getString(R.string.fun), R.drawable.fun_logo, new DataType[]{DataType.FUN, DataType.SMALL_FUN, DataType.TENT_FUN, DataType.TOMBOLAN,
+        LKRightMenuArrayAdapter mRightMenuAdapter = new LKRightMenuArrayAdapter(this);
+        mRightMenuAdapter.addItem(getString(R.string.food), R.drawable.food_logo, new DataType[]{DataType.FOOD});
+        mRightMenuAdapter.addItem(getString(R.string.fun), R.drawable.fun_logo, new DataType[]{DataType.FUN, DataType.SMALL_FUN, DataType.TENT_FUN, DataType.TOMBOLAN,
                 DataType.SCENE, DataType.RADIO});
-        adapter.addItem(getString(R.string.help), R.drawable.help_logo, new DataType[]{DataType.POLICE, DataType.CARE});
-        adapter.addItem(getString(R.string.wc), R.drawable.wc_logo, new DataType[]{DataType.TOILETS});
-        adapter.addItem(getString(R.string.entre), R.drawable.entrance_filter_icon, new DataType[]{DataType.ENTRANCE});
-        adapter.addItem(getString(R.string.trash), R.drawable.soptunna_filter_icon, new DataType[]{DataType.TRASHCAN});
-        adapter.addItem(getString(R.string.show_all), 0, DataType.values());
+        mRightMenuAdapter.addItem(getString(R.string.help), R.drawable.help_logo, new DataType[]{DataType.POLICE, DataType.CARE});
+        mRightMenuAdapter.addItem(getString(R.string.wc), R.drawable.wc_logo, new DataType[]{DataType.TOILETS});
+        mRightMenuAdapter.addItem(getString(R.string.entre), R.drawable.entrance_filter_icon, new DataType[]{DataType.ENTRANCE});
+        mRightMenuAdapter.addItem(getString(R.string.trash), R.drawable.soptunna_filter_icon, new DataType[]{DataType.TRASHCAN});
+        mRightMenuAdapter.addItem(getString(R.string.show_all), 0, DataType.values());
 
-        rightMenuList.setAdapter(adapter);
-        rightMenuList.setOnItemClickListener(adapter);
-        rightMenuList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        rightMenuList.setItemsCanFocus(false);
+        mRightMenuList.setAdapter(mRightMenuAdapter);
+        mRightMenuList.setOnItemClickListener(mRightMenuAdapter);
+        mRightMenuList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        mRightMenuList.setItemsCanFocus(false);
     }
 
     public void allBottomsUnfocus() {
-        bottomMenuListener.deselectItem(getResources());
-        bottomMenuListener.selected = null;
+        mBottomMenuListener.deselectItem(getResources());
+        mBottomMenuListener.selected = null;
     }
 
     public void focusBottomItem(int nbr) {
-        bottomMenuListener.deselectItem(getResources());
+        mBottomMenuListener.deselectItem(getResources());
         final View child = find(R.id.bottom_frame_menu, LinearLayout.class).getChildAt(nbr);
-        bottomMenuListener.selectItem(child, getResources());
+        mBottomMenuListener.selectItem(child, getResources());
     }
 
     public void updateMapView(Collection<DataType> types) {
-        mapFragment.setActiveType(types);
+        mMapFragment.setActiveType(types);
     }
 
     public void showMapAndPanTo(float lat, float lng) {
         focusBottomItem(2);
-        //mapFragment.addZoomHintForNextCreate(lat, lng);
-        mapFragment.addZoomHintForNextCreate(lat, lng, SVGView.MAX_ZOOM);
-        loadFragmentAddingBS(mapFragment);
+        //mMapFragment.addZoomHintForNextCreate(lat, lng);
+        mMapFragment.addZoomHintForNextCreate(lat, lng, SVGView.MAX_ZOOM);
+        loadFragmentAddingBS(mMapFragment);
+    }
+
+    public void registerForLocationUpdates(GPSTracker.GPSListener listener) {
+        mGpsTracker.addListener(listener);
+        listener.onNewLocation(mGpsTracker.getLatitude(), mGpsTracker.getLongitude());
+    }
+
+    public void unregisterForLocationUpdates(GPSTracker.GPSListener listener) {
+        mGpsTracker.removeListener(listener);
     }
 
     private class BottomMenuClickListener implements OnClickListener {
@@ -305,7 +330,7 @@ public class ContentActivity extends ActionBarActivity {
             Fragment f = (Fragment) v.getTag(TAG_FRAGMENT);
             deselectItem(r);
             selectItem(v, r);
-            fragmentMgr.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            mFragmentMgr.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             loadFragmentReplaceBS(f);
         }
 
@@ -317,11 +342,11 @@ public class ContentActivity extends ActionBarActivity {
                 get(target, R.id.bottom_menu_image, ImageView.class).setAlpha(1.0f);
             }
             if (target.getTag(TAG_FRAGMENT) instanceof MapFragment) {
-                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
             } else if (target.getTag(TAG_FRAGMENT) != null) { //When constructing the tag will be null
-                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
             }
-            drawerLayout.closeDrawers();
+            mDrawerLayout.closeDrawers();
             this.selected = target;
         }
 
@@ -382,7 +407,7 @@ public class ContentActivity extends ActionBarActivity {
 //                MusicThread thread = new MusicThread();
 //                thread.execute();
 
-               mapFragment.zoomToMarker();
+               mMapFragment.zoomToMarker();
 
 
 

@@ -328,13 +328,13 @@ public class LKMapView extends SVGView {
         rect.offset(-0.5f * rect.width(), -rect.height());
     }
 
-    public void setGpsMarker(float lat, float lng){
+    public void setGpsMarker(float lat, float lng, boolean panToMarker) {
         float[] tmp = new float[2];
         getPointFromCoordinates(lat, lng, tmp);
-        setGpsMarker((int) tmp[AXIS_X], (int) tmp[AXIS_Y]);
+        setGpsMarker((int) tmp[AXIS_X], (int) tmp[AXIS_Y], panToMarker); // (int) is important to avoid recursion
     }
 
-    public void setGpsMarker(int x, int y) {
+    public void setGpsMarker(int x, int y, boolean panToMarker) {
         Logf.d(LOG_TAG, "GPSMarker moved to (%d, %d)", x, y);
         PropertyValuesHolder xh = PropertyValuesHolder.ofFloat("x", mGpsMarkerPos.x, x);
         PropertyValuesHolder yh = PropertyValuesHolder.ofFloat("y", mGpsMarkerPos.y, y);
@@ -350,6 +350,10 @@ public class LKMapView extends SVGView {
         anim.setInterpolator(new AccelerateDecelerateInterpolator());
         anim.setDuration(1000);
         anim.start();
+
+        if(panToMarker) { // Will fire of async as the above animation
+            panTo(x, y);
+        }
     }
 
     public void setActiveTypes(Collection<DataType> types) {
