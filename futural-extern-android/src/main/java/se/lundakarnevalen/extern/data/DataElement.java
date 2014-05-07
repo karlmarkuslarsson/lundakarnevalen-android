@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 import java.util.ArrayList;
 
+import se.lundakarnevalen.extern.android.R;
+
 /**
  * Created by Markus on 2014-04-23.
  */
@@ -95,6 +97,32 @@ public class DataElement implements Parcelable {
         this.picture_list = picture_list;
     }
 
+    public DataElement(int place, int title, int info, int question, float lat, float lng, int headerPicture, int picture, int picture_list, DataType type) {
+        this.place = place;
+        this.title = title;
+        this.info = info;
+        this.lat = lat;
+        this.lng = lng;
+        this.headerPicture = headerPicture;
+        this.picture = picture;
+        this.question = question;
+        this.picture_list = picture_list;
+        this.type = type;
+
+    }
+
+    public DataElement(int title, int question, int info ,float lat, float lng, int headerPicture, int picture, DataType type) {
+        this.title = title;
+        this.place = R.string.empty;
+        this.info = info;
+        this.lat = lat;
+        this.lng = lng;
+        this.headerPicture = headerPicture;
+        this.picture_list = picture;
+        this.question = question;
+        this.type = type;
+
+    }
 
 
     @Override

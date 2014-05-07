@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.lang.annotation.ElementType;
 import java.util.Calendar;
 
 import se.lundakarnevalen.extern.android.ContentActivity;
@@ -70,8 +71,12 @@ public class LandingPageFragment extends LKFragment{
                 get(rootView,R.id.open_info,TextView.class).setText(element.timeSunday);
                 break;
             default:
-                get(rootView,R.id.open_info,TextView.class).setText(element.timeSunday);
-                break;
+                if(c.DAY_OF_MONTH > 25) {
+                    get(rootView, R.id.open_info, TextView.class).setText(element.timeSunday);
+                } else {
+                    get(rootView,R.id.open_info,TextView.class).setText(element.timeFriday);
+                }
+                    break;
         }
 
         if(element.cash == 1) {
@@ -96,7 +101,11 @@ public class LandingPageFragment extends LKFragment{
             @Override
             public void onClick(View view) {
                 //TODO add filter here for DataMultiContainer
-                ContentActivity.class.cast(getActivity()).showMapAndPanTo(lat, lng);
+                if(element.type == DataType.TRAIN) {
+                    ContentActivity.class.cast(getActivity()).loadFragmentAddingBS(TrainMapFragment.create());
+                } else {
+                    ContentActivity.class.cast(getActivity()).showMapAndPanTo(lat, lng);
+                }
             }
         });
 
@@ -124,7 +133,7 @@ public class LandingPageFragment extends LKFragment{
                     ll.addView(view);
                 }
             }
-        } else if(type == DataType.BILJETTERIET) {
+        } else if(type == DataType.BILJETTERIET || type == DataType.SHOPPEN|| type == DataType.TRASHCAN) {
             get(rootView, R.id.question, TextView.class).setText(element.question);
             get(rootView, R.id.text, TextView.class).setText(Html.fromHtml(getString(element.info)));
             get(rootView, R.id.middleLayout, RelativeLayout.class).setBackgroundResource(R.color.blue_dark);
@@ -132,10 +141,29 @@ public class LandingPageFragment extends LKFragment{
 
         } else if(type == DataType.TENT_FUN || type == DataType.SMALL_FUN || type == DataType.TOMBOLAN ||type == DataType.MUSIC ||type == DataType.SCENE) {
             get(rootView, R.id.question, TextView.class).setText(element.question);
-            get(rootView, R.id.text, TextView.class).setText(Html.fromHtml(getString(element.info)));
+            get(rootView, R.id.text, TextView.class).setText(element.info);
             get(rootView, R.id.middleView, View.class).setVisibility(View.INVISIBLE);
 
+        } else if(type == DataType.SNACKS) {
+            get(rootView, R.id.question, TextView.class).setVisibility(View.GONE);
+            get(rootView, R.id.text, TextView.class).setText(element.info);
+            get(rootView, R.id.middleLayout, RelativeLayout.class).setBackgroundResource(R.color.green_background);
+            get(rootView, R.id.middleView, View.class).setVisibility(View.INVISIBLE);
+        }else if(type == DataType.TOILETS || type == DataType.SECURITY || type == DataType.CARE) {
+            get(rootView, R.id.question, TextView.class).setVisibility(View.GONE);
+            get(rootView, R.id.text, TextView.class).setText(element.info);
+            get(rootView, R.id.middleLayout, RelativeLayout.class).setBackgroundResource(R.color.blue_dark);
+            get(rootView, R.id.middleView, View.class).setVisibility(View.INVISIBLE);
+        }else if(type == DataType.TRAIN) {
+            get(rootView, R.id.question, TextView.class).setText(element.question);
+            get(rootView, R.id.text, TextView.class).setText(element.info);
+            get(rootView, R.id.middleLayout, RelativeLayout.class).setBackgroundResource(R.color.blue_dark);
+            get(rootView,R.id.card_box,RelativeLayout.class).setVisibility(View.INVISIBLE);
+            get(rootView,R.id.cash_box,RelativeLayout.class).setVisibility(View.INVISIBLE);
+            get(rootView,R.id.map_info,TextView.class).setText(R.string.to_traint);
         }
+
+
         return rootView;
     }
 

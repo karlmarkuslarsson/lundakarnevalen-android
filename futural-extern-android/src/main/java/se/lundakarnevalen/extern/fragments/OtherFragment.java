@@ -13,6 +13,7 @@ import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.data.DataContainer;
 import se.lundakarnevalen.extern.data.DataElement;
+import se.lundakarnevalen.extern.data.DataMultiContainer;
 import se.lundakarnevalen.extern.data.DataType;
 import se.lundakarnevalen.extern.widget.LKListAdapter;
 import se.lundakarnevalen.extern.widget.LKListRow;
@@ -38,11 +39,11 @@ public class OtherFragment extends LKFragment{
             other.addAll(DataContainer.getDataOfType(DataType.TRAIN));
             other.addAll(DataContainer.getDataOfType(DataType.PLAYER_RADIO));
             other.addAll(DataContainer.getDataOfType(DataType.BILJETTERIET));
-            other.addAll(DataContainer.getDataOfType(DataType.TOILET));
             other.addAll(DataContainer.getDataOfType(DataType.ATM));
             other.addAll(DataContainer.getDataOfType(DataType.PARKING));
             other.addAll(DataContainer.getDataOfType(DataType.CARE1));
             other.addAll(DataContainer.getDataOfType(DataType.SECURITY));
+            other.addAll(DataMultiContainer.getAllOtherMultiData());
         }
 
         ArrayList<LKListRow> items = new ArrayList<LKListRow>();

@@ -176,7 +176,7 @@ public class DataContainer {
                 R.string.krog_lajka_info,
                 55.70573799412114f, 13.19474001701577f,
                 R.drawable.monk,
-                R.drawable.lajka_icon,
+                R.drawable.map_lajka_icon,
                 R.drawable.lajka_icon,
                 R.string.krog_lajka_question,
                 "12:00-01:00", "12:00-01:00", "12:00-24:00",
@@ -203,46 +203,13 @@ public class DataContainer {
                 DataType.FOOD,
                 menu, menuPrice));
 
-        data.add(new DataElement(
-                R.string.karne_name,
-                R.drawable.music_logo,
-                R.drawable.music_logo,
-                DataType.PLAYER_FUTURAL));
-        data.add(new DataElement(
-                R.string.train,
-                R.drawable.train_logo_other,
-                R.drawable.train_logo_other,
-                DataType.TRAIN));
-        data.add(new DataElement(
-                R.string.radio_title,
-                R.drawable.radio_logo,
-                R.drawable.radio_logo,
-                DataType.PLAYER_RADIO));
-        data.add(new DataElement(
-                R.string.toilets_title,
-                R.drawable.toilets_logo,
-                R.drawable.toilets_logo,
-                DataType.TOILET));
-        data.add(new DataElement(
-                R.string.security_title,
-                R.drawable.security_logo,
-                R.drawable.security_logo,
-                DataType.SECURITY));
+        /*
         data.add(new DataElement(
                 R.string.atm_title,
                 R.drawable.atm_logo,
                 R.drawable.atm_logo,
                 DataType.ATM));
-        data.add(new DataElement(
-                R.string.parking_title,
-                R.drawable.parking_logo,
-                R.drawable.parking_logo,
-                DataType.PARKING));
-        data.add(new DataElement(
-                R.string.care_title,
-                R.drawable.health_logo,
-                R.drawable.health_logo,
-                DataType.CARE1));
+        */
 
         data.add(new DataElement(R.string.biljetteriet,R.string.biljetteriet_place,R.string.biljetteriet_question,R.string.biljetteriet_info, 55.70502736279169f, 13.19517650439325f, R.drawable.map_biljetteriet_icon,R.drawable.biljetteriet_logo_list, DataType.BILJETTERIET));
 
@@ -333,8 +300,11 @@ public class DataContainer {
         data.add(new DataElement(R.string.shoppen, R.string.shoppen, 55.70557904967363f, 13.19512260551833f, R.drawable.bubble_shoppen, DataType.SHOPPEN));
 
         //TODO: Fix logo for scenes below
-        data.add(new DataElement(R.string.small_scene, R.string.small_scene, R.string.small_scene_question,R.string.small_scene_info, 55.7071037170697f, 13.19599227169824f, R.drawable.header_showen, R.drawable.map_scene_logo, DataType.SCENE));
-        data.add(new DataElement(R.string.big_scene, R.string.big_scene, R.string.big_scene_question,R.string.big_scene_info, 55.70558532232642f, 13.19365336887898f, R.drawable.header_showen, R.drawable.map_scene_logo, DataType.SCENE));
+        data.add(new DataElement(R.string.small_scene_place,R.string.small_scene,R.string.small_scene_info, R.string.small_scene_question, 55.7071037170697f, 13.19599227169824f, R.drawable.header_showen, R.drawable.map_scene_logo, R.drawable.scene_logo_list,DataType.SCENE));
+        data.add(new DataElement(R.string.big_scene_place,R.string.big_scene, R.string.big_scene_info,R.string.big_scene_question, 55.70558532232642f, 13.19365336887898f, R.drawable.header_showen, R.drawable.map_scene_logo,R.drawable.scene_logo_list, DataType.SCENE));
+
+
+
 
         return data;
     }
