@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -126,6 +127,11 @@ public class LandingPageFragment extends LKFragment{
             get(rootView, R.id.question, TextView.class).setText(element.question);
             get(rootView, R.id.text, TextView.class).setText(Html.fromHtml(getString(element.info)));
             get(rootView, R.id.middleLayout, RelativeLayout.class).setBackgroundResource(R.color.blue_dark);
+            get(rootView, R.id.middleView, View.class).setVisibility(View.INVISIBLE);
+
+        } else if(type == DataType.TENT_FUN || type == DataType.SMALL_FUN ) {
+            get(rootView, R.id.question, TextView.class).setText(element.question);
+            get(rootView, R.id.text, TextView.class).setText(Html.fromHtml(getString(element.info)));
             get(rootView, R.id.middleView, View.class).setVisibility(View.INVISIBLE);
 
         }

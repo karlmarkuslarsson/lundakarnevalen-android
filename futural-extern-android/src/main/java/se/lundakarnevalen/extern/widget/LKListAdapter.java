@@ -131,9 +131,6 @@ public class LKListAdapter extends ArrayAdapter<LKListRow> {
                         //ContentActivity.class.cast(context).updateMapView(types);
                     }
                     break;
-                case BILJETTERIET:
-                    contentActivity.loadFragmentAddingBS(LandingPageFragment.create(element));
-                    break;
                 default:
                     contentActivity.loadFragmentAddingBS(LandingPageFragment.create(element));
                     break;

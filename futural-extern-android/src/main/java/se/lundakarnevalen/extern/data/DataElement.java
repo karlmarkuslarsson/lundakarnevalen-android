@@ -27,6 +27,9 @@ public class DataElement implements Parcelable {
     public ArrayList<Integer> menu;
     public ArrayList<String> menuPrice;
 
+
+
+
     public DataElement(int place, int title, int info, float lat, float lng, int headerPicture, int picture, int picture_list, int question, String timeFriday, String timeSaturday, String timeSunday, DataType type) {
         this.place = place;
         this.title = title;
@@ -91,6 +94,8 @@ public class DataElement implements Parcelable {
         this.info = info;
         this.picture_list = picture_list;
     }
+
+
 
     @Override
     public int describeContents() {

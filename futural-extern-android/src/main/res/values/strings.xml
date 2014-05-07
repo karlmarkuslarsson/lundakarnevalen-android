@@ -416,8 +416,39 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
         ]]>
     </string>
     <string name="smanojen_place" />
+
     <string name="smanojen_question">VAD ÄR SMÅNÖJEN?</string>
-    <string name="smanojen_info">SMÅNÖJEN</string>
+    <string name="smanojen_info">Smånöjen är något för dig som vill uppleva musik, spontanitet och
+        skrattintensivitet är smånöjen det perfekta! Biljetter säljs på karnevalsområdet och
+        föreställningarna visas så ofta som bara är möjligt. Ta tillvara på din spontanitet och
+        tillåt dig att, för en halvtimme, ”fånga framtiden” i våra smånöjen.</string>
+
+    <string name="taltnojen_place" />
+
+    <string name="taltnojen_question">VAD ÄR TÄLTNÖJEN?</string>
+    <string name="taltnojen_info">Det finns 20 tältnöjen som innehåller en kort och karnevalistisk
+        upplevelse, för att veta mer om varje enskilt tältnöje, var god köp vårt programblad som
+        finns tillgängligt på shoppen inne på karnevalsområdet.</string>
+
+
+    <string name="tombolan_place" />
+
+    <string name="tombolan_question">VAD ÄR TOMBOLAN?</string>
+    <string name="tombolan_info">Tombolan sprider karnevalsglädje genom de spel och tävlingar som
+        kommer att finnas på området. Vi skapar de mest fantastiska och knäppa spelbodar som Liseberg
+        aldrig sett genom musik, lampor, satir och futurism.</string>
+
+
+    <string name="musik_place" />
+
+    <string name="musik" >MUSIKEN</string>
+
+    <string name="musik_question">VAD ÄR MUSIKEN?</string>
+    <string name="musik_info">Musiksektionen ser till att det alltid strömmar ljuv musik ifrån
+        olika platser på Karnevalsområdet och framförallt ifrån Stora Scenen framför universitetshuset.
+        Vi har hand om alla artister som kommer för att uppträda under dagarna men även scenerna dem
+        uppträder ifrån.</string>
+
 
 
 </resources>

@@ -20,6 +20,7 @@ import com.nineoldandroids.animation.ValueAnimator;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -141,10 +142,14 @@ public class LKMapView extends SVGView {
         mBubbleShadowXRadius = mBubbleSize/4.0f; //dpToPx(context, 2);
         mBubbleShadowYRadius = mBubbleSize/8.0f; //dpToPx(context, 1);
 
+
         markers.clear();
         for (DataElement elm : DataContainer.getAllData()) {
             markers.add(new Marker(elm));
         }
+        // TODO Change data structure?
+        Collections.sort(markers);
+
 
         initBitmapCache(context);
 
@@ -237,7 +242,7 @@ public class LKMapView extends SVGView {
         getCurrentViewPort(mCurrentViewPort);
         mCurrentViewPort.inset(-10.0f, -10.0f);
 
-        for (Marker m : markers) {
+        for (Marker m:markers) {
             if(activeTypes.contains(m.element.type)) {
                 if (m.x == -1) {
                     getPointFromCoordinates(m);

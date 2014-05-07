@@ -5,7 +5,7 @@ import se.lundakarnevalen.extern.data.DataElement;
 /**
  * Created by Filip on 2014-04-18.
  */
-public class Marker {
+public class Marker implements Comparable<Marker>{
     public static final String LOG_TAG = "Marker";
 
     public float x = -1;
@@ -29,4 +29,12 @@ public class Marker {
         return dx * dx + dy * dy;
     }
 
+    @Override
+    public int compareTo(Marker marker) {
+        if(element.lat < marker.element.lat) {
+            return 1;
+        } else {
+            return -1;
+        }
+    }
 }
