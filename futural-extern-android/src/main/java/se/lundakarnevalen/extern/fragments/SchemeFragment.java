@@ -2,11 +2,9 @@ package se.lundakarnevalen.extern.fragments;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.NotificationManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
@@ -16,20 +14,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.scheme.Event;
 import se.lundakarnevalen.extern.scheme.Events;
-import se.lundakarnevalen.extern.widget.LKRightMenuArrayAdapter;
+import se.lundakarnevalen.extern.widget.BounceListView;
 import se.lundakarnevalen.extern.widget.LKSchemeAdapter;
 
 import static se.lundakarnevalen.extern.util.ViewUtil.get;
@@ -51,7 +46,7 @@ public class SchemeFragment extends LKFragment {
     // Every time you switch to this fragment.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_scheme, null);
+        View view = inflater.inflate(R.layout.fragment_scheme, container, false);
 
         leftArrowLayout = get(view, R.id.left_arrow, RelativeLayout.class);
         rightArrowLayout = get(view, R.id.right_arrow, RelativeLayout.class);
@@ -209,7 +204,7 @@ public class SchemeFragment extends LKFragment {
             }
 
         }
-
+        listItems.add(new LKSchemeAdapter.LKSchemeItem());
         return listItems;
     }
 
@@ -264,10 +259,11 @@ public class SchemeFragment extends LKFragment {
             View view = inflater.inflate(R.layout.scheme_list, container, false);
             container.addView(view);
 
-            ListView lv = get(view, R.id.scheme_list, ListView.class);
+            BounceListView lv = get(view, R.id.scheme_list, BounceListView.class);
             lv.setCacheColorHint(0); //For keeping the background (not black) while scrolling on API 10
-            lv.setAdapter(new LKSchemeAdapter(container.getContext(), getSchemeForDay(position)));
-
+            LKSchemeAdapter schemeAdapter = new LKSchemeAdapter(container.getContext(), getSchemeForDay(position));
+            lv.setAdapter(schemeAdapter);
+            lv.setOnItemClickListener(schemeAdapter);
             view.setTag(position);
             return position;
         }

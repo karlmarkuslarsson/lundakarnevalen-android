@@ -2,10 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/scheme_element"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
-
-
+    android:layout_height="match_parent" >
 
     <RelativeLayout
         android:id="@+id/time"
@@ -23,7 +20,7 @@
             android:contentDescription="@string/picture" />
 
         <ImageView
-            android:id="@+id/bottom_menu_image"
+            android:id="@+id/scheme_element_image"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_centerVertical="true"
@@ -38,8 +35,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:layout_alignTop="@id/bottom_menu_image"
-            android:layout_alignLeft="@id/bottom_menu_image"
+            android:layout_alignTop="@id/scheme_element_image"
+            android:layout_alignLeft="@id/scheme_element_image"
             android:layout_marginLeft="-26dp"
             android:textSize="11sp"
             android:padding="2dp"
@@ -52,9 +49,9 @@
             android:id="@+id/time2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/bottom_menu_image"
+            android:layout_alignBottom="@id/scheme_element_image"
             android:textColor="@color/white"
-            android:layout_alignLeft="@id/bottom_menu_image"
+            android:layout_alignLeft="@id/scheme_element_image"
             android:layout_marginLeft="-26dp"
             android:textSize="11sp"
             android:gravity="center"

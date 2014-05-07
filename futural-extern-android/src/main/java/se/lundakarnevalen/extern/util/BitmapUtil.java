@@ -68,7 +68,9 @@ public class BitmapUtil {
 
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
-        options.inBitmap = recycle;
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            options.inBitmap = recycle;
+        }
         return BitmapFactory.decodeResource(res, resId, options);
     }
 
