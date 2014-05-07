@@ -32,7 +32,11 @@ public class OtherFragment extends LKFragment{
             other.addAll(DataContainer.getDataOfType(DataType.PLAYER_FUTURAL));
             other.addAll(DataContainer.getDataOfType(DataType.TRAIN));
             other.addAll(DataContainer.getDataOfType(DataType.PLAYER_RADIO));
-            other.addAll(DataContainer.getDataOfType(DataType.OTHER)); // @TODO: Fix order, markus
+            other.addAll(DataContainer.getDataOfType(DataType.TOILET));
+            other.addAll(DataContainer.getDataOfType(DataType.ATM));
+            other.addAll(DataContainer.getDataOfType(DataType.PARKING));
+            other.addAll(DataContainer.getDataOfType(DataType.CARE1));
+            other.addAll(DataContainer.getDataOfType(DataType.SECURITY));
         }
 
         ArrayList<LKListRow> items = new ArrayList<LKListRow>();

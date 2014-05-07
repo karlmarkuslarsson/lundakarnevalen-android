@@ -1,0 +1,21 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue_parking"
+    tools:context="se.lundakarnevalen.extern.fragments.ParkingFragment"
+    >
+
+    <include layout="@layout/splash_clouds" />
+    <include layout="@layout/splash_clouds_moving" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="30dp"
+        android:scaleType="fitCenter"
+        android:layout_gravity="center"
+        android:src="@drawable/parking_map"/>
+
+
+</FrameLayout>

@@ -168,8 +168,8 @@ karnevalistisk femstjärning meny för 70 kr!\n\nBetalning: kort och kontant\n\n
 
     <string name="play">SPELA</string>
     <string name="stop">STOPPA</string>
-    <string name="krog_undervatten_place" />
-    <string name="krog_undervatten_title">UNDERVATTEN</string>
+    <string name="krog_undervatten_place">FRAMFÖR AF-BORGEN</string>
+    <string name="krog_undervatten_title">KROG UNDERVATTEN</string>
     <string name="krog_undervatten_question">VAD ÄR UNDERVATTEN?</string>
     <string name="lundakarnevalen_actionbar">LUNDAKARNEVALEN</string>
     <string name="radio_title">RADION</string>
@@ -265,5 +265,6 @@ karnevalistisk femstjärning meny för 70 kr!\n\nBetalning: kort och kontant\n\n
 
 
     <string name="click_for_more">(Klicka för mer info)</string>
+    <string name="trash">SOPOR</string>
 
 </resources>

@@ -2,7 +2,6 @@ package se.lundakarnevalen.extern.widget;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -11,7 +10,6 @@ import android.graphics.PointF;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.util.SparseArray;
-import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.caverock.androidsvg.SVG;
@@ -21,7 +19,6 @@ import com.nineoldandroids.animation.ValueAnimator;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -54,6 +51,7 @@ public class LKMapView extends SVGView {
     public static final float BUBBLE_SIZE_MULTIPLIER = 3.0f;
 
     private static SparseArray<Bitmap> bitmaps = new SparseArray<Bitmap>();
+    private RectF mCurrentViewPort = new RectF();
 
     public static void clean() {
         for(int i = 0; i < bitmaps.size(); i++) {
@@ -77,6 +75,7 @@ public class LKMapView extends SVGView {
     private Paint mBlueInk;
 
     private Picture mGpsMarker;
+    private Picture mEntance;
     private Picture mBubble;
 
     private float mGpsMarkerSize;
@@ -128,6 +127,7 @@ public class LKMapView extends SVGView {
         try {
             mGpsMarker = SVG.getFromResource(context, R.raw.gps_marker).renderToPicture();
             mBubble = SVG.getFromResource(context, R.raw.bubble2).renderToPicture();
+            mEntance = SVG.getFromResource(context, R.raw.entre).renderToPicture();
         } catch (SVGParseException e) {
             e.printStackTrace();
         }
@@ -136,9 +136,9 @@ public class LKMapView extends SVGView {
         mGpsShadowXRadius = dpToPx(context, 10);
         mGpsShadowYRadius = dpToPx(context, 6);
 
-        mBubbleSize = dpToPx(context, 8);
-        mBubbleShadowXRadius = dpToPx(context, 2);
-        mBubbleShadowYRadius = dpToPx(context, 1);
+        mBubbleSize = 14.0f;//dpToPx(context, 8);
+        mBubbleShadowXRadius = mBubbleSize/4.0f; //dpToPx(context, 2);
+        mBubbleShadowYRadius = mBubbleSize/8.0f; //dpToPx(context, 1);
 
         markers.clear();
         for (DataElement elm : DataContainer.getAllData()) {
@@ -163,7 +163,7 @@ public class LKMapView extends SVGView {
     private void initBitmapCache(Context context) {
         for (Marker m : markers) {
             if(bitmaps.get(m.picture) == null) {
-                bitmaps.put(m.picture, BitmapUtil.decodeSampledBitmapFromResource(context.getResources(), m.picture, 100, 100));
+                bitmaps.put(m.picture, BitmapUtil.decodeSampledBitmapFromResource(context.getResources(), m.picture, 96, 96));
             }
         }
     }
@@ -183,14 +183,16 @@ public class LKMapView extends SVGView {
         float min = Float.MAX_VALUE;
         Marker closest = null;
         for (Marker m : markers) {
-            if (m.x != -1) {
-                final float distance = m.distance(xInSvg, yInSvg - offsetY) / mPreDrawScale;
-                if(distance < min){
-                    min = distance;
-                    closest = m;
+            if(activeTypes.contains(m.element.type)) {
+                if (m.x != -1) {
+                    final float distance = m.distance(xInSvg, yInSvg - offsetY) / mPreDrawScale;
+                    if (distance < min) {
+                        min = distance;
+                        closest = m;
+                    }
+                } else {
+                    m.isFocusedInMap = false;
                 }
-            } else {
-                m.isFocusedInMap = false;
             }
         }
 
@@ -220,13 +222,16 @@ public class LKMapView extends SVGView {
         super.onDrawObjects(canvas); // Must be called to draw map
         mPreDrawScale = mMatrixValues[MSCALE_X];
 
+        getCurrentViewPort(mCurrentViewPort);
+        mCurrentViewPort.inset(-10.0f, -10.0f);
+
         for (Marker m : markers) {
             if(activeTypes.contains(m.element.type)) {
                 if (m.x == -1) {
                     getPointFromCoordinates(m);
                 }
 
-                if(m.isFocusedInMap) continue;
+                if(m.isFocusedInMap || !mCurrentViewPort.contains(m.x, m.y)) continue;
 
                 paintMarker(canvas, m);
             }
@@ -254,24 +259,33 @@ public class LKMapView extends SVGView {
     }
 
     private void paintMarker(Canvas canvas, Marker m) {
-        dst.set(m.x, m.y, m.x, m.y);
-        dst.inset(-mBubbleShadowXRadius, -mBubbleShadowYRadius);
-        canvas.drawOval(dst, mShadowInk);
+        if (m.element.type == DataType.ENTRANCE){
+            dst.set(m.x,
+                    m.y,
+                    m.x + mBubbleSize * 3.0f,
+                    m.y + mBubbleSize * 3.0f);
+            normalizeToMidpointBottom(dst);
+            canvas.drawPicture(mEntance, dst);
+        } else {
+            dst.set(m.x, m.y, m.x, m.y);
+            dst.inset(-mBubbleShadowXRadius, -mBubbleShadowYRadius);
+            canvas.drawOval(dst, mShadowInk);
 
-        dst.set(m.x,
-                m.y,
-                m.x + mBubbleSize,
-                m.y + mBubbleSize);
-        normalizeToMidpointBottom(dst);
-        canvas.drawPicture(mBubble, dst);
+            dst.set(m.x,
+                    m.y,
+                    m.x + mBubbleSize,
+                    m.y + mBubbleSize);
+            normalizeToMidpointBottom(dst);
+            canvas.drawPicture(mBubble, dst);
 
-        dst.set(m.x,
-                m.y,
-                m.x + mBubbleSize*0.8f,
-                m.y + mBubbleSize*0.8f);
-        normalizeToMidpointBottom(dst);
-        dst.offset(0f, mBubbleSize * -0.18f);
-        canvas.drawBitmap(bitmaps.get(m.picture), null, dst, null);
+            dst.set(m.x,
+                    m.y,
+                    m.x + mBubbleSize * 0.8f,
+                    m.y + mBubbleSize * 0.8f);
+            normalizeToMidpointBottom(dst);
+            dst.offset(0f, mBubbleSize * -0.18f);
+            canvas.drawBitmap(bitmaps.get(m.picture), null, dst, null);
+        }
     }
 
     public void getPointFromCoordinates(float lat, float lon, float[] dst) {

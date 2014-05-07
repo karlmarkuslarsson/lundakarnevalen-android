@@ -158,10 +158,9 @@ karnevalistisk femstjärning meny för 70 kr!\n\n
     Betalning: kort och kontant\n\n
     Serverar: Alkohol
     </string>
-    <string name="krog_undervatten_place" />
-    <string name="krog_undervatten_title">UNDERVATTEN</string>
+    <string name="krog_undervatten_place">FRAMFÖR AF-BORGEN</string>
+    <string name="krog_undervatten_title">KROG UNDERVATTEN</string>
     <string name="krog_undervatten_question">VAD ÄR KROG UNDERVATTEN?</string>
-
     <string name="empty" />
     <string name="folkan_question">VAD FINNS PÅ FOLKAN?</string>
     <string name="folkan_place"></string>
@@ -359,6 +358,7 @@ karnevalistisk femstjärning meny för 70 kr!\n\n
 
 
     <string name="click_for_more">(Click to show more info)</string>
+    <string name="trash">TRASH</string>
 
 
 </resources>

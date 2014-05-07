@@ -27,7 +27,7 @@ public class DataContainer {
                 R.string.cirkus_place,
                 R.string.cirkus_title,
                 R.string.cirkus_info,
-                55.7048333f, 13.195352777777778f,
+                55.7047557721988f, 13.19537105245979f,
                 R.drawable.header_cirkusen,
                 R.drawable.map_cirkusen_logo,
                 R.drawable.cirkusen_logo,
@@ -38,8 +38,8 @@ public class DataContainer {
                 R.string.filmen_place,
                 R.string.filmen_title,
                 R.string.filmen_info,
-                55.7059389f, 13.194805555555556f,
-                R.drawable.monk,
+                55.70605421252043f, 13.19455318842597f,
+                R.drawable.header_filmen,
                 R.drawable.map_filmen_logo,
                 R.drawable.filmen_logo,
                 R.string.filmen_question,
@@ -49,7 +49,7 @@ public class DataContainer {
                 R.string.kabare_place,
                 R.string.kabare_title,
                 R.string.kabare_info,
-                55.7042667f, 13.193833333333334f,
+                55.70435384485661f, 13.19383678585551f,
                 R.drawable.header_kabaren,
                 R.drawable.map_kabaren_logo,
                 R.drawable.kabaren_logo,
@@ -71,8 +71,8 @@ public class DataContainer {
                 R.string.showen_place,
                 R.string.show_title,
                 R.string.show_info,
-                55.7055444f, 13.195588888888889f,
-                R.drawable.monk,
+                55.70561432124412f, 13.19560148445819f,
+                R.drawable.header_showen,
                 R.drawable.map_showen_logo,
                 R.drawable.showen_logo,
                 R.string.showen_question,
@@ -82,8 +82,8 @@ public class DataContainer {
                 R.string.spexet_place,
                 R.string.spexet_title,
                 R.string.spexet_info,
-                55.7054111f, 13.195491666666667f,
-                R.drawable.monk,
+                55.705443f, 13.195835f,
+                R.drawable.header_spexet,
                 R.drawable.map_spexet_logo,
                 R.drawable.spexet_logo,
                 R.string.spexet_question,
@@ -93,7 +93,7 @@ public class DataContainer {
                 R.string.dansen_place,
                 R.string.dansen_title,
                 R.string.dansen_info,
-                55.70572f, 13.19544f,
+                55.705376f, 13.195363f,
                 R.drawable.header_dansen,
                 R.drawable.map_dansen_logo,
                 R.drawable.dansen_logo,
@@ -117,7 +117,7 @@ public class DataContainer {
                 R.string.hipp_baren_place,
                 R.string.hipp_baren_title,
                 R.string.hipp_baren_info,
-                55.706521f, 13.195431f,
+                55.706504880685f, 13.19547491457354f,
                 R.drawable.header_nangilima,
                 R.drawable.map_nagilima_logo,
                 R.drawable.nagilima_logo,
@@ -152,7 +152,7 @@ public class DataContainer {
                 R.string.krog_undervatten_place,
                 R.string.krog_undervatten_title,
                 R.string.krog_undervatten_info,
-                55.705154f, 13.19458f,
+                55.70508561404364f, 13.19467199442641f,
                 R.drawable.header_krogundervatten,
                 R.drawable.map_krog_undervatten_logo,
                 R.drawable.undervatten_logo,
@@ -174,7 +174,7 @@ public class DataContainer {
                 R.string.krog_lajka_place,
                 R.string.krog_lajka_title,
                 R.string.krog_lajka_info,
-                55.705697f, 13.194630f,
+                55.70573799412114f, 13.19474001701577f,
                 R.drawable.monk,
                 R.drawable.lajka_icon,
                 R.drawable.lajka_icon,
@@ -206,35 +206,43 @@ public class DataContainer {
         data.add(new DataElement(
                 R.string.karne_name,
                 R.drawable.music_logo,
+                R.drawable.music_logo,
                 DataType.PLAYER_FUTURAL));
         data.add(new DataElement(
                 R.string.train,
+                R.drawable.train_logo_other,
                 R.drawable.train_logo_other,
                 DataType.TRAIN));
         data.add(new DataElement(
                 R.string.radio_title,
                 R.drawable.radio_logo,
+                R.drawable.radio_logo,
                 DataType.PLAYER_RADIO));
         data.add(new DataElement(
                 R.string.toilets_title,
                 R.drawable.toilets_logo,
-                DataType.OTHER));
+                R.drawable.toilets_logo,
+                DataType.TOILET));
         data.add(new DataElement(
                 R.string.security_title,
                 R.drawable.security_logo,
-                DataType.OTHER));
+                R.drawable.security_logo,
+                DataType.SECURITY));
         data.add(new DataElement(
                 R.string.atm_title,
                 R.drawable.atm_logo,
-                DataType.OTHER));
+                R.drawable.atm_logo,
+                DataType.ATM));
         data.add(new DataElement(
                 R.string.parking_title,
                 R.drawable.parking_logo,
-                DataType.OTHER));
+                R.drawable.parking_logo,
+                DataType.PARKING));
         data.add(new DataElement(
                 R.string.care_title,
                 R.drawable.health_logo,
-                DataType.OTHER));
+                R.drawable.health_logo,
+                DataType.CARE1));
 
         data.add(new DataElement(R.string.smanojen, R.string.sketchera, 55.70483928999759f, 13.19305851161833f, R.drawable.bubble_smanojen, DataType.SMALL_FUN));
         data.add(new DataElement(R.string.smanojen, R.string.undergangen, 55.70460881490317f, 13.19352521597889f, R.drawable.bubble_smanojen, DataType.SMALL_FUN));

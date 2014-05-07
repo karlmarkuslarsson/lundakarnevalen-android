@@ -11,14 +11,17 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.data.DataElement;
+import se.lundakarnevalen.extern.data.DataType;
 import se.lundakarnevalen.extern.fragments.LandingPageFragment;
 import se.lundakarnevalen.extern.fragments.MelodyFragment;
 import se.lundakarnevalen.extern.fragments.MusicFragment;
+import se.lundakarnevalen.extern.fragments.ParkingFragment;
 import se.lundakarnevalen.extern.fragments.TrainMapFragment;
 
 
@@ -47,7 +50,7 @@ public class LKListAdapter extends ArrayAdapter<LKListRow> {
         TextView textView = (TextView) rowView.findViewById(R.id.text1);
         ImageView image1 = (ImageView) rowView.findViewById(R.id.image1);
         textView.setText(item.element1.title);
-        image1.setImageResource(item.element1.picture);
+        image1.setImageResource(item.element1.picture_list);
         image1.setOnClickListener(new ItemListener(item.element1, activity));
 
         TextView textView2 = (TextView) rowView.findViewById(R.id.text2);
@@ -55,7 +58,7 @@ public class LKListAdapter extends ArrayAdapter<LKListRow> {
         if (item.element2 != null) {
             ImageView image2 = (ImageView) rowView.findViewById(R.id.image2);
             textView2.setText(item.element2.title);
-            image2.setImageResource(item.element2.picture);
+            image2.setImageResource(item.element2.picture_list);
             image2.setOnClickListener(new ItemListener(item.element2, activity));
         } else {
             textView2.setText("");
@@ -81,7 +84,7 @@ public class LKListAdapter extends ArrayAdapter<LKListRow> {
                 view.setAlpha(0.5f);
             }
             ContentActivity contentActivity = ContentActivity.class.cast(activity);
-
+            List<DataType> types;
             switch (element.type) {
                 case PLAYER_RADIO:
                     contentActivity.loadFragmentAddingBS(new MusicFragment());
@@ -92,16 +95,41 @@ public class LKListAdapter extends ArrayAdapter<LKListRow> {
                 case TRAIN:
                     contentActivity.loadFragmentAddingBS(TrainMapFragment.create());
                     break;
-                case OTHER:
-                     /*
-                    contentActivity.loadFragmentAddingBS(
-                                    MapFragment.create(
-                                            "Filip", "Lindqvist",
-                                            false, true, true,
-                                            56.055876056f, 12.9737800f,
-                                            R.drawable.monk, R.drawable.monk,
-                                            "VAD ÄR FILIP BRA PÅ?", "ÄTA KEBAB!"));
-                    */
+                case TOILET:
+                    types = new ArrayList<DataType>();
+                    types.add(DataType.TOILETS);
+                    if(context!=null) {
+                        contentActivity.loadFragmentAddingBS(contentActivity.mapFragment);
+                        //ContentActivity.class.cast(context).updateMapView(types); //TODO FIX FILTERING!!!
+                    }
+                    break;
+                case SECURITY:
+                    types = new ArrayList<DataType>();
+                    types.add(DataType.SECURITY);
+                    if(context!=null) {
+                        contentActivity.loadFragmentAddingBS(contentActivity.mapFragment);
+                        //ContentActivity.class.cast(context).updateMapView(types);
+                    }
+                    break;
+                case PARKING:
+                    contentActivity.loadFragmentAddingBS(new ParkingFragment());
+
+                    break;
+                case CARE1:
+                    types = new ArrayList<DataType>();
+                    types.add(DataType.CARE);
+                    if(context!=null) {
+                        contentActivity.loadFragmentAddingBS(contentActivity.mapFragment);
+                        //ContentActivity.class.cast(context).updateMapView(types);
+                    }
+                    break;
+                case ATM:
+                    types = new ArrayList<DataType>();
+                    types.add(DataType.ATM);
+                    if(context!=null) {
+                        contentActivity.loadFragmentAddingBS(contentActivity.mapFragment);
+                        //ContentActivity.class.cast(context).updateMapView(types);
+                    }
                     break;
                 default:
                     contentActivity.loadFragmentAddingBS(LandingPageFragment.create(element));

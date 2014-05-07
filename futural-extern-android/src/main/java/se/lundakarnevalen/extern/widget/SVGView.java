@@ -6,6 +6,7 @@ import android.graphics.Matrix;
 import android.graphics.Picture;
 import android.graphics.PointF;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -50,7 +51,6 @@ public class SVGView extends View {
     protected float mMinZoom;
     protected Matrix mMatrix;
     protected Picture mPicture;
-    protected Rect mCurrentViewBound;
 
     protected final float[] mPictureEndPoint = new float[]{-1f, -1f};
     protected final float[] mViewEndPoint = new float[]{-1f, -1f};
@@ -71,11 +71,10 @@ public class SVGView extends View {
         init(context);
     }
 
-    public void init(Context context){
+    private void init(Context context){
         mMatrix = new Matrix();
         mSavedMatrix = new Matrix();
         mInverseMatrix = new Matrix();
-        mCurrentViewBound = new Rect();
         if(!isInEditMode()){
             mPicture = new Picture();
             mScaleDetector = new ScaleGestureDetector(context, new ScaleListener());
@@ -189,6 +188,13 @@ public class SVGView extends View {
         return pts;
     }
 
+    public RectF getCurrentViewPort(RectF dst){
+        mMatrix.invert(mInverseMatrix);
+        dst.set(0,0, mViewEndPoint[0], mViewEndPoint[1]);
+        mInverseMatrix.mapRect(dst);
+        return dst;
+    }
+
     private class GestureListener implements GestureDetector.OnGestureListener {
         @Override
         public boolean onScroll(MotionEvent downEvent, MotionEvent currentEvent, float distanceX, float distanceY) {
@@ -197,7 +203,9 @@ public class SVGView extends View {
         }
 
         @Override
-        public void onLongPress(MotionEvent e) {}
+        public void onLongPress(MotionEvent e) {
+            Log.d(LOG_TAG, "CurrentViewPort: " + getCurrentViewPort(new RectF(0,0,0,0)).toShortString());
+        }
 
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {return false;}
@@ -254,7 +262,7 @@ public class SVGView extends View {
     private short counter;
 
     @Override
-    protected final void onDraw(Canvas canvas) {
+    protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
         if(isInEditMode()) return;
@@ -263,12 +271,11 @@ public class SVGView extends View {
         //canvas.save();
         filterMatrix(mMatrix);
         canvas.setMatrix(mMatrix);
-        canvas.getClipBounds(mCurrentViewBound);
         onDrawObjects(canvas);
         //canvas.restore();
         acc += System.currentTimeMillis() - t0;
 
-        if(++counter % 500 == 0){
+        if(++counter % 200 == 0){
             final long t = acc / counter;
             Logf.d(LOG_TAG, "Rendering, AVG: %d ms, FPS: %f", t, 1000f/t);
             acc = counter = 0;
@@ -280,7 +287,7 @@ public class SVGView extends View {
         //Nothing here yet, extend in subclass
     }
 
-    private void filterMatrix(Matrix matrix) {
+    protected void filterMatrix(Matrix matrix) {
         matrix.getValues(mMatrixValues);
 
         // screenW - svgW * scale is lower limit

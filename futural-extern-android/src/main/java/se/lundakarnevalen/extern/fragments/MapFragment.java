@@ -1,6 +1,5 @@
 package se.lundakarnevalen.extern.fragments;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Picture;
 import android.os.AsyncTask;
@@ -138,7 +137,13 @@ public class MapFragment extends LKFragment {
                 final ViewGroup layout = get(root, R.id.map_info_layout, ViewGroup.class);
                 layout.setVisibility(wasSelected ? View.VISIBLE : View.GONE);
                 if(wasSelected) {
-                    get(root, R.id.map_info_text, TextView.class).setText(String.valueOf(getString(m.element.title)));
+                    get(root, R.id.map_title_text, TextView.class).setText(String.valueOf(getString(m.element.title)));
+                    if (m.element.title == m.element.place) {
+                        get(root, R.id.map_location_text, TextView.class).setVisibility(View.GONE);
+                    } else {
+                        get(root, R.id.map_location_text, TextView.class).setVisibility(View.VISIBLE);
+                        get(root, R.id.map_location_text, TextView.class).setText(String.valueOf(getString(m.element.place)));
+                    }
                     if(m.element.hasLandingPage()){
                         get(root, R.id.map_info_click_text, TextView.class).setVisibility(View.VISIBLE);
                         layout.setOnClickListener(new View.OnClickListener() {
@@ -148,7 +153,7 @@ public class MapFragment extends LKFragment {
                             }
                         });
                     } else {
-                        get(root, R.id.map_info_click_text, TextView.class).setVisibility(View.INVISIBLE);
+                        get(root, R.id.map_info_click_text, TextView.class).setVisibility(View.GONE);
                     }
                 }
             }
@@ -230,7 +235,7 @@ public class MapFragment extends LKFragment {
         public Picture call() throws Exception {
             try {
                 Timer t = new Timer();
-                SVG svg = SVG.getFromResource(c, R.raw.kartabeta8_semifinal);
+                SVG svg = SVG.getFromResource(c, R.raw.kartamindre_cleaned);
                 t.tick(LOG_TAG, "getFromResource()");
                 Picture pic = svg.renderToPicture();
                 t.tick(LOG_TAG, "renderToPicture()");
