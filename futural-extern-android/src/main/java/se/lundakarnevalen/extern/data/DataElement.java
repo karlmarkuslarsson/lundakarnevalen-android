@@ -9,9 +9,9 @@ import java.util.ArrayList;
  * Created by Markus on 2014-04-23.
  */
 public class DataElement implements Parcelable {
-    public String timeFriday = "";
-    public String timeSaturday = "";
-    public String timeSunday = "";
+    public String timeFriday = "00:00-00:00";
+    public String timeSaturday = "00:00-00:00";
+    public String timeSunday = "00:00-00:00";
     public int card = 1;
     public int cash = 1;
     public int title;
@@ -78,6 +78,18 @@ public class DataElement implements Parcelable {
         this.lng = lng;
         this.picture = picture;
         this.type = type;
+    }
+
+    public DataElement(int title, int place, int question, int info ,float lat, float lng, int picture, int picture_list, DataType type) {
+        this.title = title;
+        this.place = place;
+        this.lat = lat;
+        this.lng = lng;
+        this.picture = picture;
+        this.type = type;
+        this.question = question;
+        this.info = info;
+        this.picture_list = picture_list;
     }
 
     @Override

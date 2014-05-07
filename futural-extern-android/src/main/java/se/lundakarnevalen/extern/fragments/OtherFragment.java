@@ -32,6 +32,7 @@ public class OtherFragment extends LKFragment{
             other.addAll(DataContainer.getDataOfType(DataType.PLAYER_FUTURAL));
             other.addAll(DataContainer.getDataOfType(DataType.TRAIN));
             other.addAll(DataContainer.getDataOfType(DataType.PLAYER_RADIO));
+            other.addAll(DataContainer.getDataOfType(DataType.BILJETTERIET));
             other.addAll(DataContainer.getDataOfType(DataType.TOILET));
             other.addAll(DataContainer.getDataOfType(DataType.ATM));
             other.addAll(DataContainer.getDataOfType(DataType.PARKING));
