@@ -135,28 +135,29 @@
     <string name="hipp_baren_info">Drinkar: karnevöl, cider, läsk och eventuellt vin.\n\nMat: Ej mat\n\nBetalning: kort och kontant. DOCK, cash is king!</string>
 
     <string name="krog_lajka_info">
-    Med härlig atmosfär och en stor uteservering mitt i karnevalens kaos skapar Krog Lajka ditt
-        perfekta karnevalshäng! Kom till oss och ät god mat, släck törsten med en svalkande
-        karnevöl och slå dig ner på karnevalens bästa plats: mitt framför stora scenen.\n\n
-    Betalning: Kort och kontant\n\n
-    Betalning: Kort och kontant\n\n
-    Serverar: öl, vin och cider
+    Från 1957 till 2014 har Lajka varit både en folkkär rymdhund och en överanvänd Facebook-knapp.
+        I år är året då Lajka tar ett kliv ut ur cyberspace och vinner karnevalsbesökarnas hjärtan.
+        Med härlig atmosfär och en stor uteservering mitt i karnevalens kaos skapar Krog Lajka ditt
+        perfekta karnevalshäng! Kom till oss och ät en utsökt paella eller vegetarisk lasagne, släck
+        törsten med en svalkande karnevöl på karnevalens bästa plats, mittemot stora scenen.\n\nServerar: öl, vin och cider
     </string>
 
     <string name="krog_undervatten_info">
-   Åren gick och polarisarna smälte. Skåne översvämmades och endast domkyrkans torn stack upp. Folket skrek efter vällagad mat, och en krog svarade. Vi bjuder på härlig mat i havets tecken och en utmärkt utsikt över lundagård från vår uteservering vid kungshusets gavel!\n\nÖppet: 12-01\n\nBetalning: kort, kontant, vet inget om futuralbetal
+Åren gick och polarisarna smälte. Skåne översvämmades och endast domkyrkans torn stack upp.
+        Folket skrek efter vällagad mat, och en krog svarade. Krog Undervatten finns vid
+        Kungshusets gavel och erbjuder er en havsinspirerad oas under karnevalsdagarna. Slå
+        er ned en stund och njut av den härliga stämningen och trubadurerna som förgyller krogen
+        och ger er en genuint trevlig upplevelse. Vi bjuder på en meny inspirerad av världshaven,
+        allt med en fransk touch.\n\nVälkommen till krog Undervatten!
     </string>
 
 
 <string name="krog_thyme_info">
-Café Athen i AF-borgen kommer du mellan 14 och 2 finna tidsmaskinen som
-tar dig på en kulinarisk tidsresa som kryddar din karnevalsupplevelse.\n\n
-Dagen börjar med en 50-tals amerikansk diner och i högtalarna spelas
-tidstypisk musik På kvällen kröker vi tid och rum och svirar om till en
-bar i sann studio 54 anda. Räkna med att vi alltid kommer leverera en
-karnevalistisk femstjärning meny för 70 kr!\n\n
-    Betalning: kort och kontant\n\n
-    Serverar: Alkohol
+I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsresa som utan tvekan
+    kommer att krydda din karnevalsupplevelse. För att på dagarna ta avstamp i det glada femtiotalet
+    och erbjuda er både känslan, stämningen och maten hos en amerikansk diner, svidar vi mot kvällen
+    om. Då kröker vi tid och rum och fortsätter på tidsresan som landar i en bar i sann anda av den
+    välkända Sudio 54.\n\nServerar: Alkohol
     </string>
     <string name="krog_undervatten_place">FRAMFÖR AF-BORGEN</string>
     <string name="krog_undervatten_title">KROG UNDERVATTEN</string>
@@ -414,6 +415,9 @@ karnevalistisk femstjärning meny för 70 kr!\n\n
 
         ]]>
     </string>
+    <string name="smanojen_place" />
+    <string name="smanojen_question">VAD ÄR SMÅNÖJEN?</string>
+    <string name="smanojen_info">SMÅNÖJEN</string>
 
 
 </resources>
