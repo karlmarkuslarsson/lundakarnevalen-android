@@ -373,10 +373,28 @@ public class ContentActivity extends ActionBarActivity {
 
             }
         });
+        b = get(mActionBarView, R.id.gps_marker, ImageButton.class);
+        b.setVisibility(View.VISIBLE);
+        b.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+//                MusicThread thread = new MusicThread();
+//                thread.execute();
+
+               mapFragment.zoomToMarker();
+
+
+
+            }
+        });
+
+
     }
 
     public void inactivateTrainButton() {
         get(mActionBarView, R.id.train, ImageButton.class).setVisibility(View.INVISIBLE);
+        get(mActionBarView, R.id.gps_marker, ImageButton.class).setVisibility(View.INVISIBLE);
     }
 
 }

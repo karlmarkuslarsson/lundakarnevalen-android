@@ -31,11 +31,15 @@ import se.lundakarnevalen.extern.map.Marker;
 import se.lundakarnevalen.extern.util.Delay;
 import se.lundakarnevalen.extern.util.Timer;
 import se.lundakarnevalen.extern.widget.LKMapView;
+import se.lundakarnevalen.extern.widget.SVGView;
 
 import static se.lundakarnevalen.extern.util.ViewUtil.get;
 
 public class MapFragment extends LKFragment {
     private static FutureTask<Picture> preloaded = null;
+
+    private float lng_marker = -1;
+    private float lat_marker = -1;
 
     private float showOnNextCreateLat = -1.0f;
     private float showOnNextCreateLng = -1.0f;
@@ -176,7 +180,11 @@ public class MapFragment extends LKFragment {
             }, 500);
         } else {
             //TODO: Animate to gps marker!? (only if first time)
-            mapView.setGpsMarker(306,286);
+
+            lng_marker = 13.194012f;
+            lat_marker = 55.705521f;
+            mapView.setGpsMarker(lat_marker,lng_marker);
+           // mapView.setGpsMarker(234,400);
         }
         return root;
     }
@@ -201,6 +209,12 @@ public class MapFragment extends LKFragment {
         ContentActivity.class.cast(getActivity()).inactivateTrainButton();
         super.onStop();
     }
+    @Override
+    public void onStart() {
+        ContentActivity.class.cast(getActivity()).activateTrainButton();
+        super.onStart();
+    }
+
 
     private void waitForLayout() {
         int counter = 0;
@@ -225,6 +239,7 @@ public class MapFragment extends LKFragment {
         }
         float[] dst = new float[2];
         mapView.getPointFromCoordinates(lat, lng, dst);
+        Log.d("x."+dst[0],"y."+dst[1]);
         mapView.triggerClick(dst[0], dst[1]);
     }
 
@@ -276,5 +291,13 @@ public class MapFragment extends LKFragment {
         MapFragment fragment = new MapFragment();
         fragment.setArguments(bundle);
         return fragment;
+    }
+    public void zoomToMarker() {
+        float[] dst = new float[2];
+        //TODO SKA VI HA ZOOM?
+        mapView.zoom(SVGView.MAX_ZOOM);
+
+        mapView.getPointFromCoordinates(lat_marker, lng_marker, dst);
+        mapView.panTo(dst[0],dst[1]);
     }
 }

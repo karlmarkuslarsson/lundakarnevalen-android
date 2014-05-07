@@ -9,6 +9,7 @@ import android.graphics.Picture;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
@@ -176,6 +177,8 @@ public class LKMapView extends SVGView {
         return onClick(xInSvg, yInSvg);
     }
 
+
+
     @Override
     protected boolean onClick(float xInSvg, float yInSvg) {
 
@@ -215,6 +218,15 @@ public class LKMapView extends SVGView {
             mListener.onMarkerSelected(null);
         }
         return false;
+    }
+    public void goToGpsMarker(int svgX, int svgY){
+        if(mFocusedMarker != null) {
+            mFocusedMarker.isFocusedInMap = false;
+        }
+        mFocusedMarker = null;
+        mListener.onMarkerSelected(null);
+
+        panTo(svgX,svgY);
     }
 
     @Override
@@ -291,8 +303,13 @@ public class LKMapView extends SVGView {
     public void getPointFromCoordinates(float lat, float lon, float[] dst) {
         float lat1 = (lat - startLatMap) / diffLat;
         float lon1 = (lon - startLonMap) / diffLon;
-        dst[0] = lon1 * mPictureEndPoint[AXIS_X];
-        dst[1] = lat1 * mPictureEndPoint[AXIS_Y];
+        if(mPictureEndPoint[AXIS_X]==-1) {
+            dst[0] = lon1 * 512;
+            dst[1] = lat1 * 512;
+        } else {
+            dst[0] = lon1 * mPictureEndPoint[AXIS_X];
+            dst[1] = lat1 * mPictureEndPoint[AXIS_Y];
+        }
     }
 
     private void getPointFromCoordinates(Marker m) {
