@@ -85,14 +85,7 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
             vh = (ViewHolder) convertView.getTag();
         }
 
-        Bitmap bm = null;
-        if(vh.image.getDrawable() != null){
-            BitmapDrawable bmdr = (BitmapDrawable) vh.image.getDrawable();
-        }
-        bm = BitmapUtil.decodeSampledBitmapFromResource(context.getResources(), item.icon, 200, 200, bm);
-
-        vh.image.setImageBitmap(bm);
-
+        vh.image.setImageResource(item.icon);
         vh.start.setText(item.getStartTime());
         vh.end.setText(item.getEndTime());
         vh.place.setText(item.place);
