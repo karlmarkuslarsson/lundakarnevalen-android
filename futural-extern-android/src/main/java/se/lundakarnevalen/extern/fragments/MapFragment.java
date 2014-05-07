@@ -144,7 +144,7 @@ public class MapFragment extends LKFragment {
                         layout.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                ContentActivity.class.cast(getActivity()).loadFragmentAddingBS(LandingPageFragment.create(m.element));
+                            ContentActivity.class.cast(getActivity()).loadFragmentAddingBS(LandingPageFragment.create(m.element));
                             }
                         });
                     } else {
@@ -167,7 +167,6 @@ public class MapFragment extends LKFragment {
             //TODO: Animate to gps marker!? (only if first time)
             mapView.setGpsMarker(306,286);
         }
-
         return root;
     }
 
