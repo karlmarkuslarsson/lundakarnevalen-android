@@ -461,7 +461,7 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="big_scene_place" />
 
 <string name="snaxeriet">SNAXERIET</string>
-    <string name="snaxeriet_info"></string>
-    <string name="snaxeriet_question">Letar du efter framtidens snacks? Du har kommit helt rätt!</string>
+    <string name="snaxeriet_info">Letar du efter framtidens snacks? Du har kommit helt rätt!</string>
+    <string name="snaxeriet_question"></string>
 
 </resources>
