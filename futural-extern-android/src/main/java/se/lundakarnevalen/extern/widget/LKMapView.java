@@ -256,24 +256,33 @@ public class LKMapView extends SVGView {
     }
 
     private void paintMarker(Canvas canvas, Marker m) {
-        dst.set(m.x, m.y, m.x, m.y);
-        dst.inset(-mBubbleShadowXRadius, -mBubbleShadowYRadius);
-        canvas.drawOval(dst, mShadowInk);
+        if (m.element.type == DataType.ENTRANCE){
+            dst.set(m.x,
+                    m.y,
+                    m.x + mBubbleSize,
+                    m.y + mBubbleSize * 0.48f);
+            normalizeToMidpointBottom(dst);
+            canvas.drawBitmap(bitmaps.get(m.picture), null, dst, null);
+        } else {
+            dst.set(m.x, m.y, m.x, m.y);
+            dst.inset(-mBubbleShadowXRadius, -mBubbleShadowYRadius);
+            canvas.drawOval(dst, mShadowInk);
 
-        dst.set(m.x,
-                m.y,
-                m.x + mBubbleSize,
-                m.y + mBubbleSize);
-        normalizeToMidpointBottom(dst);
-        canvas.drawPicture(mBubble, dst);
+            dst.set(m.x,
+                    m.y,
+                    m.x + mBubbleSize,
+                    m.y + mBubbleSize);
+            normalizeToMidpointBottom(dst);
+            canvas.drawPicture(mBubble, dst);
 
-        dst.set(m.x,
-                m.y,
-                m.x + mBubbleSize*0.8f,
-                m.y + mBubbleSize*0.8f);
-        normalizeToMidpointBottom(dst);
-        dst.offset(0f, mBubbleSize * -0.18f);
-        canvas.drawBitmap(bitmaps.get(m.picture), null, dst, null);
+            dst.set(m.x,
+                    m.y,
+                    m.x + mBubbleSize * 0.8f,
+                    m.y + mBubbleSize * 0.8f);
+            normalizeToMidpointBottom(dst);
+            dst.offset(0f, mBubbleSize * -0.18f);
+            canvas.drawBitmap(bitmaps.get(m.picture), null, dst, null);
+        }
     }
 
     public void getPointFromCoordinates(float lat, float lon, float[] dst) {
