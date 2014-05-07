@@ -42,6 +42,7 @@ import se.lundakarnevalen.extern.fragments.SchemeFragment;
 import se.lundakarnevalen.extern.fragments.TrainMapFragment;
 import se.lundakarnevalen.extern.widget.LKMapView;
 import se.lundakarnevalen.extern.widget.LKRightMenuArrayAdapter;
+import se.lundakarnevalen.extern.widget.SVGView;
 
 import static se.lundakarnevalen.extern.util.ViewUtil.*;
 
@@ -277,8 +278,8 @@ public class ContentActivity extends ActionBarActivity {
 
     public void showMapAndPanTo(float lat, float lng) {
         focusBottomItem(2);
-        mapFragment.addZoomHintForNextCreate(lat, lng);
-
+        //mapFragment.addZoomHintForNextCreate(lat, lng);
+        mapFragment.addZoomHintForNextCreate(lat, lng, SVGView.MAX_ZOOM);
         loadFragmentAddingBS(mapFragment);
     }
 
@@ -304,7 +305,7 @@ public class ContentActivity extends ActionBarActivity {
             Fragment f = (Fragment) v.getTag(TAG_FRAGMENT);
             deselectItem(r);
             selectItem(v, r);
-            fragmentMgr.popBackStack(null,FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            fragmentMgr.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             loadFragmentReplaceBS(f);
         }
 

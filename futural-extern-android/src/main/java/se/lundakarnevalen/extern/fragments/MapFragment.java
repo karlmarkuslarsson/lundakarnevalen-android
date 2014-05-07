@@ -39,6 +39,7 @@ public class MapFragment extends LKFragment {
 
     private float showOnNextCreateLat = -1.0f;
     private float showOnNextCreateLng = -1.0f;
+    private float showOnNextCreateScale = -1.0f;
     private final int ID = 2;
 
     public static Future<Picture> preload(Context c) {
@@ -167,9 +168,10 @@ public class MapFragment extends LKFragment {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    showItem(showOnNextCreateLat, showOnNextCreateLng);
+                    showItem(showOnNextCreateLat, showOnNextCreateLng, showOnNextCreateScale);
                     showOnNextCreateLat = 1.0f;
                     showOnNextCreateLng = 1.0f;
+                    showOnNextCreateScale = 1.0f;
                 }
             }, 500);
         } else {
@@ -217,7 +219,10 @@ public class MapFragment extends LKFragment {
         mapView.setActiveTypes(types);
     }
 
-    private void showItem(float lat, float lng) {
+    private void showItem(float lat, float lng, float showOnNextCreateScale) {
+        if(showOnNextCreateScale > 0.0f){
+            mapView.zoom(showOnNextCreateScale);
+        }
         float[] dst = new float[2];
         mapView.getPointFromCoordinates(lat, lng, dst);
         mapView.triggerClick(dst[0], dst[1]);
@@ -226,6 +231,12 @@ public class MapFragment extends LKFragment {
     public void addZoomHintForNextCreate(float lat, float lng) {
         this.showOnNextCreateLat = lat;
         this.showOnNextCreateLng = lng;
+    }
+
+    public void addZoomHintForNextCreate(float lat, float lng, float v) {
+        this.showOnNextCreateLat = lat;
+        this.showOnNextCreateLng = lng;
+        this.showOnNextCreateScale = v;
     }
 
     public static class SvgLoader implements Callable<Picture> {

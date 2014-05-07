@@ -314,8 +314,8 @@ public class LKMapView extends SVGView {
 
     public void setGpsMarker(int x, int y) {
         Logf.d(LOG_TAG, "GPSMarker moved to (%d, %d)", x, y);
-        PropertyValuesHolder xh = PropertyValuesHolder.ofFloat("x",mGpsMarkerPos.x, x);
-        PropertyValuesHolder yh = PropertyValuesHolder.ofFloat("y",mGpsMarkerPos.y, y);
+        PropertyValuesHolder xh = PropertyValuesHolder.ofFloat("x", mGpsMarkerPos.x, x);
+        PropertyValuesHolder yh = PropertyValuesHolder.ofFloat("y", mGpsMarkerPos.y, y);
         ValueAnimator anim = ValueAnimator.ofPropertyValuesHolder(xh, yh);
         anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
