@@ -471,5 +471,7 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="train_question">VAD ÄR TÅGET?</string>
     <string name="shoppen_info">Här hittar du programblad, souvenirer och andra roliga saker som gör dina (kanske vaga) minnen från karnevalen ännu klarare.</string>
     <string name="shoppen_question">VAD FINNS I SHOPPEN?</string>
+    <string name="trash_question">VAD ÄR EN SOPTUNNA?</string>
+    <string name="trash_info">Här slänger du allt som inte ger dig någon karnevalist-glädje. Placerade strategiskt runt om hela området för att du inte ska behöva gå allt för långt för att bli av med sånt som kan användas till bättre saker. Tänk på att nedskräpning är dåligt och att Lund ska hålla i minst 1000 år till.</string>
 
 </resources>

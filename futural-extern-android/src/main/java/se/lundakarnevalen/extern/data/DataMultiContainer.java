@@ -133,6 +133,15 @@ public class DataMultiContainer {
                 R.drawable.header_other,
                 R.drawable.health_logo,
                 DataType.CARE));
+
+        data.add(new DataElement(
+                R.string.trashcan,
+                R.string.trash_question,
+                R.string.trash_info,
+                1f,1f,
+                R.drawable.header_other,
+                R.drawable.trash_logo_other,
+                DataType.TRASHCAN));
         return data;
     }
 }
