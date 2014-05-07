@@ -29,5 +29,15 @@
         android:layout_alignParentRight="true"
 
         />
+    <ImageButton
+        android:src="@drawable/gps_menu_marker"
+        android:scaleType="fitCenter"
+        android:id="@+id/gps_marker"
+        android:layout_width="@dimen/train_width"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:background="@drawable/selector_action_menu_out"
+        android:padding="10dp"
+        />
 
 </RelativeLayout>

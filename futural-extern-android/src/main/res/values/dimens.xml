@@ -5,5 +5,6 @@
     <dimen name="actionbar_size">30sp</dimen>
     <dimen name="scheme_day_textsize">32dp</dimen>
     <dimen name="train_width">54dp</dimen>
+    <dimen name="gps_width">40dp</dimen>
 
 </resources>
