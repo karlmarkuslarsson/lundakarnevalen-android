@@ -100,13 +100,13 @@ public class ContentActivity extends ActionBarActivity {
 
         // TODO modify design
         // createCustomDialog();
-        
-        mGpsTracker = new GPSTracker(this);
 
         if ((getApplication().getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0) {
             MockLocationProvider mock = new MockLocationProvider(LocationManager.GPS_PROVIDER, ContentActivity.this);
             mock.pushLocation(55.706085, 13.19417);
         }
+
+        mGpsTracker = new GPSTracker(this);
     }
 
     private void setupDrawerLayout() {

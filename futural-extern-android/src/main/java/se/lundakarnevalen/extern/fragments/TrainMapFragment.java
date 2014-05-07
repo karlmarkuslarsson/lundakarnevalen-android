@@ -61,9 +61,7 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
         Bundle bundle = getArguments();
 
         if(bundle.getBoolean("sound")) {
-
             mp = MediaPlayer.create(getContext(), R.raw.train_sound);
-
             mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
 
                 @Override
@@ -72,7 +70,6 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
                 }
 
             });
-
             mp.start();
         }
 
@@ -82,12 +79,12 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
                 try {
                     Picture picture = TrainMapLoader.preload(inflater.getContext()).get(20, TimeUnit.SECONDS);
                     waitForLayout();
-                    final float scale = calculateMinZoom(img, picture) / 2.0f;
+                    final float scale = calculateMinZoom(img, picture);
                     img.setSvg(picture, scale, null);
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            img.panTo(420.0f, 300.0f);
+                            img.panTo(256f,256f);
                         }
                     });
                 } catch (InterruptedException e) {
@@ -104,12 +101,12 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
                 try{
                     Picture picture = new TrainMapLoader(inflater.getContext()).call();
                     waitForLayout();
-                    final float scale = calculateMinZoom(img, picture) / 2.0f;
+                    final float scale = calculateMinZoom(img, picture);
                     img.setSvg(picture, scale, null);
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            img.panTo(420.0f, 300.0f);
+                            img.panTo(256f,256f);
                         }
                     });
                 } catch (Exception ex){
