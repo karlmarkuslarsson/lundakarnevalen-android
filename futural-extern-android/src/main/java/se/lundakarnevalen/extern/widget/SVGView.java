@@ -31,7 +31,7 @@ public class SVGView extends View {
 
     public static final boolean DEBUG = false;
 
-    public static final float MAX_ZOOM = 14.0f;
+    public static final float MAX_ZOOM = 6.0f;
 
     public static final int AXIS_X = 0;
     public static final int AXIS_Y = 1;
@@ -204,7 +204,6 @@ public class SVGView extends View {
 
         @Override
         public void onLongPress(MotionEvent e) {
-            Log.d(LOG_TAG, "CurrentViewPort: " + getCurrentViewPort(new RectF(0,0,0,0)).toShortString());
         }
 
         @Override
@@ -352,7 +351,7 @@ public class SVGView extends View {
         final float[] targetXY = {x, y};
         m.mapPoints(targetXY);
 
-        final float[] centerOnViewXY = getPictureXYbyScreenXY(mViewEndPoint[0] * 0.5f, mViewEndPoint[1] * 0.5f);
+        final float[] centerOnViewXY = getPictureXYbyScreenXY(mViewEndPoint[0] * 0.5f, mViewEndPoint[1] * 0.7f);
         m.mapPoints(centerOnViewXY);
 
         final float[] end = {
