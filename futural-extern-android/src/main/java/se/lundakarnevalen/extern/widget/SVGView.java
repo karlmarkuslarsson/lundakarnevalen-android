@@ -31,7 +31,7 @@ public class SVGView extends View {
 
     public static final boolean DEBUG = false;
 
-    public static final float MAX_ZOOM = 6.0f;
+    public static final float MAX_ZOOM = 7.0f;
 
     public static final int AXIS_X = 0;
     public static final int AXIS_Y = 1;
@@ -325,7 +325,7 @@ public class SVGView extends View {
         this.mMinZoom = minZoom;
 
         // Scale image
-        float initZoom = mMinZoom * 2f;
+        float initZoom = mMinZoom * 1.2f;
         if (values != null) {
             this.mMatrix.setValues(values);
         } else {
@@ -399,9 +399,12 @@ public class SVGView extends View {
         anim.start();
     }
 
-    private void zoom(float newScale) {
+    public void zoom(float newScale) {
         mScaleFactor = newScale;
-        mMatrix.setScale(newScale, newScale);
+        mMatrix.getValues(mMatrixValues);
+        mMatrixValues[MSCALE_X] = limit(mMinZoom, newScale, MAX_ZOOM);
+        mMatrixValues[MSCALE_Y] = limit(mMinZoom, newScale, MAX_ZOOM);
+        mMatrix.setValues(mMatrixValues);
         postInvalidate();
     }
 
