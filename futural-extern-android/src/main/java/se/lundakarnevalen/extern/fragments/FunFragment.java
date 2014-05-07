@@ -40,6 +40,7 @@ public class FunFragment extends LKFragment {
 
         if (fun.isEmpty()) {
             fun.addAll(DataContainer.getDataOfType(DataType.FUN));
+            fun.addAll(DataContainer.getDataOfType(DataType.SCENE));
             fun.addAll(DataMultiContainer.getAllFunMultiData());
         }
 

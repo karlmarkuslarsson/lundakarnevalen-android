@@ -95,6 +95,7 @@ public class LandingPageFragment extends LKFragment{
         mapView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //TODO add filter here for DataMultiContainer
                 ContentActivity.class.cast(getActivity()).showMapAndPanTo(lat, lng);
             }
         });
@@ -129,13 +130,13 @@ public class LandingPageFragment extends LKFragment{
             get(rootView, R.id.middleLayout, RelativeLayout.class).setBackgroundResource(R.color.blue_dark);
             get(rootView, R.id.middleView, View.class).setVisibility(View.INVISIBLE);
 
-        } else if(type == DataType.TENT_FUN || type == DataType.SMALL_FUN ) {
+        } else if(type == DataType.TENT_FUN || type == DataType.SMALL_FUN || type == DataType.TOMBOLAN ||type == DataType.MUSIC ||type == DataType.SCENE) {
             get(rootView, R.id.question, TextView.class).setText(element.question);
             get(rootView, R.id.text, TextView.class).setText(Html.fromHtml(getString(element.info)));
             get(rootView, R.id.middleView, View.class).setVisibility(View.INVISIBLE);
 
         }
-            return rootView;
+        return rootView;
     }
 
 

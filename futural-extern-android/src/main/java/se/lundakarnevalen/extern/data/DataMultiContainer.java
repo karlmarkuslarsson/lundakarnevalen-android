@@ -32,7 +32,24 @@ public class DataMultiContainer {
                 R.drawable.header_showen,
                 R.drawable.taltnojen_logo,
                 DataType.TENT_FUN));
-
+        data.add(new DataElement(
+                R.string.tombolan,
+                R.string.tombolan_place,
+                R.string.tombolan_question,
+                R.string.tombolan_info,
+                1f,1f,
+                R.drawable.header_tombolan,
+                R.drawable.bubble_tombolan,
+                DataType.TOMBOLAN));
+        data.add(new DataElement(
+                R.string.musik,
+                R.string.musik_place,
+                R.string.musik_question,
+                R.string.musik_info,
+                1f,1f,
+                R.drawable.header_tombolan,
+                R.drawable.music_logo,
+                DataType.MUSIC));
 
         return data;
     }

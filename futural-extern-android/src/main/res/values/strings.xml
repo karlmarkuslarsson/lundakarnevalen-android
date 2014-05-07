@@ -448,7 +448,10 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
         olika platser på Karnevalsområdet och framförallt ifrån Stora Scenen framför universitetshuset.
         Vi har hand om alla artister som kommer för att uppträda under dagarna men även scenerna dem
         uppträder ifrån.</string>
-
+    <string name="small_scene_question">VAD ÄR LILLA SCENEN?</string>
+    <string name="small_scene_info">Lilla scenen</string>
+    <string name="big_scene_question">VAD ÄR STORA SCENEN?</string>
+    <string name="big_scene_info">Stora scenen</string>
 
 
 </resources>
