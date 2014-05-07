@@ -276,5 +276,7 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="smanojen_place" />
     <string name="smanojen_question">VAD ÄR SMÅNÖJEN?</string>
     <string name="big_scene_question">VAD ÄR STORA SCENEN?</string>
+    <string name="small_scene_place" />
+    <string name="big_scene_place" />
 
 </resources>

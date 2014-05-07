@@ -449,9 +449,16 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
         Vi har hand om alla artister som kommer för att uppträda under dagarna men även scenerna dem
         uppträder ifrån.</string>
     <string name="small_scene_question">VAD ÄR LILLA SCENEN?</string>
-    <string name="small_scene_info">Lilla scenen</string>
+    <string name="small_scene_info">Lilla Scenen kommer vara stjärnan på krogområdet Foodstock.
+        Här kommer finnas en underbar blandning av musik, mat i olika former och barer där man kan
+        umgås, äta, lyssna på fantastisk musik och insupa den karnevalistiska andan.</string>
+
     <string name="big_scene_question">VAD ÄR STORA SCENEN?</string>
-    <string name="big_scene_info">Stora scenen</string>
+    <string name="big_scene_info">Med det ståtliga Universitetshuset i bakgrunden kan du avnjuta
+        de ljuva tonerna från stora scenens fenomenala artiser. Ladda inför oförglömliga musikupplevelser!
+    </string>
+    <string name="small_scene_place" />
+    <string name="big_scene_place" />
 
 
 </resources>
