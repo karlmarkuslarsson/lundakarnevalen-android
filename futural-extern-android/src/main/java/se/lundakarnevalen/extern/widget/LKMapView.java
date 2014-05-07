@@ -262,8 +262,8 @@ public class LKMapView extends SVGView {
         if (m.element.type == DataType.ENTRANCE){
             dst.set(m.x,
                     m.y,
-                    m.x + mBubbleSize * 3.0f,
-                    m.y + mBubbleSize * 3.0f);
+                    m.x + mBubbleSize * 2.0f,
+                    m.y + mBubbleSize * 2.0f);
             normalizeToMidpointBottom(dst);
             canvas.drawPicture(mEntance, dst);
         } else {
