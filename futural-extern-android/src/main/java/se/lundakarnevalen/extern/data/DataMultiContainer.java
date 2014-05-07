@@ -79,11 +79,20 @@ public class DataMultiContainer {
                 R.drawable.music_logo,
                 DataType.PLAYER_FUTURAL));
         data.add(new DataElement(
+                R.string.empty,
                 R.string.train,
+                R.string.train_info,
+                1f,1f,
+                R.drawable.header_other,
                 R.drawable.train_logo_other,
                 R.drawable.train_logo_other,
+                R.string.train_question,
+                "LÖR/SÖN", "13:00-15:00", "13:00-15:00",
                 DataType.TRAIN));
-        data.add(new DataElement(
+
+
+
+                data.add(new DataElement(
                 R.string.radio_title,
                 R.drawable.radio_logo,
                 R.drawable.radio_logo,

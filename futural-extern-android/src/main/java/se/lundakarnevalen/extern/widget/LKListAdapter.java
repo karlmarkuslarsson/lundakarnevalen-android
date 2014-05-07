@@ -92,36 +92,8 @@ public class LKListAdapter extends ArrayAdapter<LKListRow> {
                 case PLAYER_FUTURAL:
                     contentActivity.loadFragmentAddingBS(new MelodyFragment());
                     break;
-                case TRAIN:
-                    contentActivity.loadFragmentAddingBS(TrainMapFragment.create());
-                    break;
-                case SECURITY:
-                    types = new ArrayList<DataType>();
-                    types.add(DataType.SECURITY);
-                    if(context!=null) {
-                        contentActivity.loadFragmentAddingBS(contentActivity.mapFragment);
-                        //ContentActivity.class.cast(context).updateMapView(types);
-                    }
-                    break;
                 case PARKING:
                     contentActivity.loadFragmentAddingBS(new ParkingFragment());
-
-                    break;
-                case CARE1:
-                    types = new ArrayList<DataType>();
-                    types.add(DataType.CARE);
-                    if(context!=null) {
-                        contentActivity.loadFragmentAddingBS(contentActivity.mapFragment);
-                        //ContentActivity.class.cast(context).updateMapView(types);
-                    }
-                    break;
-                case ATM:
-                    types = new ArrayList<DataType>();
-                    types.add(DataType.ATM);
-                    if(context!=null) {
-                        contentActivity.loadFragmentAddingBS(contentActivity.mapFragment);
-                        //ContentActivity.class.cast(context).updateMapView(types);
-                    }
                     break;
                 default:
                     contentActivity.loadFragmentAddingBS(LandingPageFragment.create(element));
