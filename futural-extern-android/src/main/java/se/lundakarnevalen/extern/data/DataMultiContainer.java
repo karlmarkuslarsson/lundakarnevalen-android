@@ -26,7 +26,7 @@ public class DataMultiContainer {
                 R.string.taltnojen,
                 R.string.taltnojen_question,
                 R.string.taltnojen_info,
-                1f,1f,
+                55.70483f,13.193881f,
                 R.drawable.header_showen,
                 R.drawable.tent_logo_list,
                 DataType.TENT_FUN));
@@ -34,7 +34,7 @@ public class DataMultiContainer {
                 R.string.tombolan,
                 R.string.tombolan_question,
                 R.string.tombolan_info,
-                1f,1f,
+                55.70505f,13.194297f,
                 R.drawable.header_tombolan,
                 R.drawable.tombolan_logo_list,
                 DataType.TOMBOLAN));
@@ -42,7 +42,7 @@ public class DataMultiContainer {
                 R.string.musik,
                 R.string.musik_question,
                 R.string.musik_info,
-                1f,1f,
+                55.705585f,13.193805f,
                 R.drawable.header_kabaren,
                 R.drawable.music_logo_list,
                 DataType.MUSIC));
