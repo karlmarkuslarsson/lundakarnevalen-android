@@ -325,7 +325,7 @@ public class SVGView extends View {
         this.mMinZoom = minZoom;
 
         // Scale image
-        float initZoom = mMinZoom * 1.2f;
+        float initZoom = mMinZoom * 1.0f;
         if (values != null) {
             this.mMatrix.setValues(values);
         } else {

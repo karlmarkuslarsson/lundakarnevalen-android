@@ -80,11 +80,11 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
                     Picture picture = TrainMapLoader.preload(inflater.getContext()).get(20, TimeUnit.SECONDS);
                     waitForLayout();
                     final float scale = calculateMinZoom(img, picture);
-                    img.setSvg(picture, scale, null);
+                    img.setSvg(picture, scale, mMatrixValues);
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            img.panTo(256f,256f);
+                            img.panTo(220f, 265f);
                         }
                     });
                 } catch (InterruptedException e) {
@@ -102,11 +102,11 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
                     Picture picture = new TrainMapLoader(inflater.getContext()).call();
                     waitForLayout();
                     final float scale = calculateMinZoom(img, picture);
-                    img.setSvg(picture, scale, null);
+                    img.setSvg(picture, scale, mMatrixValues);
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            img.panTo(256f,256f);
+                            img.panTo(220f, 265f);
                         }
                     });
                 } catch (Exception ex){
@@ -163,7 +163,6 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
     }
 
     private float calculateMinZoom(View root, Picture pic) {
-        //We assume that the svg image is 512x512 for now
         return Math.max(
                 root.getMeasuredHeight() * 1.0f / pic.getHeight(),
                 root.getMeasuredWidth() * 1.0f / pic.getWidth());
