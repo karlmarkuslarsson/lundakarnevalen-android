@@ -308,5 +308,9 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="futuautomat">FUTUAUTOMAT</string>
     <string name="tidsmaskin">TIDSMASKIN</string>
     <string name="music_title">MUSIK</string>
+    <string name="nangilima_place">FOODSTOCK</string>
+    <string name="nangilima_title">FOODSTOCK</string>
+    <string name="nangilima_question">VAD ÄR FOODSTOCK?</string>
+    <string name="nangilima_info">FOODSTOCK</string>
 
 </resources>

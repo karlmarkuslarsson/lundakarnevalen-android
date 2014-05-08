@@ -103,55 +103,35 @@ public class DataContainer {
         data.add(new DataElement(
                 R.string.cocktail_place,
                 R.string.cocktail_title,
-                R.string.cocktail_info,
                 55.706444f,13.195143f,
-                R.drawable.header_nagilima,
                 R.drawable.map_nagilima_logo,
-                R.drawable.nagilima_logo,
-                R.string.cocktail_question,
-                "15:30-22:30", "15:30-23:30", "15:30-22:30",
                 DataType.FOOD
         ));
 
         data.add(new DataElement(
                 R.string.hipp_baren_place,
                 R.string.hipp_baren_title,
-                R.string.hipp_baren_info,
                 55.706504880685f, 13.19547491457354f,
-                R.drawable.header_nagilima,
                 R.drawable.map_nagilima_logo,
-                R.drawable.nagilima_logo,
-                R.string.hipp_baren_question,
-                "15:30-22:30", "15:30-23:30", "15:30-22:30",
                 DataType.FOOD));
 
 
         data.add(new DataElement(
                 R.string.folkan_place,
                 R.string.folkan_title,
-                R.string.folkan_info,
                 55.7069f,13.196176f,
-                R.drawable.header_nagilima,
                 R.drawable.map_nagilima_logo,
-                R.drawable.nagilima_logo,
-                R.string.folkan_question,
-                "15:30-22:30", "15:30-23:30", "15:30-22:30",
                 DataType.FOOD));
 
         data.add(new DataElement(
                 R.string.foodo_place,
                 R.string.foodo_title,
-                R.string.foodo_info,
                 55.706837f,13.195646f,
-                R.drawable.header_nagilima,
                 R.drawable.map_nagilima_logo,
-                R.drawable.nagilima_logo,
-                R.string.foodo_question,
-                "15:30-22:30", "15:30-23:30", "15:30-22:30",
                 DataType.FOOD));
 
 
-        ArrayList<Integer> menu = new ArrayList<Integer>();
+                ArrayList<Integer> menu = new ArrayList<Integer>();
         ArrayList<String> menuPrice = new ArrayList<String>();
         menu.add(R.string.undervatten_food1);
         menu.add(R.string.undervatten_food2);

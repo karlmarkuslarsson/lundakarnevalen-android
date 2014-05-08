@@ -53,6 +53,22 @@ public class DataMultiContainer {
     public static List<DataElement> getAllFoodMultiData() {
         List<DataElement> data = new ArrayList<DataElement>();
 
+        data.add(new DataElement(
+                R.string.nangilima_place,
+                R.string.nangilima_title,
+                R.string.nangilima_info,
+                55.706504880685f, 13.19547491457354f,
+                R.drawable.header_nagilima,
+                R.drawable.map_nagilima_logo,
+                R.drawable.nagilima_logo,
+                R.string.nangilima_question,
+                "15:30-22:30", "15:30-23:30", "15:30-22:30",
+                DataType.FOOD));
+
+
+
+
+
         // TODO fix coordinates
         data.add(new DataElement(
                 R.string.snaxeriet,
@@ -150,6 +166,9 @@ public class DataMultiContainer {
                 R.drawable.header_soptunna,
                 R.drawable.trash_logo_other,
                 DataType.TRASHCAN));
+
+
+
         return data;
     }
 }
