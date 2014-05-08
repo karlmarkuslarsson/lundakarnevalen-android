@@ -21,7 +21,7 @@ import se.lundakarnevalen.extern.map.GPSTracker;
 import se.lundakarnevalen.extern.map.TrainMapLoader;
 import se.lundakarnevalen.extern.util.Delay;
 import se.lundakarnevalen.extern.util.Logf;
-import se.lundakarnevalen.extern.widget.SVGView;
+import se.lundakarnevalen.extern.widget.LKTrainView;
 
 import static se.lundakarnevalen.extern.util.ViewUtil.get;
 
@@ -34,16 +34,18 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
     private static final String STATE_MATRIX = "matrix";
 
     private float[] mMatrixValues;
-    private MediaPlayer mp;
-    private SVGView img;
+    private LKTrainView mTrainView;
+    private MediaPlayer mMediaPlayer;
+    private float mGPSMarkerLng;
+    private float mGPSMarkerLat;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         if(savedInstanceState != null && savedInstanceState.containsKey(STATE_MATRIX)){
-            Log.d(LOG_TAG, "Matrix values restored");
             mMatrixValues = savedInstanceState.getFloatArray(STATE_MATRIX);
+            Logf.d(LOG_TAG, "Matrix values restored: %s", String.valueOf(mMatrixValues));
         }
 
         setRetainInstance(true);
@@ -54,15 +56,15 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_map_train, container, false);
 
-        img = get(root, R.id.map_id, SVGView.class);
 
         final ViewFlipper flipper = get(root, R.id.map_switcher, ViewFlipper.class);
+        mTrainView = get(root, R.id.map_id, LKTrainView.class);
 
         Bundle bundle = getArguments();
 
         if(bundle.getBoolean("sound")) {
-            mp = MediaPlayer.create(getContext(), R.raw.train_sound);
-            mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            mMediaPlayer = MediaPlayer.create(getContext(), R.raw.train_sound);
+            mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
 
                 @Override
                 public void onCompletion(MediaPlayer mp) {
@@ -70,8 +72,18 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
                 }
 
             });
-            mp.start();
+            mMediaPlayer.start();
         }
+
+        final Runnable onSvgLoaded = new Runnable() {
+            @Override
+            public void run() {
+                if (mGPSMarkerLat > 0.0f && mGPSMarkerLng > 0.0f) {
+                    mTrainView.setGpsMarker(mGPSMarkerLat, mGPSMarkerLng, false);
+                }
+                mTrainView.panTo(220f, 265f);
+            }
+        };
 
         new AsyncTask<Void, Void, Void>(){
             @Override
@@ -79,14 +91,9 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
                 try {
                     Picture picture = TrainMapLoader.preload(inflater.getContext()).get(20, TimeUnit.SECONDS);
                     waitForLayout();
-                    final float scale = calculateMinZoom(img, picture);
-                    img.setSvg(picture, scale, mMatrixValues);
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            img.panTo(220f, 265f);
-                        }
-                    });
+                    final float scale = calculateMinZoom(mTrainView, picture);
+                    mTrainView.setSvg(picture, scale, mMatrixValues);
+                    getActivity().runOnUiThread(onSvgLoaded);
                 } catch (InterruptedException e) {
                     Log.wtf(LOG_TAG, "Future was interrupted", e);
                 } catch (ExecutionException e) {
@@ -101,14 +108,9 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
                 try{
                     Picture picture = new TrainMapLoader(inflater.getContext()).call();
                     waitForLayout();
-                    final float scale = calculateMinZoom(img, picture);
-                    img.setSvg(picture, scale, mMatrixValues);
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            img.panTo(220f, 265f);
-                        }
-                    });
+                    final float scale = calculateMinZoom(mTrainView, picture);
+                    mTrainView.setSvg(picture, scale, mMatrixValues);
+                    getActivity().runOnUiThread(onSvgLoaded);
                 } catch (Exception ex){
                     Log.wtf(LOG_TAG, "Failed to load image after timeout", ex);
                 }
@@ -131,13 +133,13 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
         super.onResume();
         ContentActivity.class.cast(getActivity()).allBottomsUnfocus();
         if(mMatrixValues != null) {
-            img.importMatrixValues(mMatrixValues);
+            mTrainView.importMatrixValues(mMatrixValues);
         }
     }
 
     @Override
     public void onPause() {
-        mMatrixValues = img.exportMatrixValues();
+        mMatrixValues = mTrainView.exportMatrixValues();
         super.onPause();
     }
 
@@ -145,6 +147,12 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
     public void onStop() {
         ContentActivity.class.cast(getActivity()).inactivateTrainButton();
         ContentActivity.class.cast(getActivity()).unregisterForLocationUpdates(this);
+        if(mMediaPlayer != null) {
+            try{
+                mMediaPlayer.release();
+            } catch(Exception e){}
+        }
+
         super.onStop();
     }
 
@@ -158,8 +166,8 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
 
     private void waitForLayout() {
         int counter = 0;
-        while (img.getMeasuredHeight() == 0 && counter++ < 100) Delay.ms(100); //Wait for layout
-        img.updateViewLimitBounds();
+        while (mTrainView.getMeasuredHeight() == 0 && counter++ < 100) Delay.ms(100); //Wait for layout
+        mTrainView.updateViewLimitBounds();
     }
 
     private float calculateMinZoom(View root, Picture pic) {
@@ -172,7 +180,7 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         Log.d(LOG_TAG, "onSaveInstanceState() called");
-        outState.putFloatArray(STATE_MATRIX, img.exportMatrixValues());
+        outState.putFloatArray(STATE_MATRIX, mTrainView.exportMatrixValues());
     }
 
     public static TrainMapFragment create(boolean startSound) {
@@ -193,5 +201,8 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
     @Override
     public void onNewLocation(double lat, double lng) {
         Logf.d(LOG_TAG, "Got new location (%f, %f)", lat, lng);
+        mGPSMarkerLng = (float) lng;
+        mGPSMarkerLat = (float) lat;
+        mTrainView.setGpsMarker(mGPSMarkerLat, mGPSMarkerLng, false);
     }
 }

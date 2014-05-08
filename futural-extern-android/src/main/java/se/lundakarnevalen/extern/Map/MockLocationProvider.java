@@ -1,4 +1,4 @@
-package se.lundakarnevalen.extern.fragments;
+package se.lundakarnevalen.extern.map;
 
 import android.content.Context;
 import android.location.Location;

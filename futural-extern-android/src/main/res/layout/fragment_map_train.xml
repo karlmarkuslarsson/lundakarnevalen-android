@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <se.lundakarnevalen.extern.widget.SVGView
+    <se.lundakarnevalen.extern.widget.LKTrainView
         android:id="@+id/map_id"
         android:keepScreenOn="true"
         android:layout_width="match_parent"
