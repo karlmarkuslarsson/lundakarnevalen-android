@@ -294,6 +294,8 @@ public class DataContainer {
         data.add(new DataElement(R.string.snacks, R.string.lyxbrygghus, 55.70479839152454f, 13.19472215029551f, R.drawable.map_snaxeriet_logo, DataType.SNACKS));
         data.add(new DataElement(R.string.snacks, R.string.kungliga_snacksboden_estrelle, 55.70520990752672f, 13.19387434532636f, R.drawable.map_snaxeriet_logo, DataType.SNACKS));
         data.add(new DataElement(R.string.snacks, R.string.bacon_oriley, 55.70642208831894f, 13.1957497314886f, R.drawable.map_snaxeriet_logo, DataType.SNACKS));
+        data.add(new DataElement(R.string.snacks, R.string.moderskeppet, 55.705112f,13.193658f, R.drawable.map_snaxeriet_logo, DataType.SNACKS));
+
 
         data.add(new DataElement(R.string.tombolan, R.string.putins_bodega_put_in_putin, 55.70652897496141f, 13.19567109412686f, R.drawable.bubble_tombolan, DataType.TOMBOLAN));
         data.add(new DataElement(R.string.tombolan, R.string.rysk_roulette, 55.70598296464737f, 13.19420818471242f, R.drawable.bubble_tombolan, DataType.TOMBOLAN));
