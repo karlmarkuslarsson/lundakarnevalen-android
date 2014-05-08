@@ -55,6 +55,8 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
             item.layout.setGravity(Gravity.CENTER);
         } else {
             item.setSelected(mContext, false);
+            item.image.setVisibility(View.VISIBLE);
+            item.layout.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
         }
 
         return layout;

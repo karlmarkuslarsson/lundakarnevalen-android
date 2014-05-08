@@ -14,6 +14,9 @@
     <string name="show_only">VISA ENBART</string>
     <string name="scheme">SCHEMA</string>
     <string name="other">ÖVRIGT</string>
+    <string name="tent">TÄLT</string>
+    <string name="tombola">TOMBOLA</string>
+    <string name="music">MUSIK</string>
 
     <!-- scheme -->
     <string name="my_scheme">MITT SCHEMA</string>
@@ -295,5 +298,19 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="foodo_question">VAD ÄR FOODOO CHILD?</string>
     <string name="konstfiket">KONSTFIKET</string>
     <string name="moderskeppet">MODERSKEPPET</string>
+    <string name="news_kast">NEWS KAST</string>
+    <string name="discokaffetalt_snacks">KAFFEBAR</string>
+    <string name="snacks_iv_snacks">POPCORN</string>
+    <string name="lyxbrygghus_snacks">KAFFE KARNEVALSROSTEN</string>
+    <string name="kungliga_snacksboden_estrelle_snacks">SNACKS</string>
+    <string name="bacon_oriley_snacks">SNACKS</string>
+    <string name="moderskeppet_snacks">MAT KARNEKÖRV</string>
+    <string name="futuautomat">FUTUAUTOMAT</string>
+    <string name="tidsmaskin">TIDSMASKIN</string>
+    <string name="music_title">MUSIK</string>
+    <string name="nangilima_place">FOODSTOCK</string>
+    <string name="nangilima_title">FOODSTOCK</string>
+    <string name="nangilima_question">VAD ÄR FOODSTOCK?</string>
+    <string name="nangilima_info">FOODSTOCK</string>
 
 </resources>

@@ -10,7 +10,7 @@
 
     <ListView
         android:id="@+id/right_menu_list"
-        android:layout_width="130dp"
+        android:layout_width="140dp"
         android:layout_height="match_parent"
         android:choiceMode="singleChoice"
         android:divider="@null"

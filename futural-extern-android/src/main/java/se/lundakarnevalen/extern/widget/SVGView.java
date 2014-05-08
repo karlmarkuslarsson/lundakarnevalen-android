@@ -32,6 +32,7 @@ public class SVGView extends View {
     public static final boolean DEBUG = false;
 
     public static final float MAX_ZOOM = 7.0f;
+    public static final float HALF_ZOOM = MAX_ZOOM/3;
 
     public static final int AXIS_X = 0;
     public static final int AXIS_Y = 1;
