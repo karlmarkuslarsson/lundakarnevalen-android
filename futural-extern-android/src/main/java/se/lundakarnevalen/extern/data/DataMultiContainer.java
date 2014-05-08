@@ -135,6 +135,14 @@ public class DataMultiContainer {
                 DataType.CARE));
 
         data.add(new DataElement(
+                R.string.entre,
+                R.string.entre_question,
+                R.string.entre_info,
+                1f,1f,
+                R.drawable.header_other,
+                R.drawable.entre_logo_other,
+                DataType.ENTRANCE));
+        data.add(new DataElement(
                 R.string.trashcan,
                 R.string.trash_question,
                 R.string.trash_info,

@@ -133,7 +133,7 @@ public class LandingPageFragment extends LKFragment{
                     ll.addView(view);
                 }
             }
-        } else if(type == DataType.BILJETTERIET || type == DataType.SHOPPEN|| type == DataType.TRASHCAN) {
+        } else if(type == DataType.BILJETTERIET || type == DataType.SHOPPEN|| type == DataType.TRASHCAN|| type == DataType.ENTRANCE) {
             get(rootView, R.id.question, TextView.class).setText(element.question);
             get(rootView, R.id.text, TextView.class).setText(Html.fromHtml(getString(element.info)));
             get(rootView, R.id.middleLayout, RelativeLayout.class).setBackgroundResource(R.color.blue_dark);

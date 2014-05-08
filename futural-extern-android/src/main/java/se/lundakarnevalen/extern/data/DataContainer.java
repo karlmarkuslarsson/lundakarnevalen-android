@@ -27,7 +27,7 @@ public class DataContainer {
                 R.string.cirkus_place,
                 R.string.cirkus_title,
                 R.string.cirkus_info,
-                55.7047557721988f, 13.19537105245979f,
+                55.70479f,13.195393f,
                 R.drawable.header_cirkusen,
                 R.drawable.map_cirkusen_logo,
                 R.drawable.cirkusen_logo,
@@ -130,13 +130,26 @@ public class DataContainer {
                 R.string.folkan_place,
                 R.string.folkan_title,
                 R.string.folkan_info,
-                55.706841f, 13.196030f,
+                55.7069f,13.196176f,
                 R.drawable.header_nangilima,
                 R.drawable.map_nagilima_logo,
                 R.drawable.nagilima_logo,
                 R.string.folkan_question,
                 "15:30-22:30", "15:30-23:30", "15:30-22:30",
                 DataType.FOOD));
+
+        data.add(new DataElement(
+                R.string.foodo_place,
+                R.string.foodo_title,
+                R.string.foodo_info,
+                55.706837f,13.195646f,
+                R.drawable.header_nangilima,
+                R.drawable.map_nagilima_logo,
+                R.drawable.nagilima_logo,
+                R.string.foodo_question,
+                "15:30-22:30", "15:30-23:30", "15:30-22:30",
+                DataType.FOOD));
+
 
         ArrayList<Integer> menu = new ArrayList<Integer>();
         ArrayList<String> menuPrice = new ArrayList<String>();
@@ -238,9 +251,9 @@ public class DataContainer {
         data.add(new DataElement(R.string.taltnojen, R.string.futural_sjukcentral, 55.70455254336257f, 13.19378734132492f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
         data.add(new DataElement(R.string.taltnojen, R.string.moocs, 55.70445066216406f, 13.19348825390201f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
         data.add(new DataElement(R.string.taltnojen, R.string.tidsresorse, 55.70437865703956f, 13.19333871179819f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
-        data.add(new DataElement(R.string.taltnojen, R.string.lunara_nationen, 55.70428614757939f, 13.19436877064109f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
-        data.add(new DataElement(R.string.taltnojen, R.string.bucket_list, 55.70434433369048f, 13.19434999518406f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
-        data.add(new DataElement(R.string.taltnojen, R.string.karneroj, 55.70440176403623f, 13.1943178086826f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.lunara_nationen, 55.70434433369048f, 13.19434999518406f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.bucket_list,55.70440176403623f, 13.1943178086826f , R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.karneroj,55.704453f,13.194302f , R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
 
         data.add(new DataElement(R.string.barnevalen, R.string.festtaltet, 55.70418149695015f, 13.19458440352848f, R.drawable.map_barnevalen_logo, DataType.BARNEVALEN));
         data.add(new DataElement(R.string.barnevalen, R.string.gassimulator_3000, 55.7040650548606f, 13.19468165205387f, R.drawable.map_barnevalen_logo, DataType.BARNEVALEN));
@@ -264,7 +277,7 @@ public class DataContainer {
         data.add(new DataElement(R.string.police, R.string.police, 55.70566708948963f, 13.19601302178581f, R.drawable.map_security_logo, DataType.POLICE));
         data.add(new DataElement(R.string.police, R.string.police, 55.7052602564826f, 13.19401040144301f, R.drawable.map_security_logo, DataType.POLICE));
 
-        data.add(new DataElement(R.string.radio, R.string.radio, 55.70537955178818f, 13.19494142376257f, R.drawable.map_radio_logo, DataType.RADIO));
+        data.add(new DataElement(R.string.radio, R.string.radio, 55.705383f,13.194872f, R.drawable.map_radio_logo, DataType.RADIO));
 
         data.add(new DataElement(R.string.entre, R.string.en_lundensares_guide_till_galaxen, 55.7056318688607f, 13.19298738463846f, R.drawable.map_entrance_icon, DataType.ENTRANCE));
         data.add(new DataElement(R.string.entre, R.string.futopia, 55.7060196455733f, 13.19565500654615f, R.drawable.map_entrance_icon, DataType.ENTRANCE));

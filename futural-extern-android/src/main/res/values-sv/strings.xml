@@ -288,5 +288,10 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="shoppen_question">VAD FINNS I SHOPPEN?</string>
     <string name="trash_question">VAD ÄR EN SOPTUNNA?</string>
     <string name="trash_info">Här slänger du allt som inte ger dig någon karnevalist-glädje. Placerade strategiskt runt om hela området för att du inte ska behöva gå allt för långt för att bli av med sånt som kan användas till bättre saker. Tänk på att nedskräpning är dåligt och att Lund ska hålla i minst 1000 år till.</string>
+    <string name="entre_info">För att gå in på karnevalsområdet behövs en entrébiljett eller ett entréband. Engångsentré kostar 60 kr och ett entréband som gör att man kan gå in och ut obegränsat under de tre dagarna kostar 200 kr. Entrébiljett/band rekommenderas att köpas på förhand då köerna in på karnevalsområdet kan vara långa under karnevalsdagarna. Barn som är 6 år eller yngre går in gratis på området.\n\nEntrébiljetter köpta på internet måste hämtas ut i någon av biljettbodarna på Clemenstorget eller Stortorget utanför karnevalsområdet.</string>
+    <string name="entre_question">VAD HITTAR JAG I ENTRÈN?</string>
+    <string name="foodo_place">FOODSTOCK</string>
+    <string name="foodo_title">FOODOO CHILD</string>
+    <string name="foodo_question">VAD ÄR FOODOO CHILD?</string>
 
 </resources>
