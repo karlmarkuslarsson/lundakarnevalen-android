@@ -14,6 +14,9 @@
     <string name="show_only">VISA ENBART</string>
     <string name="scheme">SCHEMA</string>
     <string name="other">ÖVRIGT</string>
+    <string name="tent">TÄLT</string>
+    <string name="tombola">TOMBOLA</string>
+    <string name="music">MUSIK</string>
 
     <!-- scheme -->
     <string name="my_scheme">MITT SCHEMA</string>

@@ -185,7 +185,6 @@ public class ContentActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
     private void setupTint() {
         SystemBarTintManager tintManager = new SystemBarTintManager(this);
         tintManager.setStatusBarTintEnabled(true);
@@ -264,6 +263,9 @@ public class ContentActivity extends ActionBarActivity {
         mRightMenuAdapter.addItem(getString(R.string.food), R.drawable.food_logo, new DataType[]{DataType.FOOD});
         mRightMenuAdapter.addItem(getString(R.string.fun), R.drawable.fun_logo, new DataType[]{DataType.FUN, DataType.SMALL_FUN, DataType.TENT_FUN, DataType.TOMBOLAN,
                 DataType.SCENE, DataType.RADIO});
+        mRightMenuAdapter.addItem(getString(R.string.tent), R.drawable.tent_logo, new DataType[]{DataType.TENT_FUN});
+        mRightMenuAdapter.addItem(getString(R.string.tombola), R.drawable.tombola_logo, new DataType[]{DataType.TOMBOLAN});
+        mRightMenuAdapter.addItem(getString(R.string.music), R.drawable.musik_logo, new DataType[]{DataType.SCENE, DataType.MUSIC});
         mRightMenuAdapter.addItem(getString(R.string.help), R.drawable.help_logo, new DataType[]{DataType.POLICE, DataType.CARE});
         mRightMenuAdapter.addItem(getString(R.string.wc), R.drawable.wc_logo, new DataType[]{DataType.TOILETS});
         mRightMenuAdapter.addItem(getString(R.string.entre), R.drawable.entrance_filter_icon, new DataType[]{DataType.ENTRANCE});

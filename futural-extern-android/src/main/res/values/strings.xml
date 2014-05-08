@@ -14,6 +14,9 @@
     <string name="show_only">SHOW ONLY</string>
     <string name="scheme">SCHEME</string>
     <string name="other">OTHER</string>
+    <string name="tent">TENT</string>
+    <string name="tombola">RAFFLE</string>
+    <string name="music">MUSIC</string>
 
     <!-- scheme -->
     <string name="my_scheme">MY SCHEME</string>
