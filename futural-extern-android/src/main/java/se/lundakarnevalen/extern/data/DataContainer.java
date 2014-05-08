@@ -105,7 +105,7 @@ public class DataContainer {
                 R.string.cocktail_title,
                 55.706444f,13.195143f,
                 R.drawable.map_nagilima_logo,
-                DataType.FOOD
+                DataType.FOODSTOCK
         ));
 
         data.add(new DataElement(
@@ -113,7 +113,7 @@ public class DataContainer {
                 R.string.hipp_baren_title,
                 55.706504880685f, 13.19547491457354f,
                 R.drawable.map_nagilima_logo,
-                DataType.FOOD));
+                DataType.FOODSTOCK));
 
 
         data.add(new DataElement(
@@ -121,14 +121,14 @@ public class DataContainer {
                 R.string.folkan_title,
                 55.7069f,13.196176f,
                 R.drawable.map_nagilima_logo,
-                DataType.FOOD));
+                DataType.FOODSTOCK));
 
         data.add(new DataElement(
                 R.string.foodo_place,
                 R.string.foodo_title,
                 55.706837f,13.195646f,
                 R.drawable.map_nagilima_logo,
-                DataType.FOOD));
+                DataType.FOODSTOCK));
 
 
                 ArrayList<Integer> menu = new ArrayList<Integer>();

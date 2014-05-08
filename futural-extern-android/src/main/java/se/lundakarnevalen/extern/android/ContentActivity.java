@@ -260,7 +260,7 @@ public class ContentActivity extends ActionBarActivity {
         LayoutInflater inflater = LayoutInflater.from(this);
 
         LKRightMenuArrayAdapter mRightMenuAdapter = new LKRightMenuArrayAdapter(this);
-        mRightMenuAdapter.addItem(getString(R.string.food), R.drawable.food_logo, new DataType[]{DataType.FOOD});
+        mRightMenuAdapter.addItem(getString(R.string.food), R.drawable.food_logo, new DataType[]{DataType.FOOD,DataType.FOODSTOCK});
         mRightMenuAdapter.addItem(getString(R.string.fun), R.drawable.fun_logo, new DataType[]{DataType.FUN, DataType.SMALL_FUN, DataType.TENT_FUN, DataType.TOMBOLAN,
                 DataType.SCENE, DataType.RADIO});
         mRightMenuAdapter.addItem(getString(R.string.tent), R.drawable.tent_logo, new DataType[]{DataType.TENT_FUN});
@@ -293,10 +293,10 @@ public class ContentActivity extends ActionBarActivity {
         mMapFragment.setActiveType(types);
     }
 
-    public void showMapAndPanTo(float lat, float lng, float zoomLevel) {
+    public void showMapAndPanTo(float lat, float lng) {
         focusBottomItem(2);
         //mMapFragment.addZoomHintForNextCreate(lat, lng);
-        mMapFragment.addZoomHintForNextCreate(lat, lng, zoomLevel);
+        mMapFragment.addZoomHintForNextCreate(lat, lng, SVGView.MAX_ZOOM);
         loadFragmentAddingBS(mMapFragment);
     }
 
