@@ -17,7 +17,7 @@ public class DataMultiContainer {
                 R.string.smanojen,
                 R.string.smanojen_question,
                 R.string.smanojen_info,
-                1f,1f,
+                55.704727f, 13.193241f,
                 R.drawable.header_smanojen,
                 R.drawable.smanojen_logo_list,
                 DataType.SMALL_FUN));
