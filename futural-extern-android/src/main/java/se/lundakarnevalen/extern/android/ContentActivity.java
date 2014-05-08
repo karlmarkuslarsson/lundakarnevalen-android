@@ -300,7 +300,7 @@ public class ContentActivity extends ActionBarActivity {
 
     public void registerForLocationUpdates(GPSTracker.GPSListener listener) {
         mGpsTracker.addListener(listener);
-        listener.onNewLocation(mGpsTracker.getLatitude(), mGpsTracker.getLongitude());
+        mGpsTracker.invalidateMe(listener);
     }
 
     public void unregisterForLocationUpdates(GPSTracker.GPSListener listener) {

@@ -30,8 +30,13 @@ public class GPSTracker extends Service implements LocationListener {
     private static final String LOG_TAG = GPSTracker.class.getSimpleName();
     public static final int UPDATE_PERIOD = 10000;
 
+    private final LocationManager mLocationManager;
     private final Context mContext;
     private final Timer mTimer;
+
+    public void invalidateMe(GPSListener listener) {
+        listener.onNewLocation(latitude, longitude);
+    }
 
     public interface GPSListener {
         public void onNewLocation(double lat, double lng);
@@ -45,16 +50,14 @@ public class GPSTracker extends Service implements LocationListener {
     double longitude;
 
     // The minimum distance to change Updates in meters
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 0; // 2 meters
+    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 1; // 2 meters
 
     // The minimum time between updates in milliseconds
-    private static final long MIN_TIME_BW_UPDATES = 5000; // 1 sec
-
-    // Declaring a Location Manager
-    protected LocationManager locationManager;
+    private static final long MIN_TIME_BW_UPDATES = 8000; // 1 sec
 
     public GPSTracker(Context context) {
         this.mContext = context;
+        this.mLocationManager = (LocationManager) mContext.getSystemService(LOCATION_SERVICE);
         this.mListeners = new ArrayList<GPSListener>(2);
         this.mTimer = new Timer();
         this.mTimer.scheduleAtFixedRate(new TimerTask() {
@@ -72,42 +75,39 @@ public class GPSTracker extends Service implements LocationListener {
 
     public Location updateLocation() {
         try {
-            locationManager = (LocationManager) mContext.getSystemService(LOCATION_SERVICE);
-
             // if GPS Enabled get lat/long using GPS Services
-            if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            if (mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 
                 Log.d(LOG_TAG, "LocationProvider: GPS Enabled, requesting location");
                 this.canGetLocation = true;
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-                location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+                location = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-            } else if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+            } else if (mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
 
                 Log.d(LOG_TAG, "LocationProvider: Mobile Enabled, requesting location");
                 this.canGetLocation = true;
-                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-                location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+                location = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
             } else {
-
                 Criteria c = new Criteria();
-                final String bestProvider = locationManager.getBestProvider(c, false);
+                final String bestProvider = mLocationManager.getBestProvider(c, false);
 
                 Logf.d(LOG_TAG, "LocationProvider: %s, requesting location", bestProvider);
                 this.canGetLocation = true;
-                locationManager.requestLocationUpdates(bestProvider, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-                location = locationManager.getLastKnownLocation(bestProvider);
+                mLocationManager.requestLocationUpdates(bestProvider, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+                location = mLocationManager.getLastKnownLocation(bestProvider);
 
             }
 
             if (location != null) {
                 latitude = location.getLatitude();
                 longitude = location.getLongitude();
+                Logf.d(LOG_TAG, "New position: %f, %f", latitude, longitude);
                 onLocationChanged(location);
             }
 
-            Logf.d(LOG_TAG, "New position: %f, %f", latitude, longitude);
         } catch (Exception e) {
             Log.wtf(LOG_TAG, "Failed to acquire location", e);
             e.printStackTrace();
@@ -121,8 +121,8 @@ public class GPSTracker extends Service implements LocationListener {
      */
     public void stopUsingGPS() {
         mTimer.cancel();
-        if(locationManager != null) {
-            locationManager.removeUpdates(GPSTracker.this);
+        if(mLocationManager != null) {
+            mLocationManager.removeUpdates(this);
         }
     }
 
@@ -142,10 +142,10 @@ public class GPSTracker extends Service implements LocationListener {
         final double lng = location.getLongitude();
         if (LUNDAGARD.contains((float) lat, (float) lng)) {
             // We only care if inside LUNDAGARD
-            Logf.d(LOG_TAG, "Posting location: %f, %f", lat, lng);
+            Logf.d(LOG_TAG, "(%s) Posting location: %f, %f", location.getProvider(), lat, lng);
             this.location = location;
         } else {
-            Logf.d(LOG_TAG, "Ignoring location: %f, %f", lat, lng);
+            Logf.d(LOG_TAG, "(%s) Ignoring location: %f, %f", location.getProvider(), lat, lng);
         }
 
         for (GPSListener l : mListeners) {
@@ -155,35 +155,23 @@ public class GPSTracker extends Service implements LocationListener {
     }
 
     @Override
-    public void onProviderDisabled(String provider) {}
+    public void onProviderDisabled(String provider) {
+        Log.wtf(LOG_TAG, "Current Provider is disabled: "+provider);
+    }
 
     @Override
-    public void onProviderEnabled(String provider) {}
+    public void onProviderEnabled(String provider) {
+        Log.wtf(LOG_TAG, "Current Provider is enabled: "+provider);
+    }
 
     @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {}
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+        Logf.wtf(LOG_TAG, "Current Provider Status: %s, %d, %s",provider, status, extras);
+    }
 
     @Override
     public IBinder onBind(Intent arg0) {
         return null;
-    }
-
-    public double getLatitude(){
-        if(location != null){
-            latitude = location.getLatitude();
-        }
-        return latitude;
-    }
-
-    public double getLongitude(){
-        if(location != null){
-            longitude = location.getLongitude();
-        }
-        return longitude;
-    }
-
-    public boolean canGetLocation() {
-        return this.canGetLocation;
     }
 
     public void showSettingsAlert(){

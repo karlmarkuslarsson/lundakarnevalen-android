@@ -140,9 +140,6 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
             }
         });
 
-        lng_marker = 13.194012f;
-        lat_marker = 55.705521f;
-
         if(showOnNextCreateLat > 0.0f && showOnNextCreateLng > 0.0f) {
             new Handler().postDelayed(new Runnable() {
                 @Override
