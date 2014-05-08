@@ -18,7 +18,7 @@ public class DataMultiContainer {
                 R.string.smanojen_question,
                 R.string.smanojen_info,
                 1f,1f,
-                R.drawable.header_other,
+                R.drawable.header_smanojen,
                 R.drawable.smanojen_logo_list,
                 DataType.SMALL_FUN));
 
@@ -83,7 +83,7 @@ public class DataMultiContainer {
                 R.string.train,
                 R.string.train_info,
                 1f,1f,
-                R.drawable.header_other,
+                R.drawable.header_taget,
                 R.drawable.train_logo_other,
                 R.drawable.train_logo_other,
                 R.string.train_question,
@@ -100,7 +100,7 @@ public class DataMultiContainer {
                 R.string.empty,
                 R.string.toilets_info,
                 1f,1f,
-                R.drawable.header_other,
+                R.drawable.header_toaletter,
                 R.drawable.toilets_logo,
                 DataType.TOILETS));
         data.add(new DataElement(
@@ -108,7 +108,7 @@ public class DataMultiContainer {
                 R.string.empty,
                 R.string.security_info,
                 1f,1f,
-                R.drawable.header_other,
+                R.drawable.header_sakerhet,
                 R.drawable.security_logo,
                 DataType.SECURITY));
         data.add(new DataElement(
@@ -121,7 +121,7 @@ public class DataMultiContainer {
                 R.string.shoppen_question,
                 R.string.shoppen_info,
                 55.70557904967363f, 13.19512260551833f,
-                R.drawable.header_other,
+                R.drawable.header_shoppen,
                 R.drawable.shoppen_logo_other,
                 DataType.SHOPPEN));
 
@@ -130,7 +130,7 @@ public class DataMultiContainer {
                 R.string.empty,
                 R.string.care_info,
                 1f,1f,
-                R.drawable.header_other,
+                R.drawable.header_sjukvard,
                 R.drawable.health_logo,
                 DataType.CARE));
 
@@ -139,7 +139,7 @@ public class DataMultiContainer {
                 R.string.entre_question,
                 R.string.entre_info,
                 1f,1f,
-                R.drawable.header_other,
+                R.drawable.header_entre,
                 R.drawable.entre_logo_other,
                 DataType.ENTRANCE));
         data.add(new DataElement(
@@ -147,7 +147,7 @@ public class DataMultiContainer {
                 R.string.trash_question,
                 R.string.trash_info,
                 1f,1f,
-                R.drawable.header_other,
+                R.drawable.header_soptunna,
                 R.drawable.trash_logo_other,
                 DataType.TRASHCAN));
         return data;

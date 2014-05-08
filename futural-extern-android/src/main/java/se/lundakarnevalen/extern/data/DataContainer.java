@@ -105,7 +105,7 @@ public class DataContainer {
                 R.string.cocktail_title,
                 R.string.cocktail_info,
                 55.706444f,13.195143f,
-                R.drawable.header_nangilima,
+                R.drawable.header_nagilima,
                 R.drawable.map_nagilima_logo,
                 R.drawable.nagilima_logo,
                 R.string.cocktail_question,
@@ -118,7 +118,7 @@ public class DataContainer {
                 R.string.hipp_baren_title,
                 R.string.hipp_baren_info,
                 55.706504880685f, 13.19547491457354f,
-                R.drawable.header_nangilima,
+                R.drawable.header_nagilima,
                 R.drawable.map_nagilima_logo,
                 R.drawable.nagilima_logo,
                 R.string.hipp_baren_question,
@@ -131,7 +131,7 @@ public class DataContainer {
                 R.string.folkan_title,
                 R.string.folkan_info,
                 55.7069f,13.196176f,
-                R.drawable.header_nangilima,
+                R.drawable.header_nagilima,
                 R.drawable.map_nagilima_logo,
                 R.drawable.nagilima_logo,
                 R.string.folkan_question,
@@ -143,7 +143,7 @@ public class DataContainer {
                 R.string.foodo_title,
                 R.string.foodo_info,
                 55.706837f,13.195646f,
-                R.drawable.header_nangilima,
+                R.drawable.header_nagilima,
                 R.drawable.map_nagilima_logo,
                 R.drawable.nagilima_logo,
                 R.string.foodo_question,
@@ -157,16 +157,16 @@ public class DataContainer {
         menu.add(R.string.undervatten_food2);
         menu.add(R.string.undervatten_food3);
         //   menu.add("");
-        menuPrice.add("??");
-        menuPrice.add("??");
-        menuPrice.add("??");
+        menuPrice.add("50");
+        menuPrice.add("50");
+        menuPrice.add("50");
 
         data.add(new DataElement(
                 R.string.krog_undervatten_place,
                 R.string.krog_undervatten_title,
                 R.string.krog_undervatten_info,
                 55.70508561404364f, 13.19467199442641f,
-                R.drawable.header_krogundervatten,
+                R.drawable.header_undervatten,
                 R.drawable.map_krog_undervatten_logo,
                 R.drawable.undervatten_logo,
                 R.string.krog_undervatten_question,
@@ -188,7 +188,7 @@ public class DataContainer {
                 R.string.krog_lajka_title,
                 R.string.krog_lajka_info,
                 55.70573799412114f, 13.19474001701577f,
-                R.drawable.monk,
+                R.drawable.header_undervatten,
                 R.drawable.map_lajka_icon,
                 R.drawable.lajka_icon,
                 R.string.krog_lajka_question,
@@ -208,7 +208,7 @@ public class DataContainer {
                 R.string.krog_thyme_title,
                 R.string.krog_thyme_info,
                 55.705185f,13.195687f,
-                R.drawable.header_other,
+                R.drawable.header_undervatten,
                 R.drawable.map_thyme_travel,
                 R.drawable.thyme_travel_logo,
                 R.string.krog_thyme_question,
@@ -224,7 +224,7 @@ public class DataContainer {
                 DataType.ATM));
         */
 
-        data.add(new DataElement(R.string.biljetteriet,R.string.biljetteriet_place,R.string.biljetteriet_question,R.string.biljetteriet_info, 55.70502736279169f, 13.19517650439325f, R.drawable.map_biljetteriet_icon,R.drawable.biljetteriet_logo_list, DataType.BILJETTERIET));
+        data.add(new DataElement(R.string.biljetteriet_place,R.string.biljetteriet,R.string.biljetteriet_info,R.string.biljetteriet_question, 55.70502736279169f, 13.19517650439325f, R.drawable.header_biljetteriet,R.drawable.map_biljetteriet_icon,R.drawable.biljetteriet_logo_list, DataType.BILJETTERIET));
 
 
 
