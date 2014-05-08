@@ -20,12 +20,14 @@ import android.widget.TextView;
 
 import java.lang.annotation.ElementType;
 import java.util.Calendar;
+import java.util.Collections;
 
 import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.data.DataElement;
 import se.lundakarnevalen.extern.data.DataType;
 import se.lundakarnevalen.extern.widget.LKSchemeAdapter;
+import se.lundakarnevalen.extern.widget.SVGView;
 
 /**
  * Created by Markus on 2014-04-16.
@@ -103,8 +105,13 @@ public class LandingPageFragment extends LKFragment{
                 //TODO add filter here for DataMultiContainer
                 if(element.type == DataType.TRAIN) {
                     ContentActivity.class.cast(getActivity()).loadFragmentAddingBS(TrainMapFragment.create());
-                } else {
-                    ContentActivity.class.cast(getActivity()).showMapAndPanTo(lat, lng);
+                } else if (element.type == DataType.TENT_FUN) {
+                    ContentActivity.class.cast(getActivity()).showMapAndPanTo(lat, lng, SVGView.HALF_ZOOM);
+                    ContentActivity.class.cast(getActivity()).updateMapView(Collections.singleton(DataType.TENT_FUN));
+                }
+
+                else {
+                    ContentActivity.class.cast(getActivity()).showMapAndPanTo(lat, lng, SVGView.MAX_ZOOM);
                 }
             }
         });
