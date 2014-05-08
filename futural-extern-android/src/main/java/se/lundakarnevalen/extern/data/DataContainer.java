@@ -207,7 +207,7 @@ public class DataContainer {
                 R.string.krog_thyme_place,
                 R.string.krog_thyme_title,
                 R.string.krog_thyme_info,
-                55.705697f, 13.194630f,
+                55.705185f,13.195687f,
                 R.drawable.header_other,
                 R.drawable.map_thyme_travel,
                 R.drawable.thyme_travel_logo,
@@ -254,6 +254,8 @@ public class DataContainer {
         data.add(new DataElement(R.string.taltnojen, R.string.lunara_nationen, 55.70434433369048f, 13.19434999518406f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
         data.add(new DataElement(R.string.taltnojen, R.string.bucket_list,55.70440176403623f, 13.1943178086826f , R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
         data.add(new DataElement(R.string.taltnojen, R.string.karneroj,55.704453f,13.194302f , R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.konstfiket,55.70527f,13.195593f , R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
+
 
         data.add(new DataElement(R.string.barnevalen, R.string.festtaltet, 55.70418149695015f, 13.19458440352848f, R.drawable.map_barnevalen_logo, DataType.BARNEVALEN));
         data.add(new DataElement(R.string.barnevalen, R.string.gassimulator_3000, 55.7040650548606f, 13.19468165205387f, R.drawable.map_barnevalen_logo, DataType.BARNEVALEN));
@@ -310,7 +312,9 @@ public class DataContainer {
         data.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.7048783266619f, 13.19446443948018f, R.drawable.map_soptunna_icon, DataType.TRASHCAN));
         data.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.7046984808458f, 13.19383546152834f, R.drawable.map_soptunna_icon, DataType.TRASHCAN));
 
+        data.add(new DataElement(R.string.shoppen, R.string.shoppen, 55.704273f,13.194829f, R.drawable.bubble_shoppen, DataType.SHOPPEN));
         data.add(new DataElement(R.string.shoppen, R.string.shoppen, 55.70557904967363f, 13.19512260551833f, R.drawable.bubble_shoppen, DataType.SHOPPEN));
+
 
         //TODO: Fix logo for scenes below
         data.add(new DataElement(R.string.small_scene_place,R.string.small_scene,R.string.small_scene_info, R.string.small_scene_question, 55.7071037170697f, 13.19599227169824f, R.drawable.header_showen, R.drawable.map_scene_logo, R.drawable.scene_logo_list,DataType.SCENE));
