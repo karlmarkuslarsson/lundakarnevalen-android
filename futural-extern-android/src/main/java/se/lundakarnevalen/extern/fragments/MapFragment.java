@@ -80,7 +80,7 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    Picture picture = MapLoader.preload(inflater.getContext()).get(20, TimeUnit.SECONDS);
+                    Picture picture = MapLoader.preload(inflater.getContext()).get(60, TimeUnit.SECONDS);
                     waitForLayout();
                     float minZoom = calculateMinZoom(mapView, picture);
                     mapView.setSvg(picture, minZoom, mMatrixValues);
@@ -172,7 +172,9 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
         if(mMatrixValues != null) {
             mapView.importMatrixValues(mMatrixValues);
         }
-        ContentActivity.class.cast(getActivity()).focusBottomItem(2);
+        final ContentActivity contentActivity = ContentActivity.class.cast(getActivity());
+        contentActivity.focusBottomItem(2);
+        contentActivity.triggerFilterUpdate();
     }
 
     @Override

@@ -88,7 +88,7 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    Picture picture = TrainMapLoader.preload(inflater.getContext()).get(20, TimeUnit.SECONDS);
+                    Picture picture = TrainMapLoader.preload(inflater.getContext()).get(60, TimeUnit.SECONDS);
                     waitForLayout();
                     final float scale = calculateMinZoom(mTrainView, picture);
                     mTrainView.setSvg(picture, scale, mMatrixValues);

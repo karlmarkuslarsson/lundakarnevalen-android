@@ -93,8 +93,6 @@ public class LKMapView extends SVGView {
 
     private RectF dst = new RectF();
 
-
-
     private float mPreDrawScale;
 
     private Marker mFocusedMarker;
@@ -153,12 +151,6 @@ public class LKMapView extends SVGView {
 
 
         initBitmapCache(context);
-
-        if(activeTypes.size() == 0) {
-            for (DataType type : DataType.values()) {
-                activeTypes.add(type);
-            }
-        }
     }
 
     @Override

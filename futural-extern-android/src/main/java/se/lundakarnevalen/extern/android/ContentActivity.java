@@ -34,6 +34,7 @@ import android.widget.TextView;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import se.lundakarnevalen.extern.data.DataType;
@@ -88,7 +89,6 @@ public class ContentActivity extends ActionBarActivity {
         loadFragmentReplaceBS(mMapFragment);
 
         mRightMenuList = find(R.id.right_menu_list, ListView.class);
-
 
         populateBottomMenu(find(R.id.bottom_frame_menu, LinearLayout.class));
 
@@ -269,8 +269,6 @@ public class ContentActivity extends ActionBarActivity {
      * Sets up the ListView in the navigationdrawer menu.
      */
     private void populateRightMenuDrawer() {
-        LayoutInflater inflater = LayoutInflater.from(this);
-
         LKRightMenuArrayAdapter mRightMenuAdapter = new LKRightMenuArrayAdapter(this);
         mRightMenuAdapter.setNotifyOnChange(false);
         mRightMenuAdapter.addItem(getString(R.string.food), R.drawable.food_logo, new DataType[]{DataType.FOOD,DataType.FOODSTOCK}, false);
@@ -285,6 +283,7 @@ public class ContentActivity extends ActionBarActivity {
         mRightMenuAdapter.addItem(getString(R.string.trash), R.drawable.soptunna_filter_icon, new DataType[]{DataType.TRASHCAN}, false);
         mRightMenuAdapter.addItem(getString(R.string.show_all), 0, DataType.values(), true);
         mRightMenuAdapter.setNotifyOnChange(true);
+        mRightMenuAdapter.notifyDataSetChanged();
 
         mRightMenuList.setAdapter(mRightMenuAdapter);
         mRightMenuList.setOnItemClickListener(mRightMenuAdapter);
@@ -324,6 +323,13 @@ public class ContentActivity extends ActionBarActivity {
     public void unregisterForLocationUpdates(GPSTracker.GPSListener listener) {
         Logf.d(LOG_TAG, "unregisterForLocationUpdates(%s)", listener);
         mGpsTracker.removeListener(listener);
+    }
+
+    public void triggerFilterUpdate() {
+        final LKRightMenuArrayAdapter adapter = LKRightMenuArrayAdapter.class.cast(mRightMenuList.getAdapter());
+        if (adapter != null) { // Will be null when activity starts
+            adapter.notifyDataSetChanged();
+        }
     }
 
     private class BottomMenuClickListener implements OnClickListener {
