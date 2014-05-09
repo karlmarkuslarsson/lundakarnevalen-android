@@ -322,7 +322,7 @@ public class SVGView extends View {
     public void setSvg(Picture svg, float minZoom, float[] values) {
         this.mPicture = svg;
         this.mPictureEndPoint[AXIS_X] = svg.getWidth();
-        this.mPictureEndPoint[AXIS_Y] = svg.getWidth();
+        this.mPictureEndPoint[AXIS_Y] = svg.getHeight();
         this.mMinZoom = minZoom;
 
         // Scale image
