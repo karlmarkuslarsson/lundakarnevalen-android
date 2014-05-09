@@ -90,10 +90,9 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
     public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
         final LKSchemeItem item = getItem(pos);
         final ViewHolder vh = (ViewHolder) view.getTag();
-        final Animation anim = AnimationUtils.loadAnimation(getContext(), R.anim.heartfade);
         if(item.reminder) {
             item.reminder = false;
-
+            final Animation anim = AnimationUtils.loadAnimation(getContext(), R.anim.heart_out);
             anim.setAnimationListener(new Animation.AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {}
@@ -101,6 +100,7 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
                 @Override
                 public void onAnimationEnd(Animation animation) {
                     vh.heart.setImageResource(R.drawable.heart_not_clicked);
+                    vh.heart.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.heart_in));
                 }
 
                 @Override
@@ -133,13 +133,14 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
             am.cancel(mAlarmSender);
         } else {
             item.reminder = true;
-
+            final Animation anim = AnimationUtils.loadAnimation(getContext(), R.anim.heart_out);
             anim.setAnimationListener(new Animation.AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {}
 
                 @Override
                 public void onAnimationEnd(Animation animation) {
+                    vh.heart.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.heart_in));
                     vh.heart.setImageResource(R.drawable.heart_clicked);
                 }
 
