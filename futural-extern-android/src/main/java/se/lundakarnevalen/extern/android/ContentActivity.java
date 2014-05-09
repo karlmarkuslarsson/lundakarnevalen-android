@@ -147,9 +147,9 @@ public class ContentActivity extends ActionBarActivity {
     protected void onDestroy() {
         Log.d(LOG_TAG, "onDestroy()!?  Cleaning allocated resources: MapFragment, TrainMapFragment, LKMapView");
         mGpsTracker.stopUsingGPS();
-        MapLoader.clean();
-        TrainMapLoader.clean();
-        LKMapView.clean();
+        // MapLoader.clean();
+        // TrainMapLoader.clean();
+        // LKMapView.clean();
         System.gc();
         super.onDestroy();
     }
@@ -293,10 +293,10 @@ public class ContentActivity extends ActionBarActivity {
         mMapFragment.setActiveType(types);
     }
 
-    public void showMapAndPanTo(float lat, float lng) {
+    public void showMapAndPanTo(float lat, float lng, float scale) {
         focusBottomItem(2);
         //mMapFragment.addZoomHintForNextCreate(lat, lng);
-        mMapFragment.addZoomHintForNextCreate(lat, lng, SVGView.MAX_ZOOM);
+        mMapFragment.addZoomHintForNextCreate(lat, lng, scale);
         loadFragmentAddingBS(mMapFragment);
     }
 
