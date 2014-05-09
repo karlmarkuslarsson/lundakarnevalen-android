@@ -21,6 +21,8 @@ import android.widget.TextView;
 import java.lang.annotation.ElementType;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
@@ -103,15 +105,37 @@ public class LandingPageFragment extends LKFragment{
         mapView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO add filter here for DataMultiContainer
+                Set<DataType> multiContainers = new HashSet<DataType>();
+                multiContainers.add(DataType.TENT_FUN);
+                multiContainers.add(DataType.TOMBOLAN);
+                multiContainers.add(DataType.MUSIC);
+                multiContainers.add(DataType.FOODSTOCK);
+                multiContainers.add(DataType.SNACKS);
+                multiContainers.add(DataType.TOILETS);
+                multiContainers.add(DataType.SECURITY);
+                multiContainers.add(DataType.CARE);
+                multiContainers.add(DataType.TRASHCAN);
+                multiContainers.add(DataType.ENTRANCE);
+
                 if(element.type == DataType.TRAIN) {
                     ContentActivity.class.cast(getActivity()).loadFragmentAddingBS(TrainMapFragment.create());
-                } else if (element.type == DataType.TENT_FUN) {
+                } else if (multiContainers.contains(element.type)) {
                     ContentActivity.class.cast(getActivity()).showMapAndPanTo(lat, lng, SVGView.HALF_ZOOM);
                     LKRightMenuArrayAdapter adapter = ((LKRightMenuArrayAdapter)ContentActivity.class.cast(getActivity()).mRightMenuList.getAdapter());
                     adapter.deselectAll();
                     //adapter.notifyDataSetChanged();
-                    int index = adapter.getIndexForIcon(R.drawable.tent_logo);
+                    int index = -1;
+                    switch (element.type) {
+                        case TENT_FUN:
+                            index = adapter.getIndexForIcon(R.drawable.tent_logo);
+                            break;
+                        case TOMBOLAN:
+                            index = adapter.getIndexForIcon(R.drawable.tombola_logo);
+                            break;
+                        //TODO add rest..
+                    }
+
+
                     ContentActivity.class.cast(getActivity()).mRightMenuList.performItemClick(null,index,0);
                     //LKRightMenuArrayAdapter.LKRightMenuListItem item = (LKRightMenuArrayAdapter.LKRightMenuListItem) ContentActivity.class.cast(getActivity()).mRightMenuList.getAdapter().getItem(index);
                     //item.selected = true;
