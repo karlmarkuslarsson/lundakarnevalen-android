@@ -44,20 +44,20 @@
     <string name="train">THE TRAIN</string>
     <string name="place_train">LUNDAGÅRD</string>
     <string name="filmen_place">PALAESTRA</string>
-    <string name="filmen_question">WHAT IS FILMEN?</string>
+    <string name="filmen_question">WHAT IS THE FILM?</string>
     <string name="barneval_place">KRAFTS TORG</string>
-    <string name="barneval_question">WHAT IS BARNEVALEN?</string>
+    <string name="barneval_question">WHAT IS THE CHILDESTIVAL?</string>
     <string name="cirkus_place">TEGNÈRSPLATSEN</string>
-    <string name="cirkus_question">WHAT IS CIRKUSEN?</string>
-    <string name="spexet_place">STORA SCENEN AF</string>
-    <string name="spexet_question">WHAT IS SPEXET?</string>
+    <string name="cirkus_question">WHAT IS THE CIRCUS?</string>
+    <string name="spexet_place">BIG SCENE AF</string>
+    <string name="spexet_question">WHAT IS THE SPEX?</string>
     <string name="showen_place">TEGNÈRS MATSALAR</string>
-    <string name="showen_question">WHAT IS SHOWEN?</string>
+    <string name="showen_question">WHAT IS THE SHOW?</string>
     <string name="revy_place">UNIVERSITETSHUSET</string>
-    <string name="revy_question">WHAT IS REVYN?</string>
+    <string name="revy_question">WHAT IS THE REVUE?</string>
 
-    <string name="kabare_question">WHAT IS KABARÉN?</string>
-    <string name="kabare_place">NORR OM DOMKYRKAN</string>
+    <string name="kabare_question">WHAT IS THE KABARÉ?</string>
+    <string name="kabare_place">NORTH OF DOMKYRKAN</string>
     <string name="kabare_title">THE KABARÈ</string>
     <string name="kabare_info">Vi befinner oss i den postapokalyptiska dystopin
         efter det stora kärnvapenkriget. Världen är i ruiner, men Cabaret Apocalyptica
@@ -102,7 +102,7 @@
     Följ med oss i Karnevalsrevyn Kottar och Nötter -  45 minuter satiriska, intellektuella och
     tramsiga sketcher och fartfyllda sång- och dansnummer om allt och inget. En generationsresa
     där vi bevisar att varenda kotte, utan undantag, växer upp till att bli ett nöt.</string>
-    <string name="barneval_title">BARNEVALEN</string>
+    <string name="barneval_title">THE CHILDESTIVAL</string>
     <string name="barneval_info">Pinsamma pappa Olsson har ont i sin tand och vågar inte gå till
     tandläkaren, inte ens när barnen Pia, Cissi och Ville följer med. Men en futuralt fiffig
     uppfinning blir början på ett otroligt äventyr…\n
@@ -289,7 +289,7 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
         Inferno – Festvåningen<br>
         23.30-04 Kevin Ohlsson]]>
     </string>
-    <string name="dansen_question">VAD ÄR DANSEN?</string>
+    <string name="dansen_question">WHAT IS THE DANCE?</string>
     <string name="the_bland_band">THE BLAND BAND</string>
     <string name="emil_och_david">EMIL AND DAVID</string>
     <string name="brothers_among_eva">BAW</string>
@@ -298,7 +298,7 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="karnemel_year">2014</string>
     <string name="krog_lajka_title">LAJKA</string>
     <string name="krog_lajka_place" />
-    <string name="krog_lajka_question">VAD ÄR PUB LAJKA?</string>
+    <string name="krog_lajka_question">WHAT IS PUB LAJKA?</string>
     <string name="krog_thyme_title">THYME TRAVEL</string>
     <string name="krog_thyme_place" >ATHEN</string>
     <string name="krog_thyme_question">WHAT IS PUB TYHME TRAVEL?</string>
@@ -311,7 +311,7 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="lajka_food1">PAELLA</string>
     <string name="lajka_food2">VEGETARISK LASAGNE</string>
 
-    <string name="karne_name">KARNEVALSLÅTEN</string>
+    <string name="karne_name">THE CARNIVAL SONG</string>
     <string name="david">DAVID STRÖMBÄCK</string>
     <string name="emil">EMIL SUNESSON</string>
     <string name="lillebror">LILLEBROR CHARLIE</string>
@@ -355,7 +355,7 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="bucket_list">Bucket List</string>
     <string name="karneroj">Karneröj</string>
 
-    <string name="barnevalen">BARNEVALEN</string>
+    <string name="barnevalen">THE CHILDESTIVAL</string>
     <string name="festtaltet">Festtältet</string>
     <string name="gassimulator_3000">Gåssimulator 3000</string>
     <string name="cafe_kosmos">Café Kosmos</string>
@@ -392,7 +392,7 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="strike_for_the_future">Strike for the future</string>
     <string name="futuralbucks">Futuralbucks</string>
 
-    <string name="trashcan">TRASHCAN</string>
+    <string name="trashcan">TRASH CAN</string>
     <string name="shoppen">THE SHOP</string>
 
 
@@ -400,7 +400,7 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="click_for_more">(Click to show more info)</string>
     <string name="trash">TRASH</string>
     <string name="biljetteriet_place" />
-    <string name="biljetteriet_question">VAD ÄR BILJETTERIET?</string>
+    <string name="biljetteriet_question">WHAT IS THE TICKETERY?</string>
     <string name="biljetteriet_info"><![CDATA[
          För att gå in på karnevalsområdet behövs en entrébiljett eller ett entréband.
          Engångsentré kostar 60 kr och ett entréband som gör att man kan gå in och ut
@@ -414,7 +414,7 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     </string>
     <string name="smanojen_place" />
 
-    <string name="smanojen_question">VAD ÄR SMÅNÖJEN?</string>
+    <string name="smanojen_question">WHAT IS THE MINI FUN?</string>
     <string name="smanojen_info">Smånöjen är något för dig som vill uppleva musik, spontanitet och
         skrattintensivitet är smånöjen det perfekta! Biljetter säljs på karnevalsområdet och
         föreställningarna visas så ofta som bara är möjligt. Ta tillvara på din spontanitet och
@@ -422,7 +422,7 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
 
     <string name="taltnojen_place" />
 
-    <string name="taltnojen_question">VAD ÄR TÄLTNÖJEN?</string>
+    <string name="taltnojen_question">WHAT IS THE TENT FUN?</string>
     <string name="taltnojen_info">Det finns 20 tältnöjen som innehåller en kort och karnevalistisk
         upplevelse, för att veta mer om varje enskilt tältnöje, var god köp vårt programblad som
         finns tillgängligt på shoppen inne på karnevalsområdet.</string>
@@ -430,7 +430,7 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
 
     <string name="tombolan_place" />
 
-    <string name="tombolan_question">VAD ÄR TOMBOLAN?</string>
+    <string name="tombolan_question">WHAT IS THE TOMBOLA?</string>
     <string name="tombolan_info">Tombolan sprider karnevalsglädje genom de spel och tävlingar som
         kommer att finnas på området. Vi skapar de mest fantastiska och knäppa spelbodar som Liseberg
         aldrig sett genom musik, lampor, satir och futurism.</string>
@@ -440,17 +440,17 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
 
     <string name="musik" >THE MUSIC</string>
 
-    <string name="musik_question">VAD ÄR MUSIKEN?</string>
+    <string name="musik_question">WHAT IS THE MUSIC?</string>
     <string name="musik_info">Musiksektionen ser till att det alltid strömmar ljuv musik ifrån
         olika platser på Karnevalsområdet och framförallt ifrån Stora Scenen framför universitetshuset.
         Vi har hand om alla artister som kommer för att uppträda under dagarna men även scenerna dem
         uppträder ifrån.</string>
-    <string name="small_scene_question">VAD ÄR LILLA SCENEN?</string>
+    <string name="small_scene_question">WHAT IS SMALL SCENE?</string>
     <string name="small_scene_info">Lilla Scenen kommer vara stjärnan på krogområdet Foodstock.
         Här kommer finnas en underbar blandning av musik, mat i olika former och barer där man kan
         umgås, äta, lyssna på fantastisk musik och insupa den karnevalistiska andan.</string>
 
-    <string name="big_scene_question">VAD ÄR STORA SCENEN?</string>
+    <string name="big_scene_question">WHAT IS BIG SCENE?</string>
     <string name="big_scene_info">Med det ståtliga Universitetshuset i bakgrunden kan du avnjuta
         de ljuva tonerna från stora scenens fenomenala artiser. Ladda inför oförglömliga musikupplevelser!
     </string>
@@ -467,15 +467,15 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="train_info">Årets tåg består av häftiga tåg i alla dess former, en resa genom tidsrymden.\n\nFör att få veta mer var god köp programbladet som säljs i shoppen på karnevalsområdet.</string>
     <string name="train_question">WHAT IS THE TRAIN?</string>
     <string name="shoppen_info">Här hittar du programblad, souvenirer och andra roliga saker som gör dina (kanske vaga) minnen från karnevalen ännu klarare.</string>
-    <string name="shoppen_question">VAD FINNS I SHOPPEN?</string>
-    <string name="trash_question">VAD ÄR EN SOPTUNNA?</string>
+    <string name="shoppen_question">WHAT'S IN THE SHOP?</string>
+    <string name="trash_question">WHAT IS A TRASH CAN?</string>
     <string name="trash_info">Här slänger du allt som inte ger dig någon karnevalist-glädje. Placerade strategiskt runt om hela området för att du inte ska behöva gå allt för långt för att bli av med sånt som kan användas till bättre saker. Tänk på att nedskräpning är dåligt och att Lund ska hålla i minst 1000 år till.</string>
     <string name="entre_info">För att gå in på karnevalsområdet behövs en entrébiljett eller ett entréband. Engångsentré kostar 60 kr och ett entréband som gör att man kan gå in och ut obegränsat under de tre dagarna kostar 200 kr. Entrébiljett/band rekommenderas att köpas på förhand då köerna in på karnevalsområdet kan vara långa under karnevalsdagarna. Barn som är 6 år eller yngre går in gratis på området.\n\nEntrébiljetter köpta på internet måste hämtas ut i någon av biljettbodarna på Clemenstorget eller Stortorget utanför karnevalsområdet.</string>
-    <string name="entre_question">VAD HITTAR JAG I ENTRÈN?</string>
+    <string name="entre_question">WHAT DO I FIND IN THE ENTRÈ?</string>
     <string name="foodo_place">FOODSTOCK</string>
     <string name="foodo_title">FOODOO CHILD</string>
     <string name="foodo_info" />
-    <string name="foodo_question">VAD ÄR FOODOO CHILD?</string>
+    <string name="foodo_question">WHAT IS FOODOO CHILD?</string>
     <string name="konstfiket">KONSTFIKET</string>
     <string name="moderskeppet">MODERSKEPPET</string>
     <string name="news_kast">NEWS KAST</string>
@@ -490,7 +490,7 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="music_title">MUSIC</string>
     <string name="nangilima_place">FOODSTOCK</string>
     <string name="nangilima_title">FOODSTOCK</string>
-    <string name="nangilima_question">VAD ÄR FOODSTOCK?</string>
+    <string name="nangilima_question">WHAT IS FOODSTOCK?</string>
     <string name="nangilima_info">Lundakarnevalen framtidssatsar och lanserar det helt nya området Foodstock. Vi öppnar upp en värld fylld av blommor, bin, musik, mat och nöje. På vårt nya område uppe vid Gamla Kirurgen välkomnar vi dig för ytterligare karnevalsupplevelser och förlänger känslan av karneval lite längre. Fred, kärlek och förståelse - i en tidigare oskådad symbios! Unna dig lite karnevalistiska upptåg bland våra tältnöjen eller vinn fina eller ofina priser i tombolabodarna. Vila upp dig på vår uteservering och ät av vår amerikansk-inspirerade meny eller ta dig upp till grillen och få lika god mat - fast med mer grillyta.\n\n
 På scenen finns underhållning dag, kväll och natt. Under lunchtid erbjuder vi underhållning som är mer familjeanpassad, och under eftermiddag och kväll satsar vi för fullt på musik från världens alla hörn - raggae, folk, indie, hiphop och en massa annat!\n\n
 Framåt natten skruvar vi upp tempot för att tillsammans med några av Sveriges största inom deep- och tech-house skapa världens läckraste förfest. Vi utlovar stämning och drag som hade fått Jimi Hendrix att bli högerhänt!
