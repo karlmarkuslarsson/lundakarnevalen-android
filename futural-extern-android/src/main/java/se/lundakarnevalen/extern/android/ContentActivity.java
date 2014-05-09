@@ -269,26 +269,26 @@ public class ContentActivity extends ActionBarActivity {
      * Sets up the ListView in the navigationdrawer menu.
      */
     private void populateRightMenuDrawer() {
-        LKRightMenuArrayAdapter mRightMenuAdapter = new LKRightMenuArrayAdapter(this);
-        mRightMenuAdapter.setNotifyOnChange(false);
-        mRightMenuAdapter.addItem(getString(R.string.food), R.drawable.food_logo, new DataType[]{DataType.FOOD,DataType.FOODSTOCK}, false);
-        mRightMenuAdapter.addItem(getString(R.string.fun), R.drawable.fun_logo, new DataType[]{DataType.FUN, DataType.SMALL_FUN, DataType.TENT_FUN, DataType.TOMBOLAN,
-                DataType.SCENE, DataType.RADIO}, false);
-        mRightMenuAdapter.addItem(getString(R.string.tent), R.drawable.tent_logo, new DataType[]{DataType.TENT_FUN}, false);
-        mRightMenuAdapter.addItem(getString(R.string.tombola), R.drawable.tombola_logo, new DataType[]{DataType.TOMBOLAN},false);
-        mRightMenuAdapter.addItem(getString(R.string.music), R.drawable.musik_logo, new DataType[]{DataType.SCENE, DataType.MUSIC}, false);
-        mRightMenuAdapter.addItem(getString(R.string.help), R.drawable.help_logo, new DataType[]{DataType.POLICE, DataType.CARE}, false);
-        mRightMenuAdapter.addItem(getString(R.string.wc), R.drawable.wc_logo, new DataType[]{DataType.TOILETS}, false);
-        mRightMenuAdapter.addItem(getString(R.string.entre), R.drawable.entrance_filter_icon, new DataType[]{DataType.ENTRANCE}, false);
-        mRightMenuAdapter.addItem(getString(R.string.trash), R.drawable.soptunna_filter_icon, new DataType[]{DataType.TRASHCAN}, false);
-        mRightMenuAdapter.addItem(getString(R.string.show_all), 0, DataType.values(), true);
-        mRightMenuAdapter.setNotifyOnChange(true);
-        mRightMenuAdapter.notifyDataSetChanged();
+        LKRightMenuArrayAdapter adapter = new LKRightMenuArrayAdapter(this);
+        adapter.setNotifyOnChange(false);
+        adapter.addItem(getString(R.string.food), R.drawable.food_logo, new DataType[]{DataType.FOOD, DataType.FOODSTOCK}, false);
+        adapter.addItem(getString(R.string.fun), R.drawable.fun_logo,
+                new DataType[]{DataType.FUN, DataType.SMALL_FUN, DataType.TENT_FUN, DataType.TOMBOLAN, DataType.SCENE, DataType.RADIO}, false);
+        adapter.addItem(getString(R.string.tent), R.drawable.tent_logo, new DataType[]{DataType.TENT_FUN}, false);
+        adapter.addItem(getString(R.string.tombola), R.drawable.tombola_logo, new DataType[]{DataType.TOMBOLAN}, false);
+        adapter.addItem(getString(R.string.music), R.drawable.musik_logo, new DataType[]{DataType.SCENE, DataType.MUSIC}, false);
+        adapter.addItem(getString(R.string.help), R.drawable.help_logo, new DataType[]{DataType.POLICE, DataType.CARE}, false);
+        adapter.addItem(getString(R.string.wc), R.drawable.wc_logo, new DataType[]{DataType.TOILETS}, false);
+        adapter.addItem(getString(R.string.entre), R.drawable.entrance_filter_icon, new DataType[]{DataType.ENTRANCE}, false);
+        adapter.addItem(getString(R.string.trash), R.drawable.soptunna_filter_icon, new DataType[]{DataType.TRASHCAN}, false);
+        adapter.addItem(getString(R.string.show_all), 0, DataType.values(), true);
+        adapter.setNotifyOnChange(true);
+        adapter.notifyDataSetChanged();
 
-        mRightMenuList.setAdapter(mRightMenuAdapter);
-        mRightMenuList.setOnItemClickListener(mRightMenuAdapter);
+        mRightMenuList.setAdapter(adapter);
+        mRightMenuList.setOnItemClickListener(adapter);
         mRightMenuList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        mRightMenuList.setItemsCanFocus(false);
+        //mRightMenuList.setItemsCanFocus(false);
     }
 
     public void allBottomsUnfocus() {
