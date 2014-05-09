@@ -24,6 +24,7 @@ import se.lundakarnevalen.extern.map.GPSTracker;
 import se.lundakarnevalen.extern.map.MapLoader;
 import se.lundakarnevalen.extern.map.Marker;
 import se.lundakarnevalen.extern.util.Delay;
+import se.lundakarnevalen.extern.util.Logf;
 import se.lundakarnevalen.extern.widget.LKMapView;
 import se.lundakarnevalen.extern.widget.SVGView;
 
@@ -248,6 +249,7 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
 
     @Override
     public void onNewLocation(double lat, double lng) {
+        Logf.d(LOG_TAG, "onNewLocation(lat: %f, lng: %f)", lat, lng);
         mapView.setGpsMarker((float) lat, (float) lng, false);
     }
 }

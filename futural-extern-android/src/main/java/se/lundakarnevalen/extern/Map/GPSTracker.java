@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.RectF;
 import android.location.Criteria;
+import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -24,7 +25,7 @@ import se.lundakarnevalen.extern.util.Logf;
 /**
  * Created by Filip on 2014-05-07.
  */
-public class GPSTracker extends Service implements LocationListener {
+public class GPSTracker extends Service implements LocationListener, GpsStatus.Listener {
     private static final String LOG_TAG = GPSTracker.class.getSimpleName();
     public static final int UPDATE_DELAY_MILLIS = 20000;
     public static final int INITAL_DELAY_MILLIS = 2000;
@@ -38,6 +39,11 @@ public class GPSTracker extends Service implements LocationListener {
         if(latitude > 0.0f && longitude>0.0f ) {
             listener.onNewLocation(latitude, longitude);
         }
+    }
+
+    @Override
+    public void onGpsStatusChanged(int event) {
+        Logf.d(LOG_TAG, "onGpsStatusChanged(%d)", event);
     }
 
     public interface GPSListener {
@@ -78,10 +84,11 @@ public class GPSTracker extends Service implements LocationListener {
         Criteria criteria = new Criteria();
         criteria.setAccuracy(Criteria.ACCURACY_FINE);
         String bestProvider = mLocationManager.getBestProvider(criteria, true);
-        mLocationManager.requestLocationUpdates(bestProvider, 0, 1.0f, this);
+        mLocationManager.requestLocationUpdates(bestProvider, 0, 0, this);
 
         if(!LocationManager.GPS_PROVIDER.equalsIgnoreCase(bestProvider)){
-            mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 1, this);
+            mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+            mLocationManager.addGpsStatusListener(this);
         }
     }
 
@@ -90,13 +97,14 @@ public class GPSTracker extends Service implements LocationListener {
             // if GPS Enabled get lat/long using GPS Services
             if (mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                 //Log.d(LOG_TAG, "LocationProvider: GPS Enabled, polling lastKnownLocation");
-                mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 1, this);
-                //location = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+                Location l = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-                if (location != null) {
+                if (location != l) {
+                    location = l;
                     latitude = location.getLatitude();
                     longitude = location.getLongitude();
-                    Logf.d(LOG_TAG, "New position: %f, %f", latitude, longitude);
+                    Logf.d(LOG_TAG, "Updated position: lat %f, lng %f, accuracy:%f", latitude, longitude, l.getAccuracy());
                     onLocationChanged(location);
                 }
             } else {
