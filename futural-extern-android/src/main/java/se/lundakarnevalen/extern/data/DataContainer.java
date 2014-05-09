@@ -289,7 +289,7 @@ public class DataContainer {
         data.add(new DataElement(R.string.tombolan, R.string.futuralbucks, 55.7046234675636f, 13.19465534628458f, R.drawable.bubble_tombolan, DataType.TOMBOLAN));
         data.add(new DataElement(R.string.tombolan, R.string.news_kast, 55.705296f,13.1936455f, R.drawable.bubble_tombolan, DataType.TOMBOLAN));
 
-        data.add(new DataElement(R.string.tidsmaskin, R.string.futuautomat,  55.7055f,13.194731f, R.drawable.bubble_tombolan, DataType.AUTOMAT));
+        data.add(new DataElement(R.string.tidsmaskin, R.string.futuautomat,  55.7055f,13.194731f, R.drawable.map_futuautomat, DataType.AUTOMAT));
 
 
 

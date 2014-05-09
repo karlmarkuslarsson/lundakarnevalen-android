@@ -199,7 +199,7 @@ public class ContentActivity extends ActionBarActivity {
         tintManager.setStatusBarTintColor(getResources().getColor(R.color.red));
         tintManager.setNavigationBarTintEnabled(true);
         tintManager.setNavigationBarTintColor(getResources().getColor(R.color.red));
-        if(Build.VERSION.SDK_INT>=19){
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.KITKAT){
             Log.d("fgewgfwegf","gewgweg");
             find(R.id.extra_padding_top,View.class).setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,getStatusBarHeight()));
         }
