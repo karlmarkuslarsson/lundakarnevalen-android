@@ -50,7 +50,6 @@ public class SchemeFragment extends LKFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ContentActivity activity = ContentActivity.class.cast(getActivity());
 
-    activity.inactivateTrainButton();
 
         View view = inflater.inflate(R.layout.fragment_scheme, container, false);
 

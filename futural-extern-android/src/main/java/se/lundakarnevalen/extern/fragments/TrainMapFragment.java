@@ -54,7 +54,6 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
     // Every time you switch to this fragment.
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ContentActivity.class.cast(getActivity()).activateMapButton();
 
         final View root = inflater.inflate(R.layout.fragment_map_train, container, false);
         final ViewFlipper flipper = get(root, R.id.map_switcher, ViewFlipper.class);
@@ -145,6 +144,7 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
 
     @Override
     public void onStop() {
+        ContentActivity.class.cast(getActivity()).inactivateTrainButton();
         ContentActivity.class.cast(getActivity()).unregisterForLocationUpdates(this);
         if(mMediaPlayer != null) {
             try{
@@ -158,8 +158,11 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
     @Override
     public void onStart() {
         ContentActivity.class.cast(getActivity()).registerForLocationUpdates(this);
+        ContentActivity.class.cast(getActivity()).activateMapButton();
         super.onStart();
     }
+
+
 
 
     private void waitForLayout() {

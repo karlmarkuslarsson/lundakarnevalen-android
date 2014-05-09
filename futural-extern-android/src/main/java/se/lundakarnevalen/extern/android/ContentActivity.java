@@ -61,7 +61,7 @@ public class ContentActivity extends ActionBarActivity {
     private FragmentManager mFragmentMgr;
 
     private BottomMenuClickListener mBottomMenuListener;
-    private ListView mRightMenuList;
+    public ListView mRightMenuList;
 
     private View mActionBarView;
     private DrawerLayout mDrawerLayout;

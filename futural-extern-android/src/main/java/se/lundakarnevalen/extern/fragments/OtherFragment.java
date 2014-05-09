@@ -27,7 +27,6 @@ public class OtherFragment extends LKFragment{
     // Every time you switch to this fragment.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ContentActivity.class.cast(getActivity()).inactivateTrainButton();
         View root = inflater.inflate(R.layout.fragment_other, container, false);
         ListView lv = (ListView) root.findViewById(R.id.fragment_other_list);
 

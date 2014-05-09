@@ -154,4 +154,9 @@ public class DataElement implements Parcelable {
     public boolean hasLandingPage() {
         return info > 0;
     }
+
+    public boolean isRadio() {
+        return type == DataType.RADIO;
+    }
+
 }
