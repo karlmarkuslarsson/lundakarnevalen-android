@@ -272,6 +272,7 @@ public class ContentActivity extends ActionBarActivity {
         LayoutInflater inflater = LayoutInflater.from(this);
 
         LKRightMenuArrayAdapter mRightMenuAdapter = new LKRightMenuArrayAdapter(this);
+        mRightMenuAdapter.setNotifyOnChange(false);
         mRightMenuAdapter.addItem(getString(R.string.food), R.drawable.food_logo, new DataType[]{DataType.FOOD,DataType.FOODSTOCK}, false);
         mRightMenuAdapter.addItem(getString(R.string.fun), R.drawable.fun_logo, new DataType[]{DataType.FUN, DataType.SMALL_FUN, DataType.TENT_FUN, DataType.TOMBOLAN,
                 DataType.SCENE, DataType.RADIO}, false);
@@ -283,6 +284,7 @@ public class ContentActivity extends ActionBarActivity {
         mRightMenuAdapter.addItem(getString(R.string.entre), R.drawable.entrance_filter_icon, new DataType[]{DataType.ENTRANCE}, false);
         mRightMenuAdapter.addItem(getString(R.string.trash), R.drawable.soptunna_filter_icon, new DataType[]{DataType.TRASHCAN}, false);
         mRightMenuAdapter.addItem(getString(R.string.show_all), 0, DataType.values(), true);
+        mRightMenuAdapter.setNotifyOnChange(true);
 
         mRightMenuList.setAdapter(mRightMenuAdapter);
         mRightMenuList.setOnItemClickListener(mRightMenuAdapter);
