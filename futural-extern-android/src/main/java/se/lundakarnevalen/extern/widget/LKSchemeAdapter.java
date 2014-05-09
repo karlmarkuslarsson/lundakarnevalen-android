@@ -1,41 +1,30 @@
 package se.lundakarnevalen.extern.widget;
 
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
-import android.app.AlarmManager;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.FragmentManager;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-
-import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
-import se.lundakarnevalen.extern.util.BitmapUtil;
 import se.lundakarnevalen.extern.util.SchemeAlarm;
 
 public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> implements OnItemClickListener {
@@ -100,9 +89,23 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
     public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
         final LKSchemeItem item = getItem(pos);
         final ViewHolder vh = (ViewHolder) view.getTag();
+        final Animation anim = AnimationUtils.loadAnimation(getContext(), R.anim.heartfade);
         if(item.reminder) {
             item.reminder = false;
-            vh.heart.setImageResource(R.drawable.heart_not_clicked);
+
+            anim.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {}
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    vh.heart.setImageResource(R.drawable.heart_not_clicked);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {}
+            });
+            vh.heart.startAnimation(anim);
 
             SharedPreferences sharedPref = getContext().getSharedPreferences("lundkarnevalen",Context.MODE_PRIVATE);
             String set = sharedPref.getString("notifications", "");
@@ -129,7 +132,21 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
             am.cancel(mAlarmSender);
         } else {
             item.reminder = true;
-            vh.heart.setImageResource(R.drawable.heart_clicked);
+
+            anim.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {}
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    vh.heart.setImageResource(R.drawable.heart_clicked);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {}
+            });
+            vh.heart.startAnimation(anim);
+
 
             if(item.startDate.after(new Date())) {
                 Intent alarmIntent = new Intent(context, SchemeAlarm.class);
