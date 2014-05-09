@@ -28,6 +28,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
@@ -198,6 +199,10 @@ public class ContentActivity extends ActionBarActivity {
         tintManager.setStatusBarTintColor(getResources().getColor(R.color.red));
         tintManager.setNavigationBarTintEnabled(true);
         tintManager.setNavigationBarTintColor(getResources().getColor(R.color.red));
+        if(Build.VERSION.SDK_INT>=19){
+            Log.d("fgewgfwegf","gewgweg");
+            find(R.id.extra_padding_top,View.class).setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,getStatusBarHeight()));
+        }
     }
 
     private ActionBar setupActionbar() {
@@ -345,14 +350,7 @@ public class ContentActivity extends ActionBarActivity {
             loadFragmentReplaceBS(f);
         }
 
-        public int getStatusBarHeight() {
-            int result = 0;
-            int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-            if (resourceId > 0) {
-                result = getResources().getDimensionPixelSize(resourceId);
-            }
-            return result;
-        }
+
 
         private void selectItem(View target, Resources res) {
             target.setBackgroundColor(res.getColor(R.color.bottom_menu_background_selected));
@@ -461,5 +459,12 @@ public class ContentActivity extends ActionBarActivity {
         get(mActionBarView, R.id.train, ImageButton.class).setVisibility(View.INVISIBLE);
         get(mActionBarView, R.id.gps_marker, ImageButton.class).setVisibility(View.INVISIBLE);
     }
-
+    public int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
 }
