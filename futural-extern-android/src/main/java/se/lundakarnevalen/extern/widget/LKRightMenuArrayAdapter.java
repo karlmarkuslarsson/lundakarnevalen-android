@@ -1,13 +1,11 @@
 package se.lundakarnevalen.extern.widget;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import android.content.Context;
-import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,7 +47,7 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
 
         item.bindValues(layout);
 
-        item.setSelected(mContext, item.selected);
+        item.setSelected(mContext, item.isSelected);
         if(item.title.equals(mContext.getString(R.string.show_all))) {
             item.image.setVisibility(View.GONE);
             item.layout.setGravity(Gravity.CENTER);
@@ -57,7 +55,7 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
             item.image.setVisibility(View.VISIBLE);
             item.layout.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
         }
-        int bg = item.selected ? R.color.right_menu_button_selected : R.color.right_menu_button;
+        int bg = item.isSelected ? R.color.right_menu_button_selected : R.color.right_menu_button;
         item.layout.setBackgroundColor(getContext().getResources().getColor(bg));
 
         return layout;
@@ -65,19 +63,15 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
 
     @Override
     public void notifyDataSetChanged() {
-        final List<DataType> types = selectedTypes();
-        int showAllElementIdx = getCount() - 1;
-
-        if(types.isEmpty()) {
-            //deselectAll(); // Causes crash at first launch
-            getItem(showAllElementIdx).selected = true;
+        final List<LKRightMenuListItem> types = selectedItems();
+        final LKRightMenuListItem filterAll = findFilterAllItem();
+        if(filterAll.isSelected) {
+            filterAll.isSelected = (selectedItems().size() < 2); // if all filter selected + 1 more deselect
         } else {
-            getItem(showAllElementIdx).selected = false;
+            filterAll.isSelected = (types.isEmpty()); // Nothing selected
         }
-        super.notifyDataSetChanged();
-
-        ContentActivity.class.cast(getContext()).updateMapView(types);
-
+        super.notifyDataSetChanged(); //Invalidate views, to update colors
+        ContentActivity.class.cast(getContext()).updateMapView(selectedDataTypes());
     }
 
     @Override
@@ -90,47 +84,51 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
         boolean showAllSelected = (showAllElementIdx == pos);
 
         if (showAllSelected) { // is showAll item
-            deselectAll();
-            notifyDataSetChanged();
-            getItem(showAllElementIdx).setSelected(c, true);
-
+            deselectEverything();
+            notifyDataSetChanged(); // Will select every one again
         } else {
-            item.setSelected(c, !item.selected); // Flip state
-            getItem(showAllElementIdx).selected = false;
-            //getItem(showAllElementIdx).setSelected(c, false);
-            notifyDataSetChanged();
-        }
-
-        final List<DataType> types = selectedTypes();
-
-        if(types.isEmpty()) {
-            deselectAll();
-            getItem(showAllElementIdx).setSelected(c, true);
-        }
-
-        if (c != null) {
-            ContentActivity.class.cast(c).updateMapView(types);
-        } else {
-            Log.wtf(LOG_TAG, "ContentActivity was null");
+            item.setSelected(c, !item.isSelected); // Flip state of current
+            notifyDataSetChanged(); // Will deselect ALL
         }
     }
 
-    public void deselectAll() {
+    public void deselectEverything() {
         for (int i = 0; i < getCount(); i++) {
-            getItem(i).selected = false;
+            getItem(i).isSelected = false;
         }
         //notifyDataSetChanged();
     }
 
-    public List<DataType> selectedTypes(){
+    public List<DataType> selectedDataTypes(){
         List<DataType> markerTypes = new ArrayList<DataType>();
         for (int i = 0; i < getCount(); i++) {
-            LKRightMenuListItem item = getItem(i);
-            if(item.selected){
+            final LKRightMenuListItem item = getItem(i);
+            if(item.isSelected) {
                 markerTypes.addAll(Arrays.asList(item.markerType));
             }
         }
         return markerTypes;
+    }
+
+    private List<LKRightMenuListItem> selectedItems(){
+        List<LKRightMenuListItem> items = new ArrayList<LKRightMenuListItem>();
+        for (int i = 0; i < getCount(); i++) {
+            final LKRightMenuListItem item = getItem(i);
+            if(item.isSelected) {
+                items.add(item);
+            }
+        }
+        return items;
+    }
+
+    private LKRightMenuListItem findFilterAllItem(){
+        List<LKRightMenuListItem> items = new ArrayList<LKRightMenuListItem>();
+        for (int i = 0; i < getCount(); i++) {
+            if(DataType.values().length == new HashSet<DataType>(Arrays.asList(getItem(i).markerType)).size()) {
+                return getItem(i);
+            }
+        }
+        return null;
     }
 
     public int getIndexForIcon(int icon){
@@ -143,7 +141,7 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
         return -1;
     }
 
-    public void addItem(String title, int logo, DataType[] types, boolean selected) {
+    public void add(String title, int logo, DataType[] types, boolean selected) {
         add(new LKRightMenuListItem(title, logo, types, selected));
     }
 
@@ -152,7 +150,7 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
         private final int icon;
         private final String title;
 
-        private boolean selected = false;
+        private boolean isSelected = false;
 
         private LinearLayout layout;
         private TextView text;
@@ -162,7 +160,7 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
             this.title = title;
             this.icon = icon;
             this.markerType = markerType;
-            this.selected = selected;
+            this.isSelected = selected;
         }
 
         private void bindValues(View root ) {
@@ -174,11 +172,21 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
         }
 
         public void setSelected(Context c, boolean selected) {
-            this.selected = selected;
+            this.isSelected = selected;
             int bg = selected ? R.color.right_menu_button_selected : R.color.right_menu_button;
             if (this.layout != null) {
                 this.layout.setBackgroundColor(c.getResources().getColor(bg));
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("LKRightMenuArrayAdapter{");
+        for (int i = 0; i < getCount(); i++) {
+            final LKRightMenuListItem item = getItem(i);
+            sb.append(item.title).append(": ").append(item.isSelected).append("\n");
+        }
+        return sb.toString();
     }
 }

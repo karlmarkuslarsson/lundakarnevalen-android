@@ -2,13 +2,8 @@ package se.lundakarnevalen.extern.fragments;
 
 import static se.lundakarnevalen.extern.util.ViewUtil.*;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +13,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.lang.annotation.ElementType;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -122,7 +115,7 @@ public class LandingPageFragment extends LKFragment{
                 } else if (multiContainers.contains(element.type)) {
                     ContentActivity.class.cast(getActivity()).showMapAndPanTo(lat, lng, SVGView.HALF_ZOOM);
                     LKRightMenuArrayAdapter adapter = ((LKRightMenuArrayAdapter)ContentActivity.class.cast(getActivity()).mRightMenuList.getAdapter());
-                    adapter.deselectAll();
+                    adapter.deselectEverything();
                     //adapter.notifyDataSetChanged();
                     int index = -1;
                     switch (element.type) {

@@ -1,9 +1,7 @@
 package se.lundakarnevalen.extern.android;
 
 import android.app.Dialog;
-import android.content.pm.ApplicationInfo;
 import android.content.res.Resources;
-import android.location.LocationManager;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -34,14 +32,12 @@ import android.widget.TextView;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import se.lundakarnevalen.extern.data.DataType;
 import se.lundakarnevalen.extern.fragments.FoodFragment;
 import se.lundakarnevalen.extern.fragments.FunFragment;
 import se.lundakarnevalen.extern.fragments.MapFragment;
-import se.lundakarnevalen.extern.map.MockLocationProvider;
 import se.lundakarnevalen.extern.fragments.OtherFragment;
 import se.lundakarnevalen.extern.fragments.SchemeFragment;
 import se.lundakarnevalen.extern.fragments.TrainMapFragment;
@@ -51,7 +47,6 @@ import se.lundakarnevalen.extern.map.TrainMapLoader;
 import se.lundakarnevalen.extern.util.Logf;
 import se.lundakarnevalen.extern.widget.LKMapView;
 import se.lundakarnevalen.extern.widget.LKRightMenuArrayAdapter;
-import se.lundakarnevalen.extern.widget.SVGView;
 
 import static se.lundakarnevalen.extern.util.ViewUtil.*;
 
@@ -59,16 +54,12 @@ public class ContentActivity extends ActionBarActivity {
     public static final String TAG_MAP = "map";
 
     public static final String LOG_TAG = ContentActivity.class.getSimpleName();
-
-    private FragmentManager mFragmentMgr;
-
-    private BottomMenuClickListener mBottomMenuListener;
     public ListView mRightMenuList;
-
+    public MapFragment mMapFragment;
+    private FragmentManager mFragmentMgr;
+    private BottomMenuClickListener mBottomMenuListener;
     private View mActionBarView;
     private DrawerLayout mDrawerLayout;
-
-    public MapFragment mMapFragment;
     private GPSTracker mGpsTracker;
 
     public <T> T find(int id, Class<T> clz) {
@@ -109,12 +100,16 @@ public class ContentActivity extends ActionBarActivity {
         mDrawerLayout.setScrimColor(Color.TRANSPARENT);
     }
 
-    public void toggleRightDrawer() {
+    public void toggleShowFilterDrawer() {
         if (mDrawerLayout.isDrawerOpen(Gravity.RIGHT)) {
             mDrawerLayout.closeDrawer(Gravity.RIGHT);
         } else {
             mDrawerLayout.openDrawer(Gravity.RIGHT);
         }
+    }
+
+    public void lockFilterDrawer(boolean lock){
+        mDrawerLayout.setDrawerLockMode(lock ? DrawerLayout.LOCK_MODE_LOCKED_CLOSED : DrawerLayout.LOCK_MODE_UNLOCKED, Gravity.RIGHT);
     }
 
     private void createCustomDialog() {
@@ -164,12 +159,12 @@ public class ContentActivity extends ActionBarActivity {
 
     @Override
     public void onLowMemory() {
-        if(mBottomMenuListener.selected != null) {
+        if (mBottomMenuListener.selected != null) {
             Fragment visibleFragment = Fragment.class.cast(mBottomMenuListener.selected.getTag(R.id.bottom_menu_tag_fragment));
-            if (visibleFragment instanceof MapFragment){
+            if (visibleFragment instanceof MapFragment) {
                 Log.w(LOG_TAG, "onLowMemory() called: Map showing thus cleaning TrainMapSvg");
                 TrainMapLoader.clean();
-            } else if (visibleFragment instanceof TrainMapFragment){
+            } else if (visibleFragment instanceof TrainMapFragment) {
                 Log.w(LOG_TAG, "onLowMemory() called: TrainMap showing thus cleaning MapSvg");
                 MapLoader.clean();
                 LKMapView.clean();
@@ -199,9 +194,9 @@ public class ContentActivity extends ActionBarActivity {
         tintManager.setStatusBarTintColor(getResources().getColor(R.color.red));
         tintManager.setNavigationBarTintEnabled(true);
         tintManager.setNavigationBarTintColor(getResources().getColor(R.color.red));
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.KITKAT){
-            Log.d("fgewgfwegf","gewgweg");
-            find(R.id.extra_padding_top,View.class).setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,getStatusBarHeight()));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Log.d("fgewgfwegf", "gewgweg");
+            find(R.id.extra_padding_top, View.class).setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, getStatusBarHeight()));
         }
     }
 
@@ -240,10 +235,6 @@ public class ContentActivity extends ActionBarActivity {
         group.setOnClickListener(listener);
     }
 
-    public void setTitle(String title) {
-        setTitle(title);
-    }
-
     public void loadFragmentAddingBS(Fragment f) {
         Log.d("ContentActivity", "loadFragmentAddingBS(" + f + ")");
         FragmentTransaction t = mFragmentMgr.beginTransaction();
@@ -262,7 +253,7 @@ public class ContentActivity extends ActionBarActivity {
     }
 
     public void popFragmentStack() {
-        mFragmentMgr.popBackStack();
+        mFragmentMgr.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
 
     /**
@@ -271,17 +262,17 @@ public class ContentActivity extends ActionBarActivity {
     private void populateRightMenuDrawer() {
         LKRightMenuArrayAdapter adapter = new LKRightMenuArrayAdapter(this);
         adapter.setNotifyOnChange(false);
-        adapter.addItem(getString(R.string.food), R.drawable.food_logo, new DataType[]{DataType.FOOD, DataType.FOODSTOCK}, false);
-        adapter.addItem(getString(R.string.fun), R.drawable.fun_logo,
+        adapter.add(getString(R.string.food), R.drawable.food_logo, new DataType[]{DataType.FOOD, DataType.FOODSTOCK}, false);
+        adapter.add(getString(R.string.fun), R.drawable.fun_logo,
                 new DataType[]{DataType.FUN, DataType.SMALL_FUN, DataType.TENT_FUN, DataType.TOMBOLAN, DataType.SCENE, DataType.RADIO}, false);
-        adapter.addItem(getString(R.string.tent), R.drawable.tent_logo, new DataType[]{DataType.TENT_FUN}, false);
-        adapter.addItem(getString(R.string.tombola), R.drawable.tombola_logo, new DataType[]{DataType.TOMBOLAN}, false);
-        adapter.addItem(getString(R.string.music), R.drawable.musik_logo, new DataType[]{DataType.SCENE, DataType.MUSIC}, false);
-        adapter.addItem(getString(R.string.help), R.drawable.help_logo, new DataType[]{DataType.POLICE, DataType.CARE}, false);
-        adapter.addItem(getString(R.string.wc), R.drawable.wc_logo, new DataType[]{DataType.TOILETS}, false);
-        adapter.addItem(getString(R.string.entre), R.drawable.entrance_filter_icon, new DataType[]{DataType.ENTRANCE}, false);
-        adapter.addItem(getString(R.string.trash), R.drawable.soptunna_filter_icon, new DataType[]{DataType.TRASHCAN}, false);
-        adapter.addItem(getString(R.string.show_all), 0, DataType.values(), true);
+        adapter.add(getString(R.string.tent), R.drawable.tent_logo, new DataType[]{DataType.TENT_FUN}, false);
+        adapter.add(getString(R.string.tombola), R.drawable.tombola_logo, new DataType[]{DataType.TOMBOLAN}, false);
+        adapter.add(getString(R.string.music), R.drawable.musik_logo, new DataType[]{DataType.SCENE, DataType.MUSIC}, false);
+        adapter.add(getString(R.string.help), R.drawable.help_logo, new DataType[]{DataType.POLICE, DataType.CARE}, false);
+        adapter.add(getString(R.string.wc), R.drawable.wc_logo, new DataType[]{DataType.TOILETS}, false);
+        adapter.add(getString(R.string.entre), R.drawable.entrance_filter_icon, new DataType[]{DataType.ENTRANCE}, false);
+        adapter.add(getString(R.string.trash), R.drawable.soptunna_filter_icon, new DataType[]{DataType.TRASHCAN}, false);
+        adapter.add(getString(R.string.show_all), 0, DataType.values(), true);
         adapter.setNotifyOnChange(true);
         adapter.notifyDataSetChanged();
 
@@ -307,7 +298,6 @@ public class ContentActivity extends ActionBarActivity {
     }
 
     public void showMapAndPanTo(float lat, float lng, float zoom) {
-
         focusBottomItem(2);
         //mMapFragment.addZoomHintForNextCreate(lat, lng);
         mMapFragment.addZoomHintForNextCreate(lat, lng, zoom);
@@ -332,6 +322,68 @@ public class ContentActivity extends ActionBarActivity {
         }
     }
 
+    public void activateTrainButton() {
+        ImageButton b = get(mActionBarView, R.id.train, ImageButton.class);
+        b.setImageResource(R.drawable.train_logo_small);
+        b.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+//                MusicThread thread = new MusicThread();
+//                thread.execute();
+                loadFragmentAddingBS(TrainMapFragment.create(true));
+
+            }
+        });
+        b.setVisibility(View.VISIBLE);
+        b = get(mActionBarView, R.id.gps_marker, ImageButton.class);
+        b.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+//                MusicThread thread = new MusicThread();
+//                thread.execute();
+
+                mMapFragment.zoomToMarker();
+
+
+            }
+        });
+
+        b.setVisibility(View.VISIBLE);
+    }
+
+    public void activateMapButton() {
+        ImageButton b = get(mActionBarView, R.id.train, ImageButton.class);
+        b.setImageResource(R.drawable.map_logo);
+        b.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                loadFragmentAddingBS(mMapFragment);
+            }
+        });
+        b.setVisibility(View.VISIBLE);
+        b = get(mActionBarView, R.id.gps_marker, ImageButton.class);
+
+        b.setVisibility(View.INVISIBLE);
+    }
+
+    public void inactivateTrainButton() {
+        Log.d("inactivate train", "inactivate train");
+        get(mActionBarView, R.id.train, ImageButton.class).setVisibility(View.INVISIBLE);
+        get(mActionBarView, R.id.gps_marker, ImageButton.class).setVisibility(View.INVISIBLE);
+    }
+
+    public int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
+
     private class BottomMenuClickListener implements OnClickListener {
         private static final int TAG_IDX = R.id.bottom_menu_tag_idx;
         private static final int TAG_FRAGMENT = R.id.bottom_menu_tag_fragment;
@@ -340,8 +392,7 @@ public class ContentActivity extends ActionBarActivity {
 
         private View selected;
 
-        private BottomMenuClickListener() {
-        }
+        private BottomMenuClickListener() {        }
 
         public void first(View first) {
             selected = first;
@@ -354,10 +405,9 @@ public class ContentActivity extends ActionBarActivity {
             Fragment f = (Fragment) v.getTag(TAG_FRAGMENT);
             deselectItem(r);
             selectItem(v, r);
-            mFragmentMgr.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            popFragmentStack();
             loadFragmentReplaceBS(f);
         }
-
 
 
         private void selectItem(View target, Resources res) {
@@ -366,11 +416,6 @@ public class ContentActivity extends ActionBarActivity {
             get(target, R.id.bottom_menu_shadow, LinearLayout.class).setBackgroundColor(res.getColor(R.color.bottom_menu_shadow_selected));
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                 get(target, R.id.bottom_menu_image, ImageView.class).setAlpha(1.0f);
-            }
-            if (target.getTag(TAG_FRAGMENT) instanceof MapFragment) {
-                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-            } else if (target.getTag(TAG_FRAGMENT) != null) { //When constructing the tag will be null
-                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
             }
             mDrawerLayout.closeDrawers();
             this.selected = target;
@@ -406,73 +451,5 @@ public class ContentActivity extends ActionBarActivity {
             return null;
         }
         //Code goes here
-    }
-
-    public void activateTrainButton() {
-        ImageButton b = get(mActionBarView, R.id.train, ImageButton.class);
-        b.setImageResource(R.drawable.train_logo_small);
-        b.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-//                MusicThread thread = new MusicThread();
-//                thread.execute();
-                loadFragmentAddingBS(TrainMapFragment.create(true));
-
-            }
-        });
-        b.setVisibility(View.VISIBLE);
-        b = get(mActionBarView, R.id.gps_marker, ImageButton.class);
-        b.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-//                MusicThread thread = new MusicThread();
-//                thread.execute();
-
-                mMapFragment.zoomToMarker();
-
-
-
-            }
-        });
-
-        b.setVisibility(View.VISIBLE);
-
-
-    }
-
-
-    public void activateMapButton() {
-        ImageButton b = get(mActionBarView, R.id.train, ImageButton.class);
-        b.setImageResource(R.drawable.map_logo);
-        b.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                loadFragmentAddingBS(mMapFragment);
-            }
-        });
-        b.setVisibility(View.VISIBLE);
-        b = get(mActionBarView, R.id.gps_marker, ImageButton.class);
-
-        b.setVisibility(View.INVISIBLE);
-
-
-    }
-
-
-    public void inactivateTrainButton() {
-        Log.d("inactivate train","inactivate train");
-        get(mActionBarView, R.id.train, ImageButton.class).setVisibility(View.INVISIBLE);
-        get(mActionBarView, R.id.gps_marker, ImageButton.class).setVisibility(View.INVISIBLE);
-    }
-    public int getStatusBarHeight() {
-        int result = 0;
-        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            result = getResources().getDimensionPixelSize(resourceId);
-        }
-        return result;
     }
 }

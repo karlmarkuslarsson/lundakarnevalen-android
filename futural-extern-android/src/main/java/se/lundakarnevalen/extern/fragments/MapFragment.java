@@ -31,7 +31,7 @@ import se.lundakarnevalen.extern.widget.SVGView;
 import static se.lundakarnevalen.extern.util.ViewUtil.get;
 
 public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
-    private final int ID = 2;
+    private final int BOTTOM_MENU_ID = 2;
 
     private float lng_marker = -1;
     private float lat_marker = -1;
@@ -66,11 +66,12 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
         mapView = get(root, R.id.map_id, LKMapView.class);
         ContentActivity activity = ContentActivity.class.cast(getActivity());
         activity.allBottomsUnfocus();
-        activity.focusBottomItem(ID);
+        activity.focusBottomItem(BOTTOM_MENU_ID);
+
         get(root, R.id.map_pull_out, View.class).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            ContentActivity.class.cast(getActivity()).toggleRightDrawer();
+            ContentActivity.class.cast(getActivity()).toggleShowFilterDrawer();
             }
         });
 
@@ -90,6 +91,7 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
                     Log.wtf(LOG_TAG, "ExecutionException", e);
                 } catch (TimeoutException e) {
                     try{
+                        Log.d(LOG_TAG,  "MapLoader timed out, restarting");
                         Picture picture = new MapLoader(inflater.getContext()).call();
                         waitForLayout();
                         float minZoom = calculateMinZoom(mapView, picture);
@@ -173,7 +175,7 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
             mapView.importMatrixValues(mMatrixValues);
         }
         final ContentActivity contentActivity = ContentActivity.class.cast(getActivity());
-        contentActivity.focusBottomItem(2);
+        contentActivity.focusBottomItem(BOTTOM_MENU_ID);
         contentActivity.triggerFilterUpdate();
     }
 
@@ -185,19 +187,20 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
 
     @Override
     public void onStop() {
-        ContentActivity.class.cast(getActivity()).unregisterForLocationUpdates(this);
-        ContentActivity.class.cast(getActivity()).inactivateTrainButton();
-        Log.d("Come here","STOP");
+        final ContentActivity activity = ContentActivity.class.cast(getActivity());
+        activity.unregisterForLocationUpdates(this);
+        activity.lockFilterDrawer(true);
+        activity.inactivateTrainButton();
         super.onStop();
     }
 
 
-
     @Override
     public void onStart() {
-        ContentActivity.class.cast(getActivity()).activateTrainButton();
-        ContentActivity.class.cast(getActivity()).registerForLocationUpdates(this);
-        Log.d("Come here","START");
+        final ContentActivity activity = ContentActivity.class.cast(getActivity());
+        activity.lockFilterDrawer(false);
+        activity.activateTrainButton();
+        activity.registerForLocationUpdates(this);
         super.onStart();
     }
 
