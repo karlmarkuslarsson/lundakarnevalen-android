@@ -132,7 +132,24 @@ public class LandingPageFragment extends LKFragment{
                         case TOMBOLAN:
                             index = adapter.getIndexForIcon(R.drawable.tombola_logo);
                             break;
-                        //TODO add rest..
+                        case MUSIC:
+                            index = adapter.getIndexForIcon(R.drawable.musik_logo);
+                            break;
+                        case FOODSTOCK: case SNACKS:
+                            index = adapter.getIndexForIcon(R.drawable.food_logo);
+                            break;
+                        case TOILETS:
+                            index = adapter.getIndexForIcon(R.drawable.wc_logo);
+                            break;
+                        case SECURITY: case CARE:
+                            index = adapter.getIndexForIcon(R.drawable.help_logo);
+                            break;
+                        case TRASHCAN:
+                            index = adapter.getIndexForIcon(R.drawable.soptunna_filter_icon);
+                            break;
+                        case ENTRANCE:
+                            index = adapter.getIndexForIcon(R.drawable.entrance_filter_icon);
+                            break;
                     }
 
 
@@ -152,7 +169,7 @@ public class LandingPageFragment extends LKFragment{
             get(rootView, R.id.question, TextView.class).setText(element.question);
             get(rootView, R.id.text, TextView.class).setText(Html.fromHtml(getString(element.info)));
 
-        } else if(type == DataType.FOOD) {
+        } else if(type == DataType.FOOD || type == DataType.FOODSTOCK) {
             get(rootView, R.id.question, TextView.class).setText(element.question);
             get(rootView, R.id.text, TextView.class).setText(element.info);
             get(rootView, R.id.middleLayout, RelativeLayout.class).setBackgroundResource(R.color.green_background);
