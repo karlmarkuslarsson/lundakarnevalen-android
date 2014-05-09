@@ -21,6 +21,8 @@ import android.widget.TextView;
 import java.lang.annotation.ElementType;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
@@ -103,18 +105,57 @@ public class LandingPageFragment extends LKFragment{
         mapView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO add filter here for DataMultiContainer
+                Set<DataType> multiContainers = new HashSet<DataType>();
+                multiContainers.add(DataType.TENT_FUN);
+                multiContainers.add(DataType.TOMBOLAN);
+                multiContainers.add(DataType.MUSIC);
+                multiContainers.add(DataType.FOODSTOCK);
+                multiContainers.add(DataType.SNACKS);
+                multiContainers.add(DataType.TOILETS);
+                multiContainers.add(DataType.SECURITY);
+                multiContainers.add(DataType.CARE);
+                multiContainers.add(DataType.TRASHCAN);
+                multiContainers.add(DataType.ENTRANCE);
+
                 if(element.type == DataType.TRAIN) {
                     ContentActivity.class.cast(getActivity()).loadFragmentAddingBS(TrainMapFragment.create());
-                } else if (element.type == DataType.TENT_FUN) {
+                } else if (multiContainers.contains(element.type)) {
                     ContentActivity.class.cast(getActivity()).showMapAndPanTo(lat, lng, SVGView.HALF_ZOOM);
-                    //ContentActivity.class.cast(getActivity()).updateMapView(Collections.singleton(DataType.TENT_FUN));
-                    int index = ((LKRightMenuArrayAdapter)ContentActivity.class.cast(getActivity()).mRightMenuList.getAdapter()).getIndexForIcon(R.drawable.tent_logo);
-                    //ContentActivity.class.cast(getActivity()).mRightMenuList.performItemClick(null,index,0);
-                    LKRightMenuArrayAdapter.LKRightMenuListItem item = (LKRightMenuArrayAdapter.LKRightMenuListItem) ContentActivity.class.cast(getActivity()).mRightMenuList.getAdapter().getItem(index);
-                    ((LKRightMenuArrayAdapter)ContentActivity.class.cast(getActivity()).mRightMenuList.getAdapter()).deselectAll();
-                    item.selected = true;
-                    ((LKRightMenuArrayAdapter)ContentActivity.class.cast(getActivity()).mRightMenuList.getAdapter()).notifyDataSetChanged();
+                    LKRightMenuArrayAdapter adapter = ((LKRightMenuArrayAdapter)ContentActivity.class.cast(getActivity()).mRightMenuList.getAdapter());
+                    adapter.deselectAll();
+                    //adapter.notifyDataSetChanged();
+                    int index = -1;
+                    switch (element.type) {
+                        case TENT_FUN:
+                            index = adapter.getIndexForIcon(R.drawable.tent_logo);
+                            break;
+                        case TOMBOLAN:
+                            index = adapter.getIndexForIcon(R.drawable.tombola_logo);
+                            break;
+                        case MUSIC:
+                            index = adapter.getIndexForIcon(R.drawable.musik_logo);
+                            break;
+                        case FOODSTOCK: case SNACKS:
+                            index = adapter.getIndexForIcon(R.drawable.food_logo);
+                            break;
+                        case TOILETS:
+                            index = adapter.getIndexForIcon(R.drawable.wc_logo);
+                            break;
+                        case SECURITY: case CARE:
+                            index = adapter.getIndexForIcon(R.drawable.help_logo);
+                            break;
+                        case TRASHCAN:
+                            index = adapter.getIndexForIcon(R.drawable.soptunna_filter_icon);
+                            break;
+                        case ENTRANCE:
+                            index = adapter.getIndexForIcon(R.drawable.entrance_filter_icon);
+                            break;
+                    }
+
+
+                    ContentActivity.class.cast(getActivity()).mRightMenuList.performItemClick(null,index,0);
+                    //LKRightMenuArrayAdapter.LKRightMenuListItem item = (LKRightMenuArrayAdapter.LKRightMenuListItem) ContentActivity.class.cast(getActivity()).mRightMenuList.getAdapter().getItem(index);
+                    //item.selected = true;
                 }
 
                 else {
@@ -128,7 +169,7 @@ public class LandingPageFragment extends LKFragment{
             get(rootView, R.id.question, TextView.class).setText(element.question);
             get(rootView, R.id.text, TextView.class).setText(Html.fromHtml(getString(element.info)));
 
-        } else if(type == DataType.FOOD) {
+        } else if(type == DataType.FOOD || type == DataType.FOODSTOCK) {
             get(rootView, R.id.question, TextView.class).setText(element.question);
             get(rootView, R.id.text, TextView.class).setText(element.info);
             get(rootView, R.id.middleLayout, RelativeLayout.class).setBackgroundResource(R.color.green_background);

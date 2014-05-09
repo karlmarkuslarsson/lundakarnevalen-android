@@ -18,5 +18,4 @@
 
 
     <include layout="@layout/splash_clouds" />
-    <include layout="@layout/splash_clouds_moving" />
     </RelativeLayout>

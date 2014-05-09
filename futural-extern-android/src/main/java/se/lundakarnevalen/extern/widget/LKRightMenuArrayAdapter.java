@@ -49,17 +49,16 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
 
         item.bindValues(layout);
 
+        item.setSelected(mContext, item.selected);
         if(item.title.equals(mContext.getString(R.string.show_all))) {
-            item.setSelected(mContext, true); //TODO: check if any other filters are active
             item.image.setVisibility(View.GONE);
             item.layout.setGravity(Gravity.CENTER);
         } else {
-            item.setSelected(mContext, item.selected); //TODO: check if it was selected before.
             item.image.setVisibility(View.VISIBLE);
             item.layout.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
-            int bg = item.selected ? R.color.right_menu_button_selected : R.color.right_menu_button;
-            item.layout.setBackgroundColor(getContext().getResources().getColor(bg));
         }
+        int bg = item.selected ? R.color.right_menu_button_selected : R.color.right_menu_button;
+        item.layout.setBackgroundColor(getContext().getResources().getColor(bg));
 
         return layout;
     }
@@ -92,7 +91,9 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
 
         if (showAllSelected) { // is showAll item
             deselectAll();
+            notifyDataSetChanged();
             getItem(showAllElementIdx).setSelected(c, true);
+
         } else {
             item.setSelected(c, !item.selected); // Flip state
             getItem(showAllElementIdx).selected = false;
@@ -151,7 +152,7 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
         private final int icon;
         private final String title;
 
-        public boolean selected = false;
+        private boolean selected = false;
 
         private LinearLayout layout;
         private TextView text;
@@ -175,7 +176,9 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
         public void setSelected(Context c, boolean selected) {
             this.selected = selected;
             int bg = selected ? R.color.right_menu_button_selected : R.color.right_menu_button;
-            this.layout.setBackgroundColor(c.getResources().getColor(bg));
+            if (this.layout != null) {
+                this.layout.setBackgroundColor(c.getResources().getColor(bg));
+            }
         }
     }
 }

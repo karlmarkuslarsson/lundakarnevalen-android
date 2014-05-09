@@ -119,7 +119,7 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
                 layout.setVisibility(wasSelected ? View.VISIBLE : View.GONE);
                 if(wasSelected) {
                     get(root, R.id.map_title_text, TextView.class).setText(String.valueOf(getString(m.element.title)));
-                    if (m.element.title == m.element.place) {
+                    if (m.element.title == m.element.place || getString(m.element.place).equals("")) {
                         get(root, R.id.map_location_text, TextView.class).setVisibility(View.GONE);
                     } else {
                         get(root, R.id.map_location_text, TextView.class).setVisibility(View.VISIBLE);

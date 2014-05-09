@@ -28,6 +28,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
@@ -198,6 +199,10 @@ public class ContentActivity extends ActionBarActivity {
         tintManager.setStatusBarTintColor(getResources().getColor(R.color.red));
         tintManager.setNavigationBarTintEnabled(true);
         tintManager.setNavigationBarTintColor(getResources().getColor(R.color.red));
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.KITKAT){
+            Log.d("fgewgfwegf","gewgweg");
+            find(R.id.extra_padding_top,View.class).setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,getStatusBarHeight()));
+        }
     }
 
     private ActionBar setupActionbar() {
@@ -267,6 +272,7 @@ public class ContentActivity extends ActionBarActivity {
         LayoutInflater inflater = LayoutInflater.from(this);
 
         LKRightMenuArrayAdapter mRightMenuAdapter = new LKRightMenuArrayAdapter(this);
+        mRightMenuAdapter.setNotifyOnChange(false);
         mRightMenuAdapter.addItem(getString(R.string.food), R.drawable.food_logo, new DataType[]{DataType.FOOD,DataType.FOODSTOCK}, false);
         mRightMenuAdapter.addItem(getString(R.string.fun), R.drawable.fun_logo, new DataType[]{DataType.FUN, DataType.SMALL_FUN, DataType.TENT_FUN, DataType.TOMBOLAN,
                 DataType.SCENE, DataType.RADIO}, false);
@@ -278,6 +284,7 @@ public class ContentActivity extends ActionBarActivity {
         mRightMenuAdapter.addItem(getString(R.string.entre), R.drawable.entrance_filter_icon, new DataType[]{DataType.ENTRANCE}, false);
         mRightMenuAdapter.addItem(getString(R.string.trash), R.drawable.soptunna_filter_icon, new DataType[]{DataType.TRASHCAN}, false);
         mRightMenuAdapter.addItem(getString(R.string.show_all), 0, DataType.values(), true);
+        mRightMenuAdapter.setNotifyOnChange(true);
 
         mRightMenuList.setAdapter(mRightMenuAdapter);
         mRightMenuList.setOnItemClickListener(mRightMenuAdapter);
@@ -345,14 +352,7 @@ public class ContentActivity extends ActionBarActivity {
             loadFragmentReplaceBS(f);
         }
 
-        public int getStatusBarHeight() {
-            int result = 0;
-            int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-            if (resourceId > 0) {
-                result = getResources().getDimensionPixelSize(resourceId);
-            }
-            return result;
-        }
+
 
         private void selectItem(View target, Resources res) {
             target.setBackgroundColor(res.getColor(R.color.bottom_menu_background_selected));
@@ -461,5 +461,12 @@ public class ContentActivity extends ActionBarActivity {
         get(mActionBarView, R.id.train, ImageButton.class).setVisibility(View.INVISIBLE);
         get(mActionBarView, R.id.gps_marker, ImageButton.class).setVisibility(View.INVISIBLE);
     }
-
+    public int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
 }

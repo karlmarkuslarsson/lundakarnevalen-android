@@ -12,7 +12,6 @@ public class DataMultiContainer {
     public static List<DataElement> getAllFunMultiData() {
         List<DataElement> data = new ArrayList<DataElement>();
 
-        // TODO fix coordinates
         data.add(new DataElement(
                 R.string.smanojen,
                 R.string.smanojen_question,
@@ -63,11 +62,7 @@ public class DataMultiContainer {
                 R.drawable.nagilima_logo,
                 R.string.nangilima_question,
                 "15:30-22:30", "15:30-23:30", "15:30-22:30",
-                DataType.FOOD));
-
-
-
-
+                DataType.FOODSTOCK));
 
         // TODO fix coordinates
         data.add(new DataElement(
