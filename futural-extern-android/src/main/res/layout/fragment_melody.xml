@@ -25,47 +25,11 @@
                 android:contentDescription="@string/picture"
                 android:id="@+id/melody_heart"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:src="@drawable/heart_large"
-                android:layout_margin="10dp"/>
+                />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:weightSum="10">
-
-
-
-                <se.lundakarnevalen.extern.widget.LKTextView
-
-                    android:id="@+id/tvKarnevalTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:shadowColor="#a7b7ce"
-                    android:shadowDy="5"
-                    android:shadowRadius="0.1"
-                    android:gravity="bottom|center"
-                    android:text="@string/karnemel_title"
-                    android:textSize="20sp"
-                    android:layout_weight="4"
-                    android:textColor="#F0533E"
-                     />
-
-                <se.lundakarnevalen.extern.widget.LKTextView
-                    android:id="@+id/tvKarneval"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:shadowColor="#a7b7ce"
-                    android:shadowDy="5"
-                    android:gravity="center_horizontal"
-                    android:shadowRadius="0.1"
-                    android:text="@string/karnemel_year"
-                    android:layout_weight="6"
-                    android:textColor="@color/red"
-                    android:textSize="30sp" />
-
-            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/lyrics"

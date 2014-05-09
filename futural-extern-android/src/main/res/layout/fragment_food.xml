@@ -2,8 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_food"
-    tools:context="se.lundakarnevalen.extern.fragments.FoodFragment">
+    tools:context="se.lundakarnevalen.extern.fragments.FoodFragment"
+    android:background="@color/green_background_food">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:scaleType="centerCrop"
+        android:src="@drawable/background_food"/>
 
     <ListView
         android:cacheColorHint="@color/transparent"

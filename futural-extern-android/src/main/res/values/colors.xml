@@ -33,6 +33,9 @@
     <color name="beige_shadow">#CFCAC6</color>
     <color name="grey">#4C4C4C</color>
     <color name="blue_parking">#495293</color>
+    <color name="green_background_food">#619D87</color>
+    <color name="red_background">#9C3628</color>
+    <color name="blue_background">#484C64</color>
 
 
 </resources>
