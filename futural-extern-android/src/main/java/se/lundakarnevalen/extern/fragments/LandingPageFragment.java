@@ -44,6 +44,7 @@ public class LandingPageFragment extends LKFragment{
     // Every time you switch to this fragment.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        ContentActivity.class.cast(getActivity()).inactivateTrainButton();
         View rootView = inflater.inflate(R.layout.fragment_landing_page, null);
 
         Bundle bundle = getArguments();

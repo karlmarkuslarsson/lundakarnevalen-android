@@ -26,6 +26,7 @@ public class ParkingFragment extends LKFragment{
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_parking, null);
         startMovingClouds(rootView);
+        ContentActivity.class.cast(getActivity()).allBottomsUnfocus();
 
 
         return rootView;
@@ -37,11 +38,6 @@ public class ParkingFragment extends LKFragment{
         super.onDestroyView();
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        ContentActivity.class.cast(getActivity()).allBottomsUnfocus();
-    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {

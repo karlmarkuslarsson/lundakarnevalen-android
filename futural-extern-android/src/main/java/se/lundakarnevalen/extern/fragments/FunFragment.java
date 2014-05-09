@@ -29,11 +29,12 @@ public class FunFragment extends LKFragment {
     // Every time you switch to this fragment.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        ContentActivity activity = ContentActivity.class.cast(getActivity());
+        activity.inactivateTrainButton();
         View root = inflater.inflate(R.layout.fragment_fun, container, false);
 
         ListView lv = (ListView) root.findViewById(R.id.fragment_fun_list);
 
-        ContentActivity activity = ContentActivity.class.cast(getActivity());
         activity.allBottomsUnfocus();
         activity.focusBottomItem(ID);
 

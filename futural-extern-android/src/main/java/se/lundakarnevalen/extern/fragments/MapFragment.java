@@ -49,6 +49,7 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ContentActivity.class.cast(getActivity()).activateTrainButton();
 
         if(savedInstanceState != null && savedInstanceState.containsKey(STATE_MATRIX)){
             Log.d(LOG_TAG, "Matrix values restored");
@@ -153,6 +154,7 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
             }, 500);
         }
         mapView.setGpsMarker(lat_marker, lng_marker, (savedInstanceState != null));
+
         return root;
     }
 
@@ -173,13 +175,16 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
 
     @Override
     public void onStop() {
-        ContentActivity.class.cast(getActivity()).inactivateTrainButton();
         ContentActivity.class.cast(getActivity()).unregisterForLocationUpdates(this);
         super.onStop();
     }
+
+
+
     @Override
     public void onStart() {
         ContentActivity.class.cast(getActivity()).activateTrainButton();
+
         ContentActivity.class.cast(getActivity()).registerForLocationUpdates(this);
         super.onStart();
     }

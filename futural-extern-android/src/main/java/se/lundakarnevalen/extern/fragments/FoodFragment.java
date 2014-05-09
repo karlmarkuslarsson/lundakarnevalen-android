@@ -29,10 +29,10 @@ public class FoodFragment extends LKFragment {
     // Every time you switch to this fragment.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        ContentActivity activity = ContentActivity.class.cast(getActivity());
+        activity.inactivateTrainButton();
         View root = inflater.inflate(R.layout.fragment_food, container, false);
         ListView lv = (ListView) root.findViewById(R.id.fragment_food_list);
-        ContentActivity activity = ContentActivity.class.cast(getActivity());
-        activity.allBottomsUnfocus();
         activity.focusBottomItem(ID);
 
 
@@ -72,6 +72,7 @@ public class FoodFragment extends LKFragment {
         }
         lv.setAdapter(new LKListAdapter(getContext(), items,getActivity()));
 
+
         return root;
     }
 
@@ -79,5 +80,6 @@ public class FoodFragment extends LKFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
     }
+
 
 }

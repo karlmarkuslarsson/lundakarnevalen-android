@@ -19,7 +19,6 @@
     <ImageButton
         android:src="@drawable/train_logo_small"
         android:scaleType="fitCenter"
-        android:visibility="invisible"
         android:id="@+id/train"
         android:layout_width="@dimen/train_width"
         android:layout_height="match_parent"
