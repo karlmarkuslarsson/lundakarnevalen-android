@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.Picture;
 import android.graphics.PointF;
 import android.graphics.RectF;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.SparseArray;
@@ -167,9 +168,10 @@ public class LKMapView extends SVGView {
     }
 
     private void initBitmapCache(Context context) {
+        int hw = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ? 224 : 56;
         for (Marker m : markers) {
             if(bitmaps.get(m.picture) == null) {
-                bitmaps.put(m.picture, BitmapUtil.decodeSampledBitmapFromResource(context.getResources(), m.picture, 224, 224));
+                bitmaps.put(m.picture, BitmapUtil.decodeSampledBitmapFromResource(context.getResources(), m.picture, hw, hw));
             }
         }
     }

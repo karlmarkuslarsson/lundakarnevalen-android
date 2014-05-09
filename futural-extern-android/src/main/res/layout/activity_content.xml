@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/red"
     android:fitsSystemWindows="true"
+    android:paddingTop="20dp"
     android:clipToPadding="false" >
 
     <LinearLayout
@@ -34,6 +35,7 @@
             android:id="@+id/content_frame"
             android:background="@color/blue_dark"
             android:layout_width="match_parent"
+            android:layout_marginTop="60dp"
             android:layout_height="match_parent"/>
         <include
             layout="@layout/menu_right_drawer"/>
