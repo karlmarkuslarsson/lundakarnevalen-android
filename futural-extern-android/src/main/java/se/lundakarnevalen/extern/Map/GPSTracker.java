@@ -150,7 +150,8 @@ public class GPSTracker extends Service implements LocationListener, GpsStatus.L
 
         for (GPSListener l : mListeners) {
             Logf.d(LOG_TAG, "Delivering location to %s: %f, %f", l, lat, lng);
-            l.onNewLocation(lat, lng);
+            //l.onNewLocation(lat, lng); // 55.708734, 13.190013
+            l.onNewLocation(55.705734, 13.192013);
         }
     }
 
