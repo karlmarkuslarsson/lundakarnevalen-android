@@ -23,8 +23,8 @@
             android:contentDescription="@string/picture"
             android:id="@+id/myHeart"
             android:layout_centerVertical="true"
-            android:layout_width="14dp"
-            android:layout_height="22dp"
+            android:layout_width="16dp"
+            android:layout_height="24dp"
             android:layout_marginLeft="8dp"
             android:paddingBottom="1dp"
             android:gravity="center"
@@ -42,7 +42,7 @@
             android:paddingTop="8dp"
             android:paddingBottom="6dp"
             android:gravity="center"
-            android:textSize="8sp"
+            android:textSize="10sp"
             android:textColor="@color/red"
             android:text="@string/my_scheme"/>
         </RelativeLayout>

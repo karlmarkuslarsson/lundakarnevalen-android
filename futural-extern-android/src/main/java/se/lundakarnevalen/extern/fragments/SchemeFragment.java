@@ -36,22 +36,45 @@ import static se.lundakarnevalen.extern.util.ViewUtil.get;
 @SuppressWarnings("ResourceType")
 public class SchemeFragment extends LKFragment {
 
+    private ViewPager vp;
     private final int ID = 3;
     private ArrayList<Event> fridayEvents;
  //   private float lastOff = 0;
     private ArrayList<Event> saturdayEvents;
 
+    private int currentDay;
     private ArrayList<Event> sundayEvents;
     RelativeLayout leftArrowLayout;
     RelativeLayout rightArrowLayout;
+    boolean myScheme;
 
-    // Every time you switch to this fragment.
+
+        // Every time you switch to this fragment.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        myScheme = false;
         ContentActivity activity = ContentActivity.class.cast(getActivity());
 
-
         View view = inflater.inflate(R.layout.fragment_scheme, container, false);
+        final RelativeLayout rl = get(view,R.id.heartText,RelativeLayout.class);
+        rl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(myScheme){
+                    get(rl,R.id.myScheme,TextView.class).setText(R.string.my_scheme);
+                    vp.setAdapter(new SchemeViewAdapter());
+                    vp.setCurrentItem(currentDay);
+
+                    myScheme = false;
+                } else {
+                    get(rl,R.id.myScheme,TextView.class).setText(R.string.full_list);
+                    vp.setAdapter(new MySchemeViewAdapter());
+                    vp.setCurrentItem(currentDay);
+
+                    myScheme = true;
+                }
+           }
+        });
 
         activity.allBottomsUnfocus();
         activity.focusBottomItem(ID);
@@ -59,10 +82,9 @@ public class SchemeFragment extends LKFragment {
         leftArrowLayout = get(view, R.id.left_arrow, RelativeLayout.class);
         rightArrowLayout = get(view, R.id.right_arrow, RelativeLayout.class);
         final TextView header = get(view, R.id.dayText, TextView.class);
-        final ViewPager vp = get(view, R.id.scheme_viewpager, ViewPager.class);
+        vp = get(view, R.id.scheme_viewpager, ViewPager.class);
 
-        int currentDay = getCurrentDay();
-        Log.d("currentDay","cur: "+currentDay);
+        currentDay = getCurrentDay();
         vp.setBackgroundColor(Color.TRANSPARENT);
         vp.setAdapter(new SchemeViewAdapter());
         vp.setCurrentItem(currentDay);
@@ -110,6 +132,7 @@ public class SchemeFragment extends LKFragment {
             @Override
             public void onClick(View view) {
                 updateLeftArrow(view, vp);
+                currentDay = vp.getCurrentItem()-1;
                 vp.setCurrentItem(vp.getCurrentItem()-1, true);
             }
         });
@@ -119,6 +142,7 @@ public class SchemeFragment extends LKFragment {
 
             public void onClick(View view) {
                 updateRightArrow(view, vp);
+                currentDay = vp.getCurrentItem()+1;
                 vp.setCurrentItem(vp.getCurrentItem()+1, true);
             }
         });
@@ -174,7 +198,7 @@ public class SchemeFragment extends LKFragment {
     /**
      * Sets up the ListView in the navigationdrawer menu.
      */
-    private ArrayList<LKSchemeAdapter.LKSchemeItem> getSchemeForDay(int day) {
+    private ArrayList<LKSchemeAdapter.LKSchemeItem> getSchemeForDay(int day, boolean myScheme) {
         //Calendar startOfScheme = getStartingDate();
 
         HashSet<String> activated = getActiveNotifications();
@@ -188,8 +212,17 @@ public class SchemeFragment extends LKFragment {
                 Events.getFridayEvents(fridayEvents, getContext());
             }
             for (Event e : fridayEvents) {
-                LKSchemeAdapter.LKSchemeItem item = new LKSchemeAdapter.LKSchemeItem(e.place, e.title, e.image, e.startDate, e.endDate, activated, e.id);
-                listItems.add(item);
+                if(myScheme) {
+                    LKSchemeAdapter.LKSchemeItem item = new LKSchemeAdapter.LKSchemeItem(e.place, e.title, e.image, e.startDate, e.endDate, activated, e.id);
+
+                    if(activated.contains(item.getStartTime()+item.place+item.name)) {
+                        listItems.add(item);
+
+                    }
+                } else {
+                    LKSchemeAdapter.LKSchemeItem item = new LKSchemeAdapter.LKSchemeItem(e.place, e.title, e.image, e.startDate, e.endDate, activated, e.id);
+                    listItems.add(item);
+                }
             }
 
         } else if (day == 1) {
@@ -198,8 +231,16 @@ public class SchemeFragment extends LKFragment {
                 Events.getSaturdayEvents(saturdayEvents, getContext());
             }
             for (Event e : saturdayEvents) {
-                LKSchemeAdapter.LKSchemeItem item = new LKSchemeAdapter.LKSchemeItem(e.place, e.title, e.image, e.startDate, e.endDate, activated, e.id);
-                listItems.add(item);
+                if(myScheme) {
+                    LKSchemeAdapter.LKSchemeItem item = new LKSchemeAdapter.LKSchemeItem(e.place, e.title, e.image, e.startDate, e.endDate, activated, e.id);
+                    if(activated.contains(item.getStartTime()+item.place+item.name)) {
+                        listItems.add(item);
+
+                    }
+                } else {
+                    LKSchemeAdapter.LKSchemeItem item = new LKSchemeAdapter.LKSchemeItem(e.place, e.title, e.image, e.startDate, e.endDate, activated, e.id);
+                    listItems.add(item);
+                }
             }
         } else {
             if (sundayEvents == null) {
@@ -207,8 +248,16 @@ public class SchemeFragment extends LKFragment {
                 Events.getSundayEvents(sundayEvents, getContext());
             }
             for (Event e : sundayEvents) {
-                LKSchemeAdapter.LKSchemeItem item = new LKSchemeAdapter.LKSchemeItem(e.place, e.title, e.image, e.startDate, e.endDate, activated, e.id);
-                listItems.add(item);
+                if(myScheme) {
+                    LKSchemeAdapter.LKSchemeItem item = new LKSchemeAdapter.LKSchemeItem(e.place, e.title, e.image, e.startDate, e.endDate, activated, e.id);
+                    if(activated.contains(item.getStartTime()+item.place+item.name)) {
+                        listItems.add(item);
+
+                    }
+                } else {
+                    LKSchemeAdapter.LKSchemeItem item = new LKSchemeAdapter.LKSchemeItem(e.place, e.title, e.image, e.startDate, e.endDate, activated, e.id);
+                    listItems.add(item);
+                }
             }
 
         }
@@ -269,7 +318,7 @@ public class SchemeFragment extends LKFragment {
 
             BounceListView lv = get(view, R.id.scheme_list, BounceListView.class);
             lv.setCacheColorHint(0); //For keeping the background (not black) while scrolling on API 10
-            LKSchemeAdapter schemeAdapter = new LKSchemeAdapter(container.getContext(), getSchemeForDay(position));
+            LKSchemeAdapter schemeAdapter = new LKSchemeAdapter(container.getContext(), getSchemeForDay(position,false));
             lv.setAdapter(schemeAdapter);
             lv.setOnItemClickListener(schemeAdapter);
             view.setTag(position);
@@ -286,6 +335,42 @@ public class SchemeFragment extends LKFragment {
             return view.getTag() == object;
         }
     }
+
+
+    private class MySchemeViewAdapter extends PagerAdapter {
+
+        @Override
+        public int getCount() {
+            return 3;
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            LayoutInflater inflater = LayoutInflater.from(container.getContext());
+
+            View view = inflater.inflate(R.layout.scheme_list, container, false);
+            container.addView(view);
+
+            BounceListView lv = get(view, R.id.scheme_list, BounceListView.class);
+            lv.setCacheColorHint(0); //For keeping the background (not black) while scrolling on API 10
+            LKSchemeAdapter schemeAdapter = new LKSchemeAdapter(container.getContext(), getSchemeForDay(position,true));
+            lv.setAdapter(schemeAdapter);
+            lv.setOnItemClickListener(schemeAdapter);
+            view.setTag(position);
+            return position;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            container.removeView(container.findViewWithTag(object));
+        }
+
+        @Override
+        public boolean isViewFromObject(View view, Object object) {
+            return view.getTag() == object;
+        }
+    }
+
 
     /**
      * Fancy animation needs android 11+

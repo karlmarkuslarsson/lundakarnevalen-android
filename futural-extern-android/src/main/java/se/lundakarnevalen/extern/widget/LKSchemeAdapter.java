@@ -17,6 +17,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -148,7 +149,15 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
             vh.heart.startAnimation(anim);
 
 
+
+
             if(item.startDate.after(new Date())) {
+                context.getApplicationContext();
+                CharSequence text = context.getString(R.string.heart_selected);
+                int duration = Toast.LENGTH_LONG;
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+
                 Intent alarmIntent = new Intent(context, SchemeAlarm.class);
                 alarmIntent.putExtra("Title", item.name);
                 alarmIntent.putExtra("Desc", item.place + " " + item.getStartTime());
