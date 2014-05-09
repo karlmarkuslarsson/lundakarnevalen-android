@@ -17,6 +17,8 @@ import android.widget.RelativeLayout;
 import se.lundakarnevalen.extern.map.MapLoader;
 import se.lundakarnevalen.extern.map.TrainMapLoader;
 
+import static com.nineoldandroids.view.ViewPropertyAnimator.animate;
+
 public class SplashScreenActivity extends Activity {
     private static final String LOG_TAG = SplashScreenActivity.class.getSimpleName();
 
@@ -41,15 +43,12 @@ public class SplashScreenActivity extends Activity {
             }
         }, TOTAL_SPLASH_TIME_OUT);
 
-        if(Build.VERSION.SDK_INT >= 11){
-            find(R.id.imgLogo, ImageView.class)
-                .animate()
-                .rotationBy(360 * 3)
-                .setStartDelay(PRE_ANIMATION_DELAY)
-                .setDuration(TOTAL_SPLASH_TIME_OUT - POST_ANIMATION_DELAY)
-                .setInterpolator(new AccelerateDecelerateInterpolator())
-                .start();
-        }
+        animate(find(R.id.imgLogo, ImageView.class))
+            .rotationBy(360 * 3)
+            .setStartDelay(PRE_ANIMATION_DELAY)
+            .setDuration(TOTAL_SPLASH_TIME_OUT - POST_ANIMATION_DELAY)
+            .setInterpolator(new AccelerateDecelerateInterpolator())
+            .start();
 
         startMovingClouds(findViewById(android.R.id.content));
         MapLoader.preload(this);
