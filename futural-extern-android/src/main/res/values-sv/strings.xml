@@ -138,22 +138,25 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="showen_question">VAD ÄR SHOWEN?</string>
     <string name="revy_place">UNIVERSITETSHUSET</string>
     <string name="revy_question">VAD ÄR REVYN?</string>
+    <string name="small_scene_question">VAD ÄR LILLA SCENEN?</string>
+
+    <string name="krog_lajka_title">LAJKA</string>
+    <string name="krog_lajka_place" />
+    <string name="krog_lajka_question">VAD ÄR KROG LAJKA?</string>
 
 
     <string name="cocktail_question">VAD FINNS PÅ COCKTAILBAREN?</string>
-    <string name="cocktail_place"></string>
-    <string name="cocktail_title">COCKTAILBAREN</string>
+    <string name="cocktail_place">FOODSTOCK</string>
+    <string name="cocktail_title">PSYKA-DELI</string>
     <string name="cocktail_info">Drinkar: (drinkmeny om ca 10 st max), karnevöl, karnevale, cider, läsk och vin.\n\nMat: Ej mat\n\nBetalning: kort och kontant. DOCK, cash is king!</string>
 
     <string name="hipp_baren_question">VAD FINNS PÅ HIPP I BAREN?</string>
-    <string name="hipp_baren_place"></string>
+    <string name="hipp_baren_place">FOODSTOCK</string>
     <string name="hipp_baren_title">HIPP I BAREN</string>
     <string name="hipp_baren_info">Drinkar: karnevöl, cider, läsk och eventuellt vin.\n\nMat: Ej mat\n\nBetalning: kort och kontant. DOCK, cash is king!</string>
 
     <string name="folkan_question">VAD FINNS PÅ FOLKAN?</string>
-    <string name="folkan_place">
-
-    </string>
+    <string name="folkan_place">FOODSTOCK</string>
     <string name="folkan_title">FOLKAN</string>
     <string name="folkan_info">Drinkar: karnevöl, cider, läsk och eventuellt vin.\n\nMat: Ej mat\n\nBetalning: kort och kontant. DOCK, cash is king!</string>
 
@@ -245,10 +248,182 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="krog_thyme_title">THYME TRAVEL</string>
     <string name="krog_thyme_question">VAD ÄR KROG TYHME TRAVEL?</string>
     <string name="menu_food">MENY</string>
+
     <string name="undervatten_food1">BOUILLABAISSE MED ROUILLE</string>
     <string name="undervatten_food2">KRÄMIG LAXRÖRA MED FRANSK POTATISSALLAD</string>
+    <string name="undervatten_food3">FRANSK LINSSOPPA</string>
+
     <string name="thyme_food1">KYCKLINGFILÈ MED POTATISSALLAD, TIMJAN, CITRONOLJA OCH MANGODRESSING</string>
     <string name="thyme_food2">KANTARELL OCH VÄSTERBOTTENPAJ MED SALLAD OCH RHODE ISLAND DRESSING</string>
+    <string name="lajka_food1">PAELLA</string>
+    <string name="lajka_food2">VEGETARISK LASAGNE</string>
+    <string name="tombolan">TOMBOLAN</string>
+
+    <string name="biljetteriet_info"><![CDATA[
+         För att gå in på karnevalsområdet behövs en entrébiljett eller ett entréband.
+         Engångsentré kostar 60 kr och ett entréband som gör att man kan gå in och ut
+         obegränsat under de tre dagarna kostar 200 kr. Entrébiljett/band rekommenderas
+          att köpas på förhand då köerna in på karnevalsområdet kan vara långa under karnevalsdagarna.
+           Barn som är 6 år eller yngre går in gratis på området.<br><br>
+<big><b>Entrébiljetter köpta på internet måste hämtas ut i någon av biljettbodarna på Clemenstorget
+ eller Stortorget utanför karnevalsområdet.</big><b>
+
+        ]]>
+    </string>
+    <string name="taltnojen_question">VAD ÄR TÄLTNÖJEN?</string>
+    <string name="taltnojen_info">Det finns 20 tältnöjen som innehåller en kort och karnevalistisk
+        upplevelse, för att veta mer om varje enskilt tältnöje, var god köp vårt programblad som
+        finns tillgängligt på shoppen inne på karnevalsområdet.</string>
+    <string name="musik" >MUSIKEN</string>
+    <string name="musik_question">VAD ÄR MUSIKEN?</string>
+    <string name="musik_info">Musiksektionen ser till att det alltid strömmar ljuv musik ifrån
+        olika platser på Karnevalsområdet och framförallt ifrån Stora Scenen framför universitetshuset.
+        Vi har hand om alla artister som kommer för att uppträda under dagarna men även scenerna dem
+        uppträder ifrån.</string>
+    <string name="small_scene_info">Lilla Scenen kommer vara stjärnan på krogområdet Foodstock.
+        Här kommer finnas en underbar blandning av musik, mat i olika former och barer där man kan
+        umgås, äta, lyssna på fantastisk musik och insupa den karnevalistiska andan.</string>
+<string name="big_scene_info">Med det ståtliga Universitetshuset i bakgrunden kan du avnjuta
+        de ljuva tonerna från stora scenens fenomenala artiser. Ladda inför oförglömliga musikupplevelser!
+    </string>
+    <string name="snaxeriet">SNAXERIET</string>
+    <string name="snaxeriet_info">Letar du efter framtidens snacks? Du har kommit helt rätt!</string>
+    <string name="heart">\u2764</string>
+<string name="ipsum">
+        Bacon ipsum dolor sit amet cow corned beef pig, biltong swine tri-tip short loin turducken strip steak meatball rump. T-bone doner salami ball tip swine leberkas ground round chuck. Short ribs pork drumstick landjaeger salami venison capicola shank filet mignon boudin. \n\n Jowl venison turducken corned beef short ribs chicken flank hamburger. Shoulder salami strip steak chuck. Pancetta rump kevin leberkas capicola salami kielbasa venison porchetta fatback turkey ham hock sirloin hamburger. Pork chop ground round capicola biltong landjaeger andouille.
+        Tenderloin ham hock brisket chicken andouille capicola, cow beef ribs sausage. Flank drumstick ham prosciutto, filet mignon chuck tail landjaeger chicken cow shankle. Sausage brisket pork chop, ham turducken chicken meatloaf filet mignon doner. \n\n Chicken leberkas frankfurter shank, jowl ground round spare ribs tri-tip andouille bresaola pastrami brisket ribeye prosciutto. Ground round cow tri-tip doner porchetta ham swine. Frankfurter ribeye shank leberkas, sirloin turducken swine jerky sausage pork loin biltong spare ribs bacon ground round meatloaf.
+    </string>
+    <string name="empty" />
+    <string name="content_desc_image">image</string>
+    <!-- lyrics player -->
+    <string name="playPart1">JAG KAN INTE SITTA STILL</string>
+    <string name="playPart2">JAG FÅR INTE NÅGON RO</string>
+    <string name="playPart3">NU ÄR LÄNGTAN ÖVER</string>
+    <string name="playPart4">JAG SÄTTER ALLT PÅ PAUS</string>
+    <string name="playPart5">DET ÄR NÅT SOM ÄR PÅ GÅNG</string>
+    <string name="playPart6"> HAR ALDRIG KÄNT SÅ HÄR FÖRUT</string>
+    <string name="playPart7">GLÖMMER ALLT SOM VAR</string>
+    <string name="playPart8">DET E KARNEVAL</string>
+    <string name="playPart9">MED HJÄRTSLAGEN I TAKT TILL BASEN</string>
+    <string name="playPart10">LYFTER HÄNDERNA MOT TAKEN</string>
+    <string name="playPart11">INGEN SÖMN PÅ FLERA NÄTTER</string>
+    <string name="playPart12">ALDRIG KÄNT MIG MERA VAKEN</string>
+    <string name="playPart13">DET E NU I VÅR DET HÄNDER</string> <!-- Go one more time -->
+    <string name="playPart14">DET E VART FJÄRDE ÅR</string>
+    <string name="playPart15">KOM MÖT UPP MED ALLA VÄNNER</string>
+    <string name="playPart16">KOM OCH SKRIK I LUNDAGÅRD</string>
+    <string name="playPart17">LJUSET BLÄNDAR, HJÄRTAT BULTAR</string>
+    <string name="playPart18">NU ÄR DET FEST I LUND</string>
+    <string name="playPart19">EXPLODERAR PÅ EN SEKUND</string>
+    <string name="playPartRef1">FUTU-FUTU</string>
+    <string name="playPartRef2">RAL</string>
+    <string name="playPartRef3">KARNEVAL</string>
+    <string name="playPartRef4">FUTU-FUTU-FUTU</string>
+    <string name="playPartRef5">RAL</string>
+    <string name="playPartRef6">KARNEVAL</string>
+    <string name="playPartRef7">FUTU-FUTU-FUTU</string>
+    <string name="playPart20">ETT UNIVERSUM FYLLT AV ALLT</string>
+    <string name="playPart21">HUNDRA FESTER PÅ EN DAG</string>
+    <string name="playPart22">NU BLIR GAMMALT NYTT</string>
+    <string name="playPart23">OCH GENERALEN HAR FÅTT BRÖST</string>
+    <string name="playPart24">KARNEVÖLEN FYLLER GLASEN</string>
+    <string name="playPart25">VEM VET NÅT OM MORGONDAGEN</string>
+    <string name="playPart26">ALLA DANSAR BORGEN SKAKAR</string>
+    <string name="playPart27">ALDRIG KÄNT MIG MERA VAKEN</string> <!-- stop here -->
+    <string name="playPart28">VI ÄR VÅREN NÄR DET HÄNDER</string>
+    <string name="playPart29">VI ÄR VART FJÄRDE ÅR</string>
+    <string name="playPart30">VI ÄR ALLESAMMANS VÄNNER</string>
+    <string name="playPart31">SKRIKER UT I LUNDAGÅRD</string>
+    <string name="playPart32">VI SKA ÖVERTYGA VÄRLDEN</string>
+    <string name="playPart33">ATT FIRA MAJ I LUND</string>
+    <string name="playPart34">EXPLODERAR PÅ EN SEKUND</string>
+    <string name="karnemel_title">KARNEVALSMELODIN</string>
+    <string name="krog_thyme_place" >ATHEN</string>
+
+    <string name="sketchera">Sketchera</string>
+    <string name="undergangen">Undergången</string>
+    <string name="futuralfuneral">Futuralfuneral</string>
+
+    <string name="studenthistoriska_riksmuseet">Studenthistoriska riksmuséet</string>
+    <string name="babe_gone_bad">Babe Gone Bad</string>
+    <string name="vem_vet_sex">Vem Vet Sex?</string>
+    <string name="ga_pa_vatten_med_jesus">Gå på vatten med Jesus</string>
+    <string name="the_moon_exhibition">The Moon Exhibition</string>
+    <string name="future">FU-Ture!</string>
+    <string name="radda_lundagard">Rädda Lundagård</string>
+    <string name="futurel">FuturEL</string>
+    <string name="gudtyckligt">Gudtyckligt</string>
+    <string name="robotic_orchestra">Robotic Orchestra</string>
+    <string name="ristorante_del_futuro">Ristorante del Futuro</string>
+    <string name="framtidens_foto">Framtidens foto</string>
+    <string name="max_iv">MAX IV</string>
+    <string name="siartaltet">Siartältet</string>
+    <string name="the_day_after_tomorrow">The Day after Tomorrow</string>
+    <string name="futural_sjukcentral">Futural Sjukcentral</string>
+    <string name="moocs">MOOCs</string>
+    <string name="tidsresorse">Tidsresor.se</string>
+    <string name="lunara_nationen">Lunära nationen</string>
+    <string name="bucket_list">Bucket List</string>
+    <string name="karneroj">Karneröj</string>
+    <string name="festtaltet">Festtältet</string>
+    <string name="gassimulator_3000">Gåssimulator 3000</string>
+    <string name="cafe_kosmos">Café Kosmos</string>
+    <string name="forbjudna_taltet">Förbjudna tältet</string>
+    <string name="bak_och_framtidsresan">Bak- och framtidsresan</string>
+    <string name="astronautakademin">Astronautakademin</string>
+    <string name="futopia">Futopia</string>
+    <string name="botaniska_ar_3014">Botaniska år 3014</string>
+    <string name="futuralteleportal">Futuralteleportal</string>
+    <string name="intergalaktisk_invandring">Intergalaktisk invandring</string>
+    <string name="ett_svart_hal">Ett svart hål</string>
+    <string name="en_lundensares_guide_till_galaxen">En lundensares guide till galaxen</string>
+    <string name="discokaffetalt">Discokaffetält</string>
+    <string name="snacks_iv">SNACKS IV</string>
+    <string name="lyxbrygghus">Lyxbrygghus</string>
+    <string name="kungliga_snacksboden_estrelle">Kungliga snacksboden Estrelle</string>
+    <string name="bacon_oriley">Bacon O\'Riley</string>
+    <string name="putins_bodega_put_in_putin">Putins bodega; Put in Putin</string>
+    <string name="rysk_roulette">Rysk Roulette</string>
+    <string name="hipster_eller_hobo">Hipster eller hobo?</string>
+    <string name="ligga_i_lund">Ligga i Lund</string>
+    <string name="war_of_karnewall_street">War of Karne-wall street</string>
+    <string name="tillbaka_till_samtiden">Tillbaka till samtiden</string>
+    <string name="strike_for_the_future">Strike for the future</string>
+    <string name="futuralbucks">Futuralbucks</string>
+    <string name="the_bland_band">THE BLAND BAND</string>
+    <string name="brothers_among_eva">BAW</string>
+    <string name="picture">content=picture</string>
+    <string name="karnemel_year">2014</string>
+    <string name="love">FIRST LOVE</string>
+    <string name="taltnojen_place" />
+    <string name="musik_place" />
+    <string name="snaxeriet_question"></string>
+    <string name="foodo_info" />
+
+
+    <string name="tombolan_place" />
+
+    <string name="tombolan_question">VAD ÄR TOMBOLAN?</string>
+    <string name="tombolan_info">Tombolan sprider karnevalsglädje genom de spel och tävlingar som
+        kommer att finnas på området. Vi skapar de mest fantastiska och knäppa spelbodar som Liseberg
+        aldrig sett genom musik, lampor, satir och futurism.</string>
+
+
+    <string name="smanojen_info">Smånöjen är något för dig som vill uppleva musik, spontanitet och
+        skrattintensivitet är smånöjen det perfekta! Biljetter säljs på karnevalsområdet och
+        föreställningarna visas så ofta som bara är möjligt. Ta tillvara på din spontanitet och
+        tillåt dig att, för en halvtimme, ”fånga framtiden” i våra smånöjen.</string>
+
+
+    <string name="smanojen">SMÅNÖJEN</string>
+
+    <string name="taltnojen">TÄLTNÖJEN</string>
+
+    <string name="barnevalen">BARNEVALEN</string>
+
+    <string name="radio">RADIO</string>
+
+
     <string name="karne_name">KARNEVALSLÅTEN</string>
     <string name="david">DAVID STRÖMBÄCK</string>
     <string name="emil">EMIL SUNESSON</string>
@@ -311,6 +486,9 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="nangilima_place">FOODSTOCK</string>
     <string name="nangilima_title">FOODSTOCK</string>
     <string name="nangilima_question">VAD ÄR FOODSTOCK?</string>
-    <string name="nangilima_info">FOODSTOCK</string>
+    <string name="nangilima_info">Lundakarnevalen framtidssatsar och lanserar det helt nya området Foodstock. Vi öppnar upp en värld fylld av blommor, bin, musik, mat och nöje. På vårt nya område uppe vid Gamla Kirurgen välkomnar vi dig för ytterligare karnevalsupplevelser och förlänger känslan av karneval lite längre. Fred, kärlek och förståelse - i en tidigare oskådad symbios! Unna dig lite karnevalistiska upptåg bland våra tältnöjen eller vinn fina eller ofina priser i tombolabodarna. Vila upp dig på vår uteservering och ät av vår amerikansk-inspirerade meny eller ta dig upp till grillen och få lika god mat - fast med mer grillyta.\n\n
+På scenen finns underhållning dag, kväll och natt. Under lunchtid erbjuder vi underhållning som är mer familjeanpassad, och under eftermiddag och kväll satsar vi för fullt på musik från världens alla hörn - raggae, folk, indie, hiphop och en massa annat!\n\n
+Framåt natten skruvar vi upp tempot för att tillsammans med några av Sveriges största inom deep- och tech-house skapa världens läckraste förfest. Vi utlovar stämning och drag som hade fått Jimi Hendrix att bli högerhänt!
+</string>
 
 </resources>

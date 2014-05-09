@@ -2,9 +2,7 @@
 <resources>
 
     <string name="app_name">Lundakarnevalen</string>
-
     <string name="map">MAP</string>
-
     <!-- right_list -->
     <string name="food">FOOD</string>
     <string name="fun">FUN</string>
@@ -22,15 +20,11 @@
     <string name="my_scheme">MY SCHEME</string>
     <string name="saturday">SATURDAY</string>
 
-    <string name="scheme_left"><![CDATA[<]]></string>
-    <string name="scheme_right"><![CDATA[>]]></string>
+
 
     <string name="heart">\u2764</string>
 
-    <string-array name="test_array">
-        <item>Test1</item>
-        <item>Test2</item>
-    </string-array>
+
 
     <string name="ipsum">
         Bacon ipsum dolor sit amet cow corned beef pig, biltong swine tri-tip short loin turducken strip steak meatball rump. T-bone doner salami ball tip swine leberkas ground round chuck. Short ribs pork drumstick landjaeger salami venison capicola shank filet mignon boudin. \n\n Jowl venison turducken corned beef short ribs chicken flank hamburger. Shoulder salami strip steak chuck. Pancetta rump kevin leberkas capicola salami kielbasa venison porchetta fatback turkey ham hock sirloin hamburger. Pork chop ground round capicola biltong landjaeger andouille.
@@ -64,7 +58,7 @@
 
     <string name="kabare_question">WHAT IS KABARÉN?</string>
     <string name="kabare_place">NORR OM DOMKYRKAN</string>
-    <string name="kabare_title">KABARÈN</string>
+    <string name="kabare_title">THE KABARÈ</string>
     <string name="kabare_info">Vi befinner oss i den postapokalyptiska dystopin
         efter det stora kärnvapenkriget. Världen är i ruiner, men Cabaret Apocalyptica
         gör sitt bästa för att hålla humöret uppe hos de få som är kvar. Dock är det svårt
@@ -72,7 +66,7 @@
         från tiden innan kriget kan ge perspektiv och ibland blir historien väldigt levande.\n
         Häng med oss in i en värld där det futurala inte är vad vi hoppas, där nutiden inte
         är riktigt klok men upplevelsen total.</string>
-    <string name="cirkus_title">CIRKUSEN</string>
+    <string name="cirkus_title">THE CIRCUS</string>
     <string name="cirkus_info">På Tegnérsplatsen precis söder på AF-borgen ligger Lundakarnevalens
     äldsta och mest urballade nöje, nämligen Karnevalscirkusen! Cirkusen har en lång historia av att
     blanda studentikos humor med parodier på cirkusnummer, såväl som genuint imponerande sådana.\
@@ -81,7 +75,7 @@
     som nytt. En traditionell cirkus skickas ut på under ytterst otraditionella omständigheter på
     grund av en mystisk resenär från framtiden. Bered er på ett äventyr fylld med både spänning,
     humor och grace. Ett sant nöje för hela familjen!</string>
-    <string name="spexet_title">SPEXET</string>
+    <string name="spexet_title">THE SPEX</string>
     <string name="spexet_info">På stora salens scen i AF-borgen möter du karnevalsspexet Atlantis!
     Här bjuds det på ett traditionellt lundensiskt spex där sagan om hur det gick för Atlantis
     berättas med högklassig humor, sång och dans.\n
@@ -90,7 +84,7 @@
     staden har vant sig vid förfallet, men stadens borgmästarinna har bestämt sig för att få staden
     på flytande igen (både bildligt och bokstavligen!). Atlantis ska återgå till sina forna
     glansdagar - och det illa kvickt!</string>
-    <string name="show_title">SHOWEN</string>
+    <string name="show_title">THE SHOW</string>
     <string name="show_info">Karnevalsshowen 2014 inbjuder till Ljuset och Lyktan – En dag i Livet.
     På den lilla krogen Ljuset och Lyktan får vi uppleva en dag tillsammans med krogvärden Rolle
     Rosén som sett och hört det mesta. Ur en betraktares synvinkel möter vi besökare, kunder
@@ -98,7 +92,7 @@
     människor som alla bär något med sig, men som inte alltid vet om det, utan ständigt är på
     jakt efter något större. Tillsammans med en vällagad krogmeny kan vi utlova en helhetsupplevelse
     som inte kommer lämna någon oberörd.</string>
-    <string name="revy_title">REVYN</string>
+    <string name="revy_title">THE REVUE</string>
     <string name="revy_info">Hur man än vrider och vänder på historien, världen och dess invånare
     ser man tydligt att vi gång efter annan bevittnar sagan om mänsklighetens gränslösa idioti.
     Det är nästan imponerande hur vuxna, ansvarstagande människor ständigt förstör sin egen
@@ -117,7 +111,7 @@
     vetenskapskvinna, sjungande tänder, ett vänligt tandtroll och Skånes egen regionala tandfé.
     Så borsta tänderna, glöm inte tandtråden och ta med hela familjen till Barnevalen. Detta
     får ni inte missa!</string>
-    <string name="filmen_title">FILMEN</string>
+    <string name="filmen_title">THE FILM</string>
     <string name="filmen_info">Lunds universitet står hotat av en dold fienden med oklara
     intentioner. Den unga studentskan Sara, som av en ren slump dras in i de dramatiska
     förvecklingarna, visar sig vara den enda som kan skydda universitetet mot en våldsam
@@ -128,12 +122,12 @@
     </string>
 
     <string name="cocktail_question">VAD FINNS PÅ COCKTAILBAREN?</string>
-    <string name="cocktail_place"></string>
-    <string name="cocktail_title">COCKTAILBAREN</string>
+    <string name="cocktail_place">FOODSTOCK</string>
+    <string name="cocktail_title">PSYKA-DELI</string>
     <string name="cocktail_info">Drinkar: (drinkmeny om ca 10 st max), karnevöl, karnevale, cider, läsk och vin.\n\nMat: Ej mat\n\nBetalning: kort och kontant. DOCK, cash is king!</string>
 
     <string name="hipp_baren_question">VAD FINNS PÅ HIPP I BAREN?</string>
-    <string name="hipp_baren_place"></string>
+    <string name="hipp_baren_place">FOODSTOCK</string>
     <string name="hipp_baren_title">HIPP I BAREN</string>
     <string name="hipp_baren_info">Drinkar: karnevöl, cider, läsk och eventuellt vin.\n\nMat: Ej mat\n\nBetalning: kort och kontant. DOCK, cash is king!</string>
 
@@ -163,11 +157,11 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     välkända Sudio 54.\n\nServerar: Alkohol
     </string>
     <string name="krog_undervatten_place">FRAMFÖR AF-BORGEN</string>
-    <string name="krog_undervatten_title">KROG UNDERVATTEN</string>
-    <string name="krog_undervatten_question">VAD ÄR KROG UNDERVATTEN?</string>
+    <string name="krog_undervatten_title">PUB UNDERVATTEN</string>
+    <string name="krog_undervatten_question">WHAT IS PUB UNDERVATTEN?</string>
     <string name="empty" />
     <string name="folkan_question">VAD FINNS PÅ FOLKAN?</string>
-    <string name="folkan_place"></string>
+    <string name="folkan_place">FOODSTOCK</string>
     <string name="folkan_title">FOLKAN</string>
     <string name="folkan_info">Drinkar: karnevöl, cider, läsk och eventuellt vin.\n\nMat: Ej mat\n\nBetalning: kort och kontant. DOCK, cash is king!</string>
     <string name="sousou">CISSOKO</string>
@@ -197,7 +191,7 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="parking_title">PARKING</string>
     <string name="care_title">CARE</string>
     <string name="toilets_title">TOILETS</string>
-    <string name="OPEN">ÖPPET</string>
+
     <string name="no_internet">Please check your internet connection!</string>
 
     <!-- lyrics player -->
@@ -243,7 +237,7 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="playPart33">ATT FIRA MAJ I LUND</string>
     <string name="playPart34">EXPLODERAR PÅ EN SEKUND</string>
     <string name="dansen_place">AF BORGEN</string>
-    <string name="dansen_title">DANSEN</string>
+    <string name="dansen_title">THE DANCE</string>
     <string name="dansen_info" ><![CDATA[En vis person sa en gång ”Varför gå genom livet när du kan dansa?”.
         En ypperlig devis som Lundakarnevalen tagit till sig och kommer att efterleva
         – med råge! Under de tre karnevalsnätterna i maj så kan Lundakarnevalen stoltsera
@@ -304,10 +298,10 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="karnemel_year">2014</string>
     <string name="krog_lajka_title">LAJKA</string>
     <string name="krog_lajka_place" />
-    <string name="krog_lajka_question">VAD ÄR KROG LAJKA?</string>
+    <string name="krog_lajka_question">VAD ÄR PUB LAJKA?</string>
     <string name="krog_thyme_title">THYME TRAVEL</string>
     <string name="krog_thyme_place" >ATHEN</string>
-    <string name="krog_thyme_question">VAD ÄR KROG TYHME TRAVEL?</string>
+    <string name="krog_thyme_question">WHAT IS PUB TYHME TRAVEL?</string>
     <string name="menu_food">MENU</string>
     <string name="undervatten_food1">BOUILLABAISSE MED ROUILLE</string>
     <string name="undervatten_food2">KRÄMIG LAXRÖRA MED FRANSK POTATISSALLAD</string>
@@ -338,7 +332,7 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="undergangen">Undergången</string>
     <string name="futuralfuneral">Futuralfuneral</string>
 
-    <string name="taltnojen">TÄLTNÖJEN</string>
+    <string name="taltnojen">TENT FUN</string>
     <string name="studenthistoriska_riksmuseet">Studenthistoriska riksmuséet</string>
     <string name="babe_gone_bad">Babe Gone Bad</string>
     <string name="vem_vet_sex">Vem Vet Sex?</string>
@@ -388,7 +382,7 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="kungliga_snacksboden_estrelle">Kungliga snacksboden Estrelle</string>
     <string name="bacon_oriley">Bacon O\'Riley</string>
 
-    <string name="tombolan">TOMBOLAN</string>
+    <string name="tombolan">THE TOMBOLA</string>
     <string name="putins_bodega_put_in_putin">Putins bodega; Put in Putin</string>
     <string name="rysk_roulette">Rysk Roulette</string>
     <string name="hipster_eller_hobo">Hipster eller hobo?</string>
@@ -399,7 +393,7 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="futuralbucks">Futuralbucks</string>
 
     <string name="trashcan">TRASHCAN</string>
-    <string name="shoppen">SHOP</string>
+    <string name="shoppen">THE SHOP</string>
 
 
 
@@ -444,7 +438,7 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
 
     <string name="musik_place" />
 
-    <string name="musik" >MUSIKEN</string>
+    <string name="musik" >THE MUSIC</string>
 
     <string name="musik_question">VAD ÄR MUSIKEN?</string>
     <string name="musik_info">Musiksektionen ser till att det alltid strömmar ljuv musik ifrån
@@ -493,10 +487,13 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="moderskeppet_snacks">MAT KARNEKÖRV</string>
     <string name="futuautomat">FUTUAUTOMAT</string>
     <string name="tidsmaskin">TIDSMASKIN</string>
-    <string name="music_title">MUSIK</string>
+    <string name="music_title">MUSIC</string>
     <string name="nangilima_place">FOODSTOCK</string>
     <string name="nangilima_title">FOODSTOCK</string>
     <string name="nangilima_question">VAD ÄR FOODSTOCK?</string>
-    <string name="nangilima_info">FOODSTOCK</string>
+    <string name="nangilima_info">Lundakarnevalen framtidssatsar och lanserar det helt nya området Foodstock. Vi öppnar upp en värld fylld av blommor, bin, musik, mat och nöje. På vårt nya område uppe vid Gamla Kirurgen välkomnar vi dig för ytterligare karnevalsupplevelser och förlänger känslan av karneval lite längre. Fred, kärlek och förståelse - i en tidigare oskådad symbios! Unna dig lite karnevalistiska upptåg bland våra tältnöjen eller vinn fina eller ofina priser i tombolabodarna. Vila upp dig på vår uteservering och ät av vår amerikansk-inspirerade meny eller ta dig upp till grillen och få lika god mat - fast med mer grillyta.\n\n
+På scenen finns underhållning dag, kväll och natt. Under lunchtid erbjuder vi underhållning som är mer familjeanpassad, och under eftermiddag och kväll satsar vi för fullt på musik från världens alla hörn - raggae, folk, indie, hiphop och en massa annat!\n\n
+Framåt natten skruvar vi upp tempot för att tillsammans med några av Sveriges största inom deep- och tech-house skapa världens läckraste förfest. Vi utlovar stämning och drag som hade fått Jimi Hendrix att bli högerhänt!
+</string>
 
 </resources>
