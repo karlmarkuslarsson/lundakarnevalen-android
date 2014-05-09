@@ -51,7 +51,7 @@ public class TrainMapLoader implements Callable<Picture> {
     public Picture call() throws Exception {
         try {
             Timer t = new Timer();
-            SVG svg = SVG.getFromResource(c, R.raw.train_map);
+            SVG svg = SVG.getFromResource(c, R.raw.train_map_longer);
             t.tick(LOG_TAG, "getFromResource()");
             Picture pic = svg.renderToPicture();
             t.tick(LOG_TAG, "renderToPicture()");

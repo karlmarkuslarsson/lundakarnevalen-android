@@ -92,9 +92,7 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
                     waitForLayout();
                     final float scale = calculateMinZoom(mTrainView, picture);
                     mTrainView.setSvg(picture, scale, mMatrixValues);
-                    if(onSvgLoaded!=null) {
-                        getActivity().runOnUiThread(onSvgLoaded);
-                    }
+                    getActivity().runOnUiThread(onSvgLoaded);
                 } catch (InterruptedException e) {
                     Log.wtf(LOG_TAG, "Future was interrupted", e);
                 } catch (ExecutionException e) {
