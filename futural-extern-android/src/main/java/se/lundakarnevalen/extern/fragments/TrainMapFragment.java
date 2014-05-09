@@ -54,9 +54,9 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
     // Every time you switch to this fragment.
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        ContentActivity.class.cast(getActivity()).activateMapButton();
+
         final View root = inflater.inflate(R.layout.fragment_map_train, container, false);
-
-
         final ViewFlipper flipper = get(root, R.id.map_switcher, ViewFlipper.class);
         mTrainView = get(root, R.id.map_id, LKTrainView.class);
 
@@ -93,7 +93,9 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
                     waitForLayout();
                     final float scale = calculateMinZoom(mTrainView, picture);
                     mTrainView.setSvg(picture, scale, mMatrixValues);
-                    getActivity().runOnUiThread(onSvgLoaded);
+                    if(onSvgLoaded!=null) {
+                        getActivity().runOnUiThread(onSvgLoaded);
+                    }
                 } catch (InterruptedException e) {
                     Log.wtf(LOG_TAG, "Future was interrupted", e);
                 } catch (ExecutionException e) {
@@ -145,7 +147,6 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
 
     @Override
     public void onStop() {
-        ContentActivity.class.cast(getActivity()).inactivateTrainButton();
         ContentActivity.class.cast(getActivity()).unregisterForLocationUpdates(this);
         if(mMediaPlayer != null) {
             try{
@@ -158,7 +159,6 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
 
     @Override
     public void onStart() {
-        ContentActivity.class.cast(getActivity()).activateTrainButton();
         ContentActivity.class.cast(getActivity()).registerForLocationUpdates(this);
         super.onStart();
     }
@@ -205,4 +205,7 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
         mGPSMarkerLat = (float) lat;
         mTrainView.setGpsMarker(mGPSMarkerLat, mGPSMarkerLng, false);
     }
+
+
+
 }

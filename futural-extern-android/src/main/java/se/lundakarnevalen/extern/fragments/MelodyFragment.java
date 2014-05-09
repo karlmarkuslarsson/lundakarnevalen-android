@@ -209,6 +209,10 @@ public class MelodyFragment extends LKFragment {
         }
             startMovingClouds(rootView);
 
+        ContentActivity.class.cast(getActivity()).allBottomsUnfocus();
+        ContentActivity.class.cast(getActivity()).inactivateTrainButton();
+
+
         return rootView;
     }
 
@@ -222,6 +226,8 @@ public class MelodyFragment extends LKFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
     }
+
+
 
 
     public void startLyrics() {
@@ -541,11 +547,6 @@ public class MelodyFragment extends LKFragment {
 
 
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        ContentActivity.class.cast(getActivity()).allBottomsUnfocus();
-    }
 
     @Override
     public void onDestroyView () {

@@ -76,6 +76,10 @@ public class ContentActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content);
+        setupActionbar();
+        setupDrawerLayout();
+        setupTint();
+
         mFragmentMgr = getSupportFragmentManager();
 
         mMapFragment = new MapFragment();
@@ -83,9 +87,6 @@ public class ContentActivity extends ActionBarActivity {
 
         mRightMenuList = find(R.id.right_menu_list, ListView.class);
 
-        setupDrawerLayout();
-        setupActionbar();
-        setupTint();
 
         populateBottomMenu(find(R.id.bottom_frame_menu, LinearLayout.class));
 
@@ -391,22 +392,19 @@ public class ContentActivity extends ActionBarActivity {
 
     public void activateTrainButton() {
         ImageButton b = get(mActionBarView, R.id.train, ImageButton.class);
-        b.setVisibility(View.VISIBLE);
+        b.setImageResource(R.drawable.train_logo_small);
         b.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
 
 //                MusicThread thread = new MusicThread();
 //                thread.execute();
-
-
                 loadFragmentAddingBS(TrainMapFragment.create(true));
 
-
             }
         });
-        b = get(mActionBarView, R.id.gps_marker, ImageButton.class);
         b.setVisibility(View.VISIBLE);
+        b = get(mActionBarView, R.id.gps_marker, ImageButton.class);
         b.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -414,17 +412,40 @@ public class ContentActivity extends ActionBarActivity {
 //                MusicThread thread = new MusicThread();
 //                thread.execute();
 
-               mMapFragment.zoomToMarker();
+                mMapFragment.zoomToMarker();
 
 
 
             }
         });
+
+        b.setVisibility(View.VISIBLE);
 
 
     }
 
+
+    public void activateMapButton() {
+        ImageButton b = get(mActionBarView, R.id.train, ImageButton.class);
+        b.setImageResource(R.drawable.map_logo);
+        b.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                loadFragmentAddingBS(mMapFragment);
+            }
+        });
+        b.setVisibility(View.VISIBLE);
+        b = get(mActionBarView, R.id.gps_marker, ImageButton.class);
+
+        b.setVisibility(View.INVISIBLE);
+
+
+    }
+
+
     public void inactivateTrainButton() {
+        Log.d("inactivate train","inactivate train");
         get(mActionBarView, R.id.train, ImageButton.class).setVisibility(View.INVISIBLE);
         get(mActionBarView, R.id.gps_marker, ImageButton.class).setVisibility(View.INVISIBLE);
     }

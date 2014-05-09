@@ -48,12 +48,15 @@ public class SchemeFragment extends LKFragment {
     // Every time you switch to this fragment.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        ContentActivity activity = ContentActivity.class.cast(getActivity());
+
+    activity.inactivateTrainButton();
+
         View view = inflater.inflate(R.layout.fragment_scheme, container, false);
 
-        ContentActivity activity = ContentActivity.class.cast(getActivity());
         activity.allBottomsUnfocus();
         activity.focusBottomItem(ID);
-
+        ContentActivity.class.cast(getActivity()).inactivateTrainButton();
         leftArrowLayout = get(view, R.id.left_arrow, RelativeLayout.class);
         rightArrowLayout = get(view, R.id.right_arrow, RelativeLayout.class);
         final TextView header = get(view, R.id.dayText, TextView.class);
@@ -327,4 +330,4 @@ public class SchemeFragment extends LKFragment {
             }
         }
     }
-}
+   }
