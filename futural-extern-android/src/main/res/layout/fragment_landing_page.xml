@@ -109,7 +109,6 @@
                     android:background="@color/green_button_background"
                     >
                     <se.lundakarnevalen.extern.widget.LKTextView
-                        android:text="@string/OPEN"
                         android:id="@+id/open_info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
