@@ -2,8 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_fun"
-    tools:context=".ContentActivity">
+    tools:context=".ContentActivity"
+    android:background="@color/red_background">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background_fun"/>
+
 
     <ListView
         android:cacheColorHint="@color/transparent"

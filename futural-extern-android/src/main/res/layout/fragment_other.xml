@@ -2,8 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_other"
-    tools:context="se.lundakarnevalen.extern.fragments.OtherFragment">
+    tools:context="se.lundakarnevalen.extern.fragments.OtherFragment"
+    android:background="@color/blue_background">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background_other"/>
+
 
     <ListView
         android:id="@+id/fragment_other_list"
