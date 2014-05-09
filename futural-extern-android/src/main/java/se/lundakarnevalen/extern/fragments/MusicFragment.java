@@ -37,7 +37,6 @@ public class MusicFragment extends LKFragment implements View.OnClickListener {
         initializeMediaPlayer();
 
         ContentActivity.class.cast(getActivity()).allBottomsUnfocus();
-        ContentActivity.class.cast(getActivity()).inactivateTrainButton();
 
 
         return rootView;

@@ -210,7 +210,6 @@ public class MelodyFragment extends LKFragment {
             startMovingClouds(rootView);
 
         ContentActivity.class.cast(getActivity()).allBottomsUnfocus();
-        ContentActivity.class.cast(getActivity()).inactivateTrainButton();
 
 
         return rootView;

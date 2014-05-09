@@ -30,7 +30,7 @@ public class FoodFragment extends LKFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ContentActivity activity = ContentActivity.class.cast(getActivity());
-        activity.inactivateTrainButton();
+
         View root = inflater.inflate(R.layout.fragment_food, container, false);
         ListView lv = (ListView) root.findViewById(R.id.fragment_food_list);
         activity.focusBottomItem(ID);
