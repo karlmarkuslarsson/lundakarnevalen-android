@@ -9,6 +9,7 @@
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:layout_marginTop="30dp"
+        android:layout_marginLeft="-90dp"
         android:layout_alignParentLeft="true"
         android:layout_alignTop="@+id/cloud2"
         android:src="@drawable/cloud5" />
@@ -19,7 +20,7 @@
         android:layout_height="62dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginRight="25dp"
+        android:layout_marginRight="55dp"
         android:layout_marginBottom="29dp"
         android:src="@drawable/cloud4" />
 
@@ -28,6 +29,7 @@
         android:id="@+id/cloud3"
         android:layout_width="70dp"
         android:layout_height="35dp"
+        android:layout_marginLeft="-30dp"
         android:layout_alignParentBottom="true"
         android:src="@drawable/cloud4" />
 
@@ -36,7 +38,7 @@
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
-
+    android:layout_marginRight="30dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:scaleType="fitEnd"
@@ -48,7 +50,6 @@
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="80dp"
-        android:layout_marginLeft="20dp"
         android:src="@drawable/cloud5" />
 
 </RelativeLayout>

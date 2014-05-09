@@ -1,5 +1,6 @@
 package se.lundakarnevalen.extern.android;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
@@ -22,7 +23,7 @@ import static com.nineoldandroids.view.ViewPropertyAnimator.animate;
 public class SplashScreenActivity extends Activity {
     private static final String LOG_TAG = SplashScreenActivity.class.getSimpleName();
 
-    private static final int TOTAL_SPLASH_TIME_OUT = 1600;
+    private static final int TOTAL_SPLASH_TIME_OUT = 3400;
     private static final int POST_ANIMATION_DELAY = 300;
     public static final int PRE_ANIMATION_DELAY = 100;
 
@@ -59,16 +60,8 @@ public class SplashScreenActivity extends Activity {
     private class CloudStartListner implements Animation.AnimationListener {
 
         ImageView view;
-        ImageView movingCloud;
-        Animation a2;
-        CloudStartListner(ImageView view) {
+        public CloudStartListner(ImageView view) {
             this.view = view;
-        }
-
-        public CloudStartListner(ImageView view, ImageView movingCloud, Animation a2) {
-            this.view = view;
-            this.movingCloud = movingCloud;
-            this.a2 = a2;
         }
 
         @Override
@@ -78,11 +71,7 @@ public class SplashScreenActivity extends Activity {
 
         @Override
         public void onAnimationEnd(Animation animation) {
-            view.setVisibility(View.INVISIBLE);
-            if(a2!=null)  {
 
-                movingCloud.startAnimation(a2);
-            }
         }
 
         @Override
@@ -96,40 +85,34 @@ public class SplashScreenActivity extends Activity {
         int width = display.getWidth();  // deprecated
         int height = display.getHeight();
         ImageView cloud = (ImageView) rootView.findViewById(R.id.cloud1);
-        Animation a = new TranslateAnimation(0,width,0 ,0);
-        ImageView movingCloud = (ImageView) rootView.findViewById(R.id.cloud5);
+        Animation a = new TranslateAnimation(0,width/4,0 ,0);
 
-        RelativeLayout.LayoutParams lp =
-                (RelativeLayout.LayoutParams) movingCloud.getLayoutParams();
-        Animation a2 = new TranslateAnimation(0,width+(-lp.leftMargin),0 ,0);
-        a2.setInterpolator(new AccelerateDecelerateInterpolator());
-        a2.setInterpolator(new LinearInterpolator());
+        //Animation a2 = new TranslateAnimation(0,width+(-lp.leftMargin),0 ,0);
+        //a2.setInterpolator(new AccelerateDecelerateInterpolator());
+        //a2.setInterpolator(new LinearInterpolator());
 
-        a2.setRepeatCount(Animation.INFINITE);
-        a2.setDuration(10000);
-        a.setAnimationListener(new CloudStartListner(cloud, movingCloud, a2));
-        a.setDuration(10000);
+        //a2.setRepeatCount(Animation.INFINITE);
+        //a2.setDuration(2800);
+        a.setAnimationListener(new CloudStartListner(cloud));
+        a.setDuration(2900);
+        a.setFillAfter(true);
         a.setInterpolator(new AccelerateDecelerateInterpolator());
         a.setInterpolator(new LinearInterpolator());
         cloud.startAnimation(a);
         cloud = (ImageView) rootView.findViewById(R.id.cloud2);
         //ObjectAnimator.
         //animX2.setDuration(3000);
-        a  = new TranslateAnimation(0,200,0,0);
+        a  = new TranslateAnimation(0,200/4,0,0);
         a.setInterpolator(new AccelerateDecelerateInterpolator());
         a.setInterpolator(new LinearInterpolator());
+        a.setFillAfter(true);
+        a.setDuration(2900);
+        //  a2.setInterpolator(new AccelerateDecelerateInterpolator());
+       // a2.setInterpolator(new LinearInterpolator());
 
-        a.setDuration(4000);
-        movingCloud = (ImageView) rootView.findViewById(R.id.cloud6);
-        lp =
-                (RelativeLayout.LayoutParams) movingCloud.getLayoutParams();
-        a2 = new TranslateAnimation(0,width+(-lp.leftMargin),0 ,0);
-        a2.setInterpolator(new AccelerateDecelerateInterpolator());
-        a2.setInterpolator(new LinearInterpolator());
-
-        a2.setRepeatCount(Animation.INFINITE);
-        a2.setDuration(13000);
-        a.setAnimationListener(new CloudStartListner(cloud, movingCloud, a2));
+      //  a2.setRepeatCount(Animation.INFINITE);
+      //  a2.setDuration(13000);
+        a.setAnimationListener(new CloudStartListner(cloud));
         cloud.startAnimation(a);
 
 
@@ -137,51 +120,37 @@ public class SplashScreenActivity extends Activity {
         //animX2.start();
 
         cloud = (ImageView) rootView.findViewById(R.id.cloud3);
-        a = new TranslateAnimation(0,width,0 ,0);
+        a = new TranslateAnimation(0,width/4,0 ,0);
         a.setInterpolator(new AccelerateDecelerateInterpolator());
         a.setInterpolator(new LinearInterpolator());
-
-        a.setDuration(13000);
-        movingCloud = (ImageView) rootView.findViewById(R.id.cloud7);
-
-        lp =
-                (RelativeLayout.LayoutParams) movingCloud.getLayoutParams();
-        a2 = new TranslateAnimation(0,width+(-lp.leftMargin),0 ,0);
-        a2.setInterpolator(new AccelerateDecelerateInterpolator());
-        a2.setInterpolator(new LinearInterpolator());
-
-        a2.setRepeatCount(Animation.INFINITE);
-        a2.setDuration(15000);
-        a.setAnimationListener(new CloudStartListner(cloud, movingCloud, a2));
+        a.setFillAfter(true);
+        a.setDuration(2900);
         cloud.startAnimation(a);
 
         cloud = (ImageView) rootView.findViewById(R.id.cloud4);
-        a  = new TranslateAnimation(0,250,0,0);
+        a  = new TranslateAnimation(0,250/4,0,0);
         a.setInterpolator(new AccelerateDecelerateInterpolator());
         a.setInterpolator(new LinearInterpolator());
+        a.setFillAfter(true);
+        a.setDuration(2900);
+        //   a2 = new TranslateAnimation(0,width+(-lp.leftMargin),0 ,0);
+     //   a2.setInterpolator(new AccelerateDecelerateInterpolator());
+     //   a2.setInterpolator(new LinearInterpolator());
 
-        a.setDuration(4000);
-        movingCloud = (ImageView) rootView.findViewById(R.id.cloud8);
-        lp =
-                (RelativeLayout.LayoutParams) movingCloud.getLayoutParams();
-        a2 = new TranslateAnimation(0,width+(-lp.leftMargin),0 ,0);
-        a2.setInterpolator(new AccelerateDecelerateInterpolator());
-        a2.setInterpolator(new LinearInterpolator());
-
-        a2.setRepeatCount(Animation.INFINITE);
-        a2.setDuration(8000);
-        a.setAnimationListener(new CloudStartListner(cloud, movingCloud, a2));
+      //  a2.setRepeatCount(Animation.INFINITE);
+      //  a2.setDuration(8000);
+        a.setAnimationListener(new CloudStartListner(cloud));
         cloud.startAnimation(a);
 
         cloud = (ImageView) rootView.findViewById(R.id.cloud9);
         //ObjectAnimator.
         //animX2.setDuration(3000);
-        a  = new TranslateAnimation(0,width,0,0);
+        a  = new TranslateAnimation(0,width/5,0,0);
         a.setInterpolator(new AccelerateDecelerateInterpolator());
         a.setInterpolator(new LinearInterpolator());
-
-        a.setDuration(16000);
-        a.setAnimationListener(new CloudStartListner(cloud, movingCloud, null));
+        a.setFillAfter(true);
+        a.setDuration(2900);
+        a.setAnimationListener(new CloudStartListner(cloud));
         cloud.startAnimation(a);
 
 
