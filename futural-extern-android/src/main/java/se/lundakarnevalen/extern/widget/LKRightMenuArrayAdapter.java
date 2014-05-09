@@ -50,16 +50,35 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
         item.bindValues(layout);
 
         if(item.title.equals(mContext.getString(R.string.show_all))) {
-            item.setSelected(mContext, true);
+            item.setSelected(mContext, true); //TODO: check if any other filters are active
             item.image.setVisibility(View.GONE);
             item.layout.setGravity(Gravity.CENTER);
         } else {
-            item.setSelected(mContext, false);
+            item.setSelected(mContext, item.selected); //TODO: check if it was selected before.
             item.image.setVisibility(View.VISIBLE);
             item.layout.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
+            int bg = item.selected ? R.color.right_menu_button_selected : R.color.right_menu_button;
+            item.layout.setBackgroundColor(getContext().getResources().getColor(bg));
         }
 
         return layout;
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        final List<DataType> types = selectedTypes();
+        int showAllElementIdx = getCount() - 1;
+
+        if(types.isEmpty()) {
+            //deselectAll(); // Causes crash at first launch
+            getItem(showAllElementIdx).selected = true;
+        } else {
+            getItem(showAllElementIdx).selected = false;
+        }
+        super.notifyDataSetChanged();
+
+        ContentActivity.class.cast(getContext()).updateMapView(types);
+
     }
 
     @Override
@@ -76,7 +95,9 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
             getItem(showAllElementIdx).setSelected(c, true);
         } else {
             item.setSelected(c, !item.selected); // Flip state
-            getItem(showAllElementIdx).setSelected(c, false);
+            getItem(showAllElementIdx).selected = false;
+            //getItem(showAllElementIdx).setSelected(c, false);
+            notifyDataSetChanged();
         }
 
         final List<DataType> types = selectedTypes();
@@ -93,10 +114,11 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
         }
     }
 
-    private void deselectAll() {
+    public void deselectAll() {
         for (int i = 0; i < getCount(); i++) {
-            getItem(i).setSelected(getContext(), false);
+            getItem(i).selected = false;
         }
+        //notifyDataSetChanged();
     }
 
     public List<DataType> selectedTypes(){
@@ -110,31 +132,42 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
         return markerTypes;
     }
 
-    public void addItem(String title, int logo, DataType[] types) {
-        add(new LKRightMenuListItem(title, logo, types));
+    public int getIndexForIcon(int icon){
+        for (int i = 0; i < getCount(); i++) {
+            LKRightMenuListItem item = getItem(i);
+            if (item.icon == icon) {
+                return i;
+            }
+        }
+        return -1;
     }
 
-    static class LKRightMenuListItem {
+    public void addItem(String title, int logo, DataType[] types, boolean selected) {
+        add(new LKRightMenuListItem(title, logo, types, selected));
+    }
+
+    public static class LKRightMenuListItem {
         private final DataType[] markerType;
         private final int icon;
         private final String title;
 
-        private boolean selected = false;
+        public boolean selected = false;
 
         private LinearLayout layout;
         private TextView text;
         private ImageView image;
 
-        public LKRightMenuListItem(String title, int icon, DataType[] markerType) {
+        public LKRightMenuListItem(String title, int icon, DataType[] markerType, boolean selected) {
             this.title = title;
             this.icon = icon;
             this.markerType = markerType;
+            this.selected = selected;
         }
 
-        private void bindValues(View layout) {
-            this.layout = get(layout, R.id.menu_right_button_layout, LinearLayout.class);
-            this.text = get(layout, R.id.menu_right_button_text, TextView.class);
-            this.image = get(layout, R.id.menu_right_button_image, ImageView.class);
+        private void bindValues(View root ) {
+            this.layout = get(root, R.id.menu_right_button_layout, LinearLayout.class);
+            this.text = get(root, R.id.menu_right_button_text, TextView.class);
+            this.image = get(root, R.id.menu_right_button_image, ImageView.class);
             this.image.setImageResource(icon);
             this.text.setText(title);
         }
