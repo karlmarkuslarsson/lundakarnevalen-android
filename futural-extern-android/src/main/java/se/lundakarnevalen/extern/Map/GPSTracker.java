@@ -18,8 +18,6 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import se.lundakarnevalen.extern.util.Logf;
 
@@ -28,14 +26,18 @@ import se.lundakarnevalen.extern.util.Logf;
  */
 public class GPSTracker extends Service implements LocationListener {
     private static final String LOG_TAG = GPSTracker.class.getSimpleName();
-    public static final int UPDATE_PERIOD = 10000;
+    public static final int UPDATE_DELAY_MILLIS = 20000;
+    public static final int INITAL_DELAY_MILLIS = 2000;
 
     private final LocationManager mLocationManager;
     private final Context mContext;
-    private final Timer mTimer;
+    private final Handler mHandler;
+    private final Runnable mUpdateRunnable;
 
     public void invalidateMe(GPSListener listener) {
-        listener.onNewLocation(latitude, longitude);
+        if(latitude > 0.0f && longitude>0.0f ) {
+            listener.onNewLocation(latitude, longitude);
+        }
     }
 
     public interface GPSListener {
@@ -50,62 +52,55 @@ public class GPSTracker extends Service implements LocationListener {
     double longitude;
 
     // The minimum distance to change Updates in meters
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 1; // 2 meters
+    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 0; // 2 meters
 
     // The minimum time between updates in milliseconds
-    private static final long MIN_TIME_BW_UPDATES = 8000; // 1 sec
+    private static final long MIN_TIME_BW_UPDATES = 5000; // 1 sec
 
     public GPSTracker(Context context) {
         this.mContext = context;
         this.mLocationManager = (LocationManager) mContext.getSystemService(LOCATION_SERVICE);
         this.mListeners = new ArrayList<GPSListener>(2);
-        this.mTimer = new Timer();
-        this.mTimer.scheduleAtFixedRate(new TimerTask() {
+        this.mHandler = new Handler(mContext.getMainLooper());
+        this.mUpdateRunnable = new Runnable() {
             @Override
             public void run() {
-                new Handler(mContext.getMainLooper()).post(new Runnable() {
-                    @Override
-                    public void run() {
-                        updateLocation();
-                    }
-                });
+                updateLocation();
+                mHandler.postDelayed(this, UPDATE_DELAY_MILLIS);
             }
-        }, 2000, UPDATE_PERIOD);
+        };
+        init();
+    }
+
+    private void init() {
+        this.mHandler.postDelayed(mUpdateRunnable, INITAL_DELAY_MILLIS);
+
+        Criteria criteria = new Criteria();
+        criteria.setAccuracy(Criteria.ACCURACY_FINE);
+        String bestProvider = mLocationManager.getBestProvider(criteria, true);
+        mLocationManager.requestLocationUpdates(bestProvider, 0, 1.0f, this);
+
+        if(!LocationManager.GPS_PROVIDER.equalsIgnoreCase(bestProvider)){
+            mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 1, this);
+        }
     }
 
     public Location updateLocation() {
         try {
             // if GPS Enabled get lat/long using GPS Services
             if (mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                //Log.d(LOG_TAG, "LocationProvider: GPS Enabled, polling lastKnownLocation");
+                mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 1, this);
+                //location = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-                Log.d(LOG_TAG, "LocationProvider: GPS Enabled, requesting location");
-                this.canGetLocation = true;
-                mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-                location = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
-            } else if (mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-
-                Log.d(LOG_TAG, "LocationProvider: Mobile Enabled, requesting location");
-                this.canGetLocation = true;
-                mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-                location = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-
+                if (location != null) {
+                    latitude = location.getLatitude();
+                    longitude = location.getLongitude();
+                    Logf.d(LOG_TAG, "New position: %f, %f", latitude, longitude);
+                    onLocationChanged(location);
+                }
             } else {
-                Criteria c = new Criteria();
-                final String bestProvider = mLocationManager.getBestProvider(c, false);
-
-                Logf.d(LOG_TAG, "LocationProvider: %s, requesting location", bestProvider);
-                this.canGetLocation = true;
-                mLocationManager.requestLocationUpdates(bestProvider, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-                location = mLocationManager.getLastKnownLocation(bestProvider);
-
-            }
-
-            if (location != null) {
-                latitude = location.getLatitude();
-                longitude = location.getLongitude();
-                Logf.d(LOG_TAG, "New position: %f, %f", latitude, longitude);
-                onLocationChanged(location);
+                Log.d(LOG_TAG, "LocationProvider: GPS disabled");
             }
 
         } catch (Exception e) {
@@ -120,10 +115,8 @@ public class GPSTracker extends Service implements LocationListener {
      * Calling this function will stop using GPS in your app
      */
     public void stopUsingGPS() {
-        mTimer.cancel();
-        if(mLocationManager != null) {
-            mLocationManager.removeUpdates(this);
-        }
+        mHandler.removeCallbacks(mUpdateRunnable);
+        mLocationManager.removeUpdates(this);
     }
 
     public void addListener(GPSListener listener) {
