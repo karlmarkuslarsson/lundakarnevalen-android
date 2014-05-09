@@ -151,7 +151,7 @@ public class ContentActivity extends ActionBarActivity {
 
     @Override
     protected void onDestroy() {
-        Log.d(LOG_TAG, "onDestroy()!?  Cleaning allocated resources: MapFragment, TrainMapFragment, LKMapView");
+        //Log.d(LOG_TAG, "onDestroy()!?  Cleaning allocated resources: MapFragment, TrainMapFragment, LKMapView");
         //MapLoader.clean();
         //TrainMapLoader.clean();
         //LKMapView.clean();
