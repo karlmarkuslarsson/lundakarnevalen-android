@@ -17,7 +17,6 @@ public class LKFragment extends Fragment {
     private final static String LOG_TAG = LKFragment.class.getSimpleName();
     private static final boolean DEBUG_LIFECYCLE = false;
 
-    private final String mLOG_TAG = ((Object)this).getClass().getSimpleName();
     private int onAttachMem;
 
     public static String getAppVersion(Context context) {
@@ -44,8 +43,6 @@ public class LKFragment extends Fragment {
         return (int) (mi.availMem / 1048576L);
     }
 
-
-
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -64,6 +61,55 @@ public class LKFragment extends Fragment {
         super.onResume();
         int usage = getMemUsage();
         if(DEBUG_LIFECYCLE)Logf.d(LOG_TAG, "onResume(): Free mem: %d MB (since onAttach: %d MB)", usage, onAttachMem - usage);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        int usage = getMemUsage();
+        if(DEBUG_LIFECYCLE)Logf.d(LOG_TAG, "onResume(): Free mem: %d MB (since onAttach: %d MB)", usage, onAttachMem - usage);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        int usage = getMemUsage();
+        if(DEBUG_LIFECYCLE)Logf.d(LOG_TAG, "onResume(): Free mem: %d MB (since onAttach: %d MB)", usage, onAttachMem - usage);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        int usage = getMemUsage();
+        if(DEBUG_LIFECYCLE)Logf.d(LOG_TAG, "onPause(): Free mem: %d MB (since onAttach: %d MB)", usage, onAttachMem - usage);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        int usage = getMemUsage();
+        if(DEBUG_LIFECYCLE)Logf.d(LOG_TAG, "onDestroy(): Free mem: %d MB (since onAttach: %d MB)", usage, onAttachMem - usage);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        int usage = getMemUsage();
+        if(DEBUG_LIFECYCLE)Logf.d(LOG_TAG, "onDestroyView(): Free mem: %d MB (since onAttach: %d MB)", usage, onAttachMem - usage);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        int usage = getMemUsage();
+        if(DEBUG_LIFECYCLE)Logf.d(LOG_TAG, "onActivityCreated(): Free mem: %d MB (since onAttach: %d MB)", usage, onAttachMem - usage);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        int usage = getMemUsage();
+        if(DEBUG_LIFECYCLE)Logf.d(LOG_TAG, "onViewCreated(): Free mem: %d MB (since onAttach: %d MB)", usage, onAttachMem - usage);
     }
 
     public Context getContext(){
