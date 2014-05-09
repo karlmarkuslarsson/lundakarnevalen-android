@@ -134,7 +134,17 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
                             ContentActivity.class.cast(getActivity()).loadFragmentAddingBS(LandingPageFragment.create(m.element));
                             }
                         });
-                    } else {
+                    } else if(m.element.isRadio()) {
+                        get(root, R.id.map_info_click_text, TextView.class).setVisibility(View.VISIBLE);
+                        layout.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ContentActivity.class.cast(getActivity()).loadFragmentAddingBS(new MusicFragment());
+                            }
+                        });
+
+                    }else{
+
                         get(root, R.id.map_info_click_text, TextView.class).setVisibility(View.GONE);
                     }
                 }
