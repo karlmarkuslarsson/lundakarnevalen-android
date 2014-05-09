@@ -26,6 +26,7 @@ import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.data.DataElement;
 import se.lundakarnevalen.extern.data.DataType;
+import se.lundakarnevalen.extern.widget.LKRightMenuArrayAdapter;
 import se.lundakarnevalen.extern.widget.LKSchemeAdapter;
 import se.lundakarnevalen.extern.widget.SVGView;
 
@@ -108,6 +109,7 @@ public class LandingPageFragment extends LKFragment{
                 } else if (element.type == DataType.TENT_FUN) {
                     ContentActivity.class.cast(getActivity()).showMapAndPanTo(lat, lng, SVGView.HALF_ZOOM);
                     ContentActivity.class.cast(getActivity()).updateMapView(Collections.singleton(DataType.TENT_FUN));
+                    ContentActivity.class.cast(getActivity()).mRightMenuList.performItemClick(null,1,0);
                 }
 
                 else {

@@ -98,7 +98,7 @@ public class GPSTracker extends Service implements LocationListener, GpsStatus.L
             // if GPS Enabled get lat/long using GPS Services
             if (mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                 //Log.d(LOG_TAG, "LocationProvider: GPS Enabled, polling lastKnownLocation");
-                mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+                //mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN, 0, this);
                 Location l = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
                 if (location != l) {
@@ -136,18 +136,16 @@ public class GPSTracker extends Service implements LocationListener, GpsStatus.L
         this.mListeners.remove(listener);
     }
 
-    private static final RectF LUNDAGARD = new RectF(55.70900f, 13.1874f, 55.70301f, 13.1991f);
-
     @Override
     public void onLocationChanged(Location location) {
         final double lat = location.getLatitude();
         final double lng = location.getLongitude();
-        if (LUNDAGARD.contains((float) lat, (float) lng) && location.getAccuracy() < REQUERED_ACCURACY_METERS) {
+        if (location.getAccuracy() < REQUERED_ACCURACY_METERS) {
             // We only care if inside LUNDAGARD
-            Logf.d(LOG_TAG, "(%s) Posting location: lat %f, lng %f, accuracy:%f", location.getProvider(), lat, lng, location.getAccuracy());
+            Logf.d(LOG_TAG, "(%s) Posting location: lat %f, lng %f, acc:%f", location.getProvider(), lat, lng, location.getAccuracy());
             this.location = location;
         } else {
-            Logf.d(LOG_TAG, "(%s) Ignoring location: lat %f, lng %f, accuracy:%f", location.getProvider(), lat, lng, location.getAccuracy());
+            Logf.d(LOG_TAG, "(%s) Ignoring location: lat %f, lng %f, acc:%f", location.getProvider(), lat, lng, location.getAccuracy());
         }
 
         for (GPSListener l : mListeners) {
