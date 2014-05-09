@@ -345,6 +345,15 @@ public class ContentActivity extends ActionBarActivity {
             loadFragmentReplaceBS(f);
         }
 
+        public int getStatusBarHeight() {
+            int result = 0;
+            int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+            if (resourceId > 0) {
+                result = getResources().getDimensionPixelSize(resourceId);
+            }
+            return result;
+        }
+
         private void selectItem(View target, Resources res) {
             target.setBackgroundColor(res.getColor(R.color.bottom_menu_background_selected));
             get(target, R.id.bottom_menu_text, TextView.class).setTextColor(res.getColor(R.color.white));

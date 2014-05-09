@@ -27,7 +27,6 @@
             android:src="@drawable/test_nojen"
             android:layout_marginLeft="33dp"
             android:contentDescription="@string/picture"
-
             />
 
         <se.lundakarnevalen.extern.widget.LKTextView
