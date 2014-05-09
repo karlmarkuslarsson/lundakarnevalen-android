@@ -109,12 +109,13 @@ public class LandingPageFragment extends LKFragment{
                 } else if (element.type == DataType.TENT_FUN) {
                     ContentActivity.class.cast(getActivity()).showMapAndPanTo(lat, lng, SVGView.HALF_ZOOM);
                     //ContentActivity.class.cast(getActivity()).updateMapView(Collections.singleton(DataType.TENT_FUN));
-                    int index = ((LKRightMenuArrayAdapter)ContentActivity.class.cast(getActivity()).mRightMenuList.getAdapter()).getIndexForIcon(R.drawable.tent_logo);
-                    //ContentActivity.class.cast(getActivity()).mRightMenuList.performItemClick(null,index,0);
-                    LKRightMenuArrayAdapter.LKRightMenuListItem item = (LKRightMenuArrayAdapter.LKRightMenuListItem) ContentActivity.class.cast(getActivity()).mRightMenuList.getAdapter().getItem(index);
                     ((LKRightMenuArrayAdapter)ContentActivity.class.cast(getActivity()).mRightMenuList.getAdapter()).deselectAll();
-                    item.selected = true;
                     ((LKRightMenuArrayAdapter)ContentActivity.class.cast(getActivity()).mRightMenuList.getAdapter()).notifyDataSetChanged();
+                    int index = ((LKRightMenuArrayAdapter)ContentActivity.class.cast(getActivity()).mRightMenuList.getAdapter()).getIndexForIcon(R.drawable.tent_logo);
+                    ContentActivity.class.cast(getActivity()).mRightMenuList.performItemClick(null,index,0);
+                    //LKRightMenuArrayAdapter.LKRightMenuListItem item = (LKRightMenuArrayAdapter.LKRightMenuListItem) ContentActivity.class.cast(getActivity()).mRightMenuList.getAdapter().getItem(index);
+                    //item.selected = true;
+
                 }
 
                 else {

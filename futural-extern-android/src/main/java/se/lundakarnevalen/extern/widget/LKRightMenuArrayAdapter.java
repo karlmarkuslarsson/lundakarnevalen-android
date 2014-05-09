@@ -54,7 +54,7 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
             item.image.setVisibility(View.GONE);
             item.layout.setGravity(Gravity.CENTER);
         } else {
-            item.setSelected(mContext, item.selected); //TODO: check if it was selected before.
+            item.setSelected(mContext, item.selected);
             item.image.setVisibility(View.VISIBLE);
             item.layout.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
             int bg = item.selected ? R.color.right_menu_button_selected : R.color.right_menu_button;
@@ -151,7 +151,7 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
         private final int icon;
         private final String title;
 
-        public boolean selected = false;
+        private boolean selected = false;
 
         private LinearLayout layout;
         private TextView text;
@@ -175,7 +175,9 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
         public void setSelected(Context c, boolean selected) {
             this.selected = selected;
             int bg = selected ? R.color.right_menu_button_selected : R.color.right_menu_button;
-            this.layout.setBackgroundColor(c.getResources().getColor(bg));
+            if (this.layout != null) {
+                this.layout.setBackgroundColor(c.getResources().getColor(bg));
+            }
         }
     }
 }
