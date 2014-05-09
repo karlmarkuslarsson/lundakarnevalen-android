@@ -99,13 +99,6 @@ public class ContentActivity extends ActionBarActivity {
 
         // TODO modify design
         // createCustomDialog();
-
-        if ((getApplication().getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0) {
-            // MockLocationProvider mock = new MockLocationProvider(LocationManager.GPS_PROVIDER, ContentActivity.this);
-            // mock.pushLocation(55.706085, 13.19417);
-        }
-
-        mGpsTracker = new GPSTracker(this);
     }
 
     private void setupDrawerLayout() {
@@ -142,15 +135,27 @@ public class ContentActivity extends ActionBarActivity {
 
     }
 
+    @Override
+    protected void onStart() {
+        mGpsTracker = new GPSTracker(this);
+        super.onStop();
+    }
+
+    @Override
+    protected void onStop() {
+        if (mGpsTracker != null) {
+            mGpsTracker.stopUsingGPS();
+        }
+        super.onStop();
+    }
 
     @Override
     protected void onDestroy() {
         Log.d(LOG_TAG, "onDestroy()!?  Cleaning allocated resources: MapFragment, TrainMapFragment, LKMapView");
-        mGpsTracker.stopUsingGPS();
-        MapLoader.clean();
-        TrainMapLoader.clean();
-        LKMapView.clean();
-        System.gc();
+        //MapLoader.clean();
+        //TrainMapLoader.clean();
+        //LKMapView.clean();
+        //System.gc();
         super.onDestroy();
     }
 
