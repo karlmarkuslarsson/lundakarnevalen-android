@@ -70,7 +70,7 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
         get(root, R.id.map_pull_out, View.class).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ContentActivity.class.cast(getActivity()).toggleRightDrawer();
+            ContentActivity.class.cast(getActivity()).toggleRightDrawer();
             }
         });
 

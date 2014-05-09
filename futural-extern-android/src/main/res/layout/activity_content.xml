@@ -4,9 +4,11 @@
     android:id="@+id/content_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/red"
     android:fitsSystemWindows="true"
-    android:clipToPadding="false" >
+    android:background="@color/red" >
+    <!--
+    android:fitsSystemWindows="true"
+    android:clipToPadding="false" -->
 
     <LinearLayout
         android:id="@+id/bottom_frame_menu"
@@ -33,7 +35,6 @@
         <FrameLayout
             android:id="@+id/content_frame"
             android:background="@color/blue_dark"
-            android:layout_marginTop="80dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
         <include
