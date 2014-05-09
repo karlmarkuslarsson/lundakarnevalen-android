@@ -10,14 +10,16 @@
     <string name="wc">WC</string>
     <string name="show_all">SHOW ALL</string>
     <string name="show_only">SHOW ONLY</string>
-    <string name="scheme">SCHEME</string>
+    <string name="scheme">SCHEDULE</string>
+    <string name="full_list">FULL SCHEDULE</string>
+
     <string name="other">OTHER</string>
     <string name="tent">TENT</string>
-    <string name="tombola">RAFFLE</string>
+    <string name="tombola">TOMBOLA</string>
     <string name="music">MUSIC</string>
 
     <!-- scheme -->
-    <string name="my_scheme">MY SCHEME</string>
+    <string name="my_scheme">MY SCHDULE</string>
     <string name="saturday">SATURDAY</string>
 
 
@@ -37,10 +39,10 @@
     <string name="cash">CASH</string>
     <string name="to_map">LOCATION</string>
     <string name="big_scene">BIG SCENE</string>
-    <string name="inauguration">INVIGNING</string>
+    <string name="inauguration">OPENING CEREMONY</string>
     <string name="friday">FRIDAY</string>
     <string name="sunday">SUNDAY</string>
-    <string name="orchestra">ORKESTERKAMP</string>
+    <string name="orchestra">ORCHESTRA BATTLE</string>
     <string name="train">THE TRAIN</string>
     <string name="place_train">LUNDAGÅRD</string>
     <string name="filmen_place">PALAESTRA</string>
@@ -296,10 +298,10 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="picture">content=picture</string>
     <string name="karnemel_title">KARNEVALSMELODIN</string>
     <string name="karnemel_year">2014</string>
-    <string name="krog_lajka_title">LAJKA</string>
+    <string name="krog_lajka_title">PUB LAJKA</string>
     <string name="krog_lajka_place" />
     <string name="krog_lajka_question">WHAT IS PUB LAJKA?</string>
-    <string name="krog_thyme_title">THYME TRAVEL</string>
+    <string name="krog_thyme_title">PUB THYME TRAVEL</string>
     <string name="krog_thyme_place" >ATHEN</string>
     <string name="krog_thyme_question">WHAT IS PUB TYHME TRAVEL?</string>
     <string name="menu_food">MENU</string>
@@ -326,7 +328,7 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="hampus">HAMPUS LAVIN</string>
     <string name="axel">AXEL BOMAN</string>
 
-    <string name="smanojen">SMÅNÖJEN</string>
+    <string name="smanojen">THE MINI FUN</string>
 
     <string name="sketchera">Sketchera</string>
     <string name="undergangen">Undergången</string>
@@ -363,7 +365,7 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="bak_och_framtidsresan">Bak- och framtidsresan</string>
     <string name="astronautakademin">Astronautakademin</string>
 
-    <string name="biljetteriet">TICKETS</string>
+    <string name="biljetteriet">THE TICKETERY</string>
     <string name="police">POLICE</string>
     <string name="radio">RADIO</string>
     <string name="entre">ENTRÉ</string>
@@ -457,7 +459,7 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="small_scene_place" />
     <string name="big_scene_place" />
 
-<string name="snaxeriet">SNAXERIET</string>
+<string name="snaxeriet">THE SNAXERY</string>
     <string name="snaxeriet_info">Letar du efter framtidens snacks? Du har kommit helt rätt!</string>
     <string name="snaxeriet_question"></string>
     <string name="toilets_info">Nöden har ingen lag, sägs det. Därför är Karnevalen så futural att flertalet toaletter har placerats ut runt om på området. Var du än befinner dig, kommer du inte ha långt till ett rum där du kan pudra näsan. En automatic poo remover.</string>
@@ -479,23 +481,20 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="konstfiket">KONSTFIKET</string>
     <string name="moderskeppet">MODERSKEPPET</string>
     <string name="news_kast">NEWS KAST</string>
-    <string name="discokaffetalt_snacks">KAFFEBAR</string>
+    <string name="discokaffetalt_snacks">COFFEE BAR</string>
     <string name="snacks_iv_snacks">POPCORN</string>
-    <string name="lyxbrygghus_snacks">KAFFE KARNEVALSROSTEN</string>
+    <string name="lyxbrygghus_snacks">COFFEE KARNEVALSROSTEN</string>
     <string name="kungliga_snacksboden_estrelle_snacks">SNACKS</string>
     <string name="bacon_oriley_snacks">SNACKS</string>
-    <string name="moderskeppet_snacks">MAT KARNEKÖRV</string>
+    <string name="moderskeppet_snacks">FOOD KARNEKÖRV</string>
     <string name="futuautomat">FUTUAUTOMAT</string>
-    <string name="tidsmaskin">TIDSMASKIN</string>
+    <string name="tidsmaskin">TIME MACHINE</string>
     <string name="music_title">MUSIC</string>
-    <string name="nangilima_place">FOODSTOCK</string>
+    <string name="nangilima_place"></string>
     <string name="nangilima_title">FOODSTOCK</string>
     <string name="nangilima_question">WHAT IS FOODSTOCK?</string>
-    <string name="nangilima_info">Lundakarnevalen framtidssatsar och lanserar det helt nya området Foodstock. Vi öppnar upp en värld fylld av blommor, bin, musik, mat och nöje. På vårt nya område uppe vid Gamla Kirurgen välkomnar vi dig för ytterligare karnevalsupplevelser och förlänger känslan av karneval lite längre. Fred, kärlek och förståelse - i en tidigare oskådad symbios! Unna dig lite karnevalistiska upptåg bland våra tältnöjen eller vinn fina eller ofina priser i tombolabodarna. Vila upp dig på vår uteservering och ät av vår amerikansk-inspirerade meny eller ta dig upp till grillen och få lika god mat - fast med mer grillyta.\n\n
-På scenen finns underhållning dag, kväll och natt. Under lunchtid erbjuder vi underhållning som är mer familjeanpassad, och under eftermiddag och kväll satsar vi för fullt på musik från världens alla hörn - raggae, folk, indie, hiphop och en massa annat!\n\n
-Framåt natten skruvar vi upp tempot för att tillsammans med några av Sveriges största inom deep- och tech-house skapa världens läckraste förfest. Vi utlovar stämning och drag som hade fått Jimi Hendrix att bli högerhänt!
+    <string name="nangilima_info">Lundakarnevalen framtidssatsar och lanserar det helt nya området Foodstock. Vi öppnar upp en värld fylld av blommor, bin, musik, mat och nöje. På vårt nya område uppe vid Gamla Kirurgen välkomnar vi dig för ytterligare karnevalsupplevelser och förlänger känslan av karneval lite längre. Fred, kärlek och förståelse - i en tidigare oskådad symbios! Unna dig lite karnevalistiska upptåg bland våra tältnöjen eller vinn fina eller ofina priser i tombolabodarna. Vila upp dig på vår uteservering och ät av vår amerikansk-inspirerade meny eller ta dig upp till grillen och få lika god mat - fast med mer grillyta.\n\nPå scenen finns underhållning dag, kväll och natt. Under lunchtid erbjuder vi underhållning som är mer familjeanpassad, och under eftermiddag och kväll satsar vi för fullt på musik från världens alla hörn - raggae, folk, indie, hiphop och en massa annat!\n\nFramåt natten skruvar vi upp tempot för att tillsammans med några av Sveriges största inom deep- och tech-house skapa världens läckraste förfest. Vi utlovar stämning och drag som hade fått Jimi Hendrix att bli högerhänt!
 </string>
-    <string name="heart_selected">Du får nu en påminnelse 1 timme innan eventet startar</string>
-    <string name="full_list">HELA SCHEMAT</string>
+    <string name="heart_selected">You will be reminded 1 hour before the event</string>
 
 </resources>
