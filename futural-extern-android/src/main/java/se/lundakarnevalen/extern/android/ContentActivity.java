@@ -140,7 +140,7 @@ public class ContentActivity extends ActionBarActivity {
     @Override
     protected void onStart() {
         mGpsTracker = new GPSTracker(this);
-        super.onStop();
+        super.onStart();
     }
 
     @Override
