@@ -24,10 +24,19 @@
 
     </LinearLayout>
 
+    <View
+        android:layout_alignParentTop="true"
+        android:id="@+id/extra_padding_top"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/red"
+        ></View>
+
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/extra_padding_top"
         android:layout_above="@id/bottom_frame_menu">
 
         <FrameLayout
@@ -39,13 +48,7 @@
             layout="@layout/menu_right_drawer"/>
 
     </android.support.v4.widget.DrawerLayout>
-    <View
-        android:layout_alignParentTop="true"
-        android:id="@+id/extra_padding_top"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/red"
-        ></View>
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="3dp"
