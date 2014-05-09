@@ -15,7 +15,7 @@ import se.lundakarnevalen.extern.util.Logf;
 
 public class LKFragment extends Fragment {
     private final static String LOG_TAG = LKFragment.class.getSimpleName();
-    private static final boolean DEBUG_LIFECYCLE = false;
+    private static final boolean DEBUG_LIFECYCLE = true;
 
     private int onAttachMem;
 
@@ -47,69 +47,69 @@ public class LKFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         onAttachMem = getMemUsage();
-        if(DEBUG_LIFECYCLE)Logf.d(LOG_TAG, "onAttach(): Free mem: %d MB", onAttachMem);
+        if(DEBUG_LIFECYCLE)Logf.d(this, "onAttach(): Free mem: %d MB", onAttachMem);
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        if(DEBUG_LIFECYCLE)Logf.d(LOG_TAG, "onDetach(): Free mem: %d MB", getMemUsage());
+        if(DEBUG_LIFECYCLE)Logf.d(this, "onDetach(): Free mem: %d MB", getMemUsage());
     }
 
     @Override
     public void onResume() {
         super.onResume();
         int usage = getMemUsage();
-        if(DEBUG_LIFECYCLE)Logf.d(LOG_TAG, "onResume(): Free mem: %d MB (since onAttach: %d MB)", usage, onAttachMem - usage);
+        if(DEBUG_LIFECYCLE)Logf.d(this, "onResume(): Free mem: %d MB (since onAttach: %d MB)", usage, onAttachMem - usage);
     }
 
     @Override
     public void onStart() {
         super.onStart();
         int usage = getMemUsage();
-        if(DEBUG_LIFECYCLE)Logf.d(LOG_TAG, "onResume(): Free mem: %d MB (since onAttach: %d MB)", usage, onAttachMem - usage);
+        if(DEBUG_LIFECYCLE)Logf.d(this, "onStart(): Free mem: %d MB (since onAttach: %d MB)", usage, onAttachMem - usage);
     }
 
     @Override
     public void onStop() {
         super.onStop();
         int usage = getMemUsage();
-        if(DEBUG_LIFECYCLE)Logf.d(LOG_TAG, "onResume(): Free mem: %d MB (since onAttach: %d MB)", usage, onAttachMem - usage);
+        if(DEBUG_LIFECYCLE)Logf.d(this, "onStop(): Free mem: %d MB (since onAttach: %d MB)", usage, onAttachMem - usage);
     }
 
     @Override
     public void onPause() {
         super.onPause();
         int usage = getMemUsage();
-        if(DEBUG_LIFECYCLE)Logf.d(LOG_TAG, "onPause(): Free mem: %d MB (since onAttach: %d MB)", usage, onAttachMem - usage);
+        if(DEBUG_LIFECYCLE)Logf.d(this, "onPause(): Free mem: %d MB (since onAttach: %d MB)", usage, onAttachMem - usage);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         int usage = getMemUsage();
-        if(DEBUG_LIFECYCLE)Logf.d(LOG_TAG, "onDestroy(): Free mem: %d MB (since onAttach: %d MB)", usage, onAttachMem - usage);
+        if(DEBUG_LIFECYCLE)Logf.d(this, "onDestroy(): Free mem: %d MB (since onAttach: %d MB)", usage, onAttachMem - usage);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         int usage = getMemUsage();
-        if(DEBUG_LIFECYCLE)Logf.d(LOG_TAG, "onDestroyView(): Free mem: %d MB (since onAttach: %d MB)", usage, onAttachMem - usage);
+        if(DEBUG_LIFECYCLE)Logf.d(this, "onDestroyView(): Free mem: %d MB (since onAttach: %d MB)", usage, onAttachMem - usage);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         int usage = getMemUsage();
-        if(DEBUG_LIFECYCLE)Logf.d(LOG_TAG, "onActivityCreated(): Free mem: %d MB (since onAttach: %d MB)", usage, onAttachMem - usage);
+        if(DEBUG_LIFECYCLE)Logf.d(this, "onActivityCreated(): Free mem: %d MB (since onAttach: %d MB)", usage, onAttachMem - usage);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         int usage = getMemUsage();
-        if(DEBUG_LIFECYCLE)Logf.d(LOG_TAG, "onViewCreated(): Free mem: %d MB (since onAttach: %d MB)", usage, onAttachMem - usage);
+        if(DEBUG_LIFECYCLE)Logf.d(this, "onViewCreated(): Free mem: %d MB (since onAttach: %d MB)", usage, onAttachMem - usage);
     }
 
     public Context getContext(){

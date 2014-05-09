@@ -46,6 +46,7 @@ import se.lundakarnevalen.extern.fragments.TrainMapFragment;
 import se.lundakarnevalen.extern.map.GPSTracker;
 import se.lundakarnevalen.extern.map.MapLoader;
 import se.lundakarnevalen.extern.map.TrainMapLoader;
+import se.lundakarnevalen.extern.util.Logf;
 import se.lundakarnevalen.extern.widget.LKMapView;
 import se.lundakarnevalen.extern.widget.LKRightMenuArrayAdapter;
 import se.lundakarnevalen.extern.widget.SVGView;
@@ -307,11 +308,13 @@ public class ContentActivity extends ActionBarActivity {
     }
 
     public void registerForLocationUpdates(GPSTracker.GPSListener listener) {
+        Logf.d(LOG_TAG, "registerForLocationUpdates(%s)", listener);
         mGpsTracker.addListener(listener);
         mGpsTracker.invalidateMe(listener);
     }
 
     public void unregisterForLocationUpdates(GPSTracker.GPSListener listener) {
+        Logf.d(LOG_TAG, "unregisterForLocationUpdates(%s)", listener);
         mGpsTracker.removeListener(listener);
     }
 
