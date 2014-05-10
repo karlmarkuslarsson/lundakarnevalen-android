@@ -176,11 +176,8 @@ public class LKMapView extends SVGView {
         return onClick(xInSvg, yInSvg);
     }
 
-
-
     @Override
     protected boolean onClick(float xInSvg, float yInSvg) {
-
         final float offsetY = -10.0f / mPreDrawScale;
         float min = Float.MAX_VALUE;
         Marker closest = null;
@@ -198,7 +195,7 @@ public class LKMapView extends SVGView {
             }
         }
 
-        boolean found = (closest != null && min < CLOSE_THRESHOLD);
+        boolean found = (closest != null && min < CLOSE_THRESHOLD * mPreDrawScale);
         Logf.d(LOG_TAG, "click(%f, %f, %f) => Dist: %f, Closest: %s", xInSvg, yInSvg, mPreDrawScale, min, (closest != null) ? closest.element.title : closest);
 
         if(mFocusedMarker != null) {

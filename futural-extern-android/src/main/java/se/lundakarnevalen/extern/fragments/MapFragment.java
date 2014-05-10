@@ -31,7 +31,7 @@ import se.lundakarnevalen.extern.widget.SVGView;
 import static se.lundakarnevalen.extern.util.ViewUtil.get;
 
 public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
-    private final int BOTTOM_MENU_ID = 2;
+    public static final int BOTTOM_MENU_ID = 2;
 
     private float lng_marker = -1;
     private float lat_marker = -1;
@@ -222,19 +222,26 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
         mapView.setActiveTypes(types);
     }
 
-    private void showItem(float lat, float lng, float showOnNextCreateScale) {
+    private void showItem(final float lat, final float lng, float showOnNextCreateScale) {
         if(showOnNextCreateScale > 0.0f){
-            mapView.zoom(showOnNextCreateScale);
+            mapView.zoom(showOnNextCreateScale*0.99f);
         }
-        float[] dst = new float[2];
-        mapView.getPointFromCoordinates(lat, lng, dst);
-        Log.d("x."+dst[0],"y."+dst[1]);
-        mapView.triggerClick(dst[0], dst[1]);
-    }
-
-    public void addZoomHintForNextCreate(float lat, float lng) {
-        this.showOnNextCreateLat = lat;
-        this.showOnNextCreateLng = lng;
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                final float[] dst = new float[2];
+                mapView.getPointFromCoordinates(lat, lng, dst);
+                mapView.panTo(dst[0], dst[1]);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mapView.getPointFromCoordinates(lat, lng, dst);
+                        mapView.triggerClick(dst[0], dst[1]);
+                    }
+                }, 700);
+            }
+        }, 100);
     }
 
     public void addZoomHintForNextCreate(float lat, float lng, float v) {
