@@ -247,9 +247,7 @@ public class LKMapView extends SVGView {
     }
 
     public void goToGpsMarker(int svgX, int svgY){
-        if(addExtra>0) {
-            svgY += addExtra/mPreDrawScale;
-        }
+
 
         if(mFocusedMarker != null) {
             mFocusedMarker.isFocusedInMap = false;
