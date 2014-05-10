@@ -352,4 +352,16 @@ public class LKMapView extends SVGView {
         activeTypes.addAll(types);
         postInvalidate();
     }
+
+    @Override
+    public boolean updateViewLimitBounds() {
+        final boolean hasLayoutAndBounds = super.updateViewLimitBounds();
+        if(hasLayoutAndBounds) {
+            mBubbleSize = (mViewEndPoint[AXIS_X] * 0.04f)/mMinZoom;//dpToPx(context, 8);
+            mBubbleShadowXRadius = mBubbleSize/4.0f; //dpToPx(context, 2);
+            mBubbleShadowYRadius = mBubbleSize/8.0f; //dpToPx(context, 1);
+
+        }
+        return hasLayoutAndBounds;
+    }
 }
