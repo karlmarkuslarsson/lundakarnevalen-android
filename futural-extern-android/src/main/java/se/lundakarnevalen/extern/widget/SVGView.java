@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Picture;
 import android.graphics.PointF;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Build;
 import android.util.AttributeSet;
@@ -31,8 +30,8 @@ public class SVGView extends View {
 
     public static final boolean DEBUG = false;
 
-    public static final float MAX_ZOOM = 7.0f;
-    public static final float HALF_ZOOM = MAX_ZOOM/3;
+    public float mMaxZoom = 7.0f;
+    public float mMidZoom = mMaxZoom /3;
 
     public static final int AXIS_X = 0;
     public static final int AXIS_Y = 1;
@@ -135,7 +134,7 @@ public class SVGView extends View {
                 mTempScale = 1.0f;
             }
 
-            if(MAX_ZOOM <= mMatrixValues[MSCALE_X] * mTempScale){
+            if(mMaxZoom <= mMatrixValues[MSCALE_X] * mTempScale){
                 if(DEBUG) Logf.d(LOG_TAG, "Reached max zoom!");
                 mLastFocusX = focusX;
                 mLastFocusY = focusY;
@@ -294,8 +293,8 @@ public class SVGView extends View {
         mMatrixValues[MTRANS_X] = limit(mViewEndPoint[AXIS_X] - mPictureEndPoint[AXIS_X] * mMatrixValues[MSCALE_X], mMatrixValues[MTRANS_X], 0);
         mMatrixValues[MTRANS_Y] = limit(mViewEndPoint[AXIS_Y] - mPictureEndPoint[AXIS_Y] * mMatrixValues[MSCALE_Y], mMatrixValues[MTRANS_Y], 0);
 
-        mMatrixValues[MSCALE_X] = limit(mMinZoom, mMatrixValues[MSCALE_X], MAX_ZOOM);
-        mMatrixValues[MSCALE_Y] = limit(mMinZoom, mMatrixValues[MSCALE_Y], MAX_ZOOM);
+        mMatrixValues[MSCALE_X] = limit(mMinZoom, mMatrixValues[MSCALE_X], mMaxZoom);
+        mMatrixValues[MSCALE_Y] = limit(mMinZoom, mMatrixValues[MSCALE_Y], mMaxZoom);
 
         matrix.setValues(mMatrixValues);
     }
@@ -403,8 +402,8 @@ public class SVGView extends View {
     public void zoom(float newScale) {
         mScaleFactor = newScale;
         mMatrix.getValues(mMatrixValues);
-        mMatrixValues[MSCALE_X] = limit(mMinZoom, newScale, MAX_ZOOM);
-        mMatrixValues[MSCALE_Y] = limit(mMinZoom, newScale, MAX_ZOOM);
+        mMatrixValues[MSCALE_X] = limit(mMinZoom, newScale, mMaxZoom);
+        mMatrixValues[MSCALE_Y] = limit(mMinZoom, newScale, mMaxZoom);
         mMatrix.setValues(mMatrixValues);
         postInvalidate();
     }
@@ -418,5 +417,11 @@ public class SVGView extends View {
         float[] floats = new float[9];
         mMatrix.getValues(floats);
         return floats;
+    }
+
+    public void setMaxZoom(float mMaxZoom) {
+        Logf.d(LOG_TAG, "setMaxZoom(%f)", mMaxZoom);
+        this.mMaxZoom = mMaxZoom;
+        this.mMidZoom = mMaxZoom / 3.0f;
     }
 }

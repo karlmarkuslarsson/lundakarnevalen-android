@@ -1,6 +1,8 @@
 package se.lundakarnevalen.extern.widget;
 
 import android.content.Context;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -10,6 +12,7 @@ import android.graphics.PointF;
 import android.graphics.RectF;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -146,11 +149,30 @@ public class LKMapView extends SVGView {
         for (DataElement elm : DataContainer.getAllData()) {
             markers.add(new Marker(elm));
         }
-        // TODO Change data structure?
+
         Collections.sort(markers);
 
-
         initBitmapCache(context);
+        initZoomLimit(context);
+    }
+
+    /**
+     * We want to have difirent
+     */
+    private void initZoomLimit(Context context) {
+        final Resources r = getResources();
+        if(r != null && r.getDisplayMetrics() != null) {
+            final int dpi = r.getDisplayMetrics().densityDpi;
+            switch (dpi){
+                case DisplayMetrics.DENSITY_XXXHIGH: setMaxZoom(12.0f); break;
+                case DisplayMetrics.DENSITY_XXHIGH: setMaxZoom(11.0f); break;
+                case DisplayMetrics.DENSITY_XHIGH: setMaxZoom(10.0f); break;
+                case DisplayMetrics.DENSITY_HIGH: setMaxZoom(9.0f); break;
+                case DisplayMetrics.DENSITY_MEDIUM: setMaxZoom(8.0f); break;
+                case DisplayMetrics.DENSITY_LOW: setMaxZoom(7.0f); break;
+                default: setMaxZoom(7.0f); break;
+            }
+        }
     }
 
     @Override
@@ -215,6 +237,7 @@ public class LKMapView extends SVGView {
         }
         return false;
     }
+
     public void goToGpsMarker(int svgX, int svgY){
         if(mFocusedMarker != null) {
             mFocusedMarker.isFocusedInMap = false;
@@ -360,7 +383,6 @@ public class LKMapView extends SVGView {
             mBubbleSize = (mViewEndPoint[AXIS_X] * 0.04f)/mMinZoom;//dpToPx(context, 8);
             mBubbleShadowXRadius = mBubbleSize/4.0f; //dpToPx(context, 2);
             mBubbleShadowYRadius = mBubbleSize/8.0f; //dpToPx(context, 1);
-
         }
         return hasLayoutAndBounds;
     }

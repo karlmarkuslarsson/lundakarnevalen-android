@@ -94,7 +94,7 @@ public class LandingPageFragment extends LKFragment{
         get(rootView,R.id.picture,ImageView.class).setImageResource(element.picture_list);
         get(rootView,R.id.header_background,ImageView.class).setImageResource(element.headerPicture);
 
-        ImageView mapView = (ImageView) rootView.findViewById(R.id.map_picture);
+        ImageView mapView = get(rootView, R.id.map_picture, ImageView.class);
         mapView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,7 +113,7 @@ public class LandingPageFragment extends LKFragment{
                 if(element.type == DataType.TRAIN) {
                     ContentActivity.class.cast(getActivity()).loadFragmentAddingBS(TrainMapFragment.create());
                 } else if (multiContainers.contains(element.type)) {
-                    ContentActivity.class.cast(getActivity()).showMapAndPanTo(lat, lng, SVGView.HALF_ZOOM);
+                    ContentActivity.class.cast(getActivity()).showMapAndPanTo(lat, lng);
                     LKRightMenuArrayAdapter adapter = ((LKRightMenuArrayAdapter)ContentActivity.class.cast(getActivity()).mRightMenuList.getAdapter());
                     adapter.deselectEverything();
                     //adapter.notifyDataSetChanged();
@@ -152,7 +152,7 @@ public class LandingPageFragment extends LKFragment{
                 }
 
                 else {
-                    ContentActivity.class.cast(getActivity()).showMapAndPanTo(lat, lng, SVGView.MAX_ZOOM);
+                    ContentActivity.class.cast(getActivity()).showMapAndPanTo(lat, lng);
                 }
             }
         });

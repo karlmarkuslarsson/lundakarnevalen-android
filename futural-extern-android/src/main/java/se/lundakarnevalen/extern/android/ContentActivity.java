@@ -297,9 +297,9 @@ public class ContentActivity extends ActionBarActivity {
         mMapFragment.setActiveType(types);
     }
 
-    public void showMapAndPanTo(float lat, float lng, float zoom) {
+    public void showMapAndPanTo(float lat, float lng) {
         focusBottomItem(MapFragment.BOTTOM_MENU_ID);
-        mMapFragment.addZoomHintForNextCreate(lat, lng, zoom);
+        mMapFragment.addZoomHintForNextCreate(lat, lng, -1.0f); // will use midZoom
         loadFragmentAddingBS(mMapFragment);
     }
 
