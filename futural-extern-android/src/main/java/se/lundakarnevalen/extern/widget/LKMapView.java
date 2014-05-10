@@ -206,6 +206,9 @@ public class LKMapView extends SVGView {
     @Override
     protected boolean onClick(float xInSvg, float yInSvg) {
         final float offsetY = -10.0f / mPreDrawScale;
+        if(addExtra>0) {
+            yInSvg += addExtra/mPreDrawScale;
+        }
         float min = Float.MAX_VALUE;
         Marker closest = null;
         for (Marker m : markers) {
@@ -244,6 +247,10 @@ public class LKMapView extends SVGView {
     }
 
     public void goToGpsMarker(int svgX, int svgY){
+        if(addExtra>0) {
+            svgY += addExtra/mPreDrawScale;
+        }
+
         if(mFocusedMarker != null) {
             mFocusedMarker.isFocusedInMap = false;
         }
