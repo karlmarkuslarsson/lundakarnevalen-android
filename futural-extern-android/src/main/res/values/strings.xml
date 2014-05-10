@@ -491,7 +491,7 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="nangilima_question">WHAT IS FOODSTOCK?</string>
     <string name="nangilima_info">Lundakarnevalen framtidssatsar och lanserar det helt nya området Foodstock. Vi öppnar upp en värld fylld av blommor, bin, musik, mat och nöje. På vårt nya område uppe vid Gamla Kirurgen välkomnar vi dig för ytterligare karnevalsupplevelser och förlänger känslan av karneval lite längre. Fred, kärlek och förståelse - i en tidigare oskådad symbios! Unna dig lite karnevalistiska upptåg bland våra tältnöjen eller vinn fina eller ofina priser i tombolabodarna. Vila upp dig på vår uteservering och ät av vår amerikansk-inspirerade meny eller ta dig upp till grillen och få lika god mat - fast med mer grillyta.\n\nPå scenen finns underhållning dag, kväll och natt. Under lunchtid erbjuder vi underhållning som är mer familjeanpassad, och under eftermiddag och kväll satsar vi för fullt på musik från världens alla hörn - raggae, folk, indie, hiphop och en massa annat!\n\nFramåt natten skruvar vi upp tempot för att tillsammans med några av Sveriges största inom deep- och tech-house skapa världens läckraste förfest. Vi utlovar stämning och drag som hade fått Jimi Hendrix att bli högerhänt!
 </string>
-    <string name="heart_selected">You will be reminded 1 hour before the event</string>
+    <string name="heart_selected">You will be reminded 30 minutes before the event</string>
     <string name="info_title">INFORMATION</string>
     <string name="info" />
 

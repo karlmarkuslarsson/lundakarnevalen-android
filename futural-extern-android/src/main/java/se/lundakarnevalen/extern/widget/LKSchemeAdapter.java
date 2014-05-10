@@ -153,7 +153,7 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
             Date d = new Date();
             if(item.startDate.after(d)) {
 
-                if (d.before(new Date(item.startDate.getTime() - 1000 * 60 * 60))) {
+                if (d.before(new Date(item.startDate.getTime() - 1000 * 30 * 60))) {
                     context.getApplicationContext();
                     CharSequence text = context.getString(R.string.heart_selected);
                     int duration = Toast.LENGTH_LONG;
@@ -220,7 +220,7 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
         //Set the alarm to 10 seconds from now
         Calendar c = Calendar.getInstance();
         c.setTime(d);
-        c.add(Calendar.HOUR_OF_DAY, -1);
+        c.add(Calendar.MINUTE, -30);
         long firstTime = c.getTimeInMillis();
         // Schedule the alarm!
         AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
