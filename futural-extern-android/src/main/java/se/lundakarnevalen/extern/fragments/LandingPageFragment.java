@@ -89,7 +89,7 @@ public class LandingPageFragment extends LKFragment{
         }
         lat = element.lat;
         lng = element.lng;
-        DataType type = element.type;
+        final DataType type = element.type;
 
         get(rootView,R.id.picture,ImageView.class).setImageResource(element.picture_list);
         get(rootView,R.id.header_background,ImageView.class).setImageResource(element.headerPicture);
@@ -114,45 +114,22 @@ public class LandingPageFragment extends LKFragment{
                     ContentActivity.class.cast(getActivity()).loadFragmentAddingBS(TrainMapFragment.create());
                 } else if (multiContainers.contains(element.type)) {
                     ContentActivity.class.cast(getActivity()).showMapAndPanTo(lat, lng);
-                    LKRightMenuArrayAdapter adapter = ((LKRightMenuArrayAdapter)ContentActivity.class.cast(getActivity()).mRightMenuList.getAdapter());
-                    adapter.deselectEverything();
-                    //adapter.notifyDataSetChanged();
-                    int index = -1;
+                    DataType[] types = new DataType[0];
                     switch (element.type) {
-                        case TENT_FUN:
-                            index = adapter.getIndexForIcon(R.drawable.tent_logo);
-                            break;
-                        case TOMBOLAN:
-                            index = adapter.getIndexForIcon(R.drawable.tombola_logo);
-                            break;
-                        case MUSIC:
-                            index = adapter.getIndexForIcon(R.drawable.musik_logo);
-                            break;
                         case FOODSTOCK: case SNACKS:
-                            index = adapter.getIndexForIcon(R.drawable.food_logo);
-                            break;
-                        case TOILETS:
-                            index = adapter.getIndexForIcon(R.drawable.wc_logo);
+                            types = new DataType[]{DataType.FOOD};
                             break;
                         case SECURITY: case CARE:
-                            index = adapter.getIndexForIcon(R.drawable.help_logo);
+                            types = new DataType[]{DataType.SECURITY, DataType.CARE};
                             break;
-                        case TRASHCAN:
-                            index = adapter.getIndexForIcon(R.drawable.soptunna_filter_icon);
-                            break;
-                        case ENTRANCE:
-                            index = adapter.getIndexForIcon(R.drawable.entrance_filter_icon);
+                        default:
+                            types = new DataType[]{element.type};
                             break;
                     }
-
-
-                    ContentActivity.class.cast(getActivity()).mRightMenuList.performItemClick(null,index,0);
-                    //LKRightMenuArrayAdapter.LKRightMenuListItem item = (LKRightMenuArrayAdapter.LKRightMenuListItem) ContentActivity.class.cast(getActivity()).mRightMenuList.getAdapter().getItem(index);
-                    //item.selected = true;
-                }
-
-                else {
+                    ContentActivity.class.cast(getActivity()).ensureSelectedFilters(types);
+                } else {
                     ContentActivity.class.cast(getActivity()).showMapAndPanTo(lat, lng);
+                    ContentActivity.class.cast(getActivity()).ensureSelectedFilters(new DataType[]{element.type});
                 }
             }
         });
