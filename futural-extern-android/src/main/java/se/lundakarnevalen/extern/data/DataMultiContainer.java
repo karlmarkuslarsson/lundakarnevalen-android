@@ -64,7 +64,6 @@ public class DataMultiContainer {
                 "15:30-22:30", "15:30-23:30", "15:30-22:30",
                 DataType.FOODSTOCK));
 
-        // TODO fix coordinates
         data.add(new DataElement(
                 R.string.snaxeriet,
                 R.string.snaxeriet_question,
@@ -82,7 +81,6 @@ public class DataMultiContainer {
     public static List<DataElement> getAllOtherMultiData() {
         List<DataElement> data = new ArrayList<DataElement>();
 
-        // TODO fix coordinates
 
         data.add(new DataElement(
                 R.string.karne_name,
