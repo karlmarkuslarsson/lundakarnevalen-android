@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import java.util.concurrent.ExecutionException;
@@ -36,8 +37,9 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
     private float[] mMatrixValues;
     private LKTrainView mTrainView;
     private MediaPlayer mMediaPlayer;
-    private float mGPSMarkerLng;
-    private float mGPSMarkerLat;
+    private boolean isGPSWithinMap = false;
+    private float mGPSMarkerLng = -1.0f;
+    private float mGPSMarkerLat = -1.0f;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,10 +79,7 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
         final Runnable onSvgLoaded = new Runnable() {
             @Override
             public void run() {
-                if (mGPSMarkerLat > 0.0f && mGPSMarkerLng > 0.0f) {
-                    mTrainView.setGpsMarker(mGPSMarkerLat, mGPSMarkerLng, false);
-                }
-                mTrainView.panTo(220f, 265f);
+                mTrainView.panTo(220f, 265f, false);
             }
         };
 
@@ -124,6 +123,9 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
         flipper.setAnimateFirstView(true);
         flipper.setInAnimation(AnimationUtils.loadAnimation(inflater.getContext(), R.anim.abc_fade_in));
         flipper.setOutAnimation(AnimationUtils.loadAnimation(inflater.getContext(), R.anim.abc_fade_out));
+
+        mTrainView.setGpsMarker(mGPSMarkerLat, mGPSMarkerLng, false);
+
         return root;
     }
 
@@ -162,9 +164,6 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
         super.onStart();
     }
 
-
-
-
     private void waitForLayout() {
         int counter = 0;
         while (mTrainView.getMeasuredHeight() == 0 && counter++ < 100) Delay.ms(100); //Wait for layout
@@ -199,12 +198,29 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
         return fragment;
     }
 
+    public void zoomToMarker() {
+        if(isGPSWithinMap){
+            float[] dst = new float[2];
+            mTrainView.zoom(mTrainView.mMidZoom);
+            mTrainView.panToCenterFast();
+            mTrainView.getPointFromCoordinates(mGPSMarkerLat, mGPSMarkerLng, dst);
+            mTrainView.panTo(dst[0], dst[1]);
+        } else {
+            Toast.makeText(getContext(), "Du är utanför området eller har ej GPS aktiverad", Toast.LENGTH_LONG).show();
+        }
+    }
+
     @Override
     public void onNewLocation(double lat, double lng) {
-        Logf.d(LOG_TAG, "Got new location (%f, %f)", lat, lng);
-        mGPSMarkerLng = (float) lng;
-        mGPSMarkerLat = (float) lat;
-        mTrainView.setGpsMarker(mGPSMarkerLat, mGPSMarkerLng, false);
+        Logf.d(LOG_TAG, "onNewLocation(lat: %f, lng: %f)", lat, lng);
+        if(mTrainView.isWithinLatLngRange((float) lat, (float) lng)){
+            isGPSWithinMap = true;
+            mGPSMarkerLat = (float) lat;
+            mGPSMarkerLng = (float) lng;
+            mTrainView.setGpsMarker(mGPSMarkerLat, mGPSMarkerLng, false);
+        } else {
+            isGPSWithinMap = false;
+        }
     }
 
 

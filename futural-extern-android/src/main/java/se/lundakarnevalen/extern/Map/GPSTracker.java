@@ -27,7 +27,8 @@ import se.lundakarnevalen.extern.util.Logf;
  */
 public class GPSTracker extends Service implements LocationListener, GpsStatus.Listener {
     private static final String LOG_TAG = GPSTracker.class.getSimpleName();
-    private static final boolean DEBUG = true;
+    private static final boolean DEBUG = false;
+    
     public static final int UPDATE_DELAY_MILLIS = 20000;
     public static final int INITAL_DELAY_MILLIS = 1000;
     public static final int REQUERED_ACCURACY_METERS = 200;
@@ -148,7 +149,7 @@ public class GPSTracker extends Service implements LocationListener, GpsStatus.L
 
             for (GPSListener l : mListeners) {
                 if(DEBUG) {
-                    l.onNewLocation(55.705541, 13.194157); // Push fake coordinates
+                    l.onNewLocation(55.705206, 13.192650); // Push fake coordinates
                 } else {
                     l.onNewLocation(lat, lng);
                 }

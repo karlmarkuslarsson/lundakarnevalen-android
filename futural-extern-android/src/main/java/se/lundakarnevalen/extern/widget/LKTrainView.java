@@ -174,4 +174,9 @@ public class LKTrainView extends SVGView {
             panTo(x, y);
         }
     }
+
+    public boolean isWithinLatLngRange(float lat, float lng) {
+        return  (startLatMap > lat && lat > endLatMap) &&
+                (startLonMap < lng && lng < endLonMap);
+    }
 }

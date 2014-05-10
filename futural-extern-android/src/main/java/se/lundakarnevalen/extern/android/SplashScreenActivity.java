@@ -59,7 +59,7 @@ public class SplashScreenActivity extends Activity {
             public void run() {
                 TrainMapLoader.preload(SplashScreenActivity.this);
             }
-        }, 1000);
+        }, 5000);
     }
 
 

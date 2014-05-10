@@ -27,7 +27,6 @@ import se.lundakarnevalen.extern.map.Marker;
 import se.lundakarnevalen.extern.util.Delay;
 import se.lundakarnevalen.extern.util.Logf;
 import se.lundakarnevalen.extern.widget.LKMapView;
-import se.lundakarnevalen.extern.widget.SVGView;
 
 import static se.lundakarnevalen.extern.util.ViewUtil.get;
 
@@ -35,8 +34,8 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
     public static final int BOTTOM_MENU_ID = 2;
     public static final float STARTZOOM = 1.3f;
 
-    private float lng_marker = -1;
-    private float lat_marker = -1;
+    private float mGpsMarkerLat = -1;
+    private float mGpsMarkerLng = -1;
 
     private float showOnNextCreateLat = -1.0f;
     private float showOnNextCreateLng = -1.0f;
@@ -166,7 +165,7 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
                 }
             }, 500);
         }
-        mapView.setGpsMarker(lat_marker, lng_marker, (savedInstanceState != null));
+        mapView.setGpsMarker(mGpsMarkerLat, mGpsMarkerLng, (savedInstanceState != null));
 
         return root;
     }
@@ -276,7 +275,7 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
             float[] dst = new float[2];
             mapView.zoom(mapView.mMidZoom);
             mapView.panToCenterFast();
-            mapView.getPointFromCoordinates(lat_marker, lng_marker, dst);
+            mapView.getPointFromCoordinates(mGpsMarkerLat, mGpsMarkerLng, dst);
             mapView.panTo(dst[0], dst[1]);
         } else {
             Toast.makeText(getContext(), "Du är utanför området eller har ej GPS aktiverad", Toast.LENGTH_LONG).show();
@@ -288,9 +287,9 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
         Logf.d(LOG_TAG, "onNewLocation(lat: %f, lng: %f)", lat, lng);
         if(mapView.isWithinLatLngRange((float) lat, (float) lng)){
             isGPSWithinMap = true;
-            lat_marker = (float) lat;
-            lng_marker = (float) lng;
-            mapView.setGpsMarker(lat_marker, lng_marker, false);
+            mGpsMarkerLat = (float) lat;
+            mGpsMarkerLng = (float) lng;
+            mapView.setGpsMarker(mGpsMarkerLat, mGpsMarkerLng, false);
         } else {
             isGPSWithinMap = false;
         }
