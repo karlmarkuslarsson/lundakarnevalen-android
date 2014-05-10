@@ -422,6 +422,6 @@ public class SVGView extends View {
     public void setMaxZoom(float mMaxZoom) {
         Logf.d(LOG_TAG, "setMaxZoom(%f)", mMaxZoom);
         this.mMaxZoom = mMaxZoom;
-        this.mMidZoom = mMaxZoom / 3.0f;
+        this.mMidZoom = mMaxZoom * 2.0f / 3.0f;
     }
 }
