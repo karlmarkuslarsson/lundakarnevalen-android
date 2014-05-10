@@ -66,6 +66,11 @@ public class LKMapView extends SVGView {
         bitmaps.clear();
     }
 
+    public boolean isWithinLatLngRange(float lat, float lng) {
+        return  (startLatMap > lat && lat > endLatMap) &&
+                (startLonMap < lng && lat < endLonMap);
+    }
+
     public interface OnMarkerSelectedListener {
         /** null of unselect */
         public void onMarkerSelected(Marker m);
@@ -131,7 +136,6 @@ public class LKMapView extends SVGView {
         try {
             mGpsMarker = SVG.getFromResource(context, R.raw.gps_marker).renderToPicture();
             mBubble = SVG.getFromResource(context, R.raw.bubble2).renderToPicture();
-            mEntance = SVG.getFromResource(context, R.raw.entre).renderToPicture();
         } catch (SVGParseException e) {
             e.printStackTrace();
         }
@@ -294,9 +298,9 @@ public class LKMapView extends SVGView {
             dst.set(m.x,
                     m.y,
                     m.x + mBubbleSize * 2.0f,
-                    m.y + mBubbleSize * 2.0f);
-            dst.offset(-0.5f*dst.width(), -0.5f*dst.height()); // only center in X
-            canvas.drawPicture(mEntance, dst);
+                    m.y + mBubbleSize * 1.25f);
+            dst.offset(-0.5f*dst.width(), -0.5f*dst.height()); // center in XY
+            canvas.drawBitmap(bitmaps.get(m.picture), null, dst, null);
         } else {
             dst.set(m.x, m.y, m.x, m.y);
             dst.inset(-mBubbleShadowXRadius, -mBubbleShadowYRadius);

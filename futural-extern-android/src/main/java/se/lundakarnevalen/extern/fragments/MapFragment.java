@@ -279,6 +279,9 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
     @Override
     public void onNewLocation(double lat, double lng) {
         Logf.d(LOG_TAG, "onNewLocation(lat: %f, lng: %f)", lat, lng);
-        mapView.setGpsMarker((float) lat, (float) lng, false);
+        if(mapView.isWithinLatLngRange((float) lat, (float) lng)){
+
+            mapView.setGpsMarker((float) lat, (float) lng, false);
+        }
     }
 }
