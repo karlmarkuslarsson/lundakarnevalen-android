@@ -26,9 +26,12 @@ import java.util.HashSet;
 import java.util.List;
 
 import se.lundakarnevalen.extern.android.R;
+import se.lundakarnevalen.extern.util.Logf;
 import se.lundakarnevalen.extern.util.SchemeAlarm;
 
 public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> implements OnItemClickListener {
+    public static final String PREFERENCES_KEY = "lundkarnevalen";
+    public static final String PREFERENCES_KEY_NOTIFICATIONS = "notifications";
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
     private PendingIntent mAlarmSender;
     private LayoutInflater inflater;
@@ -75,8 +78,8 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
         } else {
             vh = (ViewHolder) convertView.getTag();
         }
-        int heartIcon = item.reminder ? R.drawable.heart_clicked : R.drawable.heart_not_clicked;
 
+        int heartIcon = item.reminder ? R.drawable.heart_clicked : R.drawable.heart_not_clicked;
         vh.image.setImageResource(item.icon);
         vh.heart.setImageResource(heartIcon);
         vh.start.setText(item.getStartTime());
@@ -90,91 +93,121 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
     public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
         final LKSchemeItem item = getItem(pos);
         final ViewHolder vh = (ViewHolder) view.getTag();
+
+        if(item == null || vh == null) {
+            Logf.d("LKSchemeAdapter", "onItemClick(), Event ignored, View: %s, ViewHolder: %s", item, vh);
+            return;
+        }
+
         if(item.reminder) {
             item.reminder = false;
-            final Animation anim = AnimationUtils.loadAnimation(getContext(), R.anim.heart_out);
-            anim.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {}
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    vh.heart.setImageResource(R.drawable.heart_not_clicked);
-                    vh.heart.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.heart_in));
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {}
-            });
-            vh.heart.startAnimation(anim);
-
-            SharedPreferences sharedPref = getContext().getSharedPreferences("lundkarnevalen",Context.MODE_PRIVATE);
-            String set = sharedPref.getString("notifications", "");
-            String split[] = set.split(";");
-            set = "";
-            for(int i = 0;i<split.length;i++) {
-                Log.d(split[i],item.getStartTime()+item.place+item.name);
-                if(!split[i].equals(item.getStartTime() + item.place + item.name)) {
-                    set+=split[i]+";";
-                }
+            if(vh.heart != null) {
+                animateHeartOutIn(vh);
             }
 
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putString("notifications", set);
-            editor.apply();
+            removeNotificationFromPreferencesString(item);
             //notificationManager.cancel(item.getStartTime()+item.place+item.name,0);
-
-            Intent alarmIntent = new Intent(context, SchemeAlarm.class);
-
-            alarmIntent.putExtra("Title", item.name);
-            alarmIntent.putExtra("Desc", item.place+" "+item.getStartTime());
-            mAlarmSender = PendingIntent.getBroadcast(context, item.id, alarmIntent, 0);
-            AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-            am.cancel(mAlarmSender);
+            cancelAlarmNotification(item);
         } else {
             item.reminder = true;
-            final Animation anim = AnimationUtils.loadAnimation(getContext(), R.anim.heart_out);
-            anim.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {}
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    vh.heart.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.heart_in));
-                    vh.heart.setImageResource(R.drawable.heart_clicked);
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {}
-            });
-
-            vh.heart.startAnimation(anim);
+            if(vh.heart != null) {
+                animateHeartInOut(vh);
+            }
 
             Date d = new Date();
             if(item.startDate.after(d)) {
 
                 if (d.before(new Date(item.startDate.getTime() - 1000 * 30 * 60))) {
-                    context.getApplicationContext();
-                    CharSequence text = context.getString(R.string.heart_selected);
                     int duration = Toast.LENGTH_LONG;
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
+                    Toast.makeText(context, R.string.heart_selected, duration).show();
                 }
 
-                Intent alarmIntent = new Intent(context, SchemeAlarm.class);
-                alarmIntent.putExtra("Title", item.name);
-                alarmIntent.putExtra("Desc", item.place + " " + item.getStartTime());
-                mAlarmSender = PendingIntent.getBroadcast(context, item.id, alarmIntent, 0);
-                startAlarm(item.startDate);
+                createAlarmNotification(item);
             }
 
-            SharedPreferences sharedPref = getContext().getSharedPreferences("lundkarnevalen",Context.MODE_PRIVATE);
-            String set = sharedPref.getString("notifications", "");
-            set+=";"+item.getStartTime()+item.place+item.name;
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putString("notifications", set);
-            editor.apply();
+            saveNotificationToPreferencesString(item);
         }
+    }
+
+    private void saveNotificationToPreferencesString(LKSchemeItem item) {
+        SharedPreferences sharedPref = getContext().getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE);
+        String set = sharedPref.getString(PREFERENCES_KEY_NOTIFICATIONS, "");
+        set+=";"+item.getStartTime()+item.place+item.name;
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(PREFERENCES_KEY_NOTIFICATIONS, set);
+        editor.apply();
+    }
+
+    private void createAlarmNotification(LKSchemeItem item) {
+        Intent alarmIntent = new Intent(context, SchemeAlarm.class);
+        alarmIntent.putExtra("Title", item.name);
+        alarmIntent.putExtra("Desc", item.place + " " + item.getStartTime());
+        mAlarmSender = PendingIntent.getBroadcast(context, item.id, alarmIntent, 0);
+        startAlarm(item.startDate);
+    }
+
+    private void cancelAlarmNotification(LKSchemeItem item) {
+        Intent alarmIntent = new Intent(context, SchemeAlarm.class);
+        alarmIntent.putExtra("Title", item.name);
+        alarmIntent.putExtra("Desc", item.place+" "+item.getStartTime());
+        mAlarmSender = PendingIntent.getBroadcast(context, item.id, alarmIntent, 0);
+        AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        am.cancel(mAlarmSender);
+    }
+
+    private void removeNotificationFromPreferencesString(LKSchemeItem item) {
+        SharedPreferences sharedPref = getContext().getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE);
+        String set = sharedPref.getString(PREFERENCES_KEY_NOTIFICATIONS, "");
+        String split[] = set.split(";");
+        set = "";
+        for(int i = 0;i<split.length;i++) {
+            Log.d(split[i], item.getStartTime() + item.place + item.name);
+            if(!split[i].equals(item.getStartTime() + item.place + item.name)) {
+                set+=split[i]+";";
+            }
+        }
+
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(PREFERENCES_KEY_NOTIFICATIONS, set);
+        editor.apply();
+    }
+
+    private void animateHeartOutIn(final ViewHolder vh) {
+        final Animation anim = AnimationUtils.loadAnimation(getContext(), R.anim.heart_out);
+        anim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {}
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                vh.heart.setImageResource(R.drawable.heart_not_clicked);
+                vh.heart.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.heart_in));
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+        });
+        vh.heart.startAnimation(anim);
+    }
+
+    private void animateHeartInOut(final ViewHolder vh) {
+        final Animation anim = AnimationUtils.loadAnimation(getContext(), R.anim.heart_out);
+        anim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                vh.heart.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.heart_in));
+                vh.heart.setImageResource(R.drawable.heart_clicked);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        });
+        vh.heart.startAnimation(anim);
     }
 
     public static class LKSchemeItem {

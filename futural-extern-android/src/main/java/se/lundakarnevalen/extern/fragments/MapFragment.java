@@ -236,14 +236,16 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                if(isDetached()) return; // Do nothing if fragment has been detached
                 final float[] dst = new float[2];
                 mapView.getPointFromCoordinates(lat, lng, dst);
                 mapView.panTo(dst[0], dst[1]);
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mapView.getPointFromCoordinates(lat, lng, dst);
-                        mapView.triggerClick(dst[0], dst[1]);
+                    if(isDetached()) return; // Do nothing if fragment has been detached
+                    mapView.getPointFromCoordinates(lat, lng, dst);
+                    mapView.triggerClick(dst[0], dst[1]);
                     }
                 }, 700);
             }

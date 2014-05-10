@@ -4,6 +4,7 @@ import android.graphics.Picture;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -91,7 +92,10 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
                     waitForLayout();
                     final float scale = calculateMinZoom(mTrainView, picture);
                     mTrainView.setSvg(picture, scale, mMatrixValues);
-                    getActivity().runOnUiThread(onSvgLoaded);
+                    FragmentActivity activity = getActivity();
+                    if (activity != null){ // if the activity/fragment is closed before completion
+                        activity.runOnUiThread(onSvgLoaded);
+                    }
                 } catch (InterruptedException e) {
                     Log.wtf(LOG_TAG, "Future was interrupted", e);
                 } catch (ExecutionException e) {
