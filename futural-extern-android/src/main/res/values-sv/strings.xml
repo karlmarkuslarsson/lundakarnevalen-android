@@ -490,5 +490,7 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
 </string>
     <string name="heart_selected">Du får nu en påminnelse 1 timme innan eventet startar</string>
     <string name="full_list">HELA SCHEMAT</string>
+    <string name="info_title">INFORMATION</string>
+    <string name="info" />
 
 </resources>
