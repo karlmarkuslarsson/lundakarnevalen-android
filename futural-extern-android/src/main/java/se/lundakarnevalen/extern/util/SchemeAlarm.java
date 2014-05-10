@@ -7,12 +7,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
 
 import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
-import se.lundakarnevalen.extern.android.SplashScreenActivity;
-import se.lundakarnevalen.extern.fragments.SchemeFragment;
 
 /**
  * Created by Markus on 2014-05-05.

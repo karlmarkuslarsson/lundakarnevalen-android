@@ -1,7 +1,6 @@
 package se.lundakarnevalen.extern.widget;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -9,7 +8,6 @@ import android.graphics.Picture;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.util.AttributeSet;
-import android.util.SparseArray;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.caverock.androidsvg.SVG;
@@ -17,19 +15,7 @@ import com.caverock.androidsvg.SVGParseException;
 import com.nineoldandroids.animation.PropertyValuesHolder;
 import com.nineoldandroids.animation.ValueAnimator;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import se.lundakarnevalen.extern.android.R;
-import se.lundakarnevalen.extern.data.DataContainer;
-import se.lundakarnevalen.extern.data.DataElement;
-import se.lundakarnevalen.extern.data.DataType;
-import se.lundakarnevalen.extern.map.Marker;
-import se.lundakarnevalen.extern.util.BitmapUtil;
 import se.lundakarnevalen.extern.util.Logf;
 
 import static android.graphics.Matrix.MSCALE_X;

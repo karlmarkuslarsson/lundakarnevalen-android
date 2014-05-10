@@ -11,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import se.lundakarnevalen.extern.android.ContentActivity;
@@ -22,7 +21,6 @@ import se.lundakarnevalen.extern.fragments.LandingPageFragment;
 import se.lundakarnevalen.extern.fragments.MelodyFragment;
 import se.lundakarnevalen.extern.fragments.MusicFragment;
 import se.lundakarnevalen.extern.fragments.ParkingFragment;
-import se.lundakarnevalen.extern.fragments.TrainMapFragment;
 
 
 /**

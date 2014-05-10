@@ -7,7 +7,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 import se.lundakarnevalen.extern.android.R;
-import se.lundakarnevalen.extern.widget.LKSchemeAdapter;
 
 /**
  * Created by Markus on 2014-04-21.

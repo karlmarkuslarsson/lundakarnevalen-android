@@ -4,29 +4,30 @@ package se.lundakarnevalen.extern.fragments;
  * Created by Markus on 2014-04-24.
  */
 
-        import se.lundakarnevalen.extern.android.ContentActivity;
-        import se.lundakarnevalen.extern.android.R;
-        import se.lundakarnevalen.extern.sound.MySoundFactory;
-        import android.annotation.SuppressLint;
-        import android.content.Context;
-        import android.content.res.Resources;
-        import android.graphics.Matrix;
-        import android.os.Bundle;
-        import android.os.Handler;
-        import android.util.Log;
-        import android.view.Display;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.View.OnClickListener;
-        import android.view.ViewGroup;
-        import android.view.WindowManager;
-        import android.view.animation.AccelerateDecelerateInterpolator;
-        import android.view.animation.Animation;
-        import android.view.animation.LinearInterpolator;
-        import android.view.animation.TranslateAnimation;
-        import android.widget.ImageView;
-        import android.widget.RelativeLayout;
-        import android.widget.TextView;
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Matrix;
+import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
+import android.view.Display;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.TranslateAnimation;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import se.lundakarnevalen.extern.android.ContentActivity;
+import se.lundakarnevalen.extern.android.R;
+import se.lundakarnevalen.extern.sound.MySoundFactory;
 
 @SuppressLint("DefaultLocale")
 public class MelodyFragment extends LKFragment {

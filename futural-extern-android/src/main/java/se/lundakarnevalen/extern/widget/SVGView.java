@@ -1,7 +1,6 @@
 package se.lundakarnevalen.extern.widget;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Picture;
@@ -10,7 +9,6 @@ import android.graphics.RectF;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
@@ -22,7 +20,10 @@ import com.nineoldandroids.animation.ValueAnimator;
 
 import se.lundakarnevalen.extern.util.Logf;
 
-import static android.graphics.Matrix.*;
+import static android.graphics.Matrix.MSCALE_X;
+import static android.graphics.Matrix.MSCALE_Y;
+import static android.graphics.Matrix.MTRANS_X;
+import static android.graphics.Matrix.MTRANS_Y;
 
 /**
  * Created by Filip on 2014-04-23.

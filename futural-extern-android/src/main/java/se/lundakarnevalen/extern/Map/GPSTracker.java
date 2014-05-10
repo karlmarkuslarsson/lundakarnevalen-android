@@ -5,7 +5,6 @@ import android.app.Service;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.RectF;
 import android.location.Criteria;
 import android.location.GpsStatus;
 import android.location.Location;

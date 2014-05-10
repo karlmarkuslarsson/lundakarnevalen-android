@@ -1,8 +1,5 @@
 package se.lundakarnevalen.extern.util;
 
-import android.app.Activity;
-import android.os.AsyncTask;
-
 /**
  * Created by Filip on 2014-03-27.
  */

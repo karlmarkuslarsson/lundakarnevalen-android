@@ -13,7 +13,6 @@ import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 
 import se.lundakarnevalen.extern.android.R;
-import se.lundakarnevalen.extern.fragments.TrainMapFragment;
 import se.lundakarnevalen.extern.util.Timer;
 
 /**

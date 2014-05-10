@@ -1,7 +1,6 @@
 package se.lundakarnevalen.extern.widget;
 
 import android.content.Context;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -13,7 +12,6 @@ import android.graphics.RectF;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
@@ -37,8 +35,8 @@ import se.lundakarnevalen.extern.map.Marker;
 import se.lundakarnevalen.extern.util.BitmapUtil;
 import se.lundakarnevalen.extern.util.Logf;
 
-import static android.graphics.Matrix.*;
-import static se.lundakarnevalen.extern.util.ViewUtil.*;
+import static android.graphics.Matrix.MSCALE_X;
+import static se.lundakarnevalen.extern.util.ViewUtil.dpToPx;
 
 /**
  * Created by Filip on 2014-04-27.

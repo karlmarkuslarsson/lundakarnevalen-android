@@ -2,31 +2,28 @@ package se.lundakarnevalen.extern.android;
 
 import android.app.Dialog;
 import android.content.res.Resources;
-import android.media.MediaPlayer;
-import android.os.AsyncTask;
+import android.graphics.Color;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.view.Gravity;
-import android.view.View.OnClickListener;
-import android.graphics.Color;
-import android.support.v4.app.FragmentManager;
-import android.util.Log;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v4.app.Fragment;
-import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
@@ -42,13 +39,12 @@ import se.lundakarnevalen.extern.fragments.OtherFragment;
 import se.lundakarnevalen.extern.fragments.SchemeFragment;
 import se.lundakarnevalen.extern.fragments.TrainMapFragment;
 import se.lundakarnevalen.extern.map.GPSTracker;
-import se.lundakarnevalen.extern.map.MapLoader;
 import se.lundakarnevalen.extern.map.TrainMapLoader;
 import se.lundakarnevalen.extern.util.Logf;
 import se.lundakarnevalen.extern.widget.LKMapView;
 import se.lundakarnevalen.extern.widget.LKRightMenuArrayAdapter;
 
-import static se.lundakarnevalen.extern.util.ViewUtil.*;
+import static se.lundakarnevalen.extern.util.ViewUtil.get;
 
 public class ContentActivity extends ActionBarActivity {
     public static final String TAG_MAP = "map";
@@ -192,19 +188,15 @@ public class ContentActivity extends ActionBarActivity {
         tintManager.setStatusBarTintColor(getResources().getColor(R.color.red));
         tintManager.setNavigationBarTintEnabled(true);
         tintManager.setNavigationBarTintColor(getResources().getColor(R.color.red));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Log.d("fgewgfwegf", "gewgweg");
-            find(R.id.extra_padding_top, View.class).setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, getStatusBarHeight()));
-        }
     }
 
     private ActionBar setupActionbar() {
-        LayoutInflater inflater = LayoutInflater.from(this);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        LayoutInflater inflater = LayoutInflater.from(this);
         View view = mActionBarView = inflater.inflate(R.layout.action_bar_layout, null);
         actionBar.setCustomView(view);
         return actionBar;
@@ -325,11 +317,7 @@ public class ContentActivity extends ActionBarActivity {
         b.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-
-//                MusicThread thread = new MusicThread();
-//                thread.execute();
-                loadFragmentAddingBS(TrainMapFragment.create(true));
-
+            loadFragmentAddingBS(TrainMapFragment.create(true));
             }
         });
         b.setVisibility(View.VISIBLE);
@@ -337,16 +325,9 @@ public class ContentActivity extends ActionBarActivity {
         b.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-
-//                MusicThread thread = new MusicThread();
-//                thread.execute();
-
                 mMapFragment.zoomToMarker();
-
-
             }
         });
-
         b.setVisibility(View.VISIBLE);
     }
 
@@ -356,28 +337,17 @@ public class ContentActivity extends ActionBarActivity {
         b.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                loadFragmentAddingBS(mMapFragment);
+            loadFragmentAddingBS(mMapFragment);
             }
         });
         b.setVisibility(View.VISIBLE);
         b = get(mActionBarView, R.id.gps_marker, ImageButton.class);
-
         b.setVisibility(View.INVISIBLE);
     }
 
     public void inactivateTrainButton() {
         get(mActionBarView, R.id.train, ImageButton.class).setVisibility(View.INVISIBLE);
         get(mActionBarView, R.id.gps_marker, ImageButton.class).setVisibility(View.INVISIBLE);
-    }
-
-    public int getStatusBarHeight() {
-        int result = 0;
-        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            result = getResources().getDimensionPixelSize(resourceId);
-        }
-        return result;
     }
 
     public void ensureSelectedFilters(DataType[] types) {
@@ -432,25 +402,5 @@ public class ContentActivity extends ActionBarActivity {
                 }
             }
         }
-    }
-
-    private class MusicThread extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected Void doInBackground(Void... voids) {
-            MediaPlayer mp = MediaPlayer.create(ContentActivity.this, R.raw.train_sound);
-            mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-
-                @Override
-                public void onCompletion(MediaPlayer mp) {
-                    mp.release();
-                }
-
-            });
-            mp.start();
-            Log.d("Train", "TRAIN");
-
-            return null;
-        }
-        //Code goes here
     }
 }

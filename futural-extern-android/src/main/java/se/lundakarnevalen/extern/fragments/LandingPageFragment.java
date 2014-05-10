@@ -1,7 +1,5 @@
 package se.lundakarnevalen.extern.fragments;
 
-import static se.lundakarnevalen.extern.util.ViewUtil.*;
-
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -21,9 +19,9 @@ import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.data.DataElement;
 import se.lundakarnevalen.extern.data.DataType;
-import se.lundakarnevalen.extern.widget.LKRightMenuArrayAdapter;
 import se.lundakarnevalen.extern.widget.LKSchemeAdapter;
-import se.lundakarnevalen.extern.widget.SVGView;
+
+import static se.lundakarnevalen.extern.util.ViewUtil.get;
 
 /**
  * Created by Markus on 2014-04-16.
