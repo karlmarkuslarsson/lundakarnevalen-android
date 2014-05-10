@@ -242,7 +242,7 @@ public class SVGView extends View {
     }
 
     public boolean translate(float distanceX, float distanceY) {
-        
+
         mMatrix.getValues(mMatrixValues);
         mMatrixValues[MTRANS_X] = distanceX;
         mMatrixValues[MTRANS_Y] = distanceY;
