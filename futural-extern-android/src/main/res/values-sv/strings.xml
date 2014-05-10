@@ -271,7 +271,7 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     </string>
     <string name="taltnojen_question">VAD ÄR TÄLTNÖJEN?</string>
     <string name="taltnojen_info">Det finns 20 tältnöjen som innehåller en kort och karnevalistisk
-        upplevelse, för att veta mer om varje enskilt tältnöje, var god köp vårt programblad som
+        upplevelse. För att veta mer om varje enskilt tältnöje, var god köp vårt programblad som
         finns tillgängligt på shoppen inne på karnevalsområdet.</string>
     <string name="musik" >MUSIKEN</string>
     <string name="musik_question">VAD ÄR MUSIKEN?</string>
@@ -402,12 +402,11 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
 
     <string name="tombolan_question">VAD ÄR TOMBOLAN?</string>
     <string name="tombolan_info">Tombolan sprider karnevalsglädje genom de spel och tävlingar som
-        kommer att finnas på området. Vi skapar de mest fantastiska och knäppa spelbodar som Liseberg
+        finns på området. Vi skapar de mest fantastiska och knäppa spelbodar som Liseberg
         aldrig sett genom musik, lampor, satir och futurism.</string>
 
 
-    <string name="smanojen_info">Smånöjen är något för dig som vill uppleva musik, spontanitet och
-        skrattintensivitet är smånöjen det perfekta! Biljetter säljs på karnevalsområdet och
+    <string name="smanojen_info">För dig som vill uppleva musik, spontanitet och skrattintensivitet är våra Smånöjen det perfekta alternativet! Biljetter säljs på karnevalsområdet och
         föreställningarna visas så ofta som bara är möjligt. Ta tillvara på din spontanitet och
         tillåt dig att, för en halvtimme, ”fånga framtiden” i våra smånöjen.</string>
 
