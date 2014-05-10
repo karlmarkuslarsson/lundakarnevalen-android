@@ -125,7 +125,7 @@ public class ParkingFragment extends LKFragment{
         //animX2.start();
 
         cloud = (ImageView) rootView.findViewById(R.id.cloud3);
-        a = new TranslateAnimation(0,width+30,0 ,0);
+        a = new TranslateAnimation(0,width+60,0 ,0);
         a.setInterpolator(new AccelerateDecelerateInterpolator());
         a.setInterpolator(new LinearInterpolator());
 
