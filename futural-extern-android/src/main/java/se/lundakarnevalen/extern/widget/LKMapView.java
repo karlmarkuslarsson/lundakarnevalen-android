@@ -295,7 +295,7 @@ public class LKMapView extends SVGView {
                     m.y,
                     m.x + mBubbleSize * 2.0f,
                     m.y + mBubbleSize * 2.0f);
-            normalizeToMidpointBottom(dst);
+            dst.offset(-0.5f*dst.width(), -0.5f*dst.height()); // only center in X
             canvas.drawPicture(mEntance, dst);
         } else {
             dst.set(m.x, m.y, m.x, m.y);
