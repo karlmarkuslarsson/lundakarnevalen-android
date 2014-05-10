@@ -213,11 +213,11 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
     @Override
     public void onNewLocation(double lat, double lng) {
         Logf.d(LOG_TAG, "onNewLocation(lat: %f, lng: %f)", lat, lng);
+        mGPSMarkerLat = (float) lat;
+        mGPSMarkerLng = (float) lng;
+        mTrainView.setGpsMarker(mGPSMarkerLat, mGPSMarkerLng, false);
         if(mTrainView.isWithinLatLngRange((float) lat, (float) lng)){
             isGPSWithinMap = true;
-            mGPSMarkerLat = (float) lat;
-            mGPSMarkerLng = (float) lng;
-            mTrainView.setGpsMarker(mGPSMarkerLat, mGPSMarkerLng, false);
         } else {
             isGPSWithinMap = false;
         }
