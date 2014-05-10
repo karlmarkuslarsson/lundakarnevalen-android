@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
@@ -96,6 +97,7 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
                         waitForLayout();
                         float minZoom = calculateMinZoom(mapView, picture);
                         mapView.setSvg(picture, minZoom, mMatrixValues);
+
                     } catch (Exception ex){
                         Log.wtf(LOG_TAG, "Failed to load image after timeout", ex);
                     }
