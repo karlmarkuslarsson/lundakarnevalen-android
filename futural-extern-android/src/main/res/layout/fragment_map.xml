@@ -24,8 +24,9 @@
         <se.lundakarnevalen.extern.widget.LKMapView
             android:id="@+id/map_id"
             android:keepScreenOn="true"
-            android:layout_alignParentBottom="true"
+
             android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentLeft="true"
             android:layout_width="match_parent"

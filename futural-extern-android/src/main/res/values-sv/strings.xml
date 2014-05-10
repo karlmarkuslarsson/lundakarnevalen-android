@@ -25,7 +25,7 @@
     <!-- Information about the fun -->
     <string name="kabare_question">VAD ÄR KABARÉN?</string>
     <string name="kabare_place">NORR OM DOMKYRKAN</string>
-    <string name="kabare_title">KABARÈN</string>
+    <string name="kabare_title">KABARÉN</string>
     <string name="kabare_info">Vi befinner oss i den postapokalyptiska dystopin
         efter det stora kärnvapenkriget. Världen är i ruiner, men Cabaret Apocalyptica
         gör sitt bästa för att hålla humöret uppe hos de få som är kvar. Dock är det svårt
@@ -129,11 +129,11 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="filmen_question">VAD ÄR FILMEN?</string>
     <string name="barneval_place">KRAFTS TORG</string>
     <string name="barneval_question">VAD ÄR BARNEVALEN?</string>
-    <string name="cirkus_place">TEGNÈRSPLATSEN</string>
+    <string name="cirkus_place">TEGNÉRSPLATSEN</string>
     <string name="cirkus_question">VAD ÄR CIRKUSEN?</string>
     <string name="spexet_place">STORA SCENEN AF</string>
     <string name="spexet_question">VAD ÄR SPEXET?</string>
-    <string name="showen_place">TEGNÈRS MATSALAR</string>
+    <string name="showen_place">TEGNÉRS MATSALAR</string>
     <string name="showen_question">VAD ÄR SHOWEN?</string>
     <string name="revy_place">UNIVERSITETSHUSET</string>
     <string name="revy_question">VAD ÄR REVYN?</string>
@@ -252,7 +252,7 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="undervatten_food2">KRÄMIG LAXRÖRA MED FRANSK POTATISSALLAD</string>
     <string name="undervatten_food3">FRANSK LINSSOPPA</string>
 
-    <string name="thyme_food1">KYCKLINGFILÈ MED POTATISSALLAD, TIMJAN, CITRONOLJA OCH MANGODRESSING</string>
+    <string name="thyme_food1">KYCKLINGFILÉ MED POTATISSALLAD, TIMJAN, CITRONOLJA OCH MANGODRESSING</string>
     <string name="thyme_food2">KANTARELL OCH VÄSTERBOTTENPAJ MED SALLAD OCH RHODE ISLAND DRESSING</string>
     <string name="lajka_food1">PAELLA</string>
     <string name="lajka_food2">VEGETARISK LASAGNE</string>
@@ -463,7 +463,7 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="trash_question">VAD ÄR EN SOPTUNNA?</string>
     <string name="trash_info">Här slänger du allt som inte ger dig någon karnevalist-glädje. Placerade strategiskt runt om hela området för att du inte ska behöva gå allt för långt för att bli av med sånt som kan användas till bättre saker. Tänk på att nedskräpning är dåligt och att Lund ska hålla i minst 1000 år till.</string>
     <string name="entre_info">För att gå in på karnevalsområdet behövs en entrébiljett eller ett entréband. Engångsentré kostar 60 kr och ett entréband som gör att man kan gå in och ut obegränsat under de tre dagarna kostar 200 kr. Entrébiljett/band rekommenderas att köpas på förhand då köerna in på karnevalsområdet kan vara långa under karnevalsdagarna. Barn som är 6 år eller yngre går in gratis på området.\n\nEntrébiljetter köpta på internet måste hämtas ut i någon av biljettbodarna på Clemenstorget eller Stortorget utanför karnevalsområdet.</string>
-    <string name="entre_question">VAD HITTAR JAG I ENTRÈN?</string>
+    <string name="entre_question">VAD HITTAR JAG I ENTRÉN?</string>
     <string name="foodo_place">FOODSTOCK</string>
     <string name="foodo_title">FOODOO CHILD</string>
     <string name="foodo_question">VAD ÄR FOODOO CHILD?</string>

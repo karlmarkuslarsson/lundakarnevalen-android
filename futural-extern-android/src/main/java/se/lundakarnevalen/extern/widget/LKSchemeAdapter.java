@@ -147,8 +147,8 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
                 @Override
                 public void onAnimationRepeat(Animation animation) {}
             });
-            vh.heart.startAnimation(anim);
 
+            vh.heart.startAnimation(anim);
 
             Date d = new Date();
             if(item.startDate.after(d)) {

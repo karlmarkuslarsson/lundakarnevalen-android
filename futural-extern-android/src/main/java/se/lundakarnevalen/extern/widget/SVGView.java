@@ -1,6 +1,7 @@
 package se.lundakarnevalen.extern.widget;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Picture;
@@ -9,6 +10,7 @@ import android.graphics.RectF;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
@@ -29,6 +31,8 @@ public class SVGView extends View {
     private static final String LOG_TAG = SVGView.class.getSimpleName();
 
     public static final boolean DEBUG = false;
+
+    public float addExtra = 0;
 
     public float mMaxZoom = 7.0f;
     public float mMidZoom = mMaxZoom /3;
@@ -57,7 +61,9 @@ public class SVGView extends View {
 
 
     public SVGView(Context context) {
+
         super(context);
+
         init(context);
     }
 
@@ -67,11 +73,17 @@ public class SVGView extends View {
     }
 
     public SVGView(Context context, AttributeSet attrs, int defStyle) {
+
         super(context, attrs, defStyle);
+
         init(context);
     }
 
     private void init(Context context){
+        if(Build.VERSION.SDK_INT < 11)    {
+
+            addExtra = 38*3;
+        }
         mMatrix = new Matrix();
         mSavedMatrix = new Matrix();
         mInverseMatrix = new Matrix();
@@ -269,6 +281,7 @@ public class SVGView extends View {
         t0 = System.currentTimeMillis();
         //canvas.save();
         filterMatrix(mMatrix);
+
         canvas.setMatrix(mMatrix);
         onDrawObjects(canvas);
         //canvas.restore();
@@ -287,11 +300,13 @@ public class SVGView extends View {
     }
 
     protected void filterMatrix(Matrix matrix) {
+
         matrix.getValues(mMatrixValues);
+
 
         // screenW - svgW * scale is lower limit
         mMatrixValues[MTRANS_X] = limit(mViewEndPoint[AXIS_X] - mPictureEndPoint[AXIS_X] * mMatrixValues[MSCALE_X], mMatrixValues[MTRANS_X], 0);
-        mMatrixValues[MTRANS_Y] = limit(mViewEndPoint[AXIS_Y] - mPictureEndPoint[AXIS_Y] * mMatrixValues[MSCALE_Y], mMatrixValues[MTRANS_Y], 0);
+        mMatrixValues[MTRANS_Y] = limit(addExtra+mViewEndPoint[AXIS_Y] - mPictureEndPoint[AXIS_Y] * (mMatrixValues[MSCALE_Y]), mMatrixValues[MTRANS_Y], addExtra);
 
         mMatrixValues[MSCALE_X] = limit(mMinZoom, mMatrixValues[MSCALE_X], mMaxZoom);
         mMatrixValues[MSCALE_Y] = limit(mMinZoom, mMatrixValues[MSCALE_Y], mMaxZoom);

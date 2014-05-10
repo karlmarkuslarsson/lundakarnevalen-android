@@ -86,6 +86,7 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
                     waitForLayout();
                     float minZoom = calculateMinZoom(mapView, picture);
                     mapView.setSvg(picture, minZoom, mMatrixValues);
+
                 } catch (InterruptedException e) {
                     Log.wtf(LOG_TAG, "Future was interrupted", e);
                 } catch (ExecutionException e) {

@@ -123,6 +123,7 @@ public class LKMapView extends SVGView {
 
     private void initMap(Context context) {
         if(isInEditMode()) return;
+
         mShadowInk = new Paint(Paint.ANTI_ALIAS_FLAG);
         mShadowInk.setColor(Color.argb(128, 128, 128, 128));
 
