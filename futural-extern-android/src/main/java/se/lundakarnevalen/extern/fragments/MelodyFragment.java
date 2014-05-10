@@ -75,7 +75,7 @@ public class MelodyFragment extends LKFragment {
                              Bundle savedInstanceState) {
 
 
-        final View rootView = inflater.inflate(R.layout.fragment_melody, null);
+        final View rootView = inflater.inflate(R.layout.fragment_melody, container, false);
 
         heart = (ImageView) rootView.findViewById(R.id.melody_heart);
 

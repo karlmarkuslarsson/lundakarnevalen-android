@@ -42,11 +42,9 @@ public class LandingPageFragment extends LKFragment{
         final DataElement element = bundle.getParcelable("element");
         View rootView;
         if(element.type == DataType.FOODSTOCK) {
-            rootView = inflater.inflate(R.layout.fragment_landing_page_foodstock, null);
-
+            rootView = inflater.inflate(R.layout.fragment_landing_page_foodstock, container, false);
         } else {
-
-            rootView = inflater.inflate(R.layout.fragment_landing_page, null);
+            rootView = inflater.inflate(R.layout.fragment_landing_page, container, false);
         }
 
         get(rootView,R.id.name,TextView.class).setText(element.title);
