@@ -7,6 +7,7 @@
     >
 
     <include layout="@layout/splash_clouds" />
+    <include layout="@layout/layout_clouds_moving" />
 
     <ImageView
         android:layout_width="match_parent"

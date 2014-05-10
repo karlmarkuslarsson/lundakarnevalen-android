@@ -84,7 +84,7 @@ public class ParkingFragment extends LKFragment{
         int width = display.getWidth();  // deprecated
         int height = display.getHeight();
         ImageView cloud = (ImageView) rootView.findViewById(R.id.cloud1);
-        Animation a = new TranslateAnimation(0,width,0 ,0);
+        Animation a = new TranslateAnimation(0,width+150,0 ,0);
         ImageView movingCloud = (ImageView) rootView.findViewById(R.id.cloud5);
 
         RelativeLayout.LayoutParams lp =
@@ -103,7 +103,7 @@ public class ParkingFragment extends LKFragment{
         cloud = (ImageView) rootView.findViewById(R.id.cloud2);
         //ObjectAnimator.
         //animX2.setDuration(3000);
-        a  = new TranslateAnimation(0,200,0,0);
+        a  = new TranslateAnimation(0,230,0,0);
         a.setInterpolator(new AccelerateDecelerateInterpolator());
         a.setInterpolator(new LinearInterpolator());
 
@@ -125,7 +125,7 @@ public class ParkingFragment extends LKFragment{
         //animX2.start();
 
         cloud = (ImageView) rootView.findViewById(R.id.cloud3);
-        a = new TranslateAnimation(0,width,0 ,0);
+        a = new TranslateAnimation(0,width+30,0 ,0);
         a.setInterpolator(new AccelerateDecelerateInterpolator());
         a.setInterpolator(new LinearInterpolator());
 
@@ -144,7 +144,7 @@ public class ParkingFragment extends LKFragment{
         cloud.startAnimation(a);
 
         cloud = (ImageView) rootView.findViewById(R.id.cloud4);
-        a  = new TranslateAnimation(0,250,0,0);
+        a  = new TranslateAnimation(0,250+55,0,0);
         a.setInterpolator(new AccelerateDecelerateInterpolator());
         a.setInterpolator(new LinearInterpolator());
 
