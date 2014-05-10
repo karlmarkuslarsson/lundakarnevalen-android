@@ -494,5 +494,8 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="heart_selected">You will be reminded 30 minutes before the event</string>
     <string name="info_title">INFORMATION</string>
     <string name="info" />
+    <string name="psyka_deli_menu">PSYKA-DELI</string>
+    <string name="foodo_child_menu">FOODOO CHILD</string>
+    <string name="flour_power_menu">FLOUR POWER</string>
 
 </resources>

@@ -1,0 +1,488 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ContentActivity"
+    android:background="@color/white"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <RelativeLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="180dp">
+
+            <ImageView
+                android:contentDescription="@string/picture"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/header_nagilima"
+                android:id="@+id/header_background"
+                />
+
+            <ImageView
+                android:contentDescription="@string/picture"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/header_clouds"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                />
+            <se.lundakarnevalen.extern.widget.LKTextView
+                android:text="@string/nangilima_place"
+                android:id="@+id/place"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:textColor="@color/white"
+                android:layout_marginBottom="10dp"
+                android:shadowRadius="6"
+                android:shadowDy="4"
+                android:gravity="right"
+                android:lineSpacingMultiplier="1.3"
+                android:layout_marginLeft="125dp"
+                android:shadowColor="@color/black"
+                android:textSize="16sp"/>
+
+            <se.lundakarnevalen.extern.widget.LKTextView
+                android:text="@string/nangilima_title"
+                android:id="@+id/name"
+                android:lineSpacingMultiplier="1.3"
+                android:gravity="right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:textSize="30sp"
+                android:layout_marginBottom="-15dp"
+                android:shadowRadius="6"
+                android:shadowDy="4"
+                android:shadowColor="@color/black"
+                android:textColor="@color/white"
+                android:layout_above="@id/place"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/middleLayout"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_below="@id/header"
+            android:background="@color/green_background">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="2"
+                android:baselineAligned="false">
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" >
+                </View>
+
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    >
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/middleView">
+
+
+                        <RelativeLayout
+                            android:id="@+id/open_box"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/green_button_background"
+                            >
+                            <se.lundakarnevalen.extern.widget.LKTextView
+                                android:id="@+id/open_info"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingBottom="3dp"
+                                android:paddingTop="3dp"
+                                android:paddingLeft="3dp"
+                                android:paddingRight="3dp"
+                                android:textColor="@color/white"
+                                android:textSize="10sp"
+                                />
+
+
+                        </RelativeLayout>
+
+                        <ImageView
+                            android:contentDescription="@string/picture"
+                            android:layout_width="match_parent"
+                            android:layout_height="3dp"
+                            android:layout_alignLeft="@id/open_box"
+                            android:layout_alignRight="@id/open_box"
+                            android:layout_below="@id/open_box"
+                            android:background="@drawable/scheme_shadow"
+                            />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:weightSum="2"
+                            android:layout_alignRight="@id/open_box"
+                            android:layout_alignLeft="@id/open_box"
+                            android:layout_below="@id/open_box"
+                            android:baselineAligned="false">
+
+
+                            <RelativeLayout
+                                android:id="@+id/cash_box"
+                                android:layout_weight="1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp">
+
+                                <ImageView
+                                    android:contentDescription="@string/picture"
+                                    android:layout_centerHorizontal="true"
+                                    android:id="@+id/cash_picture"
+                                    android:layout_width="28dp"
+                                    android:layout_height="14dp"
+                                    android:paddingLeft="2dp"
+                                    android:paddingTop="3dp"
+                                    android:background="@drawable/cash_logo"/>
+
+                                <se.lundakarnevalen.extern.widget.LKTextView
+                                    android:text="@string/cash"
+                                    android:layout_centerHorizontal="true"
+                                    android:id="@+id/open_info"
+                                    android:layout_marginTop="1dp"
+                                    android:layout_below="@id/cash_picture"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignLeft="@+id/cash_picture"
+                                    android:layout_alignRight="@+id/cash_picture"
+                                    android:gravity="center"
+                                    android:textColor="@color/white"
+                                    android:textSize="8dp"
+
+                                    />
+
+
+                            </RelativeLayout>
+
+
+                            <RelativeLayout
+                                android:layout_weight="1"
+                                android:id="@+id/card_box"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+
+                                >
+                                <ImageView
+                                    android:layout_centerHorizontal="true"
+                                    android:id="@+id/card_picture"
+                                    android:layout_width="28dp"
+                                    android:layout_height="14dp"
+                                    android:paddingRight="2dp"
+                                    android:paddingTop="3dp"
+                                    android:contentDescription="@string/picture"
+                                    android:background="@drawable/card_logo"/>
+                                <se.lundakarnevalen.extern.widget.LKTextView
+                                    android:text="@string/card"
+                                    android:id="@+id/open_info"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="1dp"
+                                    android:layout_below="@id/card_picture"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:layout_alignLeft="@+id/card_picture"
+                                    android:layout_alignRight="@+id/card_picture"
+                                    android:textColor="@color/white"
+                                    android:textSize="8dp"
+
+                                    />
+
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/map_box"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/middleView"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        >
+
+                        <ImageView
+                            android:contentDescription="@string/picture"
+                            android:id="@+id/map_shadow"
+                            android:layout_width="60dp"
+                            android:layout_height="3dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_alignParentBottom="true"                        android:background="@drawable/scheme_shadow"
+                            />
+
+                        <se.lundakarnevalen.extern.widget.LKTextView
+                            android:text="@string/to_map"
+                            android:id="@+id/map_info"
+                            android:layout_width="match_parent"
+                            android:layout_alignLeft="@id/map_shadow"
+                            android:layout_alignRight="@id/map_shadow"
+                            android:gravity="center"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:textSize="8dp"
+
+                            />
+
+                        <ImageView
+                            android:contentDescription="@string/picture"
+                            android:layout_marginTop="2dp"
+                            android:id="@+id/map_picture"
+                            android:layout_width="match_parent"
+                            android:layout_centerHorizontal="true"
+                            android:layout_alignLeft="@id/map_shadow"
+                            android:layout_alignRight="@id/map_shadow"
+                            android:layout_height="match_parent"
+                            android:layout_below="@id/map_info"
+                            android:layout_above="@id/map_shadow"
+                            android:background="@drawable/go_to_map"/>
+
+
+
+
+                    </RelativeLayout>
+
+
+
+                </RelativeLayout>
+            </LinearLayout>
+            <ImageView
+                android:contentDescription="@string/picture"
+                android:id="@+id/header_background"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/scheme_shadow">
+            </ImageView>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/header"
+            android:layout_marginTop="-40dp"
+            android:layout_marginLeft="40dp"
+            >
+
+            <ImageView
+                android:id="@+id/picture"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:contentDescription="@string/picture"
+                android:src="@drawable/nagilima_logo"/>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/bottom_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/middleLayout"
+
+            android:background="@color/white">
+
+            <RelativeLayout
+                android:id="@+id/menu1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <se.lundakarnevalen.extern.widget.LKTextView
+                    android:text="@string/psyka_deli_menu"
+                    android:id="@+id/menu_food"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:padding="10dp"
+                    android:textColor="@color/blue_dark"
+                    android:layout_marginTop="20dp"
+                    android:textSize="22sp"
+                    android:background="@color/beige"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:layout_alignLeft="@id/menu_food"
+                    android:layout_alignRight="@id/menu_food"
+                    android:layout_below="@id/menu_food"
+                    android:background="@color/beige_shadow"
+                    />
+
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@id/menu_food"
+                    android:id="@+id/menu_food_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <include layout="@layout/menu_food_element" >
+
+
+                    </include>
+
+
+
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/menu2"
+                android:layout_below="@id/menu1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <se.lundakarnevalen.extern.widget.LKTextView
+                    android:text="@string/foodo_child_menu"
+                    android:id="@+id/menu_food"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:padding="10dp"
+                    android:textColor="@color/blue_dark"
+                    android:layout_marginTop="20dp"
+                    android:textSize="22sp"
+                    android:background="@color/beige"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:layout_alignLeft="@id/menu_food"
+                    android:layout_alignRight="@id/menu_food"
+                    android:layout_below="@id/menu_food"
+                    android:background="@color/beige_shadow"
+                    />
+
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@id/menu_food"
+                    android:id="@+id/menu_food_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/menu3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/menu2">
+
+                <se.lundakarnevalen.extern.widget.LKTextView
+                    android:text="@string/flour_power_menu"
+                    android:id="@+id/menu_food"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:padding="10dp"
+                    android:textColor="@color/blue_dark"
+                    android:layout_marginTop="20dp"
+                    android:textSize="22sp"
+                    android:background="@color/beige"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:layout_alignLeft="@id/menu_food"
+                    android:layout_alignRight="@id/menu_food"
+                    android:layout_below="@id/menu_food"
+                    android:background="@color/beige_shadow"
+                    />
+
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@id/menu_food"
+                    android:id="@+id/menu_food_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+
+
+            <se.lundakarnevalen.extern.widget.LKTextView
+                android:text="@string/nangilima_question"
+                android:lineSpacingMultiplier="1.3"
+
+                android:id="@+id/question"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/menu3"
+                android:layout_marginRight="30dp"
+                android:textColor="@color/blue_dark"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:textSize="20sp"/>
+
+            <se.lundakarnevalen.extern.widget.LKTextView
+                android:text="@string/nangilima_info"
+                android:id="@+id/text"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/blue_dark"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_below="@id/question"
+                android:textStyle="italic"
+                android:textSize="15sp"
+                android:lineSpacingMultiplier="1.1"
+                />
+
+            <ImageView
+                android:contentDescription="@string/picture"
+                android:id="@+id/middleLayoutShadow"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/scheme_shadow">
+
+            </ImageView>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_below="@id/bottom_text"
+
+            android:background="@color/white">
+        </RelativeLayout>
+
+    </RelativeLayout>
+</ScrollView>
