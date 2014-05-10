@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import java.util.Collection;
@@ -32,6 +33,7 @@ import static se.lundakarnevalen.extern.util.ViewUtil.get;
 
 public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
     public static final int BOTTOM_MENU_ID = 2;
+    public static final float STARTZOOM = 1.3f;
 
     private float lng_marker = -1;
     private float lat_marker = -1;
@@ -45,6 +47,7 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
 
     private float[] mMatrixValues;
     private LKMapView mapView;
+    private boolean isGPSWithinMap;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -213,7 +216,7 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
 
     private float calculateMinZoom(View root, Picture pic) {
         // We assume that the svg image is 512x512 for now
-        return Math.max(
+        return STARTZOOM * Math.max(
                     root.getMeasuredHeight() * 1.0f / pic.getHeight(),
                     root.getMeasuredWidth() * 1.0f / pic.getWidth());
     }
@@ -269,19 +272,27 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
     }
 
     public void zoomToMarker() {
-        float[] dst = new float[2];
-        //TODO SKA VI HA ZOOM?
-        mapView.zoom(mapView.mMaxZoom);
-        mapView.getPointFromCoordinates(lat_marker, lng_marker, dst);
-        mapView.panTo(dst[0],dst[1]);
+        if(isGPSWithinMap){
+            float[] dst = new float[2];
+            mapView.zoom(mapView.mMidZoom);
+            mapView.panToCenterFast();
+            mapView.getPointFromCoordinates(lat_marker, lng_marker, dst);
+            mapView.panTo(dst[0], dst[1]);
+        } else {
+            Toast.makeText(getContext(), "Du är utanför området eller har ej GPS aktiverad", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
     public void onNewLocation(double lat, double lng) {
         Logf.d(LOG_TAG, "onNewLocation(lat: %f, lng: %f)", lat, lng);
         if(mapView.isWithinLatLngRange((float) lat, (float) lng)){
-
-            mapView.setGpsMarker((float) lat, (float) lng, false);
+            isGPSWithinMap = true;
+            lat_marker = (float) lat;
+            lng_marker = (float) lng;
+            mapView.setGpsMarker(lat_marker, lng_marker, false);
+        } else {
+            isGPSWithinMap = false;
         }
     }
 }
