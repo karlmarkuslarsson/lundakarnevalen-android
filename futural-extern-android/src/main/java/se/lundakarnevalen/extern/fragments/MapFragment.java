@@ -224,7 +224,9 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
 
     private void showItem(final float lat, final float lng, float showOnNextCreateScale) {
         if(showOnNextCreateScale > 0.0f){
-            mapView.zoom(showOnNextCreateScale*0.99f);
+            mapView.zoom(showOnNextCreateScale * 0.99f);
+        } else {
+            mapView.zoom(mapView.mMidZoom);
         }
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -269,7 +271,7 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
     public void zoomToMarker() {
         float[] dst = new float[2];
         //TODO SKA VI HA ZOOM?
-        mapView.zoom(SVGView.MAX_ZOOM);
+        mapView.zoom(mapView.mMaxZoom);
         mapView.getPointFromCoordinates(lat_marker, lng_marker, dst);
         mapView.panTo(dst[0],dst[1]);
     }
