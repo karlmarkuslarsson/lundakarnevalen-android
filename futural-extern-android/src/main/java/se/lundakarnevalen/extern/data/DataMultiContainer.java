@@ -69,7 +69,7 @@ public class DataMultiContainer {
                 R.string.snaxeriet,
                 R.string.snaxeriet_question,
                 R.string.snaxeriet_info,
-                1f,1f,
+                55.705345f,13.194314f,
                 R.drawable.header_snaxeriet,
                 R.drawable.snaxeriet_logo,
                 DataType.SNACKS));
@@ -110,7 +110,7 @@ public class DataMultiContainer {
                 R.string.toilets_title,
                 R.string.empty,
                 R.string.toilets_info,
-                1f,1f,
+                55.705345f,13.194597f,
                 R.drawable.header_toaletter,
                 R.drawable.toilets_logo,
                 DataType.TOILETS));
@@ -118,7 +118,7 @@ public class DataMultiContainer {
                 R.string.security_title,
                 R.string.empty,
                 R.string.security_info,
-                1f,1f,
+                55.70528f,13.194082f,
                 R.drawable.header_sakerhet,
                 R.drawable.security_logo,
                 DataType.SECURITY));
@@ -140,7 +140,7 @@ public class DataMultiContainer {
                 R.string.care_title,
                 R.string.empty,
                 R.string.care_info,
-                1f,1f,
+                55.70593f,13.195318f,
                 R.drawable.header_sjukvard,
                 R.drawable.health_logo,
                 DataType.CARE));
@@ -149,7 +149,7 @@ public class DataMultiContainer {
                 R.string.entre,
                 R.string.entre_question,
                 R.string.entre_info,
-                1f,1f,
+                55.705185f,13.193291f,
                 R.drawable.header_entre,
                 R.drawable.entre_logo_other,
                 DataType.ENTRANCE));
@@ -157,7 +157,7 @@ public class DataMultiContainer {
                 R.string.trashcan,
                 R.string.trash_question,
                 R.string.trash_info,
-                1f,1f,
+                55.704998f,13.193969f,
                 R.drawable.header_soptunna,
                 R.drawable.trash_logo_other,
                 DataType.TRASHCAN));
