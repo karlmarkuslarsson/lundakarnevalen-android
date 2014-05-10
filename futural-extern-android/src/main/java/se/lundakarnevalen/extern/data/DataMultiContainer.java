@@ -26,7 +26,7 @@ public class DataMultiContainer {
                 R.string.taltnojen_question,
                 R.string.taltnojen_info,
                 55.70483f,13.193881f,
-                R.drawable.header_showen,
+                R.drawable.header_taltnojen,
                 R.drawable.tent_logo_list,
                 DataType.TENT_FUN));
         data.add(new DataElement(
@@ -42,7 +42,7 @@ public class DataMultiContainer {
                 R.string.musik_question,
                 R.string.musik_info,
                 55.705585f,13.193805f,
-                R.drawable.header_kabaren,
+                R.drawable.header_musiken,
                 R.drawable.music_logo_list,
                 DataType.MUSIC));
 

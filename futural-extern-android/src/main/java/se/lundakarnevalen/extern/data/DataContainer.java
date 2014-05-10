@@ -316,8 +316,8 @@ public class DataContainer {
 
 
 
-        data.add(new DataElement(R.string.small_scene_place,R.string.small_scene,R.string.small_scene_info, R.string.small_scene_question, 55.7071037170697f, 13.19599227169824f, R.drawable.header_showen, R.drawable.map_scene_logo, R.drawable.scene_logo_list,DataType.SCENE));
-        data.add(new DataElement(R.string.big_scene_place,R.string.big_scene, R.string.big_scene_info,R.string.big_scene_question, 55.70558532232642f, 13.19365336887898f, R.drawable.header_showen, R.drawable.map_scene_logo,R.drawable.scene_logo_list, DataType.SCENE));
+        data.add(new DataElement(R.string.small_scene_place,R.string.small_scene,R.string.small_scene_info, R.string.small_scene_question, 55.7071037170697f, 13.19599227169824f, R.drawable.header_lillascenen, R.drawable.map_scene_logo, R.drawable.scene_logo_list,DataType.SCENE));
+        data.add(new DataElement(R.string.big_scene_place,R.string.big_scene, R.string.big_scene_info,R.string.big_scene_question, 55.70558532232642f, 13.19365336887898f, R.drawable.header_storascenen, R.drawable.map_scene_logo,R.drawable.scene_logo_list, DataType.SCENE));
 
 
 
