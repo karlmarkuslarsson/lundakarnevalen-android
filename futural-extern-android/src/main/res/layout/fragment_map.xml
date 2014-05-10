@@ -79,7 +79,6 @@
                 android:textStyle="bold"
                 android:textColor="@color/grey"
                 android:layout_width="match_parent"
-                android:drawableBottom="@color/beige_shadow"
                 android:layout_height="wrap_content" />
         </LinearLayout>
     </RelativeLayout>
