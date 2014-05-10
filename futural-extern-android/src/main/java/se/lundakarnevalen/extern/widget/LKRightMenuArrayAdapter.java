@@ -2,6 +2,8 @@ package se.lundakarnevalen.extern.widget;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 
@@ -131,18 +133,36 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
         return null;
     }
 
-    public int getIndexForIcon(int icon){
-        for (int i = 0; i < getCount(); i++) {
-            LKRightMenuListItem item = getItem(i);
-            if (item.icon == icon) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     public void add(String title, int logo, DataType[] types, boolean selected) {
         add(new LKRightMenuListItem(title, logo, types, selected));
+    }
+
+    public void ensureSelectedFilters(DataType[] types) {
+        deselectEverything();
+        List<LKRightMenuListItem> items = new ArrayList<LKRightMenuListItem>();
+        for (int i = 0; i < getCount(); i++) {
+            items.add(getItem(i));
+        }
+        Collections.sort(items, new Comparator<LKRightMenuListItem>() { // Sort by size to ensure least amount is selected
+            @Override
+            public int compare(LKRightMenuListItem lhs, LKRightMenuListItem rhs) {
+                return lhs.markerType.length < rhs.markerType.length ? -1 : 0;
+            }
+        });
+        for (DataType toBeSelected : types) {
+            boolean found = false;
+            for (LKRightMenuListItem i : items) {
+                for (DataType t : i.markerType) {
+                    if(t == toBeSelected) {
+                        i.isSelected = true;
+                        found = true;
+                        break;
+                    }
+                }
+                if(found) break; // found in the smallest set so go on with the next one
+            }
+        }
+        notifyDataSetChanged();
     }
 
     public static class LKRightMenuListItem {

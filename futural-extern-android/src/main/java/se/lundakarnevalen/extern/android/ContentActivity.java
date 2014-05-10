@@ -383,6 +383,11 @@ public class ContentActivity extends ActionBarActivity {
         return result;
     }
 
+    public void ensureSelectedFilters(DataType[] types) {
+        LKRightMenuArrayAdapter adapter = LKRightMenuArrayAdapter.class.cast(mRightMenuList.getAdapter());
+        adapter.ensureSelectedFilters(types);
+    }
+
     private class BottomMenuClickListener implements OnClickListener {
         private static final int TAG_IDX = R.id.bottom_menu_tag_idx;
         private static final int TAG_FRAGMENT = R.id.bottom_menu_tag_fragment;
