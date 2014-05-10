@@ -270,12 +270,12 @@ public class DataContainer {
 
         data.add(new DataElement(R.string.radio, R.string.radio, 55.705383f,13.194872f, R.drawable.map_radio_logo, DataType.RADIO));
 
-        data.add(new DataElement(R.string.entre, R.string.en_lundensares_guide_till_galaxen, 55.7056318688607f, 13.19298738463846f, R.drawable.map_entrance_icon, DataType.ENTRANCE));
-        data.add(new DataElement(R.string.entre, R.string.futopia, 55.7060196455733f, 13.19565500654615f, R.drawable.map_entrance_icon, DataType.ENTRANCE));
-        data.add(new DataElement(R.string.entre, R.string.botaniska_ar_3014, 55.7051354472479f, 13.19293492729316f, R.drawable.map_entrance_icon, DataType.ENTRANCE));
-        data.add(new DataElement(R.string.entre, R.string.futuralteleportal, 55.7043920444683f, 13.19313558627814f, R.drawable.map_entrance_icon, DataType.ENTRANCE));
+        data.add(new DataElement(R.string.entre, R.string.en_lundensares_guide_till_galaxen, 55.705772f,13.192751f, R.drawable.map_entrance_icon, DataType.ENTRANCE));
+        data.add(new DataElement(R.string.entre, R.string.futopia, 55.70612f,13.195738f, R.drawable.map_entrance_icon, DataType.ENTRANCE));
+        data.add(new DataElement(R.string.entre, R.string.botaniska_ar_3014, 55.705173f,13.192679f, R.drawable.map_entrance_icon, DataType.ENTRANCE));
+        data.add(new DataElement(R.string.entre, R.string.futuralteleportal, 55.704327f,13.192934f, R.drawable.map_entrance_icon, DataType.ENTRANCE));
         data.add(new DataElement(R.string.entre, R.string.intergalaktisk_invandring, 55.7037410100921f, 13.19423114265037f, R.drawable.map_entrance_icon, DataType.ENTRANCE));
-        data.add(new DataElement(R.string.entre, R.string.ett_svart_hal, 55.7044690873277f, 13.19560129896877f, R.drawable.map_entrance_icon, DataType.ENTRANCE));
+        data.add(new DataElement(R.string.entre, R.string.ett_svart_hal, 55.70448f,13.1958f, R.drawable.map_entrance_icon, DataType.ENTRANCE));
 
         data.add(new DataElement(R.string.discokaffetalt_snacks, R.string.discokaffetalt, 55.70519298937666f, 13.19317860493478f, R.drawable.map_snaxeriet_logo, DataType.SNACKS));
         data.add(new DataElement(R.string.snacks_iv_snacks, R.string.snacks_iv, 55.70585795050108f, 13.1943144945812f, R.drawable.map_snaxeriet_logo, DataType.SNACKS));
