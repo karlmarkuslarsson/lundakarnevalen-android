@@ -150,14 +150,16 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
             vh.heart.startAnimation(anim);
 
 
+            Date d = new Date();
+            if(item.startDate.after(d)) {
 
-
-            if(item.startDate.after(new Date())) {
-                context.getApplicationContext();
-                CharSequence text = context.getString(R.string.heart_selected);
-                int duration = Toast.LENGTH_LONG;
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
+                if (d.before(new Date(item.startDate.getTime() - 1000 * 60 * 60))) {
+                    context.getApplicationContext();
+                    CharSequence text = context.getString(R.string.heart_selected);
+                    int duration = Toast.LENGTH_LONG;
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }
 
                 Intent alarmIntent = new Intent(context, SchemeAlarm.class);
                 alarmIntent.putExtra("Title", item.name);

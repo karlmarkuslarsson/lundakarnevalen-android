@@ -130,8 +130,15 @@ public class DataContainer {
                 R.drawable.map_nagilima_logo,
                 DataType.FOODSTOCK));
 
+        data.add(new DataElement(
+                R.string.info,
+                R.string.info_title,
+                55.70512f,13.194211f,
+                R.drawable.map_info,
+                DataType.INFO));
 
-                ArrayList<Integer> menu = new ArrayList<Integer>();
+
+        ArrayList<Integer> menu = new ArrayList<Integer>();
         ArrayList<String> menuPrice = new ArrayList<String>();
         menu.add(R.string.undervatten_food1);
         menu.add(R.string.undervatten_food2);
