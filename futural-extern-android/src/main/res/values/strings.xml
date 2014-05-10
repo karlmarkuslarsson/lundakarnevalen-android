@@ -10,8 +10,6 @@
     <string name="wc">WC</string>
     <string name="show_all">SHOW ALL</string>
     <string name="show_only">SHOW ONLY</string>
-    <string name="scheme">SCHEDULE</string>
-    <string name="full_list">FULL SCHEDULE</string>
 
     <string name="other">OTHER</string>
     <string name="tent">TENT</string>
@@ -20,13 +18,11 @@
 
     <!-- scheme -->
     <string name="my_scheme">MY SCHEDULE</string>
+    <string name="scheme">SCHEDULE</string>
+    <string name="full_list">FULL SCHEDULE</string>
     <string name="saturday">SATURDAY</string>
 
-
-
     <string name="heart">\u2764</string>
-
-
 
     <string name="ipsum">
         Bacon ipsum dolor sit amet cow corned beef pig, biltong swine tri-tip short loin turducken strip steak meatball rump. T-bone doner salami ball tip swine leberkas ground round chuck. Short ribs pork drumstick landjaeger salami venison capicola shank filet mignon boudin. \n\n Jowl venison turducken corned beef short ribs chicken flank hamburger. Shoulder salami strip steak chuck. Pancetta rump kevin leberkas capicola salami kielbasa venison porchetta fatback turkey ham hock sirloin hamburger. Pork chop ground round capicola biltong landjaeger andouille.
@@ -58,9 +54,9 @@
     <string name="revy_place">UNIVERSITETSHUSET</string>
     <string name="revy_question">WHAT IS THE REVUE?</string>
 
-    <string name="kabare_question">WHAT IS THE KABARÉ?</string>
+    <string name="kabare_question">WHAT IS THE CABARET?</string>
     <string name="kabare_place">NORTH OF DOMKYRKAN</string>
-    <string name="kabare_title">THE KABARÉ</string>
+    <string name="kabare_title">THE CABARET</string>
     <string name="kabare_info">Vi befinner oss i den postapokalyptiska dystopin
         efter det stora kärnvapenkriget. Världen är i ruiner, men Cabaret Apocalyptica
         gör sitt bästa för att hålla humöret uppe hos de få som är kvar. Dock är det svårt
@@ -457,7 +453,7 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
 
 <string name="snaxeriet">THE SNAXERY</string>
     <string name="snaxeriet_info">Letar du efter framtidens snacks? Du har kommit helt rätt!</string>
-    <string name="snaxeriet_question"></string>
+    <string name="snaxeriet_question"/>
     <string name="toilets_info">Nöden har ingen lag, sägs det. Därför är Karnevalen så futural att flertalet toaletter har placerats ut runt om på området. Var du än befinner dig, kommer du inte ha långt till ett rum där du kan pudra näsan. En automatic poo remover.</string>
     <string name="security_info">Karnevalsområdet har även en egen polisstation (se karta). Här kan du till exempel anmäla en stöld eller lämna in hittegods, och få hjälp med nästan allt som du får hjälp med på en vanlig polisstation.</string>
     <string name="care_info">På området finns en sjukstuga (se karta) med läkare och sjuksköterskor som mer än gärna plåstrar om dig när du blir skadad, det är bara att gå dit! Utöver detta så kan du få hjälp av sjukvårdsteam som hela tiden rör sig på området.</string>
@@ -486,7 +482,7 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="futuautomat">FUTUAUTOMAT</string>
     <string name="tidsmaskin">TIME MACHINE</string>
     <string name="music_title">MUSIC</string>
-    <string name="nangilima_place"></string>
+    <string name="nangilima_place"/>
     <string name="nangilima_title">FOODSTOCK</string>
     <string name="nangilima_question">WHAT IS FOODSTOCK?</string>
     <string name="nangilima_info">Lundakarnevalen framtidssatsar och lanserar det helt nya området Foodstock. Vi öppnar upp en värld fylld av blommor, bin, musik, mat och nöje. På vårt nya område uppe vid Gamla Kirurgen välkomnar vi dig för ytterligare karnevalsupplevelser och förlänger känslan av karneval lite längre. Fred, kärlek och förståelse - i en tidigare oskådad symbios! Unna dig lite karnevalistiska upptåg bland våra tältnöjen eller vinn fina eller ofina priser i tombolabodarna. Vila upp dig på vår uteservering och ät av vår amerikansk-inspirerade meny eller ta dig upp till grillen och få lika god mat - fast med mer grillyta.\n\nPå scenen finns underhållning dag, kväll och natt. Under lunchtid erbjuder vi underhållning som är mer familjeanpassad, och under eftermiddag och kväll satsar vi för fullt på musik från världens alla hörn - raggae, folk, indie, hiphop och en massa annat!\n\nFramåt natten skruvar vi upp tempot för att tillsammans med några av Sveriges största inom deep- och tech-house skapa världens läckraste förfest. Vi utlovar stämning och drag som hade fått Jimi Hendrix att bli högerhänt!
@@ -502,5 +498,6 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="foodo_child_food1">Kreolsk jambalaya med korv och kyckling</string>
     <string name="foodo_child_food2">Vetekornspilaff med grillade grönsaker</string>
     <string name="flour_power_food1">Klassiskt brännvinsbord</string>
+    <string name="gps_toast">You are out of range or has not GPS enabled</string>
 
 </resources>

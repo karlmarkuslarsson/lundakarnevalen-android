@@ -27,6 +27,8 @@ import se.lundakarnevalen.extern.util.Logf;
  */
 public class GPSTracker extends Service implements LocationListener, GpsStatus.Listener {
     private static final String LOG_TAG = GPSTracker.class.getSimpleName();
+    private static final boolean DEBUG = false;
+    
     public static final int UPDATE_DELAY_MILLIS = 20000;
     public static final int INITAL_DELAY_MILLIS = 1000;
     public static final int REQUERED_ACCURACY_METERS = 200;
@@ -59,7 +61,7 @@ public class GPSTracker extends Service implements LocationListener, GpsStatus.L
     double longitude;
 
     // The minimum distance to change Updates in meters
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 0; // 2 meters
+    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 5; // 2 meters
 
     // The minimum time between updates in milliseconds
     private static final long MIN_TIME_BW_UPDATES = 10000; // 1 sec
@@ -85,10 +87,10 @@ public class GPSTracker extends Service implements LocationListener, GpsStatus.L
         Criteria criteria = new Criteria();
         criteria.setAccuracy(Criteria.ACCURACY_FINE);
         String bestProvider = mLocationManager.getBestProvider(criteria, true);
-        mLocationManager.requestLocationUpdates(bestProvider, MIN_TIME_BW_UPDATES, 0, this);
+        mLocationManager.requestLocationUpdates(bestProvider, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
 
         if(!LocationManager.GPS_PROVIDER.equalsIgnoreCase(bestProvider)){
-            mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_BW_UPDATES, 0, this);
+            mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
             mLocationManager.addGpsStatusListener(this);
         }
     }
@@ -141,18 +143,21 @@ public class GPSTracker extends Service implements LocationListener, GpsStatus.L
         final double lat = location.getLatitude();
         final double lng = location.getLongitude();
         if (location.getAccuracy() < REQUERED_ACCURACY_METERS) {
-            // We only care if inside LUNDAGARD
+            // We only care if accuracy is good engough
             Logf.d(LOG_TAG, "(%s) Posting location: lat %f, lng %f, acc:%f", location.getProvider(), lat, lng, location.getAccuracy());
             this.location = location;
+
+            for (GPSListener l : mListeners) {
+                if(DEBUG) {
+                    l.onNewLocation(55.705206, 13.192650); // Push fake coordinates
+                } else {
+                    l.onNewLocation(lat, lng);
+                }
+            }
         } else {
             Logf.d(LOG_TAG, "(%s) Ignoring location: lat %f, lng %f, acc:%f", location.getProvider(), lat, lng, location.getAccuracy());
         }
 
-        for (GPSListener l : mListeners) {
-            Logf.d(LOG_TAG, "Delivering location to %s: %f, %f", l, lat, lng);
-            l.onNewLocation(lat, lng);
-            //l.onNewLocation(55.705734, 13.192013); // use to get fake coordinates
-        }
     }
 
     @Override

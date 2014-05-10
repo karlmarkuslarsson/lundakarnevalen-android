@@ -84,7 +84,7 @@
     undergång. Men är det egentligen en slump att det blir just hon? Under tiden som hon
     tvingas vänja sig vid sina nyvunna superkrafter, får vi stifta bekantskap med den nördige
     Filip. I sällskap av hennes nyfunne vän får vi följa våra hjältar genom hackerattacker,
-    biljakter och slutligen i den avgörande kampen mot de onda i Sveriges första superhjältefilm...
+    biljakter och slutligen i den avgörande kampen mot de onda i Sveriges första superhjältefilm…
     </string>
 
     <!-- Information about the food -->
@@ -496,5 +496,6 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="foodo_child_food1">Kreolsk jambalaya med korv och kyckling</string>
     <string name="foodo_child_food2">Vetekornspilaff med grillade grönsaker</string>
     <string name="flour_power_food1">Klassiskt brännvinsbord</string>
+    <string name="gps_toast">Du är utanför området eller har ej GPS aktiverad</string>
 
 </resources>

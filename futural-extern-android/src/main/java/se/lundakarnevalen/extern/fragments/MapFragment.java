@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import java.util.Collection;
@@ -27,15 +28,15 @@ import se.lundakarnevalen.extern.map.Marker;
 import se.lundakarnevalen.extern.util.Delay;
 import se.lundakarnevalen.extern.util.Logf;
 import se.lundakarnevalen.extern.widget.LKMapView;
-import se.lundakarnevalen.extern.widget.SVGView;
 
 import static se.lundakarnevalen.extern.util.ViewUtil.get;
 
 public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
     public static final int BOTTOM_MENU_ID = 2;
+    public static final float STARTZOOM = 1.3f;
 
-    private float lng_marker = -1;
-    private float lat_marker = -1;
+    private float mGpsMarkerLat = -1;
+    private float mGpsMarkerLng = -1;
 
     private float showOnNextCreateLat = -1.0f;
     private float showOnNextCreateLng = -1.0f;
@@ -46,6 +47,7 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
 
     private float[] mMatrixValues;
     private LKMapView mapView;
+    private boolean isGPSWithinMap;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -166,7 +168,7 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
                 }
             }, 500);
         }
-        mapView.setGpsMarker(lat_marker, lng_marker, (savedInstanceState != null));
+        mapView.setGpsMarker(mGpsMarkerLat, mGpsMarkerLng, (savedInstanceState != null));
 
         return root;
     }
@@ -216,7 +218,7 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
 
     private float calculateMinZoom(View root, Picture pic) {
         // We assume that the svg image is 512x512 for now
-        return Math.max(
+        return STARTZOOM * Math.max(
                     root.getMeasuredHeight() * 1.0f / pic.getHeight(),
                     root.getMeasuredWidth() * 1.0f / pic.getWidth());
     }
@@ -272,19 +274,27 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
     }
 
     public void zoomToMarker() {
-        float[] dst = new float[2];
-        //TODO SKA VI HA ZOOM?
-        mapView.zoom(mapView.mMaxZoom);
-        mapView.getPointFromCoordinates(lat_marker, lng_marker, dst);
-        mapView.panTo(dst[0],dst[1]);
+        if(isGPSWithinMap){
+            float[] dst = new float[2];
+            mapView.zoom(mapView.mMidZoom);
+            mapView.panToCenterFast();
+            mapView.getPointFromCoordinates(mGpsMarkerLat, mGpsMarkerLng, dst);
+            mapView.panTo(dst[0], dst[1]);
+        } else {
+            Toast.makeText(getContext(), R.string.gps_toast, Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
     public void onNewLocation(double lat, double lng) {
         Logf.d(LOG_TAG, "onNewLocation(lat: %f, lng: %f)", lat, lng);
         if(mapView.isWithinLatLngRange((float) lat, (float) lng)){
-
-            mapView.setGpsMarker((float) lat, (float) lng, false);
+            isGPSWithinMap = true;
+            mGpsMarkerLat = (float) lat;
+            mGpsMarkerLng = (float) lng;
+            mapView.setGpsMarker(mGpsMarkerLat, mGpsMarkerLng, false);
+        } else {
+            isGPSWithinMap = false;
         }
     }
 }

@@ -358,9 +358,17 @@ public class SVGView extends View {
         postInvalidate();
     }
 
-    public void panTo(float x, float y){
-        Matrix m = new Matrix(mMatrix);
+    public void panToCenterFast(){
+        panTo(mPictureEndPoint[AXIS_X] / 2, mPictureEndPoint[AXIS_Y]/2, false);
+    }
 
+    public void panTo(float x, float y){
+        panTo(x, y, true);
+    }
+
+    public void panTo(float x, float y, boolean animate){
+
+        Matrix m = new Matrix(mMatrix);
         final PointF startXY = getTransXY(m);
 
         final float[] targetXY = {x, y};
@@ -379,39 +387,44 @@ public class SVGView extends View {
         if (DEBUG) Logf.d(LOG_TAG, "Animate to xy(%f, %f) => currentT(%f, %f) + deltaT(%f, %f) = (%f, %f)",
                 x, y, startXY.x, startXY.y, end[0], end[1], resX, resY);
 
-        final PropertyValuesHolder xHolder = PropertyValuesHolder.ofFloat("x", startXY.x, resX);
-        final PropertyValuesHolder yHolder = PropertyValuesHolder.ofFloat("y", startXY.y, resY);
+        if(animate) {
+            final PropertyValuesHolder xHolder = PropertyValuesHolder.ofFloat("x", startXY.x, resX);
+            final PropertyValuesHolder yHolder = PropertyValuesHolder.ofFloat("y", startXY.y, resY);
 
-        final ValueAnimator anim = ValueAnimator.ofPropertyValuesHolder(xHolder, yHolder);
-        anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                final float newX = (Float) animation.getAnimatedValue("x");
-                final float newY = (Float) animation.getAnimatedValue("y");
-                translate(newX, newY);
-            }
-        });
-        anim.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-                mDisableTouch = true;
-            }
+            final ValueAnimator anim = ValueAnimator.ofPropertyValuesHolder(xHolder, yHolder);
+            anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    final float newX = (Float) animation.getAnimatedValue("x");
+                    final float newY = (Float) animation.getAnimatedValue("y");
+                    translate(newX, newY);
+                }
+            });
+            anim.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+                    mDisableTouch = true;
+                }
 
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                mDisableTouch = false;
-            }
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mDisableTouch = false;
+                }
 
-            @Override
-            public void onAnimationCancel(Animator animation) {
-                mDisableTouch = false;
-            }
+                @Override
+                public void onAnimationCancel(Animator animation) {
+                    mDisableTouch = false;
+                }
 
-            @Override
-            public void onAnimationRepeat(Animator animation) {}
-        });
-        anim.setDuration(600);
-        anim.start();
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+                }
+            });
+            anim.setDuration(600);
+            anim.start();
+        } else {
+            translate(resX, resY);
+        }
     }
 
     public void zoom(float newScale) {

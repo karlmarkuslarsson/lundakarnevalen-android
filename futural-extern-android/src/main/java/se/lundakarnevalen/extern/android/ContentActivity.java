@@ -165,13 +165,11 @@ public class ContentActivity extends ActionBarActivity {
                 Log.w(LOG_TAG, "onLowMemory() called: Map showing thus cleaning TrainMapSvg");
                 TrainMapLoader.clean();
             } else if (visibleFragment instanceof TrainMapFragment) {
-                Log.w(LOG_TAG, "onLowMemory() called: TrainMap showing thus cleaning MapSvg");
-                MapLoader.clean();
+                Log.w(LOG_TAG, "onLowMemory() called: TrainMap showing thus cleaning MapSvg bitmaps");
                 LKMapView.clean();
             } else {
-                Log.w(LOG_TAG, "onLowMemory() called: No map showing thus cleaning all SVGs and LKMapIcons");
+                Log.w(LOG_TAG, "onLowMemory() called: No map showing thus cleaning train SVG and LKMapIcons");
                 TrainMapLoader.clean();
-                MapLoader.clean();
                 LKMapView.clean();
             }
         }
@@ -369,7 +367,6 @@ public class ContentActivity extends ActionBarActivity {
     }
 
     public void inactivateTrainButton() {
-        Log.d("inactivate train", "inactivate train");
         get(mActionBarView, R.id.train, ImageButton.class).setVisibility(View.INVISIBLE);
         get(mActionBarView, R.id.gps_marker, ImageButton.class).setVisibility(View.INVISIBLE);
     }

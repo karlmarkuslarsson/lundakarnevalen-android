@@ -44,6 +44,8 @@ import static se.lundakarnevalen.extern.util.ViewUtil.*;
  * Created by Filip on 2014-04-27.
  */
 public class LKMapView extends SVGView {
+    private static final String LOG_TAG = LKMapView.class.getSimpleName();
+
     private static final float startLonMap = 13.1910161648f;
     private static final float startLatMap = 55.707371322f;
 
@@ -54,7 +56,7 @@ public class LKMapView extends SVGView {
     private static final float diffLat = endLatMap - startLatMap;
 
     private static final float CLOSE_THRESHOLD = 46.0f; //last 40
-    public static final float BUBBLE_SIZE_MULTIPLIER = 3.0f;
+    private static final float BUBBLE_SIZE_MULTIPLIER = 3.0f;
 
     private static SparseArray<Bitmap> bitmaps = new SparseArray<Bitmap>();
     private RectF mCurrentViewPort = new RectF();
@@ -68,7 +70,7 @@ public class LKMapView extends SVGView {
 
     public boolean isWithinLatLngRange(float lat, float lng) {
         return  (startLatMap > lat && lat > endLatMap) &&
-                (startLonMap < lng && lat < endLonMap);
+                (startLonMap < lng && lng < endLonMap);
     }
 
     public interface OnMarkerSelectedListener {
@@ -76,7 +78,6 @@ public class LKMapView extends SVGView {
         public void onMarkerSelected(Marker m);
     }
 
-    private static final String LOG_TAG = LKMapView.class.getSimpleName();
 
     private Set<DataType> activeTypes = new HashSet<DataType>();
     private List<Marker> markers = new ArrayList<Marker>();
@@ -86,7 +87,6 @@ public class LKMapView extends SVGView {
     private Paint mBlueInk;
 
     private Picture mGpsMarker;
-    private Picture mEntance;
     private Picture mBubble;
 
     private float mGpsMarkerSize;
