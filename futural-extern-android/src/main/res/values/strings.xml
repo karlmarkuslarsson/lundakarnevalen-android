@@ -497,5 +497,10 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="psyka_deli_menu">PSYKA-DELI</string>
     <string name="foodo_child_menu">FOODOO CHILD</string>
     <string name="flour_power_menu">FLOUR POWER</string>
+    <string name="psyk_deli_food1">Meatloaf med stingig tomatglace serveras med klyftpotatis och klassisk gravy-sås</string>
+    <string name="psyka_deli_food2">Krämig Mac \'n\' cheese Serveras med syrlig kålsallad</string>
+    <string name="foodo_child_food1">Kreolsk jambalaya med korv och kyckling</string>
+    <string name="foodo_child_food2">Vetekornspilaff med grillade grönsaker</string>
+    <string name="flour_power_food1">Klassiskt brännvinsbord</string>
 
 </resources>

@@ -40,11 +40,17 @@ public class LandingPageFragment extends LKFragment{
     // Every time you switch to this fragment.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_landing_page, null);
-
         Bundle bundle = getArguments();
-
         final DataElement element = bundle.getParcelable("element");
+        View rootView;
+        if(element.type == DataType.FOODSTOCK) {
+            rootView = inflater.inflate(R.layout.fragment_landing_page_foodstock, null);
+
+        } else {
+
+            rootView = inflater.inflate(R.layout.fragment_landing_page, null);
+        }
+
         get(rootView,R.id.name,TextView.class).setText(element.title);
         get(rootView,R.id.place,TextView.class).setText(element.place);
 

@@ -335,6 +335,7 @@
                     android:background="@color/beige_shadow"
                     />
 
+
                 <LinearLayout
                     android:layout_marginTop="10dp"
                     android:layout_below="@id/menu_food"
@@ -342,15 +343,167 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                    <include layout="@layout/menu_food_element" >
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        >
+
+                        <RelativeLayout
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginRight="20dp"
+
+                            >
 
 
-                    </include>
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/price2"
+                                android:layout_centerVertical="true"
+                                android:layout_alignParentRight="true"
+
+                                >
+                                <se.lundakarnevalen.extern.widget.LKTextView
+                                    android:id="@+id/price"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/blue_dark"
+                                    android:textSize="16sp"
+                                    android:padding="10dp"
+                                    android:gravity="center"
+                                    android:background="@color/beige"
+                                    android:text="50"
+                                    />
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="3dp"
+                                    android:layout_alignLeft="@id/price"
+                                    android:layout_alignRight="@id/price"
+                                    android:layout_below="@id/price"
+                                    android:background="@color/beige_shadow"
+                                    />
+                            </RelativeLayout>
+
+                            <se.lundakarnevalen.extern.widget.LKTextView
+                                android:id="@+id/name"
+                                android:layout_toLeftOf="@id/price2"
+                                android:layout_marginRight="10dp"
+                                android:layout_centerVertical="true"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/blue_dark"
+                                android:textSize="16sp"
+                                android:lineSpacingMultiplier="1.3"
+                                android:padding="10dp"
+                                android:gravity="left"
+                                android:text="@string/psyk_deli_food1"
+                                android:background="@color/beige"
+                                />
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="3dp"
+                                android:layout_alignLeft="@id/name"
+                                android:layout_alignRight="@id/name"
+                                android:layout_below="@id/name"
+                                android:background="@color/beige_shadow"
+                                />
 
 
 
+                        </RelativeLayout>
 
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        >
+
+                        <RelativeLayout
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginRight="20dp"
+
+                            >
+
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/price2"
+                                android:layout_centerVertical="true"
+                                android:layout_alignParentRight="true"
+
+                                >
+                                <se.lundakarnevalen.extern.widget.LKTextView
+                                    android:id="@+id/price"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/blue_dark"
+                                    android:textSize="16sp"
+                                    android:padding="10dp"
+                                    android:gravity="center"
+                                    android:background="@color/beige"
+                                    android:text="50"
+                                    />
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="3dp"
+                                    android:layout_alignLeft="@id/price"
+                                    android:layout_alignRight="@id/price"
+                                    android:layout_below="@id/price"
+                                    android:background="@color/beige_shadow"
+                                    />
+                            </RelativeLayout>
+
+                            <se.lundakarnevalen.extern.widget.LKTextView
+                                android:id="@+id/name"
+                                android:layout_toLeftOf="@id/price2"
+                                android:layout_marginRight="10dp"
+                                android:layout_centerVertical="true"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/blue_dark"
+                                android:textSize="16sp"
+                                android:lineSpacingMultiplier="1.3"
+                                android:padding="10dp"
+                                android:gravity="left"
+                                android:text="@string/psyka_deli_food2"
+                                android:background="@color/beige"
+                                />
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="3dp"
+                                android:layout_alignLeft="@id/name"
+                                android:layout_alignRight="@id/name"
+                                android:layout_below="@id/name"
+                                android:background="@color/beige_shadow"
+                                />
+
+
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
                 </LinearLayout>
+
+
+
+
+
 
             </RelativeLayout>
 
@@ -380,16 +533,168 @@
                     android:layout_below="@id/menu_food"
                     android:background="@color/beige_shadow"
                     />
-
                 <LinearLayout
                     android:layout_marginTop="10dp"
-                    android:layout_below="@id/menu_food"
                     android:id="@+id/menu_food_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/menu_food"
                     android:orientation="vertical">
 
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        >
 
+                        <RelativeLayout
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginRight="20dp"
+
+                            >
+
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/price2"
+                                android:layout_centerVertical="true"
+                                android:layout_alignParentRight="true"
+
+                                >
+                                <se.lundakarnevalen.extern.widget.LKTextView
+                                    android:id="@+id/price"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/blue_dark"
+                                    android:textSize="16sp"
+                                    android:padding="10dp"
+                                    android:gravity="center"
+                                    android:background="@color/beige"
+                                    android:text="50"
+                                    />
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="3dp"
+                                    android:layout_alignLeft="@id/price"
+                                    android:layout_alignRight="@id/price"
+                                    android:layout_below="@id/price"
+                                    android:background="@color/beige_shadow"
+                                    />
+                            </RelativeLayout>
+
+                            <se.lundakarnevalen.extern.widget.LKTextView
+                                android:id="@+id/name"
+                                android:layout_toLeftOf="@id/price2"
+                                android:layout_marginRight="10dp"
+                                android:layout_centerVertical="true"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/blue_dark"
+                                android:textSize="16sp"
+                                android:lineSpacingMultiplier="1.3"
+                                android:padding="10dp"
+                                android:gravity="left"
+                                android:text="@string/foodo_child_food1"
+                                android:background="@color/beige"
+                                />
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="3dp"
+                                android:layout_alignLeft="@id/name"
+                                android:layout_alignRight="@id/name"
+                                android:layout_below="@id/name"
+                                android:background="@color/beige_shadow"
+                                />
+
+
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+                    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        >
+
+                        <RelativeLayout
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginRight="20dp"
+
+                            >
+
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/price2"
+                                android:layout_centerVertical="true"
+                                android:layout_alignParentRight="true"
+
+                                >
+                                <se.lundakarnevalen.extern.widget.LKTextView
+                                    android:id="@+id/price"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/blue_dark"
+                                    android:textSize="16sp"
+                                    android:padding="10dp"
+                                    android:gravity="center"
+                                    android:background="@color/beige"
+                                    android:text="50"
+                                    />
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="3dp"
+                                    android:layout_alignLeft="@id/price"
+                                    android:layout_alignRight="@id/price"
+                                    android:layout_below="@id/price"
+                                    android:background="@color/beige_shadow"
+                                    />
+                            </RelativeLayout>
+
+                            <se.lundakarnevalen.extern.widget.LKTextView
+                                android:id="@+id/name"
+                                android:layout_toLeftOf="@id/price2"
+                                android:layout_marginRight="10dp"
+                                android:layout_centerVertical="true"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/blue_dark"
+                                android:textSize="16sp"
+                                android:lineSpacingMultiplier="1.3"
+                                android:padding="10dp"
+                                android:gravity="left"
+                                android:text="@string/foodo_child_food2"
+                                android:background="@color/beige"
+                                />
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="3dp"
+                                android:layout_alignLeft="@id/name"
+                                android:layout_alignRight="@id/name"
+                                android:layout_below="@id/name"
+                                android:background="@color/beige_shadow"
+                                />
+
+
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
                 </LinearLayout>
 
             </RelativeLayout>
@@ -420,18 +725,17 @@
                     android:layout_below="@id/menu_food"
                     android:background="@color/beige_shadow"
                     />
-
-                <LinearLayout
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_marginTop="10dp"
-                    android:layout_below="@id/menu_food"
                     android:id="@+id/menu_food_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/menu_food"
                     android:orientation="vertical">
+                <include layout="@layout/flour_power_menu">
 
-
-                </LinearLayout>
-
+                </include>
+            </LinearLayout>
             </RelativeLayout>
 
 
