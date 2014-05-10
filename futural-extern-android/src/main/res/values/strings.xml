@@ -10,8 +10,6 @@
     <string name="wc">WC</string>
     <string name="show_all">SHOW ALL</string>
     <string name="show_only">SHOW ONLY</string>
-    <string name="scheme">SCHEDULE</string>
-    <string name="full_list">FULL SCHEDULE</string>
 
     <string name="other">OTHER</string>
     <string name="tent">TENT</string>
@@ -19,14 +17,12 @@
     <string name="music">MUSIC</string>
 
     <!-- scheme -->
-    <string name="my_scheme">MY SCHDULE</string>
+    <string name="my_scheme">MY SCHEDULE</string>
+    <string name="scheme">SCHEDULE</string>
+    <string name="full_list">FULL SCHEDULE</string>
     <string name="saturday">SATURDAY</string>
 
-
-
     <string name="heart">\u2764</string>
-
-
 
     <string name="ipsum">
         Bacon ipsum dolor sit amet cow corned beef pig, biltong swine tri-tip short loin turducken strip steak meatball rump. T-bone doner salami ball tip swine leberkas ground round chuck. Short ribs pork drumstick landjaeger salami venison capicola shank filet mignon boudin. \n\n Jowl venison turducken corned beef short ribs chicken flank hamburger. Shoulder salami strip steak chuck. Pancetta rump kevin leberkas capicola salami kielbasa venison porchetta fatback turkey ham hock sirloin hamburger. Pork chop ground round capicola biltong landjaeger andouille.
