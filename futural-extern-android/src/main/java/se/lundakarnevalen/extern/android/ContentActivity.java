@@ -248,6 +248,7 @@ public class ContentActivity extends ActionBarActivity {
     private void populateRightMenuDrawer() {
         LKRightMenuArrayAdapter adapter = new LKRightMenuArrayAdapter(this);
         adapter.setNotifyOnChange(false);
+        adapter.add(getString(R.string.show_all), 0, DataType.values(), false);
         adapter.add(getString(R.string.food), R.drawable.food_logo, new DataType[]{DataType.FOOD, DataType.FOODSTOCK, DataType.SNACKS}, true);
         adapter.add(getString(R.string.fun), R.drawable.fun_logo,
                 new DataType[]{DataType.FUN, DataType.SMALL_FUN, DataType.TENT_FUN, DataType.TOMBOLAN, DataType.SCENE, DataType.RADIO}, true);
@@ -258,7 +259,6 @@ public class ContentActivity extends ActionBarActivity {
         adapter.add(getString(R.string.wc), R.drawable.wc_logo, new DataType[]{DataType.TOILETS}, false);
         adapter.add(getString(R.string.entre), R.drawable.entrance_filter_icon, new DataType[]{DataType.ENTRANCE}, true);
         adapter.add(getString(R.string.trash), R.drawable.soptunna_filter_icon, new DataType[]{DataType.TRASHCAN}, false);
-        adapter.add(getString(R.string.show_all), 0, DataType.values(), false);
         adapter.setNotifyOnChange(true);
         adapter.notifyDataSetChanged();
 
