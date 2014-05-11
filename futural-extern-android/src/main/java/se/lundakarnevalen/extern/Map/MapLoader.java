@@ -28,7 +28,7 @@ public class MapLoader implements Callable<Picture> {
         this.c = c;
     }
 
-    public static Future<Picture> preload(Context c) {
+    public static FutureTask<Picture> preload(Context c) {
         if(preloaded == null){
             preloaded = new FutureTask<Picture>(new MapLoader(c));
             new AsyncTask<Void,Void,Void>(){

@@ -11,7 +11,9 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.CycleInterpolator;
 import android.view.animation.LinearInterpolator;
+import android.view.animation.OvershootInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -180,22 +182,25 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
                     showOnNextCreateLng = 1.0f;
                     showOnNextCreateScale = 1.0f;
                 }
-            }, 500);
+            }, 1000);
         }
         mapView.setGpsMarker(mGpsMarkerLat, mGpsMarkerLng, (savedInstanceState != null));
 
-        View view = get(root, R.id.map_spinner, View.class);
-        final RotateAnimation a = new RotateAnimation(
-                0.0f, 360.0f,
-                Animation.RELATIVE_TO_SELF, 0.5f,
-                Animation.RELATIVE_TO_SELF, 0.5f);
-        a.setStartOffset(800);
-        a.setDuration(3800);
-        a.setInterpolator(new LinearInterpolator());
-        a.setRepeatCount(Animation.INFINITE);
-        a.setRepeatMode(Animation.RESTART);
-        view.startAnimation(a);
-
+        final View view = get(root, R.id.map_spinner, View.class);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                final RotateAnimation a = new RotateAnimation(
+                        0.0f, 3 * 360.0f,
+                        Animation.RELATIVE_TO_SELF, 0.5f,
+                        Animation.RELATIVE_TO_SELF, 0.5f);
+                a.setDuration(3400);
+                a.setInterpolator(new LinearInterpolator());
+                a.setRepeatCount(Animation.INFINITE);
+                a.setRepeatMode(Animation.RESTART);
+                view.startAnimation(a);
+            }
+        }, 500);
         return root;
     }
 

@@ -134,7 +134,7 @@ public class LKMapView extends SVGView {
 
         try {
             mGpsMarker = SVG.getFromResource(context, R.raw.gps_marker).renderToPicture();
-            mBubble = SVG.getFromResource(context, R.raw.bubble2).renderToPicture();
+            mBubble = SVG.getFromResource(context, R.raw.bubble).renderToPicture();
         } catch (SVGParseException e) {
             e.printStackTrace();
         }
@@ -146,7 +146,6 @@ public class LKMapView extends SVGView {
         mBubbleSize = 14.0f;//dpToPx(context, 8);
         mBubbleShadowXRadius = mBubbleSize/4.0f; //dpToPx(context, 2);
         mBubbleShadowYRadius = mBubbleSize/8.0f; //dpToPx(context, 1);
-
 
         markers.clear();
         for (DataElement elm : DataContainer.getAllData()) {
