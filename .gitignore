@@ -36,3 +36,4 @@ local.properties
 *~
 *.swp
 gradle/
+futural-extern-android/keystore.release.key
