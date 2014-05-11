@@ -141,13 +141,13 @@ public class LKMapView extends SVGView {
             e.printStackTrace();
         }
 
-        mGpsMarkerSize = dpToPx(context, 80);
-        mGpsShadowXRadius = dpToPx(context, 10);
-        mGpsShadowYRadius = dpToPx(context, 6);
+        mGpsMarkerSize = 34.0f; //dpToPx(context, 80);
+        mGpsShadowXRadius = mGpsMarkerSize / 6.0f;//dpToPx(context, 10);
+        mGpsShadowYRadius = mGpsMarkerSize / 12.0f; //dpToPx(context, 6);
 
-        mBubbleSize = 14.0f;//dpToPx(context, 8);
-        mBubbleShadowXRadius = mBubbleSize/4.0f; //dpToPx(context, 2);
-        mBubbleShadowYRadius = mBubbleSize/8.0f; //dpToPx(context, 1);
+        mBubbleSize = 14.0f; //dpToPx(context, 8);
+        mBubbleShadowXRadius = mBubbleSize / 4.0f; //dpToPx(context, 2);
+        mBubbleShadowYRadius = mBubbleSize / 8.0f; //dpToPx(context, 1);
 
         markers.clear();
         for (DataElement elm : DataContainer.getAllData()) {
@@ -283,15 +283,15 @@ public class LKMapView extends SVGView {
 
         dst.set(mGpsMarkerPos.x,
                 mGpsMarkerPos.y,
-                mGpsMarkerPos.x + 2.0f * mGpsShadowXRadius / mPreDrawScale,
-                mGpsMarkerPos.y + 2.0f * mGpsShadowYRadius / mPreDrawScale);
+                mGpsMarkerPos.x + 2.0f * mGpsShadowXRadius,
+                mGpsMarkerPos.y + 2.0f * mGpsShadowYRadius);
         normalizeToMidpointBottom(dst);
         canvas.drawOval(dst, mShadowInk);
 
         dst.set(mGpsMarkerPos.x,
                 mGpsMarkerPos.y,
-                mGpsMarkerPos.x + mGpsMarkerSize / mPreDrawScale,
-                mGpsMarkerPos.y + mGpsMarkerSize / mPreDrawScale);
+                mGpsMarkerPos.x + mGpsMarkerSize,
+                mGpsMarkerPos.y + mGpsMarkerSize);
         normalizeToMidpointBottom(dst);
         canvas.drawPicture(mGpsMarker, dst);
     }
