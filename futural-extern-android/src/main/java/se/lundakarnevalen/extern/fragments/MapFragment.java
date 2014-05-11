@@ -183,13 +183,17 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
         }
         mapView.setGpsMarker(mGpsMarkerLat, mGpsMarkerLng, (savedInstanceState != null));
 
-        final RotateAnimation a = new RotateAnimation(0.0f, 360.0f);
+        View view = get(root, R.id.map_spinner, View.class);
+        final RotateAnimation a = new RotateAnimation(
+                0.0f, 360.0f,
+                Animation.RELATIVE_TO_SELF, 0.5f,
+                Animation.RELATIVE_TO_SELF, 0.5f);
         a.setStartOffset(800);
         a.setDuration(3800);
         a.setInterpolator(new AccelerateDecelerateInterpolator());
         a.setRepeatCount(Animation.INFINITE);
         a.setRepeatMode(Animation.RESTART);
-        get(root, R.id.map_spinner, View.class).startAnimation(a);
+        view.startAnimation(a);
 
         return root;
     }
