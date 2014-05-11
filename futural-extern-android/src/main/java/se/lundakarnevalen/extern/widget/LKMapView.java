@@ -59,7 +59,7 @@ public class LKMapView extends SVGView {
 
     private static SparseArray<Bitmap> bitmaps = new SparseArray<Bitmap>();
     private RectF mCurrentViewPort = new RectF();
-    private boolean mFiltersEnabled;
+    private boolean mFiltersEnabled = true;
 
     public static void clean() {
         for(int i = 0; i < bitmaps.size(); i++) {
