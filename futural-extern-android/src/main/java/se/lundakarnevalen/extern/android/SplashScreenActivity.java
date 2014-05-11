@@ -100,14 +100,12 @@ public class SplashScreenActivity extends Activity {
         a.setAnimationListener(new CloudStartListner(cloud));
         a.setDuration(2900);
         a.setFillAfter(true);
-        a.setInterpolator(new AccelerateDecelerateInterpolator());
         a.setInterpolator(new LinearInterpolator());
         cloud.startAnimation(a);
         cloud = (ImageView) rootView.findViewById(R.id.cloud2);
         //ObjectAnimator.
         //animX2.setDuration(3000);
         a  = new TranslateAnimation(0,200/4,0,0);
-        a.setInterpolator(new AccelerateDecelerateInterpolator());
         a.setInterpolator(new LinearInterpolator());
         a.setFillAfter(true);
         a.setDuration(2900);
@@ -125,7 +123,6 @@ public class SplashScreenActivity extends Activity {
 
         cloud = (ImageView) rootView.findViewById(R.id.cloud3);
         a = new TranslateAnimation(0,width/4,0 ,0);
-        a.setInterpolator(new AccelerateDecelerateInterpolator());
         a.setInterpolator(new LinearInterpolator());
         a.setFillAfter(true);
         a.setDuration(2900);
@@ -133,7 +130,6 @@ public class SplashScreenActivity extends Activity {
 
         cloud = (ImageView) rootView.findViewById(R.id.cloud4);
         a  = new TranslateAnimation(0,250/4,0,0);
-        a.setInterpolator(new AccelerateDecelerateInterpolator());
         a.setInterpolator(new LinearInterpolator());
         a.setFillAfter(true);
         a.setDuration(2900);
@@ -150,7 +146,6 @@ public class SplashScreenActivity extends Activity {
         //ObjectAnimator.
         //animX2.setDuration(3000);
         a  = new TranslateAnimation(0,width/5,0,0);
-        a.setInterpolator(new AccelerateDecelerateInterpolator());
         a.setInterpolator(new LinearInterpolator());
         a.setFillAfter(true);
         a.setDuration(2900);
