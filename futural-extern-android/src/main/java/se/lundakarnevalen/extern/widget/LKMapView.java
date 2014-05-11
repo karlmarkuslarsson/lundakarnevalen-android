@@ -406,6 +406,20 @@ public class LKMapView extends SVGView {
         }
     }
 
+
+    private final float[] mRotationTmp = new float[2];
+
+    public void setRotationLatLng(float lat, float lng, float degree) {
+        getPointFromCoordinates(lat, lng, mRotationTmp);
+        setRotation(mRotationTmp[AXIS_X], mRotationTmp[AXIS_Y], degree);
+    }
+
+    public void setRotation(float x, float y, float degree) {
+        panTo(x, y, false);
+        mMatrix.postRotate(degree, x, y);
+        postInvalidate();
+    }
+
     public void setActiveTypes(Collection<DataType> types) {
         activeTypes.clear();
         activeTypes.addAll(types);
