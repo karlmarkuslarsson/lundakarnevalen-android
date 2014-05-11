@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -190,7 +191,7 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
                 Animation.RELATIVE_TO_SELF, 0.5f);
         a.setStartOffset(800);
         a.setDuration(3800);
-        a.setInterpolator(new AccelerateDecelerateInterpolator());
+        a.setInterpolator(new LinearInterpolator());
         a.setRepeatCount(Animation.INFINITE);
         a.setRepeatMode(Animation.RESTART);
         view.startAnimation(a);
