@@ -27,20 +27,23 @@
             android:layout_height="24dp"
             android:layout_marginLeft="8dp"
             android:paddingBottom="1dp"
+            android:paddingTop="1dp"
             android:gravity="center"
             android:src="@drawable/my_heart"/>
 
         <se.lundakarnevalen.extern.widget.LKTextView
             android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:layout_toRightOf="@id/myHeart"
             android:layout_marginLeft="2dp"
+
             android:id="@+id/myScheme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="4dp"
             android:paddingRight="8dp"
             android:paddingTop="8dp"
-            android:paddingBottom="6dp"
+            android:paddingBottom="8dp"
             android:gravity="center"
             android:textSize="10sp"
             android:textColor="@color/red"

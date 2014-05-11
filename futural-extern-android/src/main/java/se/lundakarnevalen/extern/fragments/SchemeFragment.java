@@ -62,12 +62,19 @@ public class SchemeFragment extends LKFragment {
             public void onClick(View view) {
                 if(myScheme){
                     get(rl,R.id.myScheme,TextView.class).setText(R.string.my_scheme);
+                    get(rl,R.id.myScheme,TextView.class).setTextColor(getResources().getColor(R.color.red));
+                    get(rl,R.id.heartText,RelativeLayout.class).setBackgroundColor(getResources().getColor(R.color.white));
+                    get(rl,R.id.myHeart,ImageView.class).setImageResource(R.drawable.heart_clicked);
                     vp.setAdapter(new SchemeViewAdapter());
+
                     vp.setCurrentItem(currentDay);
 
                     myScheme = false;
                 } else {
                     get(rl,R.id.myScheme,TextView.class).setText(R.string.full_list);
+                    get(rl,R.id.myScheme,TextView.class).setTextColor(getResources().getColor(R.color.white));
+                    get(rl,R.id.heartText,RelativeLayout.class).setBackgroundColor(getResources().getColor(R.color.red));
+                    get(rl,R.id.myHeart,ImageView.class).setImageResource(R.drawable.heart_not_clicked);
                     vp.setAdapter(new MySchemeViewAdapter());
                     vp.setCurrentItem(currentDay);
 
