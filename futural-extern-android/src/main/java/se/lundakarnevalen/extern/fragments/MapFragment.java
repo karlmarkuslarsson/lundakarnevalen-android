@@ -15,6 +15,7 @@ import android.widget.ViewFlipper;
 
 import java.util.Collection;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
@@ -83,28 +84,31 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    Picture picture = MapLoader.preload(inflater.getContext()).get(60, TimeUnit.SECONDS);
+                    Future<Picture> preload = MapLoader.preload(inflater.getContext());
+                    Picture picture = preload.get(60, TimeUnit.SECONDS);
                     waitForLayout();
                     float minZoom = calculateMinZoom(mapView, picture);
                     mapView.setSvg(picture, minZoom, mMatrixValues);
-
                 } catch (InterruptedException e) {
                     Log.wtf(LOG_TAG, "Future was interrupted", e);
                 } catch (ExecutionException e) {
                     Log.wtf(LOG_TAG, "ExecutionException", e);
                 } catch (TimeoutException e) {
-                    try{
-                        Log.d(LOG_TAG,  "MapLoader timed out, restarting");
-                        Picture picture = new MapLoader(inflater.getContext()).call();
-                        waitForLayout();
-                        float minZoom = calculateMinZoom(mapView, picture);
-                        mapView.setSvg(picture, minZoom, mMatrixValues);
-
-                    } catch (Exception ex){
-                        Log.wtf(LOG_TAG, "Failed to load image after timeout", ex);
-                    }
+                    reloadMap();
                 }
                 return null;
+            }
+
+            private void reloadMap() {
+                try{
+                    Log.d(LOG_TAG, "MapLoader timed out, restarting");
+                    Picture picture = new MapLoader(inflater.getContext()).call();
+                    waitForLayout();
+                    float minZoom = calculateMinZoom(mapView, picture);
+                    mapView.setSvg(picture, minZoom, mMatrixValues);
+                } catch (Exception ex){
+                    Log.wtf(LOG_TAG, "Failed to load image after timeout", ex);
+                }
             }
 
             @Override

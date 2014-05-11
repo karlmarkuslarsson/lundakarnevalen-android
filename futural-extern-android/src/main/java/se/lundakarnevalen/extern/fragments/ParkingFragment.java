@@ -44,10 +44,10 @@ public class ParkingFragment extends LKFragment{
 
     private class CloudStartListner implements Animation.AnimationListener {
 
-        ImageView view;
-        ImageView movingCloud;
-        Animation a2;
-        CloudStartListner(ImageView view) {
+        private ImageView view;
+        private ImageView movingCloud;
+        private Animation a2;
+        private CloudStartListner(ImageView view) {
             this.view = view;
         }
 
@@ -58,9 +58,7 @@ public class ParkingFragment extends LKFragment{
         }
 
         @Override
-        public void onAnimationStart(Animation animation) {
-
-        }
+        public void onAnimationStart(Animation animation) {}
 
         @Override
         public void onAnimationEnd(Animation animation) {
@@ -72,9 +70,7 @@ public class ParkingFragment extends LKFragment{
         }
 
         @Override
-        public void onAnimationRepeat(Animation animation) {
-
-        }
+        public void onAnimationRepeat(Animation animation) {}
     }
 
     private void startMovingClouds(View rootView) {

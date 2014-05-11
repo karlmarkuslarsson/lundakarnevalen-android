@@ -125,7 +125,6 @@ public class ContentActivity extends ActionBarActivity {
         });
 
         dialog.show();
-
     }
 
     @Override
@@ -147,8 +146,8 @@ public class ContentActivity extends ActionBarActivity {
         //Log.d(LOG_TAG, "onDestroy()!?  Cleaning allocated resources: MapFragment, TrainMapFragment, LKMapView");
         //MapLoader.clean();
         //TrainMapLoader.clean();
-        //LKMapView.clean();
-        //System.gc();
+        LKMapView.clean();
+        System.gc();
         super.onDestroy();
     }
 
@@ -157,14 +156,12 @@ public class ContentActivity extends ActionBarActivity {
         if (mBottomMenuListener.selected != null) {
             Fragment visibleFragment = Fragment.class.cast(mBottomMenuListener.selected.getTag(R.id.bottom_menu_tag_fragment));
             if (visibleFragment instanceof MapFragment) {
-                Log.w(LOG_TAG, "onLowMemory() called: Map showing thus cleaning TrainMapSvg");
-                TrainMapLoader.clean();
+                // Do nothing
             } else if (visibleFragment instanceof TrainMapFragment) {
-                Log.w(LOG_TAG, "onLowMemory() called: TrainMap showing thus cleaning MapSvg bitmaps");
+                Log.w(LOG_TAG, "onLowMemory() called: TrainMap showing thus cleaning LKMapIcons");
                 LKMapView.clean();
             } else {
-                Log.w(LOG_TAG, "onLowMemory() called: No map showing thus cleaning train SVG and LKMapIcons");
-                TrainMapLoader.clean();
+                Log.w(LOG_TAG, "onLowMemory() called: No map showing thus cleaning train LKMapIcons");
                 LKMapView.clean();
             }
         }
@@ -251,17 +248,17 @@ public class ContentActivity extends ActionBarActivity {
     private void populateRightMenuDrawer() {
         LKRightMenuArrayAdapter adapter = new LKRightMenuArrayAdapter(this);
         adapter.setNotifyOnChange(false);
-        adapter.add(getString(R.string.food), R.drawable.food_logo, new DataType[]{DataType.FOOD, DataType.FOODSTOCK, DataType.SNACKS}, false);
+        adapter.add(getString(R.string.food), R.drawable.food_logo, new DataType[]{DataType.FOOD, DataType.FOODSTOCK, DataType.SNACKS}, true);
         adapter.add(getString(R.string.fun), R.drawable.fun_logo,
-                new DataType[]{DataType.FUN, DataType.SMALL_FUN, DataType.TENT_FUN, DataType.TOMBOLAN, DataType.SCENE, DataType.RADIO}, false);
+                new DataType[]{DataType.FUN, DataType.SMALL_FUN, DataType.TENT_FUN, DataType.TOMBOLAN, DataType.SCENE, DataType.RADIO}, true);
         adapter.add(getString(R.string.tent), R.drawable.tent_logo, new DataType[]{DataType.TENT_FUN}, false);
         adapter.add(getString(R.string.tombola), R.drawable.tombola_logo, new DataType[]{DataType.TOMBOLAN}, false);
         adapter.add(getString(R.string.music), R.drawable.musik_logo, new DataType[]{DataType.SCENE, DataType.MUSIC}, false);
         adapter.add(getString(R.string.help), R.drawable.help_logo, new DataType[]{DataType.POLICE, DataType.CARE}, false);
         adapter.add(getString(R.string.wc), R.drawable.wc_logo, new DataType[]{DataType.TOILETS}, false);
-        adapter.add(getString(R.string.entre), R.drawable.entrance_filter_icon, new DataType[]{DataType.ENTRANCE}, false);
+        adapter.add(getString(R.string.entre), R.drawable.entrance_filter_icon, new DataType[]{DataType.ENTRANCE}, true);
         adapter.add(getString(R.string.trash), R.drawable.soptunna_filter_icon, new DataType[]{DataType.TRASHCAN}, false);
-        adapter.add(getString(R.string.show_all), 0, DataType.values(), true);
+        adapter.add(getString(R.string.show_all), 0, DataType.values(), false);
         adapter.setNotifyOnChange(true);
         adapter.notifyDataSetChanged();
 
