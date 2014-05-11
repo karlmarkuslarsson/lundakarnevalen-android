@@ -8,12 +8,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
+import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.animation.ValueAnimator;
 import com.nineoldandroids.view.ViewPropertyAnimator;
@@ -178,6 +182,14 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
             }, 500);
         }
         mapView.setGpsMarker(mGpsMarkerLat, mGpsMarkerLng, (savedInstanceState != null));
+
+        final RotateAnimation a = new RotateAnimation(0.0f, 360.0f);
+        a.setStartOffset(800);
+        a.setDuration(3800);
+        a.setInterpolator(new AccelerateDecelerateInterpolator());
+        a.setRepeatCount(Animation.INFINITE);
+        a.setRepeatMode(Animation.RESTART);
+        get(root, R.id.map_spinner, View.class).startAnimation(a);
 
         return root;
     }
