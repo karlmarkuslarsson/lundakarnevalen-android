@@ -7,7 +7,7 @@
     android:background="@color/bg_map"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    androd>
+    >
 
     <ImageView
         android:layout_gravity="center"
