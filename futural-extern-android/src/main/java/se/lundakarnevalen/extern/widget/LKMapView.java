@@ -211,7 +211,7 @@ public class LKMapView extends SVGView {
         for (Marker m : markers) {
             if(activeTypes.contains(m.element.type)) {
                 if (m.x != -1) {
-                    final float distance = m.distance(xInSvg, yInSvg - offsetY) / mPreDrawScale;
+                    final float distance = m.distance(xInSvg, yInSvg, mBubbleSize) / mPreDrawScale;
                     if (distance < min) {
                         min = distance;
                         closest = m;
