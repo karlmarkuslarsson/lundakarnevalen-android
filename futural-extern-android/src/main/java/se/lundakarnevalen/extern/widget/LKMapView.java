@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Picture;
 import android.graphics.PointF;
@@ -58,6 +59,7 @@ public class LKMapView extends SVGView {
 
     private static SparseArray<Bitmap> bitmaps = new SparseArray<Bitmap>();
     private RectF mCurrentViewPort = new RectF();
+    private boolean mFiltersEnabled;
 
     public static void clean() {
         for(int i = 0; i < bitmaps.size(); i++) {
@@ -382,6 +384,17 @@ public class LKMapView extends SVGView {
         float[] tmp = new float[2];
         getPointFromCoordinates(lat, lng, tmp);
         setGpsMarker((int) tmp[AXIS_X], (int) tmp[AXIS_Y], panToMarker); // (int) is important to avoid recursion
+    }
+
+    @Override
+    protected void filterMatrix(Matrix matrix) {
+        if (mFiltersEnabled) {
+            super.filterMatrix(matrix);
+        }
+    }
+
+    public void setBoundFiltersEnabled(boolean enabled) {
+        mFiltersEnabled = enabled;
     }
 
     public void setGpsMarker(int x, int y, boolean panToMarker) {
