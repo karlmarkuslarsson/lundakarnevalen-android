@@ -29,8 +29,7 @@ public class DataElement implements Parcelable {
     public ArrayList<Integer> menu;
     public ArrayList<String> menuPrice;
 
-
-
+    public DataElement() {}
 
     public DataElement(int place, int title, int info, float lat, float lng, int headerPicture, int picture, int picture_list, int question, String timeFriday, String timeSaturday, String timeSunday, DataType type) {
         this.place = place;
@@ -148,8 +147,36 @@ public class DataElement implements Parcelable {
         parcel.writeString(timeSaturday);
         parcel.writeString(timeSunday);
         parcel.writeSerializable(menu);
-        parcel.writeStringList(menuPrice);
+        parcel.writeSerializable(menuPrice);
     }
+
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+        public DataElement createFromParcel(Parcel in) {
+            DataElement e = new DataElement();
+            e.lat = in.readFloat();
+            e.lng = in.readFloat();
+            e.headerPicture = in.readInt();
+            e.picture = in.readInt();
+            e.picture_list = in.readInt();
+            e.type = (DataType) in.readSerializable();
+            e.info = in.readInt();
+            e.question = in.readInt();
+            e.title = in.readInt();
+            e.place = in.readInt();
+            e.cash = in.readInt();
+            e.card = in.readInt();
+            e.timeFriday = in.readString();
+            e.timeSaturday = in.readString();
+            e.timeSunday = in.readString();
+            e.menu = (ArrayList<Integer>) in.readSerializable(); // Should be right
+            e.menuPrice =(ArrayList<String>) in.readSerializable(); // Don't care
+            return e;
+        }
+
+        public DataElement[] newArray(int size) {
+            return new DataElement[size];
+        }
+    };
 
     public boolean hasLandingPage() {
         return info > 0;
