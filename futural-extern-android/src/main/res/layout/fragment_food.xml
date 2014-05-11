@@ -2,12 +2,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fragments.MapFragment">
+    tools:context="se.lundakarnevalen.extern.fragments.FoodFragment"
+    android:background="@color/green_background_food">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+        android:scaleType="centerCrop"
+        android:src="@drawable/background_food"/>
+
+    <ListView
+        android:cacheColorHint="@color/transparent"
+        android:id="@+id/fragment_food_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:listSelector="@color/transparent"
+        android:scrollbars="none"
+        android:overScrollFooter="@null"
+        />
 
 </FrameLayout>

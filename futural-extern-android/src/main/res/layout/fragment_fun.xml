@@ -2,13 +2,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fragments.MapFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    tools:context="se.lundakarnevalen.extern.fragments.FunFragment"
+    android:background="@color/red_background">
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background_fun"/>
 
+
+    <ListView
+        android:cacheColorHint="@color/transparent"
+    android:id="@+id/fragment_fun_list"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:listSelector="@color/transparent"
+        android:scrollbars="none"
+        android:overScrollFooter="@null"
+
+        />
 
 </FrameLayout>

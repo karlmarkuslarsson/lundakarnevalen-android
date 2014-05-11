@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scheme_element"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true">
+    <ImageView
+        android:layout_width="5dp"
+        android:layout_height="5dp"
+        android:layout_marginLeft="70dp"
+        android:background="@color/white"/>
+    <ImageView
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:layout_marginLeft="66dp"
+        android:src="@drawable/scheme_dot" />
+</LinearLayout>

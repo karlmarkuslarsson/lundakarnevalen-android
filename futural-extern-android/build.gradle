@@ -4,6 +4,14 @@ android {
     compileSdkVersion 19
     buildToolsVersion "19.0.3"
 
+        lintOptions {
+            checkReleaseBuilds false
+            // Or, if you prefer, you can continue to check for errors in release builds,
+            // but continue the build even when errors are found:
+            abortOnError false
+        }
+
+
     defaultConfig {
         minSdkVersion 10
         targetSdkVersion 19
@@ -19,7 +27,10 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:19.0.1'
-    compile 'com.android.support:appcompat-v7:19.0.1'
+    compile 'com.caverock:androidsvg:1.+'
+    compile 'com.nineoldandroids:library:2.+'
+    compile 'com.android.support:support-v4:19.+'
+    compile 'com.android.support:appcompat-v7:19.+'
+    compile 'com.readystatesoftware.systembartint:systembartint:1.+'
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/right_menu_background"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp">
+
+    <LinearLayout
+        android:id="@+id/menu_right_button_layout"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp"
+        android:gravity="left|center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:background="@drawable/selector_right_menu">
+
+        <ImageView
+            android:id="@+id/menu_right_button_image"
+            android:src="@drawable/food_logo"
+            android:layout_width="38dp"
+            android:layout_height="match_parent" />
+
+        <se.lundakarnevalen.extern.widget.LKTextView
+            android:id="@+id/menu_right_button_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textColor="@color/pink_white_unselected"
+            android:text="@string/show_all"
+            android:gravity="center" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@color/right_menu_button_shadow" />
+
+</LinearLayout>

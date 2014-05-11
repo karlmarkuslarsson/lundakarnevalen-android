@@ -1,13 +1,164 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context="se.lundakarnevalen.extern.fragments.SchemeFragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="fragments.MapFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    android:layout_height="match_parent">
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:src="@drawable/background_scheme"
+        android:scaleType="fitEnd"
+        android:background="@color/blue_light"/>
 
-</FrameLayout>
+        <RelativeLayout
+            android:id="@+id/heartText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_centerHorizontal="true"
+            android:background="@color/white"
+            >
+        <ImageView
+            android:contentDescription="@string/picture"
+            android:id="@+id/myHeart"
+            android:layout_centerVertical="true"
+            android:layout_width="16dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="8dp"
+            android:paddingBottom="1dp"
+            android:gravity="center"
+            android:src="@drawable/my_heart"/>
+
+        <se.lundakarnevalen.extern.widget.LKTextView
+            android:layout_centerHorizontal="true"
+            android:layout_toRightOf="@id/myHeart"
+            android:layout_marginLeft="2dp"
+            android:id="@+id/myScheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="4dp"
+            android:paddingRight="8dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="6dp"
+            android:gravity="center"
+            android:textSize="10sp"
+            android:textColor="@color/red"
+            android:text="@string/my_scheme"/>
+        </RelativeLayout>
+
+
+
+
+
+
+    <RelativeLayout
+        android:id="@+id/left_arrow"
+        android:layout_width="70dp"
+        android:layout_height="54dp"
+        android:layout_below="@id/heartText">
+
+        <ImageView
+            android:contentDescription="@string/picture"
+            android:id="@+id/left_arrow_text"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:background="@drawable/arrow_left"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_below="@id/left_arrow_text"
+            android:background="@drawable/scheme_shadow"
+            android:layout_alignLeft="@id/left_arrow_text"
+            android:layout_alignRight="@id/left_arrow_text"
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/right_arrow"
+        android:layout_width="70dp"
+        android:layout_height="55dp"
+        android:layout_below="@id/heartText"
+        android:layout_alignParentRight="true">
+
+        <ImageView
+            android:id="@+id/right_arrow_text"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:background="@drawable/arrow_right"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_below="@id/right_arrow_text"
+            android:background="@drawable/scheme_shadow"
+            android:layout_alignLeft="@id/right_arrow_text"
+            android:layout_alignRight="@id/right_arrow_text"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/day"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_toRightOf="@id/left_arrow"
+        android:layout_toLeftOf="@id/right_arrow"
+        android:layout_below="@id/heartText"
+        android:background="@color/white"
+        >
+
+
+
+    <se.lundakarnevalen.extern.widget.LKTextView
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:id="@+id/dayText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="@dimen/scheme_day_textsize"
+        android:textColor="@color/red"
+        android:text="@string/saturday"
+
+        />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/heartTextBackground"
+        android:layout_width="wrap_content"
+        android:layout_height="3dp"
+        android:layout_alignLeft="@id/heartText"
+        android:layout_alignRight="@id/heartText"
+        android:layout_below="@id/heartText"
+        android:background="#CCCCCC"
+        >
+    </RelativeLayout>
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/scheme_viewpager"
+        android:layout_below="@id/day"
+        android:layout_gravity="end"
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent"
+        >
+
+    </android.support.v4.view.ViewPager>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_below="@id/day"
+        android:background="@drawable/scheme_shadow"
+        android:layout_alignLeft="@id/day"
+        android:layout_alignRight="@id/day"
+        />
+
+</RelativeLayout>

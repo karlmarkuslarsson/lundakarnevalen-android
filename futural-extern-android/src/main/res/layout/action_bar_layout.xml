@@ -2,39 +2,41 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="fill_horizontal"
+    android:background="@color/red"
      >
 
-    <RelativeLayout
-        android:id="@+id/wrapper"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/red">
 
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
+        <se.lundakarnevalen.extern.widget.LKActionBarTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:padding="10dp"
+            android:textSize="@dimen/actionbar_size"
             android:gravity="center"
-            android:text="Lundakarnevalen"
-            android:textColor="#FFFFFF"
-            android:textSize="15sp" />
+            android:textColor="@color/white"
+            android:text="@string/lundakarnevalen_actionbar"
+            />
+    <ImageButton
+        android:src="@drawable/train_logo_small"
+        android:scaleType="fitCenter"
+        android:id="@+id/train"
+        android:layout_width="@dimen/train_width"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:background="@drawable/selector_action_menu_out"
+        android:padding="10dp"
+        android:layout_alignParentRight="true"
 
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/actionBarShadow"
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:background="@color/bottom_menu_shadow"
-        android:layout_alignParentBottom="true"
-
-        >
-
-        </RelativeLayout>
-
+        />
+    <ImageButton
+        android:src="@drawable/gps_menu_marker"
+        android:scaleType="fitCenter"
+        android:id="@+id/gps_marker"
+        android:layout_width="@dimen/train_width"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:background="@drawable/selector_action_menu_out"
+        android:padding="10dp"
+        />
 
 </RelativeLayout>

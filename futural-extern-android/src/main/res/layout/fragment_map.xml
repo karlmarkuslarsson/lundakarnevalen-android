@@ -1,24 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-
-    >
-
-
-
-<RelativeLayout
+<ViewFlipper
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ContentActivity"
+    android:id="@+id/map_switcher"
+    android:background="@color/background_map"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_centerHorizontal="true"
-    android:layout_centerVertical="true" >
+    >
+
     <ImageView
-        android:id="@+id/map_id"
+        android:contentDescription="@string/content_desc_image"
+        android:layout_gravity="center"
+        android:id="@+id/map_spinner"
+        android:src="@drawable/map_spinner"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="wrap_content" />
 
-    android:src="@drawable/test_map" />
-</RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/map_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <se.lundakarnevalen.extern.widget.LKMapView
+            android:id="@+id/map_id"
+            android:keepScreenOn="true"
 
-</RelativeLayout>
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentLeft="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <View
+            android:id="@+id/map_pull_out"
+            android:background="@drawable/map_pullout"
+            android:contentDescription="@string/picture"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_width="24dp"
+            android:layout_height="60dp"
+            android:layout_alignParentTop="false"
+            android:layout_marginBottom="60dp" />
+
+        <LinearLayout
+            android:id="@+id/map_info_layout"
+            android:drawableBottom="@color/beige_shadow"
+            android:background="@color/beige_half_trans"
+            android:padding="12dp"
+            android:orientation="vertical"
+            android:layout_alignParentTop="true"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <se.lundakarnevalen.extern.widget.LKTextView
+                android:id="@+id/map_location_text"
+                android:text="@string/big_scene"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/red"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <se.lundakarnevalen.extern.widget.LKTextView
+                android:id="@+id/map_title_text"
+                android:text="@string/big_scene"
+                android:textSize="30sp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/red"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <se.lundakarnevalen.extern.widget.LKTextView
+                android:id="@+id/map_info_click_text"
+                android:text="@string/click_for_more"
+                android:textSize="12sp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/grey"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</ViewFlipper>

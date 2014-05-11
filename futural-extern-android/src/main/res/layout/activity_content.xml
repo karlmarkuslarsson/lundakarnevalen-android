@@ -4,196 +4,49 @@
     android:id="@+id/content_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    android:background="@color/red"
-    >
-
-
+    android:fitsSystemWindows="true"
+    android:background="@color/red" >
+    <!--
+    android:fitsSystemWindows="true"
+    android:clipToPadding="false" -->
 
     <LinearLayout
-        android:id="@+id/bottomFrameMenu"
+        android:id="@+id/bottom_frame_menu"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="63dp"
+        android:weightSum="5"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        >
-        <RelativeLayout
-            android:layout_weight="1"
-            android:id="@+id/button1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/red"
+        android:orientation="horizontal" >
 
-            >
-            <ImageView
-                android:id="@+id/image"
-                android:layout_width="20dp"
-                android:layout_height="wrap_content"
-                android:paddingRight="4dp"
-                android:paddingLeft="4dp"
-                android:paddingTop="3dp"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                />
-
-            <se.lundakarnevalen.extern.widget.LKTextViewBold
-                android:id="@+id/text"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/image"
-                android:paddingBottom="2dp"
-                android:paddingTop="2dp"
-                android:gravity="center"
-                android:textColor="@color/white_unselected"
-                android:text="@string/fun"/>
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_weight="1"
-            android:id="@+id/button2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/red"
-            >
-            <ImageView
-                android:id="@+id/image"
-                android:layout_width="20dp"
-                android:layout_height="wrap_content"
-                android:paddingRight="4dp"
-                android:paddingLeft="4dp"
-                android:paddingTop="3dp"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                />
-            <se.lundakarnevalen.extern.widget.LKTextViewBold
-                android:id="@+id/text"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/image"
-                android:paddingBottom="2dp"
-                android:paddingTop="2dp"
-                android:gravity="center"
-                android:textColor="@color/white_unselected"
-                android:text="@string/food"/>
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_weight="1"
-            android:id="@+id/button3"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/bottom_menu_background_selected"
-            >
-            <ImageView
-                android:id="@+id/image"
-                android:layout_width="20dp"
-                android:layout_height="wrap_content"
-                android:paddingRight="4dp"
-                android:paddingLeft="4dp"
-                android:paddingTop="3dp"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                />
-            <se.lundakarnevalen.extern.widget.LKTextViewBold
-                android:id="@+id/text"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/image"
-                android:paddingBottom="2dp"
-                android:paddingTop="2dp"
-                android:gravity="center"
-                android:textColor="@color/white"
-                android:text="@string/map2"/>
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_weight="1"
-            android:id="@+id/button4"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/red"
-            >
-            <ImageView
-                android:id="@+id/image"
-                android:layout_width="20dp"
-                android:layout_height="wrap_content"
-                android:paddingRight="4dp"
-                android:paddingLeft="4dp"
-                android:paddingTop="3dp"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                />
-            <se.lundakarnevalen.extern.widget.LKTextViewBold
-                android:id="@+id/text"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/image"
-                android:paddingBottom="2dp"
-                android:paddingTop="2dp"
-                android:gravity="center"
-                android:textColor="@color/white_unselected"
-                android:text="@string/scheme"/>
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_weight="1"
-            android:id="@+id/button5"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/red"
-            >
-            <ImageView
-                android:id="@+id/image"
-                android:layout_width="20dp"
-                android:layout_height="wrap_content"
-                android:paddingRight="4dp"
-                android:paddingLeft="4dp"
-                android:paddingTop="3dp"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                />
-            <se.lundakarnevalen.extern.widget.LKTextViewBold
-                android:id="@+id/text"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/image"
-                android:paddingBottom="2dp"
-                android:paddingTop="2dp"
-                android:gravity="center"
-                android:textColor="@color/white_unselected"
-                android:text="@string/other"/>
-        </RelativeLayout>
+        <include layout="@layout/menu_bottom_element" android:id="@+id/button1"/>
+        <include layout="@layout/menu_bottom_element" android:id="@+id/button2"/>
+        <include layout="@layout/menu_bottom_element" android:id="@+id/button3"/>
+        <include layout="@layout/menu_bottom_element" android:id="@+id/button4"/>
+        <include layout="@layout/menu_bottom_element" android:id="@+id/button5"/>
 
     </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/bottom_menu_shadow"
-        android:layout_width="match_parent"
-        android:layout_height="6dp"
-        android:background="@color/bottom_menu_shadow"
-        android:layout_above="@id/bottomFrameMenu"
-        >
-
-    </RelativeLayout>
 
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/bottom_menu_shadow">
+        android:layout_above="@id/bottom_frame_menu">
+
         <FrameLayout
             android:id="@+id/content_frame"
+            android:background="@color/blue_dark"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@id/bottomFrameMenu"
-            />
+            android:layout_height="match_parent"/>
 
-        <ListView android:id="@+id/right_menu_list"
-            android:layout_width="130dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="end"
-            android:choiceMode="singleChoice"
-            android:divider="@null"
-            android:dividerHeight="0dp"
-            android:footerDividersEnabled="true"
-            android:background="@color/right_menu_background"
-            android:layout_above="@id/bottomFrameMenu" />
+        <include layout="@layout/menu_right_drawer"/>
 
     </android.support.v4.widget.DrawerLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:contentDescription="@string/picture"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/scheme_shadow"/>
+
 </RelativeLayout>

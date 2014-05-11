@@ -1,236 +1,218 @@
 package se.lundakarnevalen.extern.widget;
 
+import android.content.Context;
+import android.os.Build;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
-        import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
 
-        import android.content.Context;
-        import android.support.v4.app.Fragment;
-        import android.support.v4.app.FragmentManager;
-        import android.support.v4.widget.DrawerLayout;
-        import android.util.Log;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.View.OnClickListener;
-        import android.view.ViewGroup;
-        import android.widget.AdapterView;
-        import android.widget.AdapterView.OnItemClickListener;
-        import android.widget.ArrayAdapter;
-        import android.widget.RelativeLayout;
-        import android.widget.TextView;
+import se.lundakarnevalen.extern.android.ContentActivity;
+import se.lundakarnevalen.extern.android.R;
+import se.lundakarnevalen.extern.data.DataType;
 
-        import se.lundakarnevalen.extern.android.ContentActivity;
-        import se.lundakarnevalen.extern.android.R;
+import static se.lundakarnevalen.extern.util.ViewUtil.get;
 
-/**
- *
- */
 public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapter.LKRightMenuListItem> implements OnItemClickListener {
+    private static final String LOG_TAG = LKRightMenuArrayAdapter.class.getSimpleName();
 
-    private final String LOG_TAG = "ArrayAdapter";
-    private LayoutInflater inflater;
+    private final LayoutInflater mInflater;
+    private final Context mContext;
 
-    public LKRightMenuArrayAdapter(Context context, List<LKRightMenuListItem> items){
-      //  super(context, android.R.layout.simple_list_item_1, items);
-        super(context, android.R.layout.activity_list_item, items);
-        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    public LKRightMenuArrayAdapter(Context context){
+        super(context, android.R.layout.activity_list_item, new ArrayList<LKRightMenuListItem>());
+        this.mContext = context;
+        this.mInflater = LayoutInflater.from(context);
     }
-
 
     @Override
     public View getView(int pos, View convertView, ViewGroup parent){
         final LKRightMenuListItem item = getItem(pos);
 
-        if(item.isStatic) {
-            return item.staticView;
+        View layout = convertView;
+
+        if(convertView == null) {
+            layout = mInflater.inflate(R.layout.menu_right_element, parent, false);
         }
-        RelativeLayout wrapper;
-        if(item.title.equals(getContext().getString(R.string.show_all))) {
-            wrapper = (RelativeLayout) inflater.inflate(R.layout.menu_bottom, null);
+
+        item.bindValues(layout);
+        item.setSelected(mContext, item.isSelected);
+        if(isFilterAllItem(item)) {
+            item.image.setVisibility(View.GONE);
+            item.layout.setGravity(Gravity.CENTER);
         } else {
-           wrapper = (RelativeLayout) inflater.inflate(R.layout.menu_element, null);
+            item.image.setVisibility(View.VISIBLE);
+            item.layout.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
         }
-        item.button = wrapper.findViewById(R.id.button);
-        if(item.isActive && wrapper != null){
-            wrapper.setSelected(true);
-            Log.d(LOG_TAG, "was selecete");
+        int bg = item.isSelected ? R.color.right_menu_button_selected : R.color.right_menu_button;
+        item.layout.setBackgroundColor(getContext().getResources().getColor(bg));
+
+        int textColor = item.isSelected ? R.color.white : R.color.white_unselected;
+        item.text.setTextColor(getContext().getResources().getColor(textColor));
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            float alpha = item.isSelected ? 1f : 0.7f;
+            item.image.setAlpha(alpha);
         }
 
-        if(wrapper != null) {
-            item.text = (TextView) wrapper.findViewById(R.id.text);
-            item.text.setText(item.title);
-        }
+        return layout;
+    }
 
-        return wrapper;
+    private boolean isFilterAllItem(LKRightMenuListItem item) {
+        return item.title.equals(mContext.getString(R.string.show_all));
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        final List<LKRightMenuListItem> types = selectedItems();
+        final LKRightMenuListItem filterAll = findFilterAllItem();
+        if(filterAll.isSelected) {
+            filterAll.isSelected = (selectedItems().size() < 2); // if all filter selected + 1 more deselect
+        } else {
+            filterAll.isSelected = (types.isEmpty()); // Nothing selected
+        }
+        super.notifyDataSetChanged(); //Invalidate views, to update colors
+        ContentActivity.class.cast(getContext()).updateMapView(selectedDataTypes());
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
-        final LKRightMenuListItem item = getItem(pos);
-        if(!item.enable) {
-            return;
-        }
+        // mDrawerLayout.closeDrawers();
+        LKRightMenuListItem item = getItem(pos);
+        Context c = parent.getContext();
 
-        OnClickListener listener = item.listener;
-        if(listener != null){
-            listener.onClick(view);
-            view.setSelected(true);
-            if(item.navDrawer != null && item.closeDrawerOnClick){
-                item.navDrawer.closeDrawers();
+        if (isFilterAllItem(item)) { // is showAll item
+            deselectEverything();
+            notifyDataSetChanged(); // Will select every one again
+        } else {
+            item.setSelected(c, !item.isSelected); // Flip state of current
+            notifyDataSetChanged(); // Will deselect ALL
+        }
+    }
+
+    public void deselectEverything() {
+        for (int i = 0; i < getCount(); i++) {
+            getItem(i).isSelected = false;
+        }
+        //notifyDataSetChanged();
+    }
+
+    public List<DataType> selectedDataTypes(){
+        List<DataType> markerTypes = new ArrayList<DataType>();
+        for (int i = 0; i < getCount(); i++) {
+            final LKRightMenuListItem item = getItem(i);
+            if(item.isSelected) {
+                markerTypes.addAll(Arrays.asList(item.markerType));
             }
-            Log.d(LOG_TAG, "click");
         }
-        else
-            Log.d(LOG_TAG, "no listener for list item");
+        return markerTypes;
     }
 
-    @Override
-    public boolean isEnabled(int pos){
-        // Make statics no enabled.
-
-        return !getItem(pos).isStatic;
+    private List<LKRightMenuListItem> selectedItems(){
+        List<LKRightMenuListItem> items = new ArrayList<LKRightMenuListItem>();
+        for (int i = 0; i < getCount(); i++) {
+            final LKRightMenuListItem item = getItem(i);
+            if(item.isSelected) {
+                items.add(item);
+            }
+        }
+        return items;
     }
 
-    /**
-     * Class representing a single row in the menu. Used with the LKMenuArrayAdapter.
-     * @author alexander
-     *
-     */
+    private LKRightMenuListItem findFilterAllItem() {
+        for (int i = 0; i < getCount(); i++) {
+            if(isFilterAllItem(getItem(i))) return getItem(i);
+        }
+        return null;
+    }
+
+    public void add(String title, int logo, DataType[] types, boolean selected) {
+        add(new LKRightMenuListItem(title, logo, types, selected));
+    }
+
+    public void ensureSelectedFilters(DataType[] types) {
+        deselectEverything();
+        List<LKRightMenuListItem> items = new ArrayList<LKRightMenuListItem>();
+        for (int i = 0; i < getCount(); i++) {
+            items.add(getItem(i));
+        }
+        Collections.sort(items, new Comparator<LKRightMenuListItem>() { // Sort by size to ensure least amount is selected
+            @Override
+            public int compare(LKRightMenuListItem lhs, LKRightMenuListItem rhs) {
+            return lhs.markerType.length < rhs.markerType.length ? -1 : 0;
+            }
+        });
+        for (DataType toBeSelected : types) {
+            boolean found = false;
+            for (LKRightMenuListItem i : items) {
+                for (DataType t : i.markerType) {
+                    if(t == toBeSelected) {
+                        i.isSelected = true;
+                        found = true;
+                        break;
+                    }
+                }
+                if(found) break; // found in the smallest set so go on with the next one
+            }
+        }
+        notifyDataSetChanged();
+    }
+
     public static class LKRightMenuListItem {
-        public int icon;
-        public String title;
-        OnClickListener listener;
-        DrawerLayout navDrawer;
-        boolean isStatic = false;
-        View staticView;
-        boolean closeDrawerOnClick = false;
-        boolean isMapRow = false;
-        boolean isActive = false;
-        public boolean isOn = true;
+        private final DataType[] markerType;
+        private final int icon;
+        private final String title;
 
-        public int markerType;
+        private boolean isSelected = false;
 
-        public TextView text;
-        public boolean enable = true;
+        private LinearLayout layout;
+        private TextView text;
+        private ImageView image;
 
-        public View button;
-
-        /**
-         * std. constr.
-         */
-        public LKRightMenuListItem(){
-
-        }
-
-
-
-        /**
-         * To be used with statics in listview.
-         * @param isStatic true if static
-         * @return list item
-         */
-        public LKRightMenuListItem isStatic(boolean isStatic){
-            this.isStatic = isStatic;
-            return this;
-        }
-
-        /**
-         * If isStatic is true, this view will be shown.
-         * @param view set the view to view.
-         * @return list item
-         */
-        public LKRightMenuListItem showView(View view){
-            this.staticView = view;
-            return this;
-        }
-
-
-// TODO Maybe used later
-        /**
-         * Only to use with map fragment
-         * @param isMapRow sets to show the map !.
-         */
-        public LKRightMenuListItem isMapRow(boolean isMapRow){
-            this.isMapRow = isMapRow;
-            return this;
-        }
-
-
-        /**
-         * Creates list item with custom click listener that is called when list item is clicked.
-         * @param title Text in menu to show
-         * @param icon Icon next to text
-         * @param listener Listener to use to handle click events.
-         */
-        public LKRightMenuListItem(String title, int icon, OnClickListener listener, boolean enabled){
-            this.title = title;
-            this.icon = icon;
-            this.listener = listener;
-            this.enable = enabled;
-        }
-
-        /**
-         * Creates list item..
-         * @param title Text in menu to show
-         * @param icon Icon next to text
-         */
-        public LKRightMenuListItem(String title, int icon, int markerType){
+        public LKRightMenuListItem(String title, int icon, DataType[] markerType, boolean selected) {
             this.title = title;
             this.icon = icon;
             this.markerType = markerType;
-
+            this.isSelected = selected;
         }
 
-
-
-        /**
-         * Creates list item with click listener that starts a fragment.
-         * @param title Text in menu to show
-         * @param icon Icon next to text
-         * @param fragment Fragment to show
-         */
-        public LKRightMenuListItem(final String title, int icon, final Fragment fragment, final FragmentManager fragmentMgr, final Context context, boolean enabled){
-            this.title = title;
-            this.icon = icon;
-            this.enable = enabled;
-
-
-
-
-            this.listener = new OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-
-                    clearBackStack(fragmentMgr);
-
-                    fragmentMgr.beginTransaction().replace(R.id.content_frame, fragment).commit();
-                }
-
-                private void clearBackStack(FragmentManager fragmentMgr) {
-
-                    for(int i = 0; i < fragmentMgr.getBackStackEntryCount(); i++) {
-                        Log.d("ContentActivity", "Removed from backstack");
-                        fragmentMgr.popBackStack();
-                    }
-                }
-            };
+        private void bindValues(View root ) {
+            this.layout = get(root, R.id.menu_right_button_layout, LinearLayout.class);
+            this.text = get(root, R.id.menu_right_button_text, TextView.class);
+            this.image = get(root, R.id.menu_right_button_image, ImageView.class);
+            this.image.setImageResource(icon);
+            this.text.setText(title);
         }
 
-
-
-        /**
-         * Call this to close the navigationdrawer when item is clicked.
-         * @param closeDrawerOnClick If true the drawer will close.
-         * @param layout The drawerlayout to be closed.
-         */
-        public LKRightMenuListItem closeDrawerOnClick(boolean closeDrawerOnClick, DrawerLayout layout){
-            this.closeDrawerOnClick = closeDrawerOnClick;
-            this.navDrawer = layout;
-            return this;
+        public void setSelected(Context c, boolean selected) {
+            this.isSelected = selected;
+            int bg = selected ? R.color.right_menu_button_selected : R.color.right_menu_button;
+            if (this.layout != null) {
+                this.layout.setBackgroundColor(c.getResources().getColor(bg));
+            }
         }
+    }
 
-        public void setOnClickListener(OnClickListener listener) {
-            this.listener = listener;
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("LKRightMenuArrayAdapter{");
+        for (int i = 0; i < getCount(); i++) {
+            final LKRightMenuListItem item = getItem(i);
+            sb.append(item.title).append(": ").append(item.isSelected).append("\n");
         }
+        return sb.toString();
     }
 }

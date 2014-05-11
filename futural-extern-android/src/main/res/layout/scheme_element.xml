@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scheme_element"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_centerVertical="true"
+
+        >
+
+        <ImageView
+            android:layout_width="5dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="70dp"
+            android:background="@color/white"
+            android:contentDescription="@string/picture" />
+
+        <ImageView
+            android:id="@+id/scheme_element_image"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/test_nojen"
+            android:layout_marginLeft="33dp"
+            android:contentDescription="@string/picture"
+            />
+
+        <se.lundakarnevalen.extern.widget.LKTextView
+            android:id="@+id/time1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_alignTop="@id/scheme_element_image"
+            android:layout_alignLeft="@id/scheme_element_image"
+            android:layout_marginLeft="-26dp"
+            android:textSize="11sp"
+            android:padding="2dp"
+            android:gravity="center"
+            android:shadowRadius="1"
+            android:shadowDy="1"
+            android:shadowColor="@color/black"
+            android:text="16:00"/>
+        <se.lundakarnevalen.extern.widget.LKTextView
+            android:id="@+id/time2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/scheme_element_image"
+            android:textColor="@color/white"
+            android:layout_alignLeft="@id/scheme_element_image"
+            android:layout_marginLeft="-26dp"
+            android:textSize="11sp"
+            android:gravity="center"
+            android:padding="2dp"
+            android:shadowRadius="1"
+            android:shadowDy="1"
+            android:shadowColor="@color/black"
+
+            android:text="16:00"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/time"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="50dp"
+        >
+        <se.lundakarnevalen.extern.widget.LKTextView
+            android:id="@+id/place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            android:shadowRadius="1"
+            android:shadowDy="1"
+            android:paddingLeft="1dp"
+            android:paddingRight="1dp"
+            android:gravity="center"
+            android:shadowColor="@color/black"
+            android:text="@string/dansen_place"/>
+  <se.lundakarnevalen.extern.widget.LKTextView
+            android:id="@+id/name"
+            android:paddingLeft="1dp"
+      android:paddingRight="1dp"
+      android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/place"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+      android:shadowRadius="1"
+      android:shadowDy="1"
+      android:shadowColor="@color/black"
+            android:text="@string/dansen_title"/>
+
+
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/heart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+
+        >
+        <ImageView
+            android:id="@+id/heart_image"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="16dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/heart_clicked"
+            android:contentDescription="@string/picture"
+            />
+</RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ViewFlipper
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ContentActivity"
+    android:id="@+id/map_switcher"
+    android:background="@color/background_map"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ProgressBar
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_gravity="center"
+        android:scaleX="2.0"
+        android:scaleY="2.0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <se.lundakarnevalen.extern.widget.LKTrainView
+        android:id="@+id/map_id"
+        android:keepScreenOn="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</ViewFlipper>
