@@ -35,7 +35,7 @@ public class LKTextView extends TextView {
                 //super.setTypeface(Typeface.createFromAsset(super.getContext().getAssets(), "fonts/FuturaStd-Medium.ttf"));
                 break;
             case Typeface.ITALIC:
-                super.setTypeface(Typeface.createFromAsset(super.getContext().getAssets(), "fonts/FuturaStd-Medium.ttf"));
+                super.setTypeface(Typeface.createFromAsset(super.getContext().getAssets(), "fonts/Helvetica-Light.ttf"));
                 //super.setTypeface(Typeface.createFromAsset(super.getContext().getAssets(), "fonts/FuturaStd-Light.ttf"));
                 break;
         }

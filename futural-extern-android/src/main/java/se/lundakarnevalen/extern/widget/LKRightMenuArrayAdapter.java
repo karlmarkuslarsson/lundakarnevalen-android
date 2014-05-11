@@ -49,9 +49,8 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
         }
 
         item.bindValues(layout);
-
         item.setSelected(mContext, item.isSelected);
-        if(item.title.equals(mContext.getString(R.string.show_all))) {
+        if(isFilterAllItem(item)) {
             item.image.setVisibility(View.GONE);
             item.layout.setGravity(Gravity.CENTER);
         } else {
@@ -60,7 +59,6 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
         }
         int bg = item.isSelected ? R.color.right_menu_button_selected : R.color.right_menu_button;
         item.layout.setBackgroundColor(getContext().getResources().getColor(bg));
-
 
         int textColor = item.isSelected ? R.color.white : R.color.white_unselected;
         item.text.setTextColor(getContext().getResources().getColor(textColor));
@@ -71,6 +69,10 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
         }
 
         return layout;
+    }
+
+    private boolean isFilterAllItem(LKRightMenuListItem item) {
+        return item.title.equals(mContext.getString(R.string.show_all));
     }
 
     @Override
@@ -92,10 +94,7 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
         LKRightMenuListItem item = getItem(pos);
         Context c = parent.getContext();
 
-        int showAllElementIdx = getCount() - 1;
-        boolean showAllSelected = (showAllElementIdx == pos);
-
-        if (showAllSelected) { // is showAll item
+        if (isFilterAllItem(item)) { // is showAll item
             deselectEverything();
             notifyDataSetChanged(); // Will select every one again
         } else {
@@ -133,12 +132,9 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
         return items;
     }
 
-    private LKRightMenuListItem findFilterAllItem(){
-        List<LKRightMenuListItem> items = new ArrayList<LKRightMenuListItem>();
+    private LKRightMenuListItem findFilterAllItem() {
         for (int i = 0; i < getCount(); i++) {
-            if(DataType.values().length == new HashSet<DataType>(Arrays.asList(getItem(i).markerType)).size()) {
-                return getItem(i);
-            }
+            if(isFilterAllItem(getItem(i))) return getItem(i);
         }
         return null;
     }
@@ -156,7 +152,7 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
         Collections.sort(items, new Comparator<LKRightMenuListItem>() { // Sort by size to ensure least amount is selected
             @Override
             public int compare(LKRightMenuListItem lhs, LKRightMenuListItem rhs) {
-                return lhs.markerType.length < rhs.markerType.length ? -1 : 0;
+            return lhs.markerType.length < rhs.markerType.length ? -1 : 0;
             }
         });
         for (DataType toBeSelected : types) {
