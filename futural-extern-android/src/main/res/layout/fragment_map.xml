@@ -11,6 +11,7 @@
 
     <ImageView
         android:layout_gravity="center"
+        android:id="@+id/map_spinner"
         android:src="@drawable/map_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
