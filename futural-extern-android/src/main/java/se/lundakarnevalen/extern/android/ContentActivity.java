@@ -146,8 +146,8 @@ public class ContentActivity extends ActionBarActivity {
         //Log.d(LOG_TAG, "onDestroy()!?  Cleaning allocated resources: MapFragment, TrainMapFragment, LKMapView");
         //MapLoader.clean();
         //TrainMapLoader.clean();
-        //LKMapView.clean();
-        //System.gc();
+        LKMapView.clean();
+        System.gc();
         super.onDestroy();
     }
 
@@ -156,14 +156,12 @@ public class ContentActivity extends ActionBarActivity {
         if (mBottomMenuListener.selected != null) {
             Fragment visibleFragment = Fragment.class.cast(mBottomMenuListener.selected.getTag(R.id.bottom_menu_tag_fragment));
             if (visibleFragment instanceof MapFragment) {
-                Log.w(LOG_TAG, "onLowMemory() called: Map showing thus cleaning TrainMapSvg");
-                TrainMapLoader.clean();
+                // Do nothing
             } else if (visibleFragment instanceof TrainMapFragment) {
-                Log.w(LOG_TAG, "onLowMemory() called: TrainMap showing thus cleaning MapSvg bitmaps");
+                Log.w(LOG_TAG, "onLowMemory() called: TrainMap showing thus cleaning LKMapIcons");
                 LKMapView.clean();
             } else {
-                Log.w(LOG_TAG, "onLowMemory() called: No map showing thus cleaning train SVG and LKMapIcons");
-                TrainMapLoader.clean();
+                Log.w(LOG_TAG, "onLowMemory() called: No map showing thus cleaning train LKMapIcons");
                 LKMapView.clean();
             }
         }
