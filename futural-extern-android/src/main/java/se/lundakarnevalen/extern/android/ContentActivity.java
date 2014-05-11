@@ -394,7 +394,7 @@ public class ContentActivity extends ActionBarActivity {
         private void deselectItem(Resources res) {
             if (selected != null) {
                 selected.setBackgroundColor(res.getColor(R.color.red));
-                get(selected, R.id.bottom_menu_text, TextView.class).setTextColor(res.getColor(R.color.white_unselected));
+                get(selected, R.id.bottom_menu_text, TextView.class).setTextColor(res.getColor(R.color.pink_white_unselected));
                 get(selected, R.id.bottom_menu_shadow, LinearLayout.class).setBackgroundColor(res.getColor(R.color.bottom_menu_shadow));
                 if (Build.VERSION.SDK_INT > 10) {
                     get(selected, R.id.bottom_menu_image, ImageView.class).setAlpha(0.7f);

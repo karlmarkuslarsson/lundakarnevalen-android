@@ -36,6 +36,6 @@
         android:paddingRight="2dp"
         android:gravity="center"
         android:textSize="10dp"
-        android:textColor="@color/white_unselected"
+        android:textColor="@color/pink_white_unselected"
         android:text="@string/fun"/>
 </LinearLayout>

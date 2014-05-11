@@ -31,7 +31,7 @@
             android:id="@+id/menu_right_button_text"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textColor="@color/white"
+            android:textColor="@color/pink_white_unselected"
             android:text="@string/show_all"
             android:gravity="center" />
     </LinearLayout>

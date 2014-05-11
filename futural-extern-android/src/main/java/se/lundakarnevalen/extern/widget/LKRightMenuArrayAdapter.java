@@ -1,6 +1,7 @@
 package se.lundakarnevalen.extern.widget;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,6 +60,15 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
         }
         int bg = item.isSelected ? R.color.right_menu_button_selected : R.color.right_menu_button;
         item.layout.setBackgroundColor(getContext().getResources().getColor(bg));
+
+
+        int textColor = item.isSelected ? R.color.white : R.color.white_unselected;
+        item.text.setTextColor(getContext().getResources().getColor(textColor));
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            float alpha = item.isSelected ? 1f : 0.7f;
+            item.image.setAlpha(alpha);
+        }
 
         return layout;
     }
