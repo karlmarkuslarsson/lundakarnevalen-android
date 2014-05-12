@@ -12,12 +12,13 @@
 
         >
 
-        <ImageView
+        <View
             android:layout_width="5dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="70dp"
             android:background="@color/white"
-            android:contentDescription="@string/picture" />
+            android:id="@+id/line"
+             />
 
         <ImageView
             android:id="@+id/scheme_element_image"
