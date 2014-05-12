@@ -1,5 +1,13 @@
 package se.lundakarnevalen.extern.fragments;
 
+import android.content.Context;
+import android.graphics.Picture;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.os.AsyncTask;
+
 import android.app.Activity;
 import android.graphics.Picture;
 import android.os.Bundle;
@@ -7,6 +15,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -31,7 +40,8 @@ import se.lundakarnevalen.extern.widget.LKMapView;
 
 import static se.lundakarnevalen.extern.util.ViewUtil.get;
 
-public class MapFragment extends LKFragment implements GPSTracker.GPSListener, MapLoader.MapLoaderCallback {
+public class MapFragment extends LKFragment implements GPSTracker.GPSListener, SensorEventListener, MapLoader.MapLoaderCallback {
+
     public static final int BOTTOM_MENU_ID = 2;
     public static final float STARTZOOM = 1.3f;
 
@@ -46,10 +56,14 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, M
     private static final String STATE_MATRIX = "matrix";
 
     private boolean isGPSWithinMap;
+    public boolean gpsCentered;
+    public boolean gpsRotation;
     private float[] mMatrixValues;
 
     private LKMapView mMapView;
     private ViewFlipper mViewFlipper;
+    private SensorManager mSensorManager;
+    private View mSpinnerView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,8 +82,37 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, M
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_map, container, false);
 
+        mSpinnerView = get(root, R.id.map_spinner, View.class);
+        final RotateAnimation a = new RotateAnimation(
+                0.0f, 3 * 360.0f,
+                Animation.RELATIVE_TO_SELF, 0.5f,
+                Animation.RELATIVE_TO_SELF, 0.5f);
+        a.setDuration(3400);
+        a.setInterpolator(new LinearInterpolator());
+        a.setRepeatCount(Animation.INFINITE);
+        a.setRepeatMode(Animation.RESTART);
+        mSpinnerView.startAnimation(a);
+
+        final ContentActivity activity = ContentActivity.class.cast(getActivity());
+
         mMapView = get(root, R.id.map_id, LKMapView.class);
-        ContentActivity activity = ContentActivity.class.cast(getActivity());
+        mMapView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(gpsRotation) {
+                    inactivateRotation();
+                    gpsRotation = false;
+                    gpsCentered = false;
+                    return true;
+                } else if(gpsCentered) {
+                    gpsCentered = false;
+                    activity.activateTrainButton();
+
+                }
+                return false;
+            }
+        });
+
         activity.allBottomsUnfocus();
         activity.focusBottomItem(BOTTOM_MENU_ID);
 
@@ -80,6 +123,7 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, M
             }
         });
 
+        final ViewFlipper flipper = get(root, R.id.map_switcher, ViewFlipper.class);
         mViewFlipper = get(root, R.id.map_switcher, ViewFlipper.class);
         mViewFlipper.setAnimateFirstView(true);
         mViewFlipper.setInAnimation(AnimationUtils.loadAnimation(inflater.getContext(), R.anim.abc_fade_in));
@@ -139,6 +183,8 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, M
         }
         mMapView.setGpsMarker(mGpsMarkerLat, mGpsMarkerLng, (savedInstanceState != null));
 
+        mSensorManager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
+
         final View view = get(root, R.id.map_spinner, View.class);
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -171,6 +217,9 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, M
     @Override
     public void onPause() {
         mMatrixValues = mMapView.exportMatrixValues();
+        inactivateRotation();
+        mSensorManager.unregisterListener(this);
+        gpsCentered = false;
         super.onPause();
     }
 
@@ -221,7 +270,7 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, M
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(isDetached()) return; // Do nothing if fragment has been detached
+                if (isDetached()) return; // Do nothing if fragment has been detached
                 final float[] dst = new float[2];
                 mMapView.getPointFromCoordinates(lat, lng, dst);
                 mMapView.panTo(dst[0], dst[1]);
@@ -229,8 +278,8 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, M
                     @Override
                     public void run() {
                     if(isDetached()) return; // Do nothing if fragment has been detached
-                    mMapView.getPointFromCoordinates(lat, lng, dst);
-                    mMapView.triggerClick(dst[0], dst[1]);
+                        mMapView.getPointFromCoordinates(lat, lng, dst);
+                        mMapView.triggerClick(dst[0], dst[1]);
                     }
                 }, 700);
             }
@@ -259,15 +308,19 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, M
         return fragment;
     }
 
-    public void zoomToMarker() {
+    public boolean zoomToMarker() {
         if(isGPSWithinMap){
             float[] dst = new float[2];
             mMapView.zoom(mMapView.mMidZoom);
             mMapView.panToCenterFast();
             mMapView.getPointFromCoordinates(mGpsMarkerLat, mGpsMarkerLng, dst);
             mMapView.panTo(dst[0], dst[1]);
+            gpsCentered = true;
+            return true;
         } else {
+            gpsCentered = false;
             Toast.makeText(getContext(), R.string.gps_toast, Toast.LENGTH_LONG).show();
+            return false;
         }
     }
 
@@ -284,6 +337,40 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, M
         }
     }
 
+    public void activateRotation() {
+        mMapView.setBoundFiltersEnabled(false);
+        mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION), SensorManager.SENSOR_DELAY_GAME);
+        gpsRotation = true;
+    }
+
+    public void inactivateRotation() {
+        mMapView.setRotationLatLng(mGpsMarkerLat,mGpsMarkerLng,-totDegree);
+        totDegree = 0;
+        lastDegree = 0;
+        mSensorManager.unregisterListener(this);
+        mMapView.setBoundFiltersEnabled(true);
+        gpsRotation = false;
+        gpsCentered = true;
+    }
+
+    private float totDegree = 0;
+    private float lastDegree = 0;
+
+    @Override
+    public void onSensorChanged(SensorEvent sensorEvent) {
+        float degree = Math.round(sensorEvent.values[0]);
+
+        mMapView.setRotationLatLng(mGpsMarkerLat,mGpsMarkerLng,lastDegree-degree);
+        totDegree += lastDegree - degree;
+        lastDegree = degree;
+
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int i) {
+        
+    }
+
     @Override
     public void postMiniMap(Picture picture) {
         waitForLayout();
@@ -295,6 +382,7 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, M
                 @Override
                 public void run() {
                     mViewFlipper.showNext();
+                    mSpinnerView.clearAnimation();
                 }
             });
         }
