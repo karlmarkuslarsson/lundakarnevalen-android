@@ -30,7 +30,15 @@ public class GPSTracker extends Service implements LocationListener, GpsStatus.L
     
     public static final int UPDATE_DELAY_MILLIS = 20000;
     public static final int INITAL_DELAY_MILLIS = 1000;
+
+    //Filter accuracy on this value in meters
     public static final int REQUERED_ACCURACY_METERS = 200;
+
+    // The minimum distance to change Updates in meters
+    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 1; // 1 meters
+
+    // The minimum time between updates in milliseconds
+    private static final long MIN_TIME_BW_UPDATES = 2000; // 2 sec
 
     private final LocationManager mLocationManager;
     private final Context mContext;
@@ -59,11 +67,6 @@ public class GPSTracker extends Service implements LocationListener, GpsStatus.L
     double latitude;
     double longitude;
 
-    // The minimum distance to change Updates in meters
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 5; // 2 meters
-
-    // The minimum time between updates in milliseconds
-    private static final long MIN_TIME_BW_UPDATES = 10000; // 1 sec
 
     public GPSTracker(Context context) {
         this.mContext = context;
