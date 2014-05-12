@@ -277,7 +277,7 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, S
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                    if(isDetached()) return; // Do nothing if fragment has been detached
+                        if(isDetached()) return; // Do nothing if fragment has been detached
                         mMapView.getPointFromCoordinates(lat, lng, dst);
                         mMapView.triggerClick(dst[0], dst[1]);
                     }
@@ -391,7 +391,9 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, S
     @Override
     public void postLargerMap(Picture picture) {
         waitForLayout();
-        float minZoom = calculateMinZoom(mMapView, picture);
-        mMapView.setSvg(picture, minZoom, mMatrixValues);
+        if(picture != null) {
+            float minZoom = calculateMinZoom(mMapView, picture);
+            mMapView.setSvg(picture, minZoom, mMatrixValues);
+        }
     }
 }

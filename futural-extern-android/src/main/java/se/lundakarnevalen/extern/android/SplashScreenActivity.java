@@ -51,13 +51,6 @@ public class SplashScreenActivity extends Activity {
 
         startMovingClouds(findViewById(android.R.id.content));
         MapLoader.startPreLoading(getApplicationContext());
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-            TrainMapLoader.preload(SplashScreenActivity.this);
-            }
-        }, 5000);
     }
 
 

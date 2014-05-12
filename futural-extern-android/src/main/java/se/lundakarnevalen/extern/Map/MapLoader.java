@@ -43,17 +43,21 @@ public class MapLoader {
                 mapSignal.acquire(2);
                 isLoading = true;
                 Timer t = new Timer();
+
                 SVG svg1 = SVG.getFromResource(mContext, R.raw.karta_mini);
                 t.tick(LOG_TAG, "MapMini: getFromResource()");
                 mapMini = svg1.renderToPicture();
                 t.tick(LOG_TAG, "MapMini: renderToPicture()");
-                mapSignal.release();
+
                 t.reset();
+                TrainMapLoader.preload(mContext);
+
                 SVG svg2 = SVG.getFromResource(mContext, R.raw.kartamindre_cleaned);
                 t.tick(LOG_TAG, "MapLarge: getFromResource()");
                 mapLarge = svg2.renderToPicture();
                 t.tick(LOG_TAG, "MapLarge: renderToPicture()");
                 mapSignal.release();
+
                 isLoading = false;
             } catch (SVGParseException e) {
                 Log.wtf(LOG_TAG, "This wont happen");
@@ -81,15 +85,19 @@ public class MapLoader {
                 @Override
                 protected Void doInBackground(Void... params) {
                     try {
+                        Log.d(LOG_TAG, "mapWaitSignal.acquire()");
                         mapWaitSignal.acquire();
                         if(mapMini == null) {
                             mapSignal.acquire();
                         }
+                        Log.d(LOG_TAG, "posting MiniMap: "+mapMini);
                         mCallback.postMiniMap(mapMini);
                         if(mapLarge == null) {
                             mapSignal.acquire();
                         }
+                        Log.d(LOG_TAG, "posting LargeMap: "+mapMini);
                         mCallback.postLargerMap(mapLarge);
+                        Log.d(LOG_TAG, "mapWaitSignal.release()");
                         mapWaitSignal.release();
                     } catch (InterruptedException e) {
                         Log.wtf(LOG_TAG, "Future was interrupted", e);

@@ -48,6 +48,7 @@ import static se.lundakarnevalen.extern.util.ViewUtil.get;
 
 public class ContentActivity extends ActionBarActivity {
     public static final String LOG_TAG = ContentActivity.class.getSimpleName();
+
     public ListView mRightMenuList;
     public MapFragment mMapFragment;
 
