@@ -50,12 +50,12 @@ public class SplashScreenActivity extends Activity {
             .start();
 
         startMovingClouds(findViewById(android.R.id.content));
-        MapLoader.preload(this);
+        MapLoader.startPreLoading(getApplicationContext());
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                TrainMapLoader.preload(SplashScreenActivity.this);
+            TrainMapLoader.preload(SplashScreenActivity.this);
             }
         }, 5000);
     }
@@ -63,7 +63,8 @@ public class SplashScreenActivity extends Activity {
 
     private class CloudStartListner implements Animation.AnimationListener {
 
-        ImageView view;
+        private ImageView view;
+
         public CloudStartListner(ImageView view) {
             this.view = view;
         }

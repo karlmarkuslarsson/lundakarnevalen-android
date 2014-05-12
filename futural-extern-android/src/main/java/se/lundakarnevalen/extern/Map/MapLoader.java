@@ -8,9 +8,7 @@ import android.util.Log;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
 
-import java.util.concurrent.Callable;
-import java.util.concurrent.Future;
-import java.util.concurrent.FutureTask;
+import java.util.concurrent.Semaphore;
 
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.util.Timer;
@@ -18,49 +16,93 @@ import se.lundakarnevalen.extern.util.Timer;
 /**
 * Created by Filip on 2014-05-07.
 */
-public class MapLoader implements Callable<Picture> {
+public class MapLoader {
     public static final String LOG_TAG = MapLoader.class.getSimpleName();
-    private static FutureTask<Picture> preloaded = null;
 
-    private Context c;
+    private static Semaphore mapSignal = new Semaphore(2);
+    private static Semaphore mapWaitSignal = new Semaphore(1);
 
-    public MapLoader(Context c) {
-        this.c = c;
+    private static boolean isLoading = false;
+    private static Picture mapMini = null;
+    private static Picture mapLarge = null;
+
+    public static void startPreLoading(Context c) {
+        new MapLoaderCallable(c).execute();
     }
 
-    public static FutureTask<Picture> preload(Context c) {
-        if(preloaded == null){
-            preloaded = new FutureTask<Picture>(new MapLoader(c));
-            new AsyncTask<Void,Void,Void>(){
+    private static class MapLoaderCallable extends AsyncTask<Void, Void, Void> {
+        private final Context mContext;
+
+        private MapLoaderCallable(Context mContext) {
+            this.mContext = mContext;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                mapSignal.acquire(2);
+                isLoading = true;
+                Timer t = new Timer();
+                SVG svg1 = SVG.getFromResource(mContext, R.raw.karta_mini);
+                t.tick(LOG_TAG, "MapMini: getFromResource()");
+                mapMini = svg1.renderToPicture();
+                t.tick(LOG_TAG, "MapMini: renderToPicture()");
+                mapSignal.release();
+                t.reset();
+                SVG svg2 = SVG.getFromResource(mContext, R.raw.kartamindre_cleaned);
+                t.tick(LOG_TAG, "MapLarge: getFromResource()");
+                mapLarge = svg2.renderToPicture();
+                t.tick(LOG_TAG, "MapLarge: renderToPicture()");
+                mapSignal.release();
+                isLoading = false;
+            } catch (SVGParseException e) {
+                Log.wtf(LOG_TAG, "This wont happen");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    public interface MapLoaderCallback{
+        public void postMiniMap(Picture picture);
+        public void postLargerMap(Picture picture);
+    }
+
+    public static class MapSvgLoader {
+        private final MapLoaderCallback mCallback;
+
+        public MapSvgLoader(MapLoaderCallback callback) {
+            this.mCallback = callback;
+        }
+
+        public void startWait() {
+            new AsyncTask<Void, Void, Void>(){
                 @Override
                 protected Void doInBackground(Void... params) {
-                    if (preloaded == null) { // if async starts after cleanup
-                        return null;
+                    try {
+                        mapWaitSignal.acquire();
+                        if(mapMini == null) {
+                            mapSignal.acquire();
+                        }
+                        mCallback.postMiniMap(mapMini);
+                        if(mapLarge == null) {
+                            mapSignal.acquire();
+                        }
+                        mCallback.postLargerMap(mapLarge);
+                        mapWaitSignal.release();
+                    } catch (InterruptedException e) {
+                        Log.wtf(LOG_TAG, "Future was interrupted", e);
+                    } finally {
+                        if(mapMini == null) mapSignal.release();
+                        if(mapLarge == null) mapSignal.release();
                     }
-                    preloaded.run();
                     return null;
                 }
+
+                @Override
+                protected void onPostExecute(Void aVoid) {}
             }.execute();
-        }
-        return preloaded;
-    }
-
-    public static void clean(){
-        preloaded = null;
-    }
-
-    @Override
-    public Picture call() throws Exception {
-        try {
-            Timer t = new Timer();
-            SVG svg = SVG.getFromResource(c, R.raw.karta_mini);
-            t.tick(LOG_TAG, "getFromResource()");
-            Picture pic = svg.renderToPicture();
-            t.tick(LOG_TAG, "renderToPicture()");
-            return pic;
-        } catch (SVGParseException e) {
-            Log.wtf(LOG_TAG, "This wont happen");
-            return null;
         }
     }
 }

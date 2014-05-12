@@ -111,6 +111,11 @@ public class SVGView extends View {
         return result;
     }
 
+    public void switchToSvg(Picture p) {
+        //mPicture = p;
+        postInvalidate();
+    }
+
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
         private Matrix mTransformationMatrix = new Matrix();
         private float mTempScale = 1f;
@@ -257,7 +262,7 @@ public class SVGView extends View {
         return new PointF(mMatrixValues[MTRANS_X], mMatrixValues[MTRANS_Y]);
     }
 
-    public PointF getTransXY(Matrix m){
+    public PointF getTransXY(Matrix m) {
         m.getValues(mMatrixValues);
         return new PointF(mMatrixValues[MTRANS_X], mMatrixValues[MTRANS_Y]);
     }
