@@ -60,6 +60,7 @@ public class SchemeFragment extends LKFragment {
         rl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                currentDay = vp.getCurrentItem();
                 if(myScheme){
                     get(rl,R.id.myScheme,TextView.class).setText(R.string.my_scheme);
                     get(rl,R.id.myScheme,TextView.class).setTextColor(getResources().getColor(R.color.red));
