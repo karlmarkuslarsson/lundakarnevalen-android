@@ -53,7 +53,7 @@ public class MapLoader implements Callable<Picture> {
     public Picture call() throws Exception {
         try {
             Timer t = new Timer();
-            SVG svg = SVG.getFromResource(c, R.raw.kartamindre_cleaned);
+            SVG svg = SVG.getFromResource(c, R.raw.karta_mini);
             t.tick(LOG_TAG, "getFromResource()");
             Picture pic = svg.renderToPicture();
             t.tick(LOG_TAG, "renderToPicture()");

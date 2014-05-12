@@ -98,7 +98,7 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
             protected Void doInBackground(Void... params) {
                 try {
                     Future<Picture> preload = MapLoader.preload(inflater.getContext());
-                    Picture picture = preload.get(60, TimeUnit.SECONDS);
+                    Picture picture = preload.get(10, TimeUnit.MINUTES);
                     waitForLayout();
                     float minZoom = calculateMinZoom(mapView, picture);
                     mapView.setSvg(picture, minZoom, mMatrixValues);

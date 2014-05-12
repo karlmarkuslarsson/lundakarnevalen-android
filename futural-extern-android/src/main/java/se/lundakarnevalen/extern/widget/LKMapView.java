@@ -141,10 +141,12 @@ public class LKMapView extends SVGView {
             e.printStackTrace();
         }
 
+        /** Will be recalculated in updateViewLimitBounds() */
         mGpsMarkerSize = 34.0f; //dpToPx(context, 80);
         mGpsShadowXRadius = mGpsMarkerSize / 6.0f;//dpToPx(context, 10);
         mGpsShadowYRadius = mGpsMarkerSize / 12.0f; //dpToPx(context, 6);
 
+        /** Will be recalculated in updateViewLimitBounds() */
         mBubbleSize = 14.0f; //dpToPx(context, 8);
         mBubbleShadowXRadius = mBubbleSize / 4.0f; //dpToPx(context, 2);
         mBubbleShadowYRadius = mBubbleSize / 8.0f; //dpToPx(context, 1);
@@ -446,6 +448,9 @@ public class LKMapView extends SVGView {
             mBubbleSize = (mViewEndPoint[AXIS_X] * 0.04f)/mMinZoom;//dpToPx(context, 8);
             mBubbleShadowXRadius = mBubbleSize/4.0f; //dpToPx(context, 2);
             mBubbleShadowYRadius = mBubbleSize/8.0f; //dpToPx(context, 1);
+            mGpsMarkerSize = (mViewEndPoint[AXIS_X] * 0.08f)/mMinZoom;//dpToPx(context, 8);
+            mGpsShadowXRadius = mBubbleSize/4.0f; //dpToPx(context, 2);
+            mGpsShadowYRadius = mBubbleSize/8.0f; //dpToPx(context, 1);
         }
         return hasLayoutAndBounds;
     }
