@@ -1,0 +1,302 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ContentActivity"
+    android:background="@color/white"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <RelativeLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="180dp">
+
+            <ImageView
+                android:contentDescription="@string/picture"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/monk"
+                android:id="@+id/header_background"
+                />
+
+            <ImageView
+                android:contentDescription="@string/picture"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/header_clouds"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                />
+            <se.lundakarnevalen.extern.widget.LKTextView
+                android:text="@string/utvecklarna_place"
+                android:id="@+id/place"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:textColor="@color/white"
+                android:layout_marginBottom="10dp"
+                android:shadowRadius="6"
+                android:shadowDy="4"
+                android:gravity="right"
+                android:lineSpacingMultiplier="1.3"
+                android:layout_marginLeft="125dp"
+                android:shadowColor="@color/black"
+                android:textSize="16sp"/>
+
+            <se.lundakarnevalen.extern.widget.LKTextView
+                android:text="@string/utvecklarna"
+                android:id="@+id/name"
+                android:lineSpacingMultiplier="1.3"
+                android:gravity="right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:textSize="30sp"
+                android:layout_marginBottom="-15dp"
+                android:shadowRadius="6"
+                android:shadowDy="4"
+                android:shadowColor="@color/black"
+                android:textColor="@color/white"
+                android:layout_above="@id/place"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/middleLayout"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_below="@id/header"
+            android:background="@color/light_red">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="3"
+                android:baselineAligned="false">
+
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    >
+
+                    <ImageView
+                        android:contentDescription="@string/picture"
+                        android:id="@+id/map_shadow_1"
+                        android:layout_width="60dp"
+                        android:layout_height="3dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignParentBottom="true"
+                        android:background="@drawable/scheme_shadow"
+                        />
+
+                    <se.lundakarnevalen.extern.widget.LKTextView
+                        android:text="@string/to_markus"
+                        android:id="@+id/map_info_1"
+                        android:layout_width="match_parent"
+                        android:layout_alignLeft="@id/map_shadow_1"
+                        android:layout_alignRight="@id/map_shadow_1"
+
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="8dp"
+
+                        />
+
+                    <ImageView
+                        android:contentDescription="@string/picture"
+                        android:layout_marginTop="2dp"
+                        android:id="@+id/map_picture_1"
+                        android:layout_width="match_parent"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignLeft="@id/map_shadow_1"
+                        android:layout_alignRight="@id/map_shadow_1"
+                        android:layout_height="match_parent"
+                        android:layout_below="@id/map_info_1"
+                        android:layout_above="@id/map_shadow_1"
+                        android:background="@drawable/go_to_map"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    >
+
+                    <ImageView
+                        android:contentDescription="@string/picture"
+                        android:id="@+id/map_shadow_2"
+                        android:layout_width="60dp"
+                        android:layout_height="3dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignParentBottom="true"
+                        android:background="@drawable/scheme_shadow"
+                        />
+
+                    <se.lundakarnevalen.extern.widget.LKTextView
+                        android:text="@string/to_filip"
+                        android:id="@+id/map_info_2"
+                        android:layout_width="match_parent"
+                        android:layout_alignLeft="@id/map_shadow_2"
+                        android:layout_alignRight="@id/map_shadow_2"
+
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="8dp"
+
+                        />
+
+                    <ImageView
+                        android:contentDescription="@string/picture"
+                        android:layout_marginTop="2dp"
+                        android:id="@+id/map_picture_2"
+                        android:layout_width="match_parent"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignLeft="@id/map_shadow_2"
+                        android:layout_alignRight="@id/map_shadow_2"
+                        android:layout_height="match_parent"
+                        android:layout_below="@id/map_info_2"
+                        android:layout_above="@id/map_shadow_2"
+                        android:background="@drawable/go_to_map"/>
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    >
+
+                    <ImageView
+                        android:contentDescription="@string/picture"
+                        android:id="@+id/map_shadow_3"
+                        android:layout_width="60dp"
+                        android:layout_height="3dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignParentBottom="true"
+                        android:background="@drawable/scheme_shadow"
+                        />
+
+                    <se.lundakarnevalen.extern.widget.LKTextView
+                        android:text="@string/to_fredrik"
+                        android:id="@+id/map_info_3"
+                        android:layout_width="match_parent"
+                        android:layout_alignLeft="@id/map_shadow_3"
+                        android:layout_alignRight="@id/map_shadow_3"
+
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="8dp"
+
+                        />
+
+                    <ImageView
+                        android:contentDescription="@string/picture"
+                        android:layout_marginTop="2dp"
+                        android:id="@+id/map_picture_3"
+                        android:layout_width="match_parent"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignLeft="@id/map_shadow_3"
+                        android:layout_alignRight="@id/map_shadow_3"
+                        android:layout_height="match_parent"
+                        android:layout_below="@id/map_info_3"
+                        android:layout_above="@id/map_shadow_3"
+                        android:background="@drawable/go_to_map"/>
+
+                </RelativeLayout>
+
+
+
+
+            </LinearLayout>
+            <ImageView
+                android:contentDescription="@string/picture"
+                android:id="@+id/header_background"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/scheme_shadow">
+            </ImageView>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/bottom_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/middleLayout"
+
+            android:background="@color/white">
+
+
+            <se.lundakarnevalen.extern.widget.LKTextView
+                android:text="@string/utvecklarna_question"
+                android:lineSpacingMultiplier="1.3"
+
+                android:id="@+id/question"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/menu"
+                android:layout_marginRight="30dp"
+                android:textColor="@color/blue_dark"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:textSize="20sp"/>
+
+            <se.lundakarnevalen.extern.widget.LKTextView
+                android:text="@string/utvecklarna_text"
+                android:id="@+id/text"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/blue_dark"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_below="@id/question"
+                android:textStyle="italic"
+                android:textSize="15sp"
+                android:lineSpacingMultiplier="1.1"
+                />
+
+            <ImageView
+                android:contentDescription="@string/picture"
+                android:id="@+id/middleLayoutShadow"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/scheme_shadow">
+
+            </ImageView>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_below="@id/bottom_text"
+
+            android:background="@color/white">
+        </RelativeLayout>
+
+    </RelativeLayout>
+</ScrollView>

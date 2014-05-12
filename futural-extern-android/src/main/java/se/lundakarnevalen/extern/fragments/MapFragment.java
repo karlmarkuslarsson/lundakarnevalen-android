@@ -399,4 +399,21 @@ private SensorManager mSensorManager;
     }
 
 
+    public void zoomToDeveloper(float lat, float lng, int i) {
+        switch (i) {
+            case 1:
+
+                break;
+
+            case 2:
+
+                break;
+
+            case 3:
+
+                break;
+        }
+        addZoomHintForNextCreate(lat, lng, -1.0f); // will use midZoom
+
+    }
 }

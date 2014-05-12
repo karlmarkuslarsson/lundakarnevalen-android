@@ -41,9 +41,42 @@ public class LandingPageFragment extends LKFragment{
         Bundle bundle = getArguments();
         final DataElement element = bundle.getParcelable("element");
         View rootView;
+
         if(element.type == DataType.FOODSTOCK) {
             rootView = inflater.inflate(R.layout.fragment_landing_page_foodstock, container, false);
-        } else {
+        } else if(element.type == DataType.DEVELOPER) {
+            rootView = inflater.inflate(R.layout.fragment_markus_filip_fredrik, container, false);
+
+
+            ImageView mapView = get(rootView, R.id.map_picture_1, ImageView.class);
+            mapView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ContentActivity.class.cast(getActivity()).showMapAndPanDeveloper(lat, lng,1);
+                    ContentActivity.class.cast(getActivity()).ensureSelectedFilters(new DataType[]{element.type});
+                }
+            });
+
+            mapView = get(rootView, R.id.map_picture_2, ImageView.class);
+            mapView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ContentActivity.class.cast(getActivity()).showMapAndPanDeveloper(lat, lng,2);
+                    ContentActivity.class.cast(getActivity()).ensureSelectedFilters(new DataType[]{element.type});
+                }
+            });
+
+            mapView = get(rootView, R.id.map_picture_3, ImageView.class);
+            mapView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ContentActivity.class.cast(getActivity()).showMapAndPanDeveloper(lat, lng,3);
+                    ContentActivity.class.cast(getActivity()).ensureSelectedFilters(new DataType[]{element.type});
+                }
+            });
+
+            return rootView;
+        } else{
             rootView = inflater.inflate(R.layout.fragment_landing_page, container, false);
         }
 

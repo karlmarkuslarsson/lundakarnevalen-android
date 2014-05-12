@@ -497,5 +497,12 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="foodo_child_food2">Vetekornspilaff med grillade grönsaker</string>
     <string name="flour_power_food1">Klassiskt brännvinsbord</string>
     <string name="gps_toast">Du är utanför området eller har ej GPS aktiverad</string>
+    <string name="utvecklarna_place" />
+    <string name="utvecklarna">UTVECKLARNA</string>
+    <string name="to_markus">TILL MARKUS</string>
+    <string name="to_filip">TILL FILIP</string>
+    <string name="to_fredrik">TILL FREDRIK</string>
+    <string name="utvecklarna_question">VEM ÄR UTVECKLARNA?</string>
+    <string name="utvecklarna_text">Utvecklarna består av...</string>
 
 </resources>

@@ -362,6 +362,12 @@ public class ContentActivity extends ActionBarActivity {
         adapter.ensureSelectedFilters(types);
     }
 
+    public void showMapAndPanDeveloper(float lat, float lng, int i) {
+        focusBottomItem(MapFragment.BOTTOM_MENU_ID);
+        mMapFragment.zoomToDeveloper(lat,lng,i);
+        loadFragmentAddingBS(mMapFragment);
+    }
+
     private class BottomMenuClickListener implements OnClickListener {
         private static final int TAG_IDX = R.id.bottom_menu_tag_idx;
         private static final int TAG_FRAGMENT = R.id.bottom_menu_tag_fragment;
