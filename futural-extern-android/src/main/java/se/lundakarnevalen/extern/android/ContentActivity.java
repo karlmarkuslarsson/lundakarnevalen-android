@@ -317,14 +317,25 @@ public class ContentActivity extends ActionBarActivity {
             }
         });
         b.setVisibility(View.VISIBLE);
-        b = get(mActionBarView, R.id.gps_marker, ImageButton.class);
-        b.setOnClickListener(new OnClickListener() {
+        final ImageButton gps = get(mActionBarView, R.id.gps_marker, ImageButton.class);
+        gps.setImageResource(R.drawable.gps_menu_marker);
+        gps.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                mMapFragment.zoomToMarker();
+                if(mMapFragment.gpsRotation) {
+                    gps.setImageResource(R.drawable.gps_menu_marker_selected);
+                    mMapFragment.inactivateRotation();
+                }else if(mMapFragment.gpsCentered) {
+                    gps.setImageResource(R.drawable.gps_menu_marker);
+                    mMapFragment.activateRotation();
+                } else {
+                    if (mMapFragment.zoomToMarker()) {
+                        gps.setImageResource(R.drawable.gps_menu_marker_selected);
+                    }
+                }
             }
         });
-        b.setVisibility(View.VISIBLE);
+        gps.setVisibility(View.VISIBLE);
     }
 
     public void activateMapButton() {
