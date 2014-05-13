@@ -76,38 +76,18 @@ public class LandingPageFragment extends LKFragment{
                         case MotionEvent.ACTION_DOWN:
 
                                 if(motionEvent.getX() < width/3) {
-                                    if(a1 == null || (!a1.hasStarted() || a1.hasEnded())) {
-                                        Log.d("run this","run!!");
-                                        a1 = new TranslateAnimation(0, 0, 0, -header1.getHeight());
-                                        a1.setRepeatMode(Animation.REVERSE);
-                                        a1.setRepeatCount(1);
-                                        a1.setDuration(500);
-                                        header1.startAnimation(a1);
-                                    }
+                                    startAnimation(1);
                                 } else if(motionEvent.getX() > width-width/3) {
-
-                                    if(a3 == null || (!a3.hasStarted() ||a3.hasEnded())) {
-                                        a3 = new TranslateAnimation(0, 0, 0, -header3.getHeight());
-                                        a3.setRepeatMode(Animation.REVERSE);
-                                        a3.setRepeatCount(1);
-                                        a3.setDuration(500);
-                                        header3.startAnimation(a3);
-                                    }
+                                    startAnimation(3);
                                 } else {
 
-                                    if(a2 == null || (!a2.hasStarted() || a2.hasEnded())) {
-                                        a2 = new TranslateAnimation(0, 0, 0, -header2.getHeight());
-                                        a2.setRepeatMode(Animation.REVERSE);
-                                        a2.setRepeatCount(1);
-                                        a2.setDuration(500);
-
-                                        header2.startAnimation(a2);
-                                    }
+                                    startAnimation(2);
                                 }
 
                                 //startX = motionEvent.getX();
                                 break;
                             case MotionEvent.ACTION_MOVE:
+                                /*
                                 if(motionEvent.getX() < width/3) {
                                     if(a1 == null || (!a1.hasStarted() || a1.hasEnded())) {
                                         a1 = new TranslateAnimation(0, 0, 0, -header1.getHeight());
@@ -136,7 +116,7 @@ public class LandingPageFragment extends LKFragment{
                                         header2.startAnimation(a2);
                                     }
                                 }
-
+                                */
                                 break;
                             case MotionEvent.ACTION_UP:
 
@@ -150,6 +130,43 @@ public class LandingPageFragment extends LKFragment{
 
                     return true;
                 }
+                private synchronized void startAnimation(int nbr) {
+                    switch (nbr) {
+                        case 1:
+                            if(a1 == null || (!a1.hasStarted() || a1.hasEnded())) {
+                                Log.d("run this","run!!");
+                                a1 = new TranslateAnimation(0, 0, 0, -header1.getHeight());
+                                a1.setRepeatMode(Animation.REVERSE);
+                                a1.setRepeatCount(1);
+                                a1.setDuration(500);
+                                header1.startAnimation(a1);
+                            }
+                            break;
+                        case 2:
+                            if(a2 == null || (!a2.hasStarted() || a2.hasEnded())) {
+                                a2 = new TranslateAnimation(0, 0, 0, -header2.getHeight());
+                                a2.setRepeatMode(Animation.REVERSE);
+                                a2.setRepeatCount(1);
+                                a2.setDuration(500);
+
+                                header2.startAnimation(a2);
+                            }
+                            break;
+                        case 3:
+                            if(a3 == null || (!a3.hasStarted() ||a3.hasEnded())) {
+                                a3 = new TranslateAnimation(0, 0, 0, -header3.getHeight());
+                                a3.setRepeatMode(Animation.REVERSE);
+                                a3.setRepeatCount(1);
+                                a3.setDuration(500);
+                                header3.startAnimation(a3);
+                            }
+
+                            break;
+                    }
+
+
+                }
+
             });
 
 
@@ -282,7 +299,7 @@ public class LandingPageFragment extends LKFragment{
         } else if(type == DataType.FOOD || type == DataType.FOODSTOCK) {
             get(rootView, R.id.question, TextView.class).setText(element.question);
             get(rootView, R.id.text, TextView.class).setText(element.info);
-            get(rootView, R.id.middleLayout, RelativeLayout.class).setBackgroundResource(R.color.green_background);
+            get(rootView, R.id.middleLayout, RelativeLayout.class).setBackgroundColor(getResources().getColor(R.color.green_background));
 
             if (element.menu != null) {
                 get(rootView,R.id.menu,RelativeLayout.class).setVisibility(View.VISIBLE);
@@ -301,7 +318,7 @@ public class LandingPageFragment extends LKFragment{
         } else if(type == DataType.BILJETTERIET || type == DataType.SHOPPEN|| type == DataType.TRASHCAN|| type == DataType.ENTRANCE) {
             get(rootView, R.id.question, TextView.class).setText(element.question);
             get(rootView, R.id.text, TextView.class).setText(Html.fromHtml(getString(element.info)));
-            get(rootView, R.id.middleLayout, RelativeLayout.class).setBackgroundResource(R.color.blue_dark);
+            get(rootView, R.id.middleLayout, RelativeLayout.class).setBackgroundColor(getResources().getColor(R.color.blue_dark));
             get(rootView, R.id.middleView, View.class).setVisibility(View.INVISIBLE);
 
         } else if(type == DataType.TENT_FUN || type == DataType.SMALL_FUN || type == DataType.TOMBOLAN ||type == DataType.MUSIC ||type == DataType.SCENE) {
@@ -312,17 +329,17 @@ public class LandingPageFragment extends LKFragment{
         } else if(type == DataType.SNACKS) {
             get(rootView, R.id.question, TextView.class).setVisibility(View.GONE);
             get(rootView, R.id.text, TextView.class).setText(element.info);
-            get(rootView, R.id.middleLayout, RelativeLayout.class).setBackgroundResource(R.color.green_background);
+            get(rootView, R.id.middleLayout, RelativeLayout.class).setBackgroundColor(getResources().getColor(R.color.green_background));
             get(rootView, R.id.middleView, View.class).setVisibility(View.INVISIBLE);
         }else if(type == DataType.TOILETS || type == DataType.SECURITY || type == DataType.CARE) {
             get(rootView, R.id.question, TextView.class).setVisibility(View.GONE);
             get(rootView, R.id.text, TextView.class).setText(element.info);
-            get(rootView, R.id.middleLayout, RelativeLayout.class).setBackgroundResource(R.color.blue_dark);
+            get(rootView, R.id.middleLayout, RelativeLayout.class).setBackgroundColor(getResources().getColor(R.color.blue_dark));
             get(rootView, R.id.middleView, View.class).setVisibility(View.INVISIBLE);
         }else if(type == DataType.TRAIN) {
             get(rootView, R.id.question, TextView.class).setText(element.question);
             get(rootView, R.id.text, TextView.class).setText(element.info);
-            get(rootView, R.id.middleLayout, RelativeLayout.class).setBackgroundResource(R.color.blue_dark);
+            get(rootView, R.id.middleLayout, RelativeLayout.class).setBackgroundColor(getResources().getColor(R.color.blue_dark));
             get(rootView,R.id.card_box,RelativeLayout.class).setVisibility(View.INVISIBLE);
             get(rootView,R.id.cash_box,RelativeLayout.class).setVisibility(View.INVISIBLE);
             get(rootView,R.id.map_info,TextView.class).setText(R.string.to_traint);
