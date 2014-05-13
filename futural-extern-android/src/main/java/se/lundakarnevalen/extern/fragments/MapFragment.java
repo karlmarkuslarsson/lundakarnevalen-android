@@ -388,12 +388,25 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, S
         }
     }
 
+
     @Override
     public void postLargerMap(Picture picture) {
         waitForLayout();
-        if(picture != null) {
+        if (picture != null) {
             float minZoom = calculateMinZoom(mMapView, picture);
             mMapView.setSvg(picture, minZoom, mMatrixValues);
         }
+    }
+
+    public void zoomToDeveloper(float lat, float lng, int i) {
+        switch (i) {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+        }
+        addZoomHintForNextCreate(lat, lng, -1.0f); // will use midZoom
     }
 }

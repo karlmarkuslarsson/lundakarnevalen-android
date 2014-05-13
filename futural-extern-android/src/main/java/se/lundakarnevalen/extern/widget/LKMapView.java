@@ -455,4 +455,6 @@ public class LKMapView extends SVGView {
         }
         return hasLayoutAndBounds;
     }
+
+
 }
