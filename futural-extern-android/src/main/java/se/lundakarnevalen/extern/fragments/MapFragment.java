@@ -113,6 +113,9 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, M
         mMapView.setListener(new LKMapView.OnMarkerSelectedListener() {
             @Override
             public void onMarkerSelected(final Marker m) {
+                if(isDetached()) {
+                    return;
+                }
                 final boolean wasSelected = (m != null);
                 final ViewGroup layout = get(root, R.id.map_info_layout, ViewGroup.class);
                 layout.setVisibility(wasSelected ? View.VISIBLE : View.GONE);

@@ -1,5 +1,5 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ContentActivity"
@@ -73,21 +73,15 @@ xmlns:tools="http://schemas.android.com/tools"
             </LinearLayout>
 
         </RelativeLayout>
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/header"
-            >
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
 
 
-            <RelativeLayout
+
+
+        <RelativeLayout
             android:id="@+id/middleLayout"
             android:layout_width="match_parent"
             android:layout_height="70dp"
+            android:layout_below="@id/header"
             android:background="@color/light_red">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -308,9 +302,9 @@ xmlns:tools="http://schemas.android.com/tools"
 
             android:background="@color/white">
         </RelativeLayout>
-            </RelativeLayout>
-        </ScrollView>
+
+
     </RelativeLayout>
 
 
-</LinearLayout>
+</ScrollView>

@@ -67,9 +67,7 @@ public class LandingPageFragment extends LKFragment{
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
                     float width = view.getWidth();
-                    Log.d("get event",""+ motionEvent.getAction()+"x: "+motionEvent.getX()+"width: "+width);
                     if(a1!=null) {
-                        Log.d("started: ", "start:" + !a1.hasStarted() + ", " + a1.hasEnded());
                     }
                         switch (motionEvent.getAction()) {
 
