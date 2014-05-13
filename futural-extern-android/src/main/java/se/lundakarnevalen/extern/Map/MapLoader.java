@@ -45,7 +45,9 @@ public class MapLoader {
                 t.tick(LOG_TAG, "MapMini: getFromResource()");
                 mapMini = svg1.renderToPicture();
                 t.tick(LOG_TAG, "MapMini: renderToPicture()");
-                Logf.d(LOG_TAG, "MapMini: svg %f x %f, pic %d x %d", svg1.getDocumentWidth(), svg1.getDocumentHeight(), mapMini.getWidth(), mapMini.getHeight());
+                Logf.d(LOG_TAG, "MapMini: svg %f x %f, pic %d x %d",
+                        svg1.getDocumentWidth(), svg1.getDocumentHeight(),
+                        mapMini.getWidth(), mapMini.getHeight());
 
                 t.reset();
                 TrainMapLoader.preload(mContext);
@@ -54,7 +56,9 @@ public class MapLoader {
                 t.tick(LOG_TAG, "MapLarge: getFromResource()");
                 mapLarge = svg2.renderToPicture();
                 t.tick(LOG_TAG, "MapLarge: renderToPicture()");
-                Logf.d(LOG_TAG, "MapLarge: svg %f x %f, pic %d x %d", svg2.getDocumentWidth(), svg2.getDocumentHeight(), mapLarge.getWidth(), mapLarge.getHeight());
+                Logf.d(LOG_TAG, "MapLarge: svg %f x %f, pic %d x %d",
+                        svg2.getDocumentWidth(), svg2.getDocumentHeight(),
+                        mapLarge.getWidth(), mapLarge.getHeight());
 
             } catch (SVGParseException e) {
                 Log.wtf(LOG_TAG, "This wont happen");
@@ -82,10 +86,10 @@ public class MapLoader {
                 @Override
                 protected Void doInBackground(Void... params) {
                     try {
-                        while (mapMini == null) sleep(300);
+                        while (mapMini == null) sleep(200);
                         Log.d(LOG_TAG, "posting MiniMap: "+mapMini);
                         mCallback.postMiniMap(mapMini);
-                        while (mapLarge == null) sleep(300);
+                        while (mapLarge == null) sleep(500);
                         Log.d(LOG_TAG, "posting LargeMap: "+mapMini);
                         mCallback.postLargerMap(mapLarge);
                     } catch (InterruptedException e) {
