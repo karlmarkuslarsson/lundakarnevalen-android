@@ -340,6 +340,10 @@ public class SVGView extends View {
         }
     }
 
+    public void setSvgLazy(Picture svg) {
+        this.mPicture = svg;
+    }
+
     public void setSvg(Picture svg, float minZoom, float[] values) {
         this.mPicture = svg;
         this.mPictureEndPoint[AXIS_X] = svg.getWidth();
