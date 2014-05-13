@@ -12,6 +12,7 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
 import se.lundakarnevalen.extern.android.R;
+import se.lundakarnevalen.extern.util.Logf;
 import se.lundakarnevalen.extern.util.Timer;
 
 /**
@@ -40,18 +41,20 @@ public class MapLoader {
             try {
                 Timer t = new Timer();
                 isLoading = true;
-                SVG svg1 = SVG.getFromResource(mContext, R.raw.karta_mini);
+                SVG svg1 = SVG.getFromResource(mContext, R.raw.kartamindre_small);
                 t.tick(LOG_TAG, "MapMini: getFromResource()");
                 mapMini = svg1.renderToPicture();
                 t.tick(LOG_TAG, "MapMini: renderToPicture()");
+                Logf.d(LOG_TAG, "MapMini: svg %f x %f, pic %d x %d", svg1.getDocumentWidth(), svg1.getDocumentHeight(), mapMini.getWidth(), mapMini.getHeight());
 
                 t.reset();
                 TrainMapLoader.preload(mContext);
 
-                SVG svg2 = SVG.getFromResource(mContext, R.raw.kartamindre_cleaned);
+                SVG svg2 = SVG.getFromResource(mContext, R.raw.kartamindre_cleaned_v2);
                 t.tick(LOG_TAG, "MapLarge: getFromResource()");
                 mapLarge = svg2.renderToPicture();
                 t.tick(LOG_TAG, "MapLarge: renderToPicture()");
+                Logf.d(LOG_TAG, "MapLarge: svg %f x %f, pic %d x %d", svg2.getDocumentWidth(), svg2.getDocumentHeight(), mapLarge.getWidth(), mapLarge.getHeight());
 
             } catch (SVGParseException e) {
                 Log.wtf(LOG_TAG, "This wont happen");
