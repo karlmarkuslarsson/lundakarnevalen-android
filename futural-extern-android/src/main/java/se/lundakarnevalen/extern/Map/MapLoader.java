@@ -22,6 +22,7 @@ public class MapLoader {
     public static final String LOG_TAG = MapLoader.class.getSimpleName();
 
     private static boolean isLoading = false;
+
     private static Picture mapMini = null;
     private static Picture mapLarge = null;
 
@@ -29,12 +30,18 @@ public class MapLoader {
         return mapMini != null;
     }
 
+    public static Picture getMapMini() { return mapMini; }
+
     public static boolean hasLoadedMapLarge(){
         return mapLarge != null;
     }
 
     public static void startPreLoading(Context c) {
         new MapLoaderCallable(c).execute();
+    }
+
+    public static Picture getMapLarge() {
+        return mapLarge;
     }
 
     private static class MapLoaderCallable extends AsyncTask<Void, Void, Void> {
@@ -60,7 +67,7 @@ public class MapLoader {
                 t.reset();
                 TrainMapLoader.preload(mContext);
 
-                SVG svg2 = SVG.getFromResource(mContext, R.raw.kartamindre_cleaned_v2);
+                SVG svg2 = SVG.getFromResource(mContext, R.raw.kartamindre_cleaned);
                 t.tick(LOG_TAG, "MapLarge: getFromResource()");
                 mapLarge = svg2.renderToPicture();
                 t.tick(LOG_TAG, "MapLarge: renderToPicture()");

@@ -54,7 +54,7 @@ public class LKMapView extends SVGView {
     private static final float diffLon = endLonMap - startLonMap;
     private static final float diffLat = endLatMap - startLatMap;
 
-    private static final float CLOSE_THRESHOLD = 10.0f; //last 40
+    private static final float CLOSE_THRESHOLD = 14.0f; //last 40
     private static final float BUBBLE_SIZE_MULTIPLIER = 3.0f;
 
     private static SparseArray<Bitmap> bitmaps = new SparseArray<Bitmap>();
@@ -207,10 +207,23 @@ public class LKMapView extends SVGView {
 
     @Override
     protected boolean onClick(float xInSvg, float yInSvg) {
-        final float offsetY = -10.0f / mPreDrawScale;
+
+        if(xInSvg + yInSvg < 100 && mListener != null) {
+            for (Marker m : markers) {
+                if(m.element.type == DataType.DEVELOPER){
+                    panTo(m.x, m.y);
+                    mFocusedMarker = m;
+                    m.isFocusedInMap = true;
+                    mListener.onMarkerSelected(m);
+                    return true;
+                }
+            }
+        }
+
         if(addExtra > 0) {
             yInSvg += addExtra/mPreDrawScale;
         }
+
         float min = Float.MAX_VALUE;
         Marker closest = null;
         for (Marker m : markers) {

@@ -44,6 +44,7 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, M
 
     public static final int BOTTOM_MENU_ID = 2;
     public static final float STARTZOOM = 1.3f;
+    public static final int VIEWFLIPPER_CHILD_MAP = 1;
 
     private float mGpsMarkerLat = -1;
     private float mGpsMarkerLng = -1;
@@ -61,7 +62,6 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, M
     private LKMapView mMapView;
     private ViewFlipper mViewFlipper;
     private View mSpinnerView;
-    private boolean mMapMiniHasLoaded = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -162,11 +162,20 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, M
         }
         mMapView.setGpsMarker(mGpsMarkerLat, mGpsMarkerLng, (savedInstanceState != null));
 
-
-        new MapLoader.MapSvgLoader(this).startWait();
-
-        if (mMapMiniHasLoaded) {
+        if (MapLoader.hasLoadedMapMini()) {
+            Picture p = MapLoader.getMapMini();
+            float minZoom = calculateMinZoom(mMapView, p);
+            mMapView.setSvg(p, minZoom, mMatrixValues);
             clearSpinner();
+        }
+
+        if(MapLoader.hasLoadedMapLarge()){
+            Picture p = MapLoader.getMapLarge();
+            float minZoom = calculateMinZoom(mMapView, p);
+            mMapView.setSvg(p, minZoom, mMatrixValues);
+            clearSpinner();
+        } else {
+            new MapLoader.MapSvgLoader(this).startWait();
         }
 
         return root;
@@ -232,6 +241,7 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, M
         } else {
             mMapView.zoom(mMapView.mMidZoom);
         }
+
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -243,7 +253,7 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, M
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if(isDetached()) return; // Do nothing if fragment has been detached
+                        if (isDetached()) return; // Do nothing if fragment has been detached
                         mMapView.getPointFromCoordinates(lat, lng, dst);
                         mMapView.triggerClick(dst[0], dst[1]);
                     }
@@ -301,30 +311,21 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, M
         }
     }
 
-
-
-
     @Override
     public void postMiniMap(Picture picture) {
         waitForLayout();
         float minZoom = calculateMinZoom(mMapView, picture);
         mMapView.setSvg(picture, minZoom, mMatrixValues);
-        Activity a = getActivity();
-        if (a != null) {
-            a.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    clearSpinner();
-                }
-            });
-        } else {
-            Log.d(LOG_TAG, "Activity was null, setting attribute: mMapMiniHasLoaded = true");
-            mMapMiniHasLoaded = true;
-        }
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                clearSpinner();
+            }
+        });
     }
 
     private void clearSpinner() {
-        mViewFlipper.showNext();
+        mViewFlipper.setDisplayedChild(VIEWFLIPPER_CHILD_MAP);
         mSpinnerView.clearAnimation();
     }
 
