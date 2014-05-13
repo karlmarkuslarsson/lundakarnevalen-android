@@ -353,17 +353,30 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, M
         }
     }
 
+    private float markusLat = 0;
+    private float markusLng = 0;
+    private float filipLat = 0;
+    private float filipLng = 0;
+    private float fredrikLat = 0;
+    private float fredrikLng = 0;
+    public float trainLat = 0;
+    public float trainLng = 0;
+
     public void zoomToDeveloper(float lat, float lng, int i) {
+        // TODO remove this, and always push position...
         updatePositions();
+        // TODO Check inside map...
         switch (i) {
             case 1:
+                addZoomHintForNextCreate(markusLat, markusLng, -1.0f); // will use midZoom
                 break;
             case 2:
+                addZoomHintForNextCreate(filipLat, filipLng, -1.0f); // will use midZoom
                 break;
             case 3:
+                addZoomHintForNextCreate(fredrikLat, fredrikLng, -1.0f); // will use midZoom
                 break;
         }
-        addZoomHintForNextCreate(lat, lng, -1.0f); // will use midZoom
     }
 
     // get position for train... from server..
@@ -404,8 +417,26 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, M
             if(bc.success) {
                 for(BunnyCreate.Position p:bc.train_positions) {
                     Log.d("GET: ",p.id+" lat: "+p.lat+" lng: "+p.lng);
+                    // TODO update position on map...
+                    switch(p.id) {
+                        case 1:
+                            trainLat = p.lat;
+                            trainLng = p.lng;
+                            break;
+                        case 11:
+                            markusLat = p.lat;
+                            markusLng = p.lng;
+                            break;
+                        case 21:
+                            filipLat = p.lat;
+                            filipLng = p.lng;
+                            break;
+                        case 31:
+                            fredrikLat = p.lat;
+                            fredrikLng = p.lng;
+                            break;
+                    }
                 }
-                // do stuff
             }
         }
     }
