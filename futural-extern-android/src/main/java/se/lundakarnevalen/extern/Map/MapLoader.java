@@ -25,6 +25,14 @@ public class MapLoader {
     private static Picture mapMini = null;
     private static Picture mapLarge = null;
 
+    public static boolean hasLoadedMapMini(){
+        return mapMini != null;
+    }
+
+    public static boolean hasLoadedMapLarge(){
+        return mapLarge != null;
+    }
+
     public static void startPreLoading(Context c) {
         new MapLoaderCallable(c).execute();
     }
@@ -41,7 +49,7 @@ public class MapLoader {
             try {
                 Timer t = new Timer();
                 isLoading = true;
-                SVG svg1 = SVG.getFromResource(mContext, R.raw.kartamindre_small);
+                SVG svg1 = SVG.getFromResource(mContext, R.raw.karta_mini);
                 t.tick(LOG_TAG, "MapMini: getFromResource()");
                 mapMini = svg1.renderToPicture();
                 t.tick(LOG_TAG, "MapMini: renderToPicture()");
@@ -90,7 +98,7 @@ public class MapLoader {
                         Log.d(LOG_TAG, "posting MiniMap: "+mapMini);
                         mCallback.postMiniMap(mapMini);
                         while (mapLarge == null) sleep(500);
-                        Log.d(LOG_TAG, "posting LargeMap: "+mapMini);
+                        Log.d(LOG_TAG, "posting LargeMap: "+mapLarge);
                         mCallback.postLargerMap(mapLarge);
                     } catch (InterruptedException e) {
                         Log.wtf(LOG_TAG, "Future was interrupted", e);

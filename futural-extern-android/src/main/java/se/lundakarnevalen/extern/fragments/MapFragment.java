@@ -64,6 +64,7 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, S
     private ViewFlipper mViewFlipper;
     private SensorManager mSensorManager;
     private View mSpinnerView;
+    private boolean mMapMiniHasLoaded = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -123,13 +124,10 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, S
             }
         });
 
-        final ViewFlipper flipper = get(root, R.id.map_switcher, ViewFlipper.class);
         mViewFlipper = get(root, R.id.map_switcher, ViewFlipper.class);
         mViewFlipper.setAnimateFirstView(true);
         mViewFlipper.setInAnimation(AnimationUtils.loadAnimation(inflater.getContext(), R.anim.abc_fade_in));
         mViewFlipper.setOutAnimation(AnimationUtils.loadAnimation(inflater.getContext(), R.anim.abc_fade_out));
-
-        new MapLoader.MapSvgLoader(this).startWait();
 
         mMapView.setListener(new LKMapView.OnMarkerSelectedListener() {
             @Override
@@ -185,21 +183,12 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, S
 
         mSensorManager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
 
-        final View view = get(root, R.id.map_spinner, View.class);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                final RotateAnimation a = new RotateAnimation(
-                        0.0f, 3 * 360.0f,
-                        Animation.RELATIVE_TO_SELF, 0.5f,
-                        Animation.RELATIVE_TO_SELF, 0.5f);
-                a.setDuration(3400);
-                a.setInterpolator(new LinearInterpolator());
-                a.setRepeatCount(Animation.INFINITE);
-                a.setRepeatMode(Animation.RESTART);
-                view.startAnimation(a);
-            }
-        }, 300);
+        new MapLoader.MapSvgLoader(this).startWait();
+
+        if (mMapMiniHasLoaded) {
+            clearSpinner();
+        }
+
         return root;
     }
 
@@ -381,11 +370,18 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, S
             a.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    mViewFlipper.showNext();
-                    mSpinnerView.clearAnimation();
+                    clearSpinner();
                 }
             });
+        } else {
+            Log.d(LOG_TAG, "Activity was null, setting attribute: mMapMiniHasLoaded = true");
+            mMapMiniHasLoaded = true;
         }
+    }
+
+    private void clearSpinner() {
+        mViewFlipper.showNext();
+        mSpinnerView.clearAnimation();
     }
 
 
