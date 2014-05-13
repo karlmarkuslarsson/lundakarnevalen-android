@@ -165,18 +165,6 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, M
         }
         mMapView.setGpsMarker(mGpsMarkerLat, mGpsMarkerLng, (savedInstanceState != null));
 
-        if (MapLoader.hasLoadedMapMini()) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Picture p = MapLoader.getMapMini();
-                    float minZoom = calculateMinZoom(mMapView, p);
-                    mMapView.setSvg(p, minZoom, null);
-                    clearSpinner();
-                }
-            }, 200);
-        }
-
         if(MapLoader.hasLoadedMapLarge()){
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -186,9 +174,19 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, M
                     mMapView.setSvg(p, minZoom, null);
                     clearSpinner();
                 }
-            }, 300);
+            }, 400);
+        } else if (MapLoader.hasLoadedMapMini()) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Picture p = MapLoader.getMapMini();
+                    float minZoom = calculateMinZoom(mMapView, p);
+                    mMapView.setSvg(p, minZoom, null);
+                    clearSpinner();
+                }
+            }, 400);
         } else {
-            new MapLoader.MapSvgLoader(this).startWait();
+            new MapLoader.MapSvgLoader(this).startWait(); // Wait for maps async
         }
 
         return root;

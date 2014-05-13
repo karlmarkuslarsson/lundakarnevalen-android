@@ -465,14 +465,4 @@ public class LKMapView extends SVGView {
         }
         return hasLayoutAndBounds;
     }
-
-    @Override
-    public void setSvg(Picture svg, float minZoom, float[] values) {
-        for (Marker m : markers) {
-            Logf.d(LOG_TAG, "pic(%f,%f)", m.x, m.y);
-            //m.x = m.y = -1.0f;
-        }
-        super.setSvg(svg, minZoom, values);
-        postInvalidate();
-    }
 }
