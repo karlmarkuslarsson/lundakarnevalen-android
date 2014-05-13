@@ -84,11 +84,15 @@ public class GPSTracker extends Service implements LocationListener, GpsStatus.L
     }
 
     private void init() {
-        this.mHandler.postDelayed(mUpdateRunnable, INITAL_DELAY_MILLIS);
 
         Criteria criteria = new Criteria();
         criteria.setAccuracy(Criteria.ACCURACY_FINE);
         String bestProvider = mLocationManager.getBestProvider(criteria, true);
+        if(bestProvider == null) {
+            return;
+        }
+        this.mHandler.postDelayed(mUpdateRunnable, INITAL_DELAY_MILLIS);
+
         mLocationManager.requestLocationUpdates(bestProvider, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
 
         if(!LocationManager.GPS_PROVIDER.equalsIgnoreCase(bestProvider)){
