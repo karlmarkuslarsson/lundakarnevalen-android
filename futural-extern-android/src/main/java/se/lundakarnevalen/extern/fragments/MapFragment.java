@@ -166,17 +166,27 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, M
         mMapView.setGpsMarker(mGpsMarkerLat, mGpsMarkerLng, (savedInstanceState != null));
 
         if (MapLoader.hasLoadedMapMini()) {
-            Picture p = MapLoader.getMapMini();
-            float minZoom = calculateMinZoom(mMapView, p);
-            mMapView.setSvg(p, minZoom, mMatrixValues);
-            clearSpinner();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Picture p = MapLoader.getMapMini();
+                    float minZoom = calculateMinZoom(mMapView, p);
+                    mMapView.setSvg(p, minZoom, null);
+                    clearSpinner();
+                }
+            }, 200);
         }
 
         if(MapLoader.hasLoadedMapLarge()){
-            Picture p = MapLoader.getMapLarge();
-            float minZoom = calculateMinZoom(mMapView, p);
-            mMapView.setSvg(p, minZoom, mMatrixValues);
-            clearSpinner();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Picture p = MapLoader.getMapLarge();
+                    float minZoom = calculateMinZoom(mMapView, p);
+                    mMapView.setSvg(p, minZoom, null);
+                    clearSpinner();
+                }
+            }, 300);
         } else {
             new MapLoader.MapSvgLoader(this).startWait();
         }
@@ -193,6 +203,7 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, M
         final ContentActivity contentActivity = ContentActivity.class.cast(getActivity());
         contentActivity.focusBottomItem(BOTTOM_MENU_ID);
         contentActivity.triggerFilterUpdate();
+        mMapView.updateViewLimitBounds();
     }
 
     @Override
@@ -318,7 +329,7 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, M
     public void postMiniMap(Picture picture) {
         waitForLayout();
         float minZoom = calculateMinZoom(mMapView, picture);
-        mMapView.setSvg(picture, minZoom, mMatrixValues);
+        mMapView.setSvg(picture, minZoom, null);
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -338,7 +349,7 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, M
         waitForLayout();
         if (picture != null) {
             float minZoom = calculateMinZoom(mMapView, picture);
-            mMapView.setSvg(picture, minZoom, mMatrixValues);
+            mMapView.setSvg(picture, minZoom, null);
         }
     }
 

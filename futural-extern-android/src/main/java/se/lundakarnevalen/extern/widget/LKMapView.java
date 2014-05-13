@@ -13,6 +13,7 @@ import android.graphics.RectF;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
@@ -283,7 +284,7 @@ public class LKMapView extends SVGView {
 
         for (Marker m:markers) {
             if(activeTypes.contains(m.element.type)) {
-                if (m.x == -1) {
+                if (m.x == -1.0f) {
                     getPointFromCoordinates(m);
                 }
 
@@ -465,5 +466,13 @@ public class LKMapView extends SVGView {
         return hasLayoutAndBounds;
     }
 
-
+    @Override
+    public void setSvg(Picture svg, float minZoom, float[] values) {
+        for (Marker m : markers) {
+            Logf.d(LOG_TAG, "pic(%f,%f)", m.x, m.y);
+            //m.x = m.y = -1.0f;
+        }
+        super.setSvg(svg, minZoom, values);
+        postInvalidate();
+    }
 }

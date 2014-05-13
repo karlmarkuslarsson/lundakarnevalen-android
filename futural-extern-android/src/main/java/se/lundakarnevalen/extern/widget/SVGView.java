@@ -307,9 +307,7 @@ public class SVGView extends View {
     }
 
     protected void filterMatrix(Matrix matrix) {
-
         matrix.getValues(mMatrixValues);
-
 
         // screenW - svgW * scale is lower limit
         mMatrixValues[MTRANS_X] = limit(mViewEndPoint[AXIS_X] - mPictureEndPoint[AXIS_X] * mMatrixValues[MSCALE_X], mMatrixValues[MTRANS_X], 0);
@@ -328,16 +326,24 @@ public class SVGView extends View {
     }
 
     public boolean updateViewLimitBounds() {
-        final int w = getMeasuredWidth();
-        final int h = getMeasuredHeight();
-        if(w > 0 && h > 0) { //Ignore if layout is not calculated yet
-            this.mViewEndPoint[AXIS_X] = w;
-            this.mViewEndPoint[AXIS_Y] = h;
+        final int mw = getMeasuredWidth();
+        final int mh = getMeasuredHeight();
+        if(mw > 0 && mh > 0) { //Ignore if layout is not calculated yet
+            this.mViewEndPoint[AXIS_X] = mw;
+            this.mViewEndPoint[AXIS_Y] = mh;
             postInvalidate();
             return true;
         } else {
-            return false;
+            final int w = getWidth();
+            final int h = getHeight();
+            if(w > 0 && h > 0) {
+                this.mViewEndPoint[AXIS_X] = mw;
+                this.mViewEndPoint[AXIS_Y] = mh;
+                postInvalidate();
+                return true;
+            }
         }
+        return false;
     }
 
     public void setSvgLazy(Picture svg) {
@@ -354,7 +360,9 @@ public class SVGView extends View {
         float initZoom = mMinZoom * 1.0f;
         if (values != null) {
             this.mMatrix.setValues(values);
+            updateViewLimitBounds();
         } else {
+            this.mMatrix.reset();
             this.mMatrix.setScale(initZoom, initZoom);
 
             // Center image
