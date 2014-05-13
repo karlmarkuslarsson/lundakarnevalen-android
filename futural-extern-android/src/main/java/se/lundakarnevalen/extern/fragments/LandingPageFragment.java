@@ -68,12 +68,16 @@ public class LandingPageFragment extends LKFragment{
                 public boolean onTouch(View view, MotionEvent motionEvent) {
                     float width = view.getWidth();
                     Log.d("get event",""+ motionEvent.getAction()+"x: "+motionEvent.getX()+"width: "+width);
-                    switch (motionEvent.getAction()) {
+                    if(a1!=null) {
+                        Log.d("started: ", "start:" + !a1.hasStarted() + ", " + a1.hasEnded());
+                    }
+                        switch (motionEvent.getAction()) {
 
                         case MotionEvent.ACTION_DOWN:
 
                                 if(motionEvent.getX() < width/3) {
-                                    if(a1 == null || ( a1.hasEnded())) {
+                                    if(a1 == null || (!a1.hasStarted() || a1.hasEnded())) {
+                                        Log.d("run this","run!!");
                                         a1 = new TranslateAnimation(0, 0, 0, -header1.getHeight());
                                         a1.setRepeatMode(Animation.REVERSE);
                                         a1.setRepeatCount(1);
@@ -82,7 +86,7 @@ public class LandingPageFragment extends LKFragment{
                                     }
                                 } else if(motionEvent.getX() > width-width/3) {
 
-                                    if(a3 == null || (a3.hasEnded())) {
+                                    if(a3 == null || (!a3.hasStarted() ||a3.hasEnded())) {
                                         a3 = new TranslateAnimation(0, 0, 0, -header3.getHeight());
                                         a3.setRepeatMode(Animation.REVERSE);
                                         a3.setRepeatCount(1);
@@ -91,7 +95,7 @@ public class LandingPageFragment extends LKFragment{
                                     }
                                 } else {
 
-                                    if(a2 == null || ( a2.hasEnded())) {
+                                    if(a2 == null || (!a2.hasStarted() || a2.hasEnded())) {
                                         a2 = new TranslateAnimation(0, 0, 0, -header2.getHeight());
                                         a2.setRepeatMode(Animation.REVERSE);
                                         a2.setRepeatCount(1);
@@ -105,7 +109,7 @@ public class LandingPageFragment extends LKFragment{
                                 break;
                             case MotionEvent.ACTION_MOVE:
                                 if(motionEvent.getX() < width/3) {
-                                    if(a1 == null || (a1.hasEnded())) {
+                                    if(a1 == null || (!a1.hasStarted() || a1.hasEnded())) {
                                         a1 = new TranslateAnimation(0, 0, 0, -header1.getHeight());
                                         a1.setRepeatMode(Animation.REVERSE);
                                         a1.setRepeatCount(1);
@@ -114,7 +118,7 @@ public class LandingPageFragment extends LKFragment{
                                     }
                                 } else if(motionEvent.getX() > width-width/3) {
 
-                                    if(a3 == null || (a3.hasEnded())) {
+                                    if(a3 == null || (!a3.hasStarted() ||a3.hasEnded())) {
                                         a3 = new TranslateAnimation(0, 0, 0, -header3.getHeight());
                                         a3.setRepeatMode(Animation.REVERSE);
                                         a3.setRepeatCount(1);
@@ -123,7 +127,7 @@ public class LandingPageFragment extends LKFragment{
                                     }
                                 } else {
 
-                                    if(a2 == null || (a2.hasEnded())) {
+                                    if(a2 == null || (!a2.hasStarted() || a2.hasEnded())) {
                                         a2 = new TranslateAnimation(0, 0, 0, -header2.getHeight());
                                         a2.setRepeatMode(Animation.REVERSE);
                                         a2.setRepeatCount(1);
