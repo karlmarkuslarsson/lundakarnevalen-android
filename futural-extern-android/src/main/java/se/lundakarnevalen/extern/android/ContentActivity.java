@@ -323,17 +323,7 @@ public class ContentActivity extends ActionBarActivity {
         gps.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mMapFragment.gpsRotation) {
-                    gps.setImageResource(R.drawable.gps_menu_marker_selected);
-                    mMapFragment.inactivateRotation();
-                }else if(mMapFragment.gpsCentered) {
-                    gps.setImageResource(R.drawable.gps_menu_marker);
-                    mMapFragment.activateRotation();
-                } else {
-                    if (mMapFragment.zoomToMarker()) {
-                        gps.setImageResource(R.drawable.gps_menu_marker_selected);
-                    }
-                }
+                mMapFragment.zoomToMarker();
             }
         });
         gps.setVisibility(View.VISIBLE);

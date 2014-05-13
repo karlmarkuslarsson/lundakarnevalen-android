@@ -40,7 +40,7 @@ import se.lundakarnevalen.extern.widget.LKMapView;
 
 import static se.lundakarnevalen.extern.util.ViewUtil.get;
 
-public class MapFragment extends LKFragment implements GPSTracker.GPSListener, SensorEventListener, MapLoader.MapLoaderCallback {
+public class MapFragment extends LKFragment implements GPSTracker.GPSListener, MapLoader.MapLoaderCallback {
 
     public static final int BOTTOM_MENU_ID = 2;
     public static final float STARTZOOM = 1.3f;
@@ -56,13 +56,10 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, S
     private static final String STATE_MATRIX = "matrix";
 
     private boolean isGPSWithinMap;
-    public boolean gpsCentered;
-    public boolean gpsRotation;
     private float[] mMatrixValues;
 
     private LKMapView mMapView;
     private ViewFlipper mViewFlipper;
-    private SensorManager mSensorManager;
     private View mSpinnerView;
 
     @Override
@@ -96,22 +93,6 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, S
         final ContentActivity activity = ContentActivity.class.cast(getActivity());
 
         mMapView = get(root, R.id.map_id, LKMapView.class);
-        mMapView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if(gpsRotation) {
-                    inactivateRotation();
-                    gpsRotation = false;
-                    gpsCentered = false;
-                    return true;
-                } else if(gpsCentered) {
-                    gpsCentered = false;
-                    activity.activateTrainButton();
-
-                }
-                return false;
-            }
-        });
 
         activity.allBottomsUnfocus();
         activity.focusBottomItem(BOTTOM_MENU_ID);
@@ -183,7 +164,6 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, S
         }
         mMapView.setGpsMarker(mGpsMarkerLat, mGpsMarkerLng, (savedInstanceState != null));
 
-        mSensorManager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
 
         final View view = get(root, R.id.map_spinner, View.class);
         new Handler().postDelayed(new Runnable() {
@@ -217,9 +197,6 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, S
     @Override
     public void onPause() {
         mMatrixValues = mMapView.exportMatrixValues();
-        inactivateRotation();
-        mSensorManager.unregisterListener(this);
-        gpsCentered = false;
         super.onPause();
     }
 
@@ -315,10 +292,8 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, S
             mMapView.panToCenterFast();
             mMapView.getPointFromCoordinates(mGpsMarkerLat, mGpsMarkerLng, dst);
             mMapView.panTo(dst[0], dst[1]);
-            gpsCentered = true;
             return true;
         } else {
-            gpsCentered = false;
             Toast.makeText(getContext(), R.string.gps_toast, Toast.LENGTH_LONG).show();
             return false;
         }
@@ -337,39 +312,8 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, S
         }
     }
 
-    public void activateRotation() {
-        mMapView.setBoundFiltersEnabled(false);
-        mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION), SensorManager.SENSOR_DELAY_GAME);
-        gpsRotation = true;
-    }
 
-    public void inactivateRotation() {
-        mMapView.setRotationLatLng(mGpsMarkerLat,mGpsMarkerLng,-totDegree);
-        totDegree = 0;
-        lastDegree = 0;
-        mSensorManager.unregisterListener(this);
-        mMapView.setBoundFiltersEnabled(true);
-        gpsRotation = false;
-        gpsCentered = true;
-    }
 
-    private float totDegree = 0;
-    private float lastDegree = 0;
-
-    @Override
-    public void onSensorChanged(SensorEvent sensorEvent) {
-        float degree = Math.round(sensorEvent.values[0]);
-
-        mMapView.setRotationLatLng(mGpsMarkerLat,mGpsMarkerLng,lastDegree-degree);
-        totDegree += lastDegree - degree;
-        lastDegree = degree;
-
-    }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int i) {
-        
-    }
 
     @Override
     public void postMiniMap(Picture picture) {
