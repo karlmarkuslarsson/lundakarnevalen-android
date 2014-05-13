@@ -40,6 +40,10 @@ public class MapLoader {
         new MapLoaderCallable(c).execute();
     }
 
+    public static Picture getMapLarge() {
+        return mapLarge;
+    }
+
     private static class MapLoaderCallable extends AsyncTask<Void, Void, Void> {
         private final Context mContext;
 

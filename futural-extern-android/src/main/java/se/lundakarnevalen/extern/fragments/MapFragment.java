@@ -169,7 +169,14 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, M
             clearSpinner();
         }
 
-        new MapLoader.MapSvgLoader(this).startWait();
+        if(MapLoader.hasLoadedMapLarge()){
+            Picture p = MapLoader.getMapLarge();
+            float minZoom = calculateMinZoom(mMapView, p);
+            mMapView.setSvg(p, minZoom, mMatrixValues);
+            clearSpinner();
+        } else {
+            new MapLoader.MapSvgLoader(this).startWait();
+        }
 
         return root;
     }
@@ -234,6 +241,7 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, M
         } else {
             mMapView.zoom(mMapView.mMidZoom);
         }
+
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -302,9 +310,6 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, M
             isGPSWithinMap = false;
         }
     }
-
-
-
 
     @Override
     public void postMiniMap(Picture picture) {
