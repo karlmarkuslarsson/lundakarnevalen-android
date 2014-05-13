@@ -396,10 +396,6 @@ public class LKMapView extends SVGView {
         }
     }
 
-    public void setBoundFiltersEnabled(boolean enabled) {
-        mFiltersEnabled = enabled;
-    }
-
     public void setGpsMarker(int x, int y, boolean panToMarker) {
         Logf.d(LOG_TAG, "GPSMarker moved to (%d, %d)", x, y);
         PropertyValuesHolder xh = PropertyValuesHolder.ofFloat("x", mGpsMarkerPos.x, x);
