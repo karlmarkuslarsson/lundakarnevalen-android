@@ -1,5 +1,5 @@
 package se.lundakarnevalen.extern.fragments;
-
+import com.google.gson.Gson;
 import android.content.Context;
 import android.graphics.Picture;
 import android.hardware.Sensor;
@@ -27,11 +27,13 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import java.util.Collection;
+import java.util.List;
 
 import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.data.DataType;
 import se.lundakarnevalen.extern.map.GPSTracker;
+import se.lundakarnevalen.extern.map.LKRemote;
 import se.lundakarnevalen.extern.map.MapLoader;
 import se.lundakarnevalen.extern.map.Marker;
 import se.lundakarnevalen.extern.util.Delay;
@@ -352,6 +354,7 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, M
     }
 
     public void zoomToDeveloper(float lat, float lng, int i) {
+        updatePositions();
         switch (i) {
             case 1:
                 break;
@@ -362,4 +365,49 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, M
         }
         addZoomHintForNextCreate(lat, lng, -1.0f); // will use midZoom
     }
+
+    // get position for train... from server..
+    public void updatePositions() {
+        LKRemote remote = new LKRemote(getContext(), new PositionListener());
+        if(remote != null) {
+            remote.requestServerForText("api/train_positions", "", LKRemote.RequestType.GET, false);
+        }
+
+    }
+    public class BunnyCreate {
+        public List<Position> train_positions;
+        public boolean success;
+        public BunnyCreate() {
+
+        }
+        private class Position {
+            private float lat;
+            private float lng;
+            private int id;
+            public Position(int id, float lat, float lng) {
+                this.lat = lat;
+                this.lng = lng;
+                this.id = id;
+            }
+        }
+
+    }
+    private class PositionListener implements LKRemote.TextResultListener {
+        @Override
+        public void onResult(String result) {
+            if (result == null) {
+                return;
+            }
+            Gson gson = new Gson();
+            BunnyCreate bc = gson.fromJson(result,BunnyCreate.class);
+            Log.d("GetListener get result: ", result);
+            if(bc.success) {
+                for(BunnyCreate.Position p:bc.train_positions) {
+                    Log.d("GET: ",p.id+" lat: "+p.lat+" lng: "+p.lng);
+                }
+                // do stuff
+            }
+        }
+    }
+
 }
