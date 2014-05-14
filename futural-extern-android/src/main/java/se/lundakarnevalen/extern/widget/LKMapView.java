@@ -33,6 +33,7 @@ import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.data.DataContainer;
 import se.lundakarnevalen.extern.data.DataElement;
 import se.lundakarnevalen.extern.data.DataType;
+import se.lundakarnevalen.extern.map.LocationTracker;
 import se.lundakarnevalen.extern.map.Marker;
 import se.lundakarnevalen.extern.util.BitmapUtil;
 import se.lundakarnevalen.extern.util.Logf;
@@ -62,6 +63,18 @@ public class LKMapView extends SVGView {
     private RectF mCurrentViewPort = new RectF();
     private boolean mFiltersEnabled = true;
 
+    private float mDevMarkusX = -1.0f;
+    private float mDevMarkusY = -1.0f;
+    private float mDevFilipX = -1.0f;
+    private float mDevFilipY = -1.0f;
+    private float mDevFredrikX = -1.0f;
+    private float mDevFredrikY = -1.0f;
+    private float mDevSize;
+
+    private Paint mMarkusInk;
+    private Paint mFilipInk;
+    private Paint mFredrikInk;
+
     public static void clean() {
         for(int i = 0; i < bitmaps.size(); i++) {
             bitmaps.valueAt(i).recycle();
@@ -72,6 +85,21 @@ public class LKMapView extends SVGView {
     public boolean isWithinLatLngRange(float lat, float lng) {
         return  (startLatMap > lat && lat > endLatMap) &&
                 (startLonMap < lng && lng < endLonMap);
+    }
+
+    public void setDevLatLng(LocationTracker.LocationJSONResult.LatLng markus,
+                             LocationTracker.LocationJSONResult.LatLng filip,
+                             LocationTracker.LocationJSONResult.LatLng fredrik) {
+        float[] xy = new float[2];
+        getPointFromCoordinates(markus.lat, markus.lng, xy);
+        mDevMarkusX = xy[0];
+        mDevMarkusY = xy[1];
+        getPointFromCoordinates(filip.lat, filip.lng, xy);
+        mDevFilipX = xy[0];
+        mDevFilipY = xy[1];
+        getPointFromCoordinates(fredrik.lat, fredrik.lng, xy);
+        mDevFredrikX = xy[0];
+        mDevFredrikY = xy[1];
     }
 
     public interface OnMarkerSelectedListener {
@@ -128,8 +156,17 @@ public class LKMapView extends SVGView {
         mShadowInk = new Paint(Paint.ANTI_ALIAS_FLAG);
         mShadowInk.setColor(Color.argb(128, 128, 128, 128));
 
-        mBlueInk = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mBlueInk.setColor(Color.rgb(74, 139, 244));
+        mMarkusInk = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mMarkusInk.setColor(Color.rgb(212,0,255));
+        //mMarkusInk.setShadowLayer(1.5f, 0f, 0f, Color.BLACK);
+
+        mFilipInk = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mFilipInk.setColor(Color.rgb(255, 85, 170));
+        //mFilipInk.setShadowLayer(1.5f, 0f, 0f, Color.BLACK);
+
+        mFredrikInk = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mFredrikInk.setColor(Color.rgb(255, 165, 0));
+        //mFredrikInk.setShadowLayer(1.5f, 0f, 0f, Color.BLACK);
 
         mLightBlueInk = new Paint(Paint.ANTI_ALIAS_FLAG);
         mLightBlueInk.setColor(Color.rgb(97, 157, 229));
@@ -151,6 +188,8 @@ public class LKMapView extends SVGView {
         mBubbleSize = 14.0f; //dpToPx(context, 8);
         mBubbleShadowXRadius = mBubbleSize / 4.0f; //dpToPx(context, 2);
         mBubbleShadowYRadius = mBubbleSize / 8.0f; //dpToPx(context, 1);
+
+        mDevSize = 5.0f;
 
         markers.clear();
         for (DataElement elm : DataContainer.getAllData()) {
@@ -196,6 +235,7 @@ public class LKMapView extends SVGView {
                 bitmaps.put(m.picture, BitmapUtil.decodeSampledBitmapFromResource(context.getResources(), m.picture, hw, hw));
             }
         }
+
     }
 
     public void setListener(OnMarkerSelectedListener listener) {
@@ -311,6 +351,10 @@ public class LKMapView extends SVGView {
                 mGpsMarkerPos.y + mGpsMarkerSize);
         normalizeToMidpointBottom(dst);
         canvas.drawPicture(mGpsMarker, dst);
+
+        canvas.drawCircle(mDevMarkusX, mDevMarkusY, mDevSize / mPreDrawScale, mMarkusInk);
+        canvas.drawCircle(mDevFilipX, mDevFilipY, mDevSize / mPreDrawScale, mFilipInk);
+        canvas.drawCircle(mDevFredrikX, mDevFredrikY, mDevSize / mPreDrawScale, mFredrikInk);
     }
 
     private void paintMarker(Canvas canvas, Marker m) {

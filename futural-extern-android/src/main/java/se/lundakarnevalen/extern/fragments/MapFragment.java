@@ -379,6 +379,7 @@ public class MapFragment extends LKFragment
                         break;
                 }
             }
+            mMapView.setDevLatLng(markus, filip, fredrik);
         }
     }
 }
