@@ -348,13 +348,32 @@ public class MapFragment extends LKFragment
         // TODO Check inside map...
         switch (i) {
             case 1:
-                addZoomHintForNextCreate(markus.lat, markus.lng, -1.0f); // will use midZoom
+                if(mMapView.isWithinLatLngRange(markus.lat,markus.lng)) {
+                   addZoomHintForNextCreate(markus.lat, markus.lng, -1.0f); // will use midZoom
+                } else {
+                    addZoomHintForNextCreate(lat, lng, -1.0f); // will use midZoom
+                    Toast toast = Toast.makeText(getContext(), "Markus "+getString(R.string.left_area), Toast.LENGTH_LONG);
+                    toast.show();
+                }
                 break;
             case 2:
-                addZoomHintForNextCreate(filip.lat, filip.lng, -1.0f); // will use midZoom
+                if(mMapView.isWithinLatLngRange(filip.lat,filip.lng)) {
+                    addZoomHintForNextCreate(filip.lat, filip.lng, -1.0f); // will use midZoom
+                } else {
+                    addZoomHintForNextCreate(lat, lng, -1.0f); // will use midZoom
+                    Toast toast = Toast.makeText(getContext(), "Filip "+getString(R.string.left_area), Toast.LENGTH_LONG);
+                    toast.show();
+                }
                 break;
             case 3:
-                addZoomHintForNextCreate(fredrik.lat, fredrik.lng, -1.0f); // will use midZoom
+                if(mMapView.isWithinLatLngRange(fredrik.lat,fredrik.lng)) {
+                    addZoomHintForNextCreate(fredrik.lat, fredrik.lng, -1.0f); // will use midZoom
+                } else {
+                    addZoomHintForNextCreate(lat, lng, -1.0f); // will use midZoom
+                    Toast toast = Toast.makeText(getContext(), "Fredrik "+getString(R.string.left_area), Toast.LENGTH_LONG);
+                    toast.show();
+                }
+
                 break;
         }
     }
