@@ -1,21 +1,12 @@
 package se.lundakarnevalen.extern.fragments;
 import com.google.gson.Gson;
-import android.content.Context;
-import android.graphics.Picture;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
-import android.os.AsyncTask;
 
-import android.app.Activity;
 import android.graphics.Picture;
+
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -33,7 +24,7 @@ import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.data.DataType;
 import se.lundakarnevalen.extern.map.GPSTracker;
-import se.lundakarnevalen.extern.map.LKRemote;
+import se.lundakarnevalen.extern.map.KarnevalistServer;
 import se.lundakarnevalen.extern.map.MapLoader;
 import se.lundakarnevalen.extern.map.Marker;
 import se.lundakarnevalen.extern.util.Delay;
@@ -381,9 +372,9 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, M
 
     // get position for train... from server..
     public void updatePositions() {
-        LKRemote remote = new LKRemote(getContext(), new PositionListener());
+        KarnevalistServer remote = new KarnevalistServer(getContext(), new PositionListener());
         if(remote != null) {
-            remote.requestServerForText("api/train_positions", "", LKRemote.RequestType.GET, false);
+            remote.requestServerForText("api/train_positions", "", KarnevalistServer.RequestType.GET, false);
         }
 
     }
@@ -405,7 +396,7 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, M
         }
 
     }
-    private class PositionListener implements LKRemote.TextResultListener {
+    private class PositionListener implements KarnevalistServer.TextResultListener {
         @Override
         public void onResult(String result) {
             if (result == null) {

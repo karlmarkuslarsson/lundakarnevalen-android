@@ -20,22 +20,19 @@ import android.util.Log;
 /**
  * Created by Markus on 2014-05-13.
  */
-public class LKRemote {
-
+public class KarnevalistServer {
+    public static final String remoteAdr = "http://www.karnevalist.se/";
 
     private Context context;
     private String contentType = "application/json; charset=utf-8";
-
-    public static final String remoteAdr = "http://www.karnevalist.se/";
-
-    TextResultListener textResultListener;
+    private TextResultListener textResultListener;
 
     /**
      * Creates remote object and sets a listener for the result
      * @param context Application context
      * @param textResultListener Listener called when result is returned by server.
      */
-    public LKRemote(Context context, TextResultListener textResultListener){
+    public KarnevalistServer(Context context, TextResultListener textResultListener){
         this.context = context;
         this.textResultListener = textResultListener;
     }
