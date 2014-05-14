@@ -189,7 +189,7 @@ public class LKMapView extends SVGView {
         mBubbleShadowXRadius = mBubbleSize / 4.0f; //dpToPx(context, 2);
         mBubbleShadowYRadius = mBubbleSize / 8.0f; //dpToPx(context, 1);
 
-        mDevSize = 2.0f;
+        mDevSize = 1.0f;
 
         markers.clear();
         for (DataElement elm : DataContainer.getAllData()) {
