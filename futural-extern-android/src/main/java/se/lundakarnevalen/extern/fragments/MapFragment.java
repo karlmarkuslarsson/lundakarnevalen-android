@@ -83,7 +83,7 @@ public class MapFragment extends LKFragment
         a.setRepeatCount(Animation.INFINITE);
         a.setRepeatMode(Animation.RESTART);
         mSpinnerView.startAnimation(a);
-        
+
         final ContentActivity activity = ContentActivity.class.cast(getActivity());
 
         mMapView = get(root, R.id.map_id, LKMapView.class);
@@ -97,7 +97,6 @@ public class MapFragment extends LKFragment
                 ContentActivity.class.cast(getActivity()).toggleShowFilterDrawer();
             }
         });
-
         mViewFlipper = get(root, R.id.map_switcher, ViewFlipper.class);
         mViewFlipper.setAnimateFirstView(true);
         mViewFlipper.setInAnimation(AnimationUtils.loadAnimation(inflater.getContext(), R.anim.abc_fade_in));
@@ -125,7 +124,7 @@ public class MapFragment extends LKFragment
                         layout.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                            ContentActivity.class.cast(getActivity()).loadFragmentAddingBS(LandingPageFragment.create(m.element));
+                                ContentActivity.class.cast(getActivity()).loadFragmentAddingBS(LandingPageFragment.create(m.element));
                             }
                         });
                     } else if(m.element.isRadio()) {
@@ -166,16 +165,21 @@ public class MapFragment extends LKFragment
                     float minZoom = calculateMinZoom(mMapView, p);
                     mMapView.setSvg(p, minZoom, null);
                     clearSpinner();
+
                 }
             }, 400);
         } else if (MapLoader.hasLoadedMapMini()) {
+            final MapFragment mapFragment = this;
+
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     Picture p = MapLoader.getMapMini();
                     float minZoom = calculateMinZoom(mMapView, p);
+
                     mMapView.setSvg(p, minZoom, null);
                     clearSpinner();
+                    new MapLoader.MapSvgLoader(mapFragment).startWaitLarge();
                 }
             }, 400);
         } else {
@@ -232,8 +236,8 @@ public class MapFragment extends LKFragment
     private float calculateMinZoom(View root, Picture pic) {
         // We assume that the svg image is 512x512 for now
         return STARTZOOM * Math.max(
-                    root.getMeasuredHeight() * 1.0f / pic.getHeight(),
-                    root.getMeasuredWidth() * 1.0f / pic.getWidth());
+                root.getMeasuredHeight() * 1.0f / pic.getHeight(),
+                root.getMeasuredWidth() * 1.0f / pic.getWidth());
     }
 
     public void setActiveType(Collection<DataType> types) {
@@ -349,7 +353,7 @@ public class MapFragment extends LKFragment
         switch (i) {
             case 1:
                 if(mMapView.isWithinLatLngRange(markus.lat,markus.lng)) {
-                   addZoomHintForNextCreate(markus.lat, markus.lng, -1.0f); // will use midZoom
+                    addZoomHintForNextCreate(markus.lat, markus.lng, -1.0f); // will use midZoom
                 } else {
                     addZoomHintForNextCreate(lat, lng, -1.0f); // will use midZoom
                     Toast toast = Toast.makeText(getContext(), "Markus "+getString(R.string.left_area), Toast.LENGTH_LONG);

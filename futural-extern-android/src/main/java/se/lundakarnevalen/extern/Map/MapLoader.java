@@ -56,26 +56,29 @@ public class MapLoader {
             try {
                 Timer t = new Timer();
                 isLoading = true;
-                SVG svg1 = SVG.getFromResource(mContext, R.raw.karta_mini);
-                t.tick(LOG_TAG, "MapMini: getFromResource()");
-                mapMini = svg1.renderToPicture();
-                t.tick(LOG_TAG, "MapMini: renderToPicture()");
-                Logf.d(LOG_TAG, "MapMini: svg %f x %f, pic %d x %d",
-                        svg1.getDocumentWidth(), svg1.getDocumentHeight(),
-                        mapMini.getWidth(), mapMini.getHeight());
+                if(mapMini==null) {
+                    SVG svg1 = SVG.getFromResource(mContext, R.raw.karta_mini);
+                    t.tick(LOG_TAG, "MapMini: getFromResource()");
+                    mapMini = svg1.renderToPicture();
+                    t.tick(LOG_TAG, "MapMini: renderToPicture()");
+                    Logf.d(LOG_TAG, "MapMini: svg %f x %f, pic %d x %d",
+                            svg1.getDocumentWidth(), svg1.getDocumentHeight(),
+                            mapMini.getWidth(), mapMini.getHeight());
 
+                }
                 t.reset();
 
                 TrainMapLoader.startPreLoading(mContext);
+                if(mapLarge==null) {
 
-                SVG svg2 = SVG.getFromResource(mContext, R.raw.kartamindre_cleaned);
-                t.tick(LOG_TAG, "MapLarge: getFromResource()");
-                mapLarge = svg2.renderToPicture();
-                t.tick(LOG_TAG, "MapLarge: renderToPicture()");
-                Logf.d(LOG_TAG, "MapLarge: svg %f x %f, pic %d x %d",
-                        svg2.getDocumentWidth(), svg2.getDocumentHeight(),
-                        mapLarge.getWidth(), mapLarge.getHeight());
-
+                    SVG svg2 = SVG.getFromResource(mContext, R.raw.kartamindre_cleaned);
+                    t.tick(LOG_TAG, "MapLarge: getFromResource()");
+                    mapLarge = svg2.renderToPicture();
+                    t.tick(LOG_TAG, "MapLarge: renderToPicture()");
+                    Logf.d(LOG_TAG, "MapLarge: svg %f x %f, pic %d x %d",
+                            svg2.getDocumentWidth(), svg2.getDocumentHeight(),
+                            mapLarge.getWidth(), mapLarge.getHeight());
+                }
             } catch (SVGParseException e) {
                 Log.wtf(LOG_TAG, "This wont happen");
             } finally {
@@ -122,5 +125,28 @@ public class MapLoader {
                 protected void onPostExecute(Void aVoid) {}
             }.execute();
         }
+        public void startWaitLarge() {
+            new AsyncTask<Void, Void, Void>(){
+                @Override
+                protected Void doInBackground(Void... params) {
+                    try {
+                        while (mapLarge == null) sleep(500);
+                        Log.d(LOG_TAG, "posting LargeMap: "+mapLarge);
+                        mCallback.postLargerMap(mapLarge);
+                    } catch (InterruptedException e) {
+                        Log.wtf(LOG_TAG, "Future was interrupted", e);
+                    }
+                    return null;
+                }
+
+                private void sleep(int ms) throws InterruptedException {
+                    TimeUnit.MILLISECONDS.sleep(ms);
+                }
+
+                @Override
+                protected void onPostExecute(Void aVoid) {}
+            }.execute();
+        }
+
     }
 }
