@@ -21,7 +21,7 @@ import static com.nineoldandroids.view.ViewPropertyAnimator.animate;
 public class SplashScreenActivity extends Activity {
     private static final String LOG_TAG = SplashScreenActivity.class.getSimpleName();
 
-    private static final int TOTAL_SPLASH_TIME_OUT = 3400;
+    private static final int TOTAL_SPLASH_TIME_OUT = 2500;
     private static final int POST_ANIMATION_DELAY = 300;
     public static final int PRE_ANIMATION_DELAY = 100;
 
@@ -92,7 +92,7 @@ public class SplashScreenActivity extends Activity {
         //a2.setRepeatCount(Animation.INFINITE);
         //a2.setDuration(2800);
         a.setAnimationListener(new CloudStartListner(cloud));
-        a.setDuration(2900);
+        a.setDuration(2400);
         a.setFillAfter(true);
         a.setInterpolator(new LinearInterpolator());
         cloud.startAnimation(a);
@@ -102,7 +102,7 @@ public class SplashScreenActivity extends Activity {
         a  = new TranslateAnimation(0,200/4,0,0);
         a.setInterpolator(new LinearInterpolator());
         a.setFillAfter(true);
-        a.setDuration(2900);
+        a.setDuration(2400);
         //  a2.setInterpolator(new AccelerateDecelerateInterpolator());
        // a2.setInterpolator(new LinearInterpolator());
 
@@ -126,7 +126,7 @@ public class SplashScreenActivity extends Activity {
         a  = new TranslateAnimation(0,250/4,0,0);
         a.setInterpolator(new LinearInterpolator());
         a.setFillAfter(true);
-        a.setDuration(2900);
+        a.setDuration(2400);
         //   a2 = new TranslateAnimation(0,width+(-lp.leftMargin),0 ,0);
      //   a2.setInterpolator(new AccelerateDecelerateInterpolator());
      //   a2.setInterpolator(new LinearInterpolator());
@@ -142,7 +142,7 @@ public class SplashScreenActivity extends Activity {
         a  = new TranslateAnimation(0,width/5,0,0);
         a.setInterpolator(new LinearInterpolator());
         a.setFillAfter(true);
-        a.setDuration(2900);
+        a.setDuration(2400);
         a.setAnimationListener(new CloudStartListner(cloud));
         cloud.startAnimation(a);
 

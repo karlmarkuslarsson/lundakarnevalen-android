@@ -176,7 +176,9 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         Log.d(LOG_TAG, "onSaveInstanceState() called");
-        outState.putFloatArray(STATE_MATRIX, mTrainView.exportMatrixValues());
+        if(mTrainView!=null) {
+            outState.putFloatArray(STATE_MATRIX, mTrainView.exportMatrixValues());
+        }
     }
 
     public static TrainMapFragment create(boolean startSound) {

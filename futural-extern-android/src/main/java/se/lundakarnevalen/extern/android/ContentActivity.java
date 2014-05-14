@@ -40,6 +40,7 @@ import se.lundakarnevalen.extern.fragments.SchemeFragment;
 import se.lundakarnevalen.extern.fragments.TrainMapFragment;
 import se.lundakarnevalen.extern.map.GPSTracker;
 import se.lundakarnevalen.extern.map.LocationTracker;
+import se.lundakarnevalen.extern.map.MapLoader;
 import se.lundakarnevalen.extern.util.Logf;
 import se.lundakarnevalen.extern.widget.LKMapView;
 import se.lundakarnevalen.extern.widget.LKRightMenuArrayAdapter;
@@ -73,6 +74,7 @@ public class ContentActivity extends ActionBarActivity {
         setupTint();
 
         mFragmentMgr = getSupportFragmentManager();
+        MapLoader.startPreLoading(getApplicationContext());
 
         mMapFragment = new MapFragment();
         loadFragmentReplaceBS(mMapFragment);
