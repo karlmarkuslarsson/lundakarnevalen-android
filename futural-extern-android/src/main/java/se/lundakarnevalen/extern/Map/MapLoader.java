@@ -125,28 +125,6 @@ public class MapLoader {
                 protected void onPostExecute(Void aVoid) {}
             }.execute();
         }
-        public void startWaitLarge() {
-            new AsyncTask<Void, Void, Void>(){
-                @Override
-                protected Void doInBackground(Void... params) {
-                    try {
-                        while (mapLarge == null) sleep(500);
-                        Log.d(LOG_TAG, "posting LargeMap: "+mapLarge);
-                        mCallback.postLargerMap(mapLarge);
-                    } catch (InterruptedException e) {
-                        Log.wtf(LOG_TAG, "Future was interrupted", e);
-                    }
-                    return null;
-                }
-
-                private void sleep(int ms) throws InterruptedException {
-                    TimeUnit.MILLISECONDS.sleep(ms);
-                }
-
-                @Override
-                protected void onPostExecute(Void aVoid) {}
-            }.execute();
-        }
 
     }
 }
