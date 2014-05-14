@@ -20,6 +20,7 @@ import java.util.concurrent.TimeoutException;
 import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.map.GPSTracker;
+import se.lundakarnevalen.extern.map.LocationTracker;
 import se.lundakarnevalen.extern.map.TrainMapLoader;
 import se.lundakarnevalen.extern.util.Delay;
 import se.lundakarnevalen.extern.util.Logf;
@@ -30,7 +31,8 @@ import static se.lundakarnevalen.extern.util.ViewUtil.get;
 /**
  * Created by Markus on 2014-04-16.
  */
-public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListener {
+public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListener,
+        LocationTracker.LocationJSONListener {
     private static final String LOG_TAG = TrainMapFragment.class.getSimpleName();
 
     private static final String STATE_MATRIX = "matrix";
@@ -41,6 +43,8 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
     private boolean isGPSWithinMap = false;
     private float mGPSMarkerLng = -1.0f;
     private float mGPSMarkerLat = -1.0f;
+
+    private LocationTracker.LocationJSONResult.LatLng mTrainPos = new LocationTracker.LocationJSONResult.LatLng();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -151,7 +155,7 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
     @Override
     public void onStop() {
         ContentActivity.class.cast(getActivity()).inactivateTrainButton();
-        ContentActivity.class.cast(getActivity()).unregisterForLocationUpdates(this);
+        ContentActivity.class.cast(getActivity()).unregisterForLocationUpdates(this, this);
         if(mMediaPlayer != null) {
             try{
                 mMediaPlayer.release();
@@ -163,7 +167,7 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
 
     @Override
     public void onStart() {
-        ContentActivity.class.cast(getActivity()).registerForLocationUpdates(this);
+        ContentActivity.class.cast(getActivity()).registerForLocationUpdates(this, this);
         ContentActivity.class.cast(getActivity()).activateMapButton();
         super.onStart();
     }
@@ -220,13 +224,28 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
         mGPSMarkerLat = (float) lat;
         mGPSMarkerLng = (float) lng;
         mTrainView.setGpsMarker(mGPSMarkerLat, mGPSMarkerLng, false);
-        if(mTrainView.isWithinLatLngRange((float) lat, (float) lng)){
+        if(mTrainView.isWithinLatLngRange((float) lat, (float) lng)) {
             isGPSWithinMap = true;
         } else {
             isGPSWithinMap = false;
         }
     }
 
+    @Override
+    public void onNewLocationFromKarnevalist(LocationTracker.LocationJSONResult json) {
+        if (json == null) return;
+        Log.d(LOG_TAG, "Result: " + json.toString());
 
+        if(json.success) {
+            for(LocationTracker.LocationJSONResult.LatLng p : json.train_positions) {
+                Log.d(LOG_TAG, p.id+" - lat: "+p.lat+" lng: "+p.lng);
+                switch(p.id) {
+                    case 1:
+                        mTrainPos = p;
+                        break;
+                }
+            }
+        }
+    }
 
 }

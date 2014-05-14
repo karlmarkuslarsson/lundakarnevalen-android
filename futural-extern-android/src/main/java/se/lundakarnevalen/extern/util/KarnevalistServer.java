@@ -38,7 +38,7 @@ public class KarnevalistServer {
      * Checks if device is connected to internet.
      * @return True if internet is available, otherwise false.
      */
-    public boolean hasInternetConnection(){
+    public boolean hasInternetConnection() {
         try {
             ConnectivityManager connectivity = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             if(connectivity != null){
@@ -64,6 +64,7 @@ public class KarnevalistServer {
      */
     public void requestServerForText(String file, String data, RequestType type, TextResultListener listener){
         if(hasInternetConnection()) {
+            Log.d(LOG_TAG, "Sending request to server: "+file);
             new ServerTextTask(file, data, type, listener).execute();
         } else {
             Log.e(LOG_TAG, "No internet connection");
@@ -104,7 +105,6 @@ public class KarnevalistServer {
                 con.setUseCaches(false);
                 con.setDoInput(true);
                 con.setDoOutput(write);
-
                 con.connect();
 
                 if(write) {

@@ -39,7 +39,7 @@ import se.lundakarnevalen.extern.fragments.OtherFragment;
 import se.lundakarnevalen.extern.fragments.SchemeFragment;
 import se.lundakarnevalen.extern.fragments.TrainMapFragment;
 import se.lundakarnevalen.extern.map.GPSTracker;
-import se.lundakarnevalen.extern.map.TrainMapLoader;
+import se.lundakarnevalen.extern.map.LocationTracker;
 import se.lundakarnevalen.extern.util.Logf;
 import se.lundakarnevalen.extern.widget.LKMapView;
 import se.lundakarnevalen.extern.widget.LKRightMenuArrayAdapter;
@@ -57,6 +57,7 @@ public class ContentActivity extends ActionBarActivity {
     private View mActionBarView;
     private DrawerLayout mDrawerLayout;
     private GPSTracker mGpsTracker;
+    private LocationTracker mLocationTracker;
 
     public <T> T find(int id, Class<T> clz) {
         return clz.cast(findViewById(id));
@@ -86,9 +87,6 @@ public class ContentActivity extends ActionBarActivity {
                 populateRightMenuDrawer();
             }
         }, 300);
-
-        // TODO modify design
-        // createCustomDialog();
     }
 
     private void setupDrawerLayout() {
@@ -131,11 +129,15 @@ public class ContentActivity extends ActionBarActivity {
     @Override
     protected void onStart() {
         mGpsTracker = new GPSTracker(this);
+        mLocationTracker = new LocationTracker(this);
         super.onStart();
     }
 
     @Override
     protected void onStop() {
+        if(mLocationTracker != null){
+            mLocationTracker.stopUpdates();
+        }
         if (mGpsTracker != null) {
             mGpsTracker.stopUsingGPS();
         }
@@ -290,15 +292,20 @@ public class ContentActivity extends ActionBarActivity {
         loadFragmentAddingBS(mMapFragment);
     }
 
-    public void registerForLocationUpdates(GPSTracker.GPSListener listener) {
-        Logf.d(LOG_TAG, "registerForLocationUpdates(%s)", listener);
-        mGpsTracker.addListener(listener);
-        mGpsTracker.invalidateMe(listener);
+    public void registerForLocationUpdates(GPSTracker.GPSListener gpsListener, LocationTracker.LocationJSONListener jsonListener) {
+        Logf.d(LOG_TAG, "registerForLocationUpdates(%s)", gpsListener);
+
+        mGpsTracker.addListener(gpsListener);
+        mLocationTracker.addListener(jsonListener);
+
+        mGpsTracker.invalidateMe(gpsListener);
+        mLocationTracker.invalidateMe(jsonListener);
     }
 
-    public void unregisterForLocationUpdates(GPSTracker.GPSListener listener) {
-        Logf.d(LOG_TAG, "unregisterForLocationUpdates(%s)", listener);
-        mGpsTracker.removeListener(listener);
+    public void unregisterForLocationUpdates(GPSTracker.GPSListener gpsListener, LocationTracker.LocationJSONListener jsonListener) {
+        Logf.d(LOG_TAG, "unregisterForLocationUpdates(%s)", gpsListener);
+        mGpsTracker.removeListener(gpsListener);
+        mLocationTracker.removeListener(jsonListener);
     }
 
     public void triggerFilterUpdate() {

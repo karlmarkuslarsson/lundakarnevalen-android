@@ -1,5 +1,4 @@
 package se.lundakarnevalen.extern.fragments;
-import com.google.gson.Gson;
 
 import android.graphics.Picture;
 
@@ -18,13 +17,12 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import java.util.Collection;
-import java.util.List;
 
 import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.data.DataType;
 import se.lundakarnevalen.extern.map.GPSTracker;
-import se.lundakarnevalen.extern.util.KarnevalistServer;
+import se.lundakarnevalen.extern.map.LocationTracker;
 import se.lundakarnevalen.extern.map.MapLoader;
 import se.lundakarnevalen.extern.map.Marker;
 import se.lundakarnevalen.extern.util.Delay;
@@ -33,7 +31,9 @@ import se.lundakarnevalen.extern.widget.LKMapView;
 
 import static se.lundakarnevalen.extern.util.ViewUtil.get;
 
-public class MapFragment extends LKFragment implements GPSTracker.GPSListener, MapLoader.MapLoaderCallback {
+public class MapFragment extends LKFragment
+        implements GPSTracker.GPSListener, MapLoader.MapLoaderCallback,
+        LocationTracker.LocationJSONListener {
 
     public static final int BOTTOM_MENU_ID = 2;
     public static final float STARTZOOM = 1.3f;
@@ -49,11 +49,11 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, M
     private static final String LOG_TAG = MapFragment.class.getSimpleName();
     private static final String STATE_MATRIX = "matrix";
 
-    private boolean isGPSWithinMap;
+    private boolean mIsGPSWithinMap;
     private float[] mMatrixValues;
 
-    private LKMapView mMapView;
     private ViewFlipper mViewFlipper;
+    private LKMapView mMapView;
     private View mSpinnerView;
 
     @Override
@@ -206,7 +206,7 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, M
     @Override
     public void onStop() {
         final ContentActivity activity = ContentActivity.class.cast(getActivity());
-        activity.unregisterForLocationUpdates(this);
+        activity.unregisterForLocationUpdates(this, this);
         activity.lockFilterDrawer(true);
         activity.inactivateTrainButton();
         super.onStop();
@@ -218,7 +218,7 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, M
         final ContentActivity activity = ContentActivity.class.cast(getActivity());
         activity.lockFilterDrawer(false);
         activity.activateTrainButton();
-        activity.registerForLocationUpdates(this);
+        activity.registerForLocationUpdates(this, this);
         super.onStart();
     }
 
@@ -290,7 +290,7 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, M
     }
 
     public boolean zoomToMarker() {
-        if(isGPSWithinMap){
+        if(mIsGPSWithinMap){
             float[] dst = new float[2];
             mMapView.zoom(mMapView.mMidZoom);
             mMapView.panToCenterFast();
@@ -308,12 +308,8 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, M
         Logf.d(LOG_TAG, "onNewLocation(lat: %f, lng: %f)", lat, lng);
         mGpsMarkerLat = (float) lat;
         mGpsMarkerLng = (float) lng;
+        mIsGPSWithinMap = mMapView.isWithinLatLngRange((float) lat, (float) lng);
         mMapView.setGpsMarker(mGpsMarkerLat, mGpsMarkerLng, false);
-        if (mMapView.isWithinLatLngRange((float) lat, (float) lng)){
-            isGPSWithinMap = true;
-        } else {
-            isGPSWithinMap = false;
-        }
     }
 
     @Override
@@ -344,92 +340,45 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener, M
         }
     }
 
-    private float markusLat = 0;
-    private float markusLng = 0;
-    private float filipLat = 0;
-    private float filipLng = 0;
-    private float fredrikLat = 0;
-    private float fredrikLng = 0;
-    public float trainLat = 0;
-    public float trainLng = 0;
+    private LocationTracker.LocationJSONResult.LatLng markus = new LocationTracker.LocationJSONResult.LatLng();
+    private LocationTracker.LocationJSONResult.LatLng filip = new LocationTracker.LocationJSONResult.LatLng();
+    private LocationTracker.LocationJSONResult.LatLng fredrik = new LocationTracker.LocationJSONResult.LatLng();
 
     public void zoomToDeveloper(float lat, float lng, int i) {
-        // TODO remove this, and always push position...
-        updatePositions();
         // TODO Check inside map...
         switch (i) {
             case 1:
-                addZoomHintForNextCreate(markusLat, markusLng, -1.0f); // will use midZoom
+                addZoomHintForNextCreate(markus.lat, markus.lng, -1.0f); // will use midZoom
                 break;
             case 2:
-                addZoomHintForNextCreate(filipLat, filipLng, -1.0f); // will use midZoom
+                addZoomHintForNextCreate(filip.lat, filip.lng, -1.0f); // will use midZoom
                 break;
             case 3:
-                addZoomHintForNextCreate(fredrikLat, fredrikLng, -1.0f); // will use midZoom
+                addZoomHintForNextCreate(fredrik.lat, fredrik.lng, -1.0f); // will use midZoom
                 break;
         }
     }
 
-    // get position for train... from server..
-    public void updatePositions() {
-        KarnevalistServer remote = new KarnevalistServer(getContext(), new PositionListener());
-        if(remote != null) {
-            remote.requestServerForText("api/train_positions", "", KarnevalistServer.RequestType.GET, false);
-        }
+    @Override
+    public void onNewLocationFromKarnevalist(LocationTracker.LocationJSONResult result) {
+        if (result == null) return;
+        Log.d(LOG_TAG, "Result: " + result.toString());
 
-    }
-    public class BunnyCreate {
-        public List<Position> train_positions;
-        public boolean success;
-        public BunnyCreate() {
-
-        }
-        private class Position {
-            private float lat;
-            private float lng;
-            private int id;
-            public Position(int id, float lat, float lng) {
-                this.lat = lat;
-                this.lng = lng;
-                this.id = id;
-            }
-        }
-
-    }
-    private class PositionListener implements KarnevalistServer.TextResultListener {
-        @Override
-        public void onResult(String result) {
-            if (result == null) {
-                return;
-            }
-            Gson gson = new Gson();
-            BunnyCreate bc = gson.fromJson(result,BunnyCreate.class);
-            Log.d("GetListener get result: ", result);
-            if(bc.success) {
-                for(BunnyCreate.Position p:bc.train_positions) {
-                    Log.d("GET: ",p.id+" lat: "+p.lat+" lng: "+p.lng);
-                    // TODO update position on map...
-                    switch(p.id) {
-                        case 1:
-                            trainLat = p.lat;
-                            trainLng = p.lng;
-                            break;
-                        case 11:
-                            markusLat = p.lat;
-                            markusLng = p.lng;
-                            break;
-                        case 21:
-                            filipLat = p.lat;
-                            filipLng = p.lng;
-                            break;
-                        case 31:
-                            fredrikLat = p.lat;
-                            fredrikLng = p.lng;
-                            break;
-                    }
+        if(result.success) {
+            for(LocationTracker.LocationJSONResult.LatLng p : result.train_positions) {
+                Log.d(LOG_TAG, p.id+" -  lat: "+p.lat+" lng: "+p.lng);
+                switch(p.id) {
+                    case 11:
+                        markus = p;
+                        break;
+                    case 21:
+                        filip = p;
+                        break;
+                    case 31:
+                        fredrik = p;
+                        break;
                 }
             }
         }
     }
-
 }
