@@ -323,7 +323,7 @@ public class ContentActivity extends ActionBarActivity {
         b.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-            loadFragmentAddingBS(TrainMapFragment.create(true));
+                loadFragmentAddingBS(TrainMapFragment.create(true));
             }
         });
         b.setVisibility(View.VISIBLE);
@@ -344,7 +344,7 @@ public class ContentActivity extends ActionBarActivity {
         b.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-            loadFragmentAddingBS(mMapFragment);
+                loadFragmentAddingBS(mMapFragment);
             }
         });
         b.setVisibility(View.VISIBLE);
@@ -416,4 +416,5 @@ public class ContentActivity extends ActionBarActivity {
             }
         }
     }
+
 }

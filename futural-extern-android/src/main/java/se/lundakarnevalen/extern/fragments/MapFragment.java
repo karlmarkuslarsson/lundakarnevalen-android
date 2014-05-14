@@ -83,7 +83,7 @@ public class MapFragment extends LKFragment
         a.setRepeatCount(Animation.INFINITE);
         a.setRepeatMode(Animation.RESTART);
         mSpinnerView.startAnimation(a);
-
+        
         final ContentActivity activity = ContentActivity.class.cast(getActivity());
 
         mMapView = get(root, R.id.map_id, LKMapView.class);

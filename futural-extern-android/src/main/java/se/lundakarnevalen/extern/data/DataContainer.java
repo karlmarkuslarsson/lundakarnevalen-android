@@ -220,7 +220,7 @@ public class DataContainer {
         data.add(new DataElement(R.string.smanojen, R.string.sketchera, 55.70483928999759f, 13.19305851161833f, R.drawable.bubble_smanojen, DataType.SMALL_FUN));
         data.add(new DataElement(R.string.smanojen, R.string.futuralfuneral, 55.70450982359015f, 13.19322614967337f, R.drawable.bubble_smanojen, DataType.SMALL_FUN));
 
-        data.add(new DataElement(R.string.taltnojen, R.string.studenthistoriska_riksmuseet, 55.705053732349f, 13.1930051727718f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.studenthistoriska_riksmuseet, 55.705193f,13.193072f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
         data.add(new DataElement(R.string.taltnojen, R.string.babe_gone_bad, 55.70670843454561f, 13.19557811034903f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
         data.add(new DataElement(R.string.taltnojen, R.string.vem_vet_sex, 55.7066857659761f, 13.1956639410537f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
         data.add(new DataElement(R.string.taltnojen, R.string.ga_pa_vatten_med_jesus, 55.70497849657609f, 13.19363857294538f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
