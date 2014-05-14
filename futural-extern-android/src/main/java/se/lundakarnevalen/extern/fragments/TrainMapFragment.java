@@ -241,7 +241,7 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
                 Log.d(LOG_TAG, p.id+" - lat: "+p.lat+" lng: "+p.lng);
                 switch(p.id) {
                     case 1:
-                        mTrainPos = p;
+                        mTrainView.setTrainLocation(p);
                         break;
                 }
             }
