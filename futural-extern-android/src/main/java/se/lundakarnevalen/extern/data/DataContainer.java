@@ -133,7 +133,7 @@ public class DataContainer {
         data.add(new DataElement(
                 R.string.info,
                 R.string.info_title,
-                55.70512f,13.194211f,
+                55.70516f,13.194045f,
                 R.drawable.map_info,
                 DataType.INFO));
 
