@@ -24,7 +24,7 @@ import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.data.DataType;
 import se.lundakarnevalen.extern.map.GPSTracker;
-import se.lundakarnevalen.extern.map.KarnevalistServer;
+import se.lundakarnevalen.extern.util.KarnevalistServer;
 import se.lundakarnevalen.extern.map.MapLoader;
 import se.lundakarnevalen.extern.map.Marker;
 import se.lundakarnevalen.extern.util.Delay;
