@@ -9,6 +9,7 @@ import android.graphics.Picture;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
@@ -57,8 +58,9 @@ public class LKTrainView extends SVGView {
     private float mPreDrawScale;
 
     private float mTrainMarkerSize;
-    private float mTrainPosX;
-    private float mTrainPosY;
+
+    private float mTrainPosX = -100;
+    private float mTrainPosY = -100;
 
     private static SparseArray<Bitmap> bitmaps = new SparseArray<Bitmap>();
 
@@ -96,10 +98,10 @@ public class LKTrainView extends SVGView {
             e.printStackTrace();
         }
 
-        mGpsMarkerSize = dpToPx(context, 60);
-        mTrainMarkerSize = dpToPx(context, 80);
+        mGpsMarkerSize = dpToPx(context, 80);
         mGpsShadowXRadius = dpToPx(context, 10);
         mGpsShadowYRadius = dpToPx(context, 6);
+        mTrainMarkerSize = dpToPx(context, 40);
     }
 
 
@@ -151,8 +153,8 @@ public class LKTrainView extends SVGView {
         float lat1 = (lat - startLatMap) / diffLat;
         float lon1 = (lon - startLonMap) / diffLon;
         if(mPictureEndPoint[AXIS_X] == -1) {
-            dst[AXIS_X] = lon1 * 512;
-            dst[AXIS_Y] = lat1 * 512;
+            dst[AXIS_X] = lon1 * 1080;
+            dst[AXIS_Y] = lat1 * 1368;
         } else {
             dst[AXIS_X] = lon1 * mPictureEndPoint[AXIS_X];
             dst[AXIS_Y] = lat1 * mPictureEndPoint[AXIS_Y];
@@ -201,5 +203,6 @@ public class LKTrainView extends SVGView {
         getPointFromCoordinates(latLng.lat, latLng.lng, xy);
         mTrainPosX = xy[0];
         mTrainPosY = xy[1];
+        Logf.d(LOG_TAG, "New Train pos: %f, %f => %f, %f",latLng.lat, latLng.lng, xy[0], xy[1]);
     }
 }

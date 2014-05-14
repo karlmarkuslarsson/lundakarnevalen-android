@@ -92,8 +92,8 @@ public class LocationTracker extends Service {
         public LocationJSONResult() {}
 
         public static class LatLng {
-            public float lat = -1.0f;
-            public float lng =  -1.0f;
+            public float lat = 0.0f;
+            public float lng =  0.0f;
             public int id = 0;
 
             public LatLng() {}

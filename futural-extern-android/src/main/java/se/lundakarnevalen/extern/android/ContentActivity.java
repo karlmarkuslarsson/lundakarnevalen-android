@@ -43,6 +43,7 @@ import se.lundakarnevalen.extern.map.LocationTracker;
 import se.lundakarnevalen.extern.util.Logf;
 import se.lundakarnevalen.extern.widget.LKMapView;
 import se.lundakarnevalen.extern.widget.LKRightMenuArrayAdapter;
+import se.lundakarnevalen.extern.widget.LKTrainView;
 
 import static se.lundakarnevalen.extern.util.ViewUtil.get;
 
@@ -150,6 +151,7 @@ public class ContentActivity extends ActionBarActivity {
         //MapLoader.clean();
         //TrainMapLoader.clean();
         LKMapView.clean();
+        LKTrainView.clean();
         System.gc();
         super.onDestroy();
     }
@@ -159,7 +161,7 @@ public class ContentActivity extends ActionBarActivity {
         if (mBottomMenuListener.selected != null) {
             Fragment visibleFragment = Fragment.class.cast(mBottomMenuListener.selected.getTag(R.id.bottom_menu_tag_fragment));
             if (visibleFragment instanceof MapFragment) {
-                // Do nothing
+                LKTrainView.clean();
             } else if (visibleFragment instanceof TrainMapFragment) {
                 Log.w(LOG_TAG, "onLowMemory() called: TrainMap showing thus cleaning LKMapIcons");
                 LKMapView.clean();

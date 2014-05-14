@@ -65,7 +65,8 @@ public class MapLoader {
                         mapMini.getWidth(), mapMini.getHeight());
 
                 t.reset();
-                TrainMapLoader.preload(mContext);
+
+                TrainMapLoader.startPreLoading(mContext);
 
                 SVG svg2 = SVG.getFromResource(mContext, R.raw.kartamindre_cleaned);
                 t.tick(LOG_TAG, "MapLarge: getFromResource()");
