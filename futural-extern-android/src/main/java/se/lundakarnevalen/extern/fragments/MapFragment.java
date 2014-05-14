@@ -2,6 +2,7 @@ package se.lundakarnevalen.extern.fragments;
 
 import android.graphics.Picture;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import java.util.Collection;
+import java.util.concurrent.TimeUnit;
 
 import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
@@ -176,6 +178,28 @@ public class MapFragment extends LKFragment
                     float minZoom = calculateMinZoom(mMapView, p);
                     mMapView.setSvg(p, minZoom, null);
                     clearSpinner();
+
+                    new AsyncTask<Void, Void, Void>(){
+                        @Override
+                        protected Void doInBackground(Void... params) {
+                            while (!MapLoader.hasLoadedMapLarge()) try {
+                                TimeUnit.MILLISECONDS.sleep(500);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            Log.d(LOG_TAG, "posting LargeMap");
+                            Picture p = MapLoader.getMapLarge();
+                            float minZoom = calculateMinZoom(mMapView, p);
+                            mMapView.setSvg(p, minZoom, null);
+
+                            return null;
+                        }
+
+                        @Override
+                        protected void onPostExecute(Void aVoid) {}
+                    }.execute();
+
+
                 }
             }, 400);
         } else {
