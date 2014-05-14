@@ -209,15 +209,15 @@ public class LKMapView extends SVGView {
         final Resources r = getResources();
         if(r != null && r.getDisplayMetrics() != null) {
             final int dpi = r.getDisplayMetrics().densityDpi;
-            float factor = 4.0f;
+            float factor = 2.0f;
             switch (dpi){
-                case DisplayMetrics.DENSITY_XXXHIGH: setMaxZoom(factor * 12.0f); break;
-                case DisplayMetrics.DENSITY_XXHIGH: setMaxZoom(factor * 11.0f); break;
-                case DisplayMetrics.DENSITY_XHIGH: setMaxZoom(factor * 10.0f); break;
-                case DisplayMetrics.DENSITY_HIGH: setMaxZoom(factor * 9.0f); break;
-                case DisplayMetrics.DENSITY_MEDIUM: setMaxZoom(factor * 8.0f); break;
-                case DisplayMetrics.DENSITY_LOW: setMaxZoom(factor * 7.0f); break;
-                default: setMaxZoom(7.0f); break;
+                case DisplayMetrics.DENSITY_XXXHIGH: setMaxZoom(factor * 7.0f); break;
+                case DisplayMetrics.DENSITY_XXHIGH: setMaxZoom(factor * 6.0f); break;
+                case DisplayMetrics.DENSITY_XHIGH: setMaxZoom(factor * 5.0f); break;
+                case DisplayMetrics.DENSITY_HIGH: setMaxZoom(factor * 4.0f); break;
+                case DisplayMetrics.DENSITY_MEDIUM: setMaxZoom(factor * 3.0f); break;
+                case DisplayMetrics.DENSITY_LOW: setMaxZoom(factor * 2.0f); break;
+                default: setMaxZoom(2.0f); break;
             }
         }
     }
