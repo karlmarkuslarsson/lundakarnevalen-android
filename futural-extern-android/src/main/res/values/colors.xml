@@ -4,12 +4,12 @@
     <color name="purple">#484C64</color>
     <color name="red">#F0533E</color>
     <color name="light_red">#FFF0533F</color>
-    <color name="white">#FFF</color>
-    <color name="white_unselected">#AFFF</color>
+    <color name="white">#FFFFFF</color>
+    <color name="white_unselected">#AAFFFFFF</color>
     <color name="pink_white_unselected">#F8B7B0</color>
     <color name="blue_light">#C1D3EE</color>
     <color name="yellow">#f5d408</color>
-    <color name="black">#000</color>
+    <color name="black">#000000</color>
     <color name="background_map">#5B7F6C</color>
     <color name="right_menu_button">#73779A</color>
     <color name="right_menu_button_shadow">#464B62</color>
@@ -29,7 +29,7 @@
     <color name="beige">#F6EAD4</color>
     <color name="beige_half_trans">#EEF6EAD4</color>
 
-    <color name="transparent">#0000</color>
+    <color name="transparent">#00000000</color>
     <color name="bg_map">#7DC9AD</color>
     <color name="beige_shadow">#CFCAC6</color>
     <color name="grey">#4C4C4C</color>

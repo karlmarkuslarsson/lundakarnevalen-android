@@ -192,9 +192,9 @@ public class MapFragment extends LKFragment
                             }
                             Log.d(LOG_TAG, "posting LargeMap");
                             Picture p = MapLoader.getMapLarge();
-                            float minZoom = calculateMinZoom(mMapView, p);
-                            mMapView.setSvg(p, minZoom, null);
-
+                            //float minZoom = calculateMinZoom(mMapView, p);
+                            //mMapView.setSvg(p, minZoom, null);
+                            mMapView.switchToSvg(p);
                             return null;
                         }
 
@@ -364,8 +364,8 @@ public class MapFragment extends LKFragment
     public void postLargerMap(Picture picture) {
         waitForLayout();
         if (picture != null) {
-            float minZoom = calculateMinZoom(mMapView, picture);
-            mMapView.setSvg(picture, minZoom, null);
+            //float minZoom = calculateMinZoom(mMapView, picture);
+            mMapView.switchToSvg(picture);
         }
     }
 

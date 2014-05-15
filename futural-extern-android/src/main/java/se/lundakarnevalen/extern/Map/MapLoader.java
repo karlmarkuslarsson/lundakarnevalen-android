@@ -54,9 +54,12 @@ public class MapLoader {
         @Override
         protected Void doInBackground(Void... params) {
             try {
+                if (isLoading) return null;
+
                 Timer t = new Timer();
                 isLoading = true;
-                if(mapMini==null) {
+                if(mapMini == null) {
+
                     SVG svg1 = SVG.getFromResource(mContext, R.raw.karta_mini);
                     t.tick(LOG_TAG, "MapMini: getFromResource()");
                     mapMini = svg1.renderToPicture();
@@ -69,7 +72,7 @@ public class MapLoader {
                 t.reset();
 
                 TrainMapLoader.startPreLoading(mContext);
-                if(mapLarge==null) {
+                if(mapLarge == null) {
 
                     SVG svg2 = SVG.getFromResource(mContext, R.raw.kartamindre_cleaned);
                     t.tick(LOG_TAG, "MapLarge: getFromResource()");

@@ -13,6 +13,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
+import android.widget.Toast;
 
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.PropertyValuesHolder;
@@ -112,7 +113,7 @@ public class SVGView extends View {
     }
 
     public void switchToSvg(Picture p) {
-        //mPicture = p;
+        mPicture = p;
         postInvalidate();
     }
 
