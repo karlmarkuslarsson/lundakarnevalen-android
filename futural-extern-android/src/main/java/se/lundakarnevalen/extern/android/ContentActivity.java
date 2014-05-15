@@ -72,8 +72,8 @@ public class ContentActivity extends ActionBarActivity {
         setupActionbar();
         setupDrawerLayout();
         setupTint();
-
         mFragmentMgr = getSupportFragmentManager();
+        popFragmentStack();
         MapLoader.startPreLoading(getApplicationContext());
 
         mMapFragment = new MapFragment();
@@ -158,6 +158,7 @@ public class ContentActivity extends ActionBarActivity {
         super.onDestroy();
     }
 
+    /*
     @Override
     public void onLowMemory() {
         if (mBottomMenuListener.selected != null) {
@@ -175,6 +176,7 @@ public class ContentActivity extends ActionBarActivity {
         System.gc();
         super.onLowMemory();
     }
+    */
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

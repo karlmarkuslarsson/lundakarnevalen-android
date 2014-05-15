@@ -50,7 +50,7 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
 
     private LKTrainView mTrainView;
     private ViewFlipper mViewFlipper;
-    private View mSpinnerView;
+    //private View mSpinnerView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,7 +70,7 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
 
         final View root = inflater.inflate(R.layout.fragment_map_train, container, false);
         mViewFlipper = get(root, R.id.map_switcher, ViewFlipper.class);
-        mSpinnerView = get(root, R.id.map_spinner, View.class);
+       // mSpinnerView = get(root, R.id.map_spinner, View.class);
         mTrainView = get(root, R.id.map_id, LKTrainView.class);
 
         Bundle bundle = getArguments();
@@ -107,6 +107,7 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
                 }
             }, 400);
         } else {
+            TrainMapLoader.startPreLoading(getContext());
             new TrainMapLoader.MapSvgLoader(this).startWait(); // Wait for maps async
         }
 
@@ -243,6 +244,7 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
         waitForLayout();
         float minZoom = calculateMinZoom(mTrainView, picture);
         mTrainView.setSvg(picture, minZoom, null);
+        if(getActivity()==null) return;
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -253,6 +255,6 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
 
     private void clearSpinner() {
         mViewFlipper.setDisplayedChild(VIEWFLIPPER_CHILD_MAP);
-        mSpinnerView.clearAnimation();
+      //  mSpinnerView.clearAnimation();
     }
 }

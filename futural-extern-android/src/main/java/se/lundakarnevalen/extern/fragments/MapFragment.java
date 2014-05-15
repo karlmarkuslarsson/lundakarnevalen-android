@@ -286,9 +286,13 @@ public class MapFragment extends LKFragment
                     @Override
                     public void run() {
                         if (isDetached()) return; // Do nothing if fragment has been detached
-                        mMapView.getPointFromCoordinates(lat, lng, dst);
-                        mMapView.triggerClick(dst[0], dst[1]);
-                    }
+                        try {
+                            mMapView.getPointFromCoordinates(lat, lng, dst);
+                            mMapView.triggerClick(dst[0], dst[1]);
+                        } catch (Throwable e) {
+                            Log.wtf(LOG_TAG,"Crashed in handler",e);
+                        }
+                        }
                 }, 700);
             }
         }, 100);

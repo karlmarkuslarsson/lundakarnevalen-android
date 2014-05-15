@@ -47,6 +47,8 @@ public class TrainMapLoader {
         protected Void doInBackground(Void... params) {
             try {
                 Timer t = new Timer();
+                if(isLoading) return null;
+
                 isLoading = true;
                 SVG svg1 = SVG.getFromResource(mContext, R.raw.train_map_longer);
                 t.tick(LOG_TAG, "MapTrain: getFromResource()");
