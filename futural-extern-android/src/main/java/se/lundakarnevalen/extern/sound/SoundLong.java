@@ -131,7 +131,6 @@ public class SoundLong {
 
 		@Override
 		public boolean onError(MediaPlayer mp, int what, int extra) {
-//			TODO Decide what to do on errors.
 			return false;
 		}
 	}

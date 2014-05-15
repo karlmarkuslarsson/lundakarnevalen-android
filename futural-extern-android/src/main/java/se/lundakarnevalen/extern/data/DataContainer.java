@@ -168,7 +168,6 @@ public class DataContainer {
         menuPrice.add("50");
         menuPrice.add("50");
 
-//TODO check time
         data.add(new DataElement(
 
                 R.string.krog_lajka_place,

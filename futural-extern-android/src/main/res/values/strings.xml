@@ -57,67 +57,11 @@
     <string name="kabare_question">WHAT IS THE CABARET?</string>
     <string name="kabare_place">NORTH OF DOMKYRKAN</string>
     <string name="kabare_title">THE CABARET</string>
-    <string name="kabare_info">Vi befinner oss i den postapokalyptiska dystopin
-        efter det stora kärnvapenkriget. Världen är i ruiner, men Cabaret Apocalyptica
-        gör sitt bästa för att hålla humöret uppe hos de få som är kvar. Dock är det svårt
-        att hålla reda på vad det är för gäster man får när man låter dörren stå öppen. En dagbok
-        från tiden innan kriget kan ge perspektiv och ibland blir historien väldigt levande.\n
-        Häng med oss in i en värld där det futurala inte är vad vi hoppas, där nutiden inte
-        är riktigt klok men upplevelsen total.</string>
     <string name="cirkus_title">THE CIRCUS</string>
-    <string name="cirkus_info">På Tegnérsplatsen precis söder på AF-borgen ligger Lundakarnevalens
-    äldsta och mest urballade nöje, nämligen Karnevalscirkusen! Cirkusen har en lång historia av att
-    blanda studentikos humor med parodier på cirkusnummer, såväl som genuint imponerande sådana.\
-    Detta år kommer föreställningen, namngiven ”Cirkus 40 minuter”, att ta med publiken på en
-    hisnande färd mellan olika främmande platser, och bjuda på en frisk blandning av gammalt såväl
-    som nytt. En traditionell cirkus skickas ut under ytterst otraditionella omständigheter på
-    grund av en mystisk resenär från framtiden. Bered er på ett äventyr fyllt med både spänning,
-    humor och grace. Ett sant nöje för hela familjen!</string>
     <string name="spexet_title">THE SPEX</string>
-    <string name="spexet_info">På stora salens scen i AF-borgen möter du karnevalsspexet Atlantis!
-    Här bjuds det på ett traditionellt lundensiskt spex där sagan om hur det gick för Atlantis
-    berättas med högklassig humor, sång och dans.\n
-    Föreställning börjar i ett slitet och nedgånget Atlantis. Staden håller inte längre för sin
-    egen vikt och sjunker sakta men säkert, både ner i vattnet och ner i fördärvet. Invånarna i
-    staden har vant sig vid förfallet, men stadens borgmästarinna har bestämt sig för att få staden flytande igen (både bildligt och bokstavligen!). Atlantis ska återgå till sina forna
-    glansdagar - och det illa kvickt!</string>
     <string name="show_title">THE SHOW</string>
-    <string name="show_info">Karnevalsshowen 2014 inbjuder till Ljuset och Lyktan – En dag i Livet.
-    På den lilla krogen Ljuset och Lyktan får vi uppleva en dag tillsammans med krogvärden Rolle
-    Rosén som sett och hört det mesta. Ur en betraktares synvinkel möter vi besökare, kunder
-    och vänner som alla söker efter en mening. Med hjälp av humor, sång och dans närmar vi oss
-    människor som alla bär något med sig, men som inte alltid vet om det, utan ständigt är på
-    jakt efter något större. Tillsammans med en vällagad krogmeny kan vi utlova en helhetsupplevelse
-    som inte kommer lämna någon oberörd.</string>
     <string name="revy_title">THE REVUE</string>
-    <string name="revy_info">Hur man än vrider och vänder på historien, världen och dess invånare
-    ser man tydligt att vi gång efter annan bevittnar sagan om mänsklighetens gränslösa idioti.
-    Det är nästan imponerande hur vuxna, ansvarstagande människor ständigt förstör sin egen
-    verklighet. Som barn utsätts vi för enorma förhoppningar, varje ny generation förväntas bli
-    den första vettiga generationen. Men nej, det kommer aldrig ske. Människan är, har alltid varit
-    och kommer alltid att förbli en idiot.\n
-    Följ med oss i Karnevalsrevyn Kottar och Nötter -  45 minuter satiriska, intellektuella och
-    tramsiga sketcher och fartfyllda sång- och dansnummer om allt och inget. En generationsresa
-    där vi bevisar att varenda kotte, utan undantag, växer upp till att bli ett nöt.</string>
-    <string name="barneval_title">THE CHILDESTIVAL</string>
-    <string name="barneval_info">Pinsamma pappa Olsson har ont i sin tand och vågar inte gå till
-    tandläkaren, inte ens när barnen Pia, Cissi och Ville följer med. Men en futuralt fiffig
-    uppfinning blir början på ett otroligt äventyr…\n
-    Vi får följa med på en resa i tid och mun, bland tandsten och smaklökar, där våra hjältar
-    slåss för kärlek och vänskap med uppdraget att hjälpa pappas onda tand. Vi träffar en galen
-    vetenskapskvinna, sjungande tänder, ett vänligt tandtroll och Skånes egen regionala tandfé.
-    Så borsta tänderna, glöm inte tandtråden och ta med hela familjen till Barnevalen. Detta
-    får ni inte missa!</string>
     <string name="filmen_title">THE FILM</string>
-    <string name="filmen_info">Lunds universitet står hotat av en dold fiende med oklara
-    intentioner. Den unga studentskan Sara, som av en ren slump dras in i de dramatiska
-    förvecklingarna, visar sig vara den enda som kan skydda universitetet mot en våldsam
-    undergång. Men är det egentligen en slump att det blir just hon? Under tiden som hon
-    tvingas vänja sig vid sina nyvunna superkrafter, får vi stifta bekantskap med den nördige
-    Filip. I sällskap av hennes nyfunne vän får vi följa våra hjältar genom hackerattacker,
-    biljakter och slutligen i den avgörande kampen mot de onda i Sveriges första superhjältefilm…
-    </string>
-
     <string name="cocktail_question">VAD FINNS PÅ COCKTAILBAREN?</string>
     <string name="cocktail_place">FOODSTOCK</string>
     <string name="cocktail_title">PSYKA-DELI</string>
@@ -128,31 +72,8 @@
     <string name="hipp_baren_title">HIPP I BAREN</string>
     <string name="hipp_baren_info">Drinkar: karnevöl, cider, läsk och eventuellt vin.\n\nMat: Ej mat\n\nBetalning: kort och kontant. DOCK, cash is king!</string>
 
-    <string name="krog_lajka_info">
-    Från 1957 till 2014 har Lajka varit både en folkkär rymdhund och en överanvänd Facebook-knapp.
-        I år är året då Lajka tar ett kliv ut ur cyberspace och vinner karnevalsbesökarnas hjärtan.
-        Med härlig atmosfär och en stor uteservering mitt i karnevalens kaos skapar Krog Lajka ditt
-        perfekta karnevalshäng! Kom till oss och ät en utsökt paella eller vegetarisk lasagne, släck
-        törsten med en svalkande karnevöl på karnevalens bästa plats, mittemot stora scenen.\n\nServerar: öl, vin och cider
-    </string>
-
-    <string name="krog_undervatten_info">
-Åren gick och polarisarna smälte. Skåne översvämmades och endast domkyrkans torn stack upp.
-        Folket skrek efter vällagad mat, och en krog svarade. Krog Undervatten finns vid
-        Kungshusets gavel och erbjuder er en havsinspirerad oas under karnevalsdagarna. Slå
-        er ned en stund och njut av den härliga stämningen och trubadurerna som förgyller krogen
-        och ger er en genuint trevlig upplevelse. Vi bjuder på en meny inspirerad av världshaven,
-        allt med en fransk touch.\n\nVälkommen till krog Undervatten!
-    </string>
 
 
-<string name="krog_thyme_info">
-I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsresa som utan tvekan
-    kommer att krydda din karnevalsupplevelse. För att på dagarna ta avstamp i det glada femtiotalet
-    och erbjuda er både känslan, stämningen och maten hos en amerikansk diner, svidar vi mot kvällen
-    om. Då kröker vi tid och rum och fortsätter på tidsresan som landar i en bar i sann anda av den
-    välkända Sudio 54.\n\nServerar: Alkohol
-    </string>
     <string name="krog_undervatten_place">IN FRONT OF AF-BORGEN</string>
     <string name="krog_undervatten_title">PUB UNDERVATTEN</string>
     <string name="krog_undervatten_question">WHAT IS PUB UNDERVATTEN?</string>
@@ -235,57 +156,6 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="playPart34">EXPLODERAR PÅ EN SEKUND</string>
     <string name="dansen_place">AF BORGEN</string>
     <string name="dansen_title">THE DANCE</string>
-    <string name="dansen_info" ><![CDATA[En vis person sa en gång ”Varför gå genom livet när du kan dansa?”.
-        En ypperlig devis som Lundakarnevalen tagit till sig och kommer att efterleva
-        – med råge! Under de tre karnevalsnätterna i maj kan Lundakarnevalen stoltsera
-        med Sveriges största nattklubb, Dansen, på AF-borgen! Under dessa nätter kommer
-        AF-borgen att transformeras till ett mullrande dansinferno utan jämlike. Tillsammans
-        kommer över 6000 personer dansa nätterna igenom på Dansens fyra olika dansgolv i Tégners,
-        Stora salen och Lilla salen till tonerna av våra fantastiska DJ:s och artister.<br><br>
-        <b>Spelschema:</b><br><br>
-        <b>Fredag:</b><br>
-        Frostbite – Stora Salen<br>
-        23.30-01 Simon Rosemarin<br>
-        01-03 DJS FROM MARS (IT)<br>
-        03-04 Hugo Kalm<br><br>
-        Jangala – Tegnérs, Stora Golvet<br>
-        23.30-01 Baigi and Boboo Djoon<br>
-        01-02 SOM FAN (Live)<br>
-        02-04 Baigi and Boboo Djoon<br><br>
-        Jangala – Tegnérs, Lilla Golvet<br>
-        23.30-02 Lil Gates<br>
-        02-04 Louie<br><br>
-        Inferno – Festvåningen<br>
-        23.30-04 Alexander Svensson<br><br>
-        <b>Lördag:</b><br>
-        Frostbite – Stora Salen<br>
-        23.30-01 Simon Alexander Lindholm<br>
-        01-03 DUBVISION (NL)<br>
-        03-04 Simon Alexander Lindholm<br><br>
-        Jangala – Tegnérs, Stora Golvet<br>
-        23.30-01 Andreas Melin<br>
-        01-02 NIELLO (Live)<br>
-        02-04 Andreas Melin<br><br>
-        Jangala – Tegnérs, Lilla Golvet<br>
-        23.30-04 DJ Kaffi<br><br>
-        Inferno – Festvåningen<br>
-        23.30-04 Andreas Almén<br>
-        <br>
-        <b>Söndag:</b><br>
-        Frostbite – Stora Salen<br>
-        23.30-01 Karan<br>
-        01-03 MRTN<br>
-        03-04 Illjas och Melles<br><br>
-        Jangala – Tegnérs, Stora Golvet<br>
-        23.30-01 Systerkollektivet (Jeschka och Kikki Hermansson)<br>
-        01-02 CLEO och KRISTIN AMPARO + BROKE’N TIPSY (Live)<br>
-        02-04 Systerkollektivet (Jeschka och Kikki Hermansson)<br><br>
-        Jangala – Tegnérs, Lilla Golvet<br>
-        23.30-02 Joel Montan<br>
-        02-04 Mathilde Bojén<br><br>
-        Inferno – Festvåningen<br>
-        23.30-04 Kevin Ohlsson]]>
-    </string>
     <string name="dansen_question">WHAT IS THE DANCE?</string>
     <string name="the_bland_band">THE BLAND BAND</string>
     <string name="emil_och_david">EMIL AND DAVID</string>
@@ -300,13 +170,6 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="krog_thyme_place" >ATHEN</string>
     <string name="krog_thyme_question">WHAT IS PUB TYHME TRAVEL?</string>
     <string name="menu_food">MENU</string>
-    <string name="undervatten_food1">BOUILLABAISSE MED ROUILLE</string>
-    <string name="undervatten_food2">KRÄMIG LAXRÖRA MED FRANSK POTATISSALLAD</string>
-    <string name="undervatten_food3">FRANSK LINSSOPPA</string>
-    <string name="thyme_food1">KYCKLINGFILÉ MED POTATISSALLAD, TIMJAN, CITRONOLJA OCH MANGODRESSING</string>
-    <string name="thyme_food2">KANTARELL OCH VÄSTERBOTTENPAJ MED SALLAD OCH RHODE ISLAND DRESSING</string>
-    <string name="lajka_food1">PAELLA</string>
-    <string name="lajka_food2">VEGETARISK LASAGNE</string>
 
     <string name="karne_name">THE CARNIVAL SONG</string>
     <string name="david">DAVID STRÖMBÄCK</string>
@@ -351,7 +214,7 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="lunara_nationen">Lunära nationen</string>
     <string name="bucket_list">Bucket List</string>
     <string name="karneroj">Karneröj</string>
-
+    <string name="barneval_title">THE CHILDESTIVAL</string>
     <string name="barnevalen">THE CHILDESTIVAL</string>
     <string name="festtaltet">Festtältet</string>
     <string name="gassimulator_3000">Gåssimulator 3000</string>
@@ -398,38 +261,17 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="trash">TRASH</string>
     <string name="biljetteriet_place" />
     <string name="biljetteriet_question">WHAT IS THE TICKETERY?</string>
-    <string name="biljetteriet_info"><![CDATA[
-         För att gå in på karnevalsområdet behövs en entrébiljett eller ett entréband.
-         Engångsentré kostar 60 kr och ett entréband som gör att man kan gå in och ut
-         obegränsat under de tre dagarna kostar 200 kr. Entrébiljett/band rekommenderas
-          att köpas på förhand då köerna in på karnevalsområdet kan vara långa under karnevalsdagarna.
-           Barn som är 6 år eller yngre går in gratis på området.<br><br>
-<big><b>Entrébiljetter köpta på internet måste hämtas ut i någon av biljettbodarna på Clemenstorget
- eller Stortorget utanför karnevalsområdet.</big><b>
-
-        ]]>
-    </string>
     <string name="smanojen_place" />
 
     <string name="smanojen_question">WHAT IS THE MINI FUN?</string>
-    <string name="smanojen_info">För dig som vill uppleva musik, spontanitet och skrattintensivitet är våra Smånöjen det perfekta alternativet! Biljetter säljs på karnevalsområdet och
-        föreställningarna visas så ofta som bara är möjligt. Ta tillvara på din spontanitet och
-        tillåt dig att, för en halvtimme, ”fånga framtiden” i våra smånöjen.</string>
-
     <string name="taltnojen_place" />
 
     <string name="taltnojen_question">WHAT IS THE TENT FUN?</string>
-    <string name="taltnojen_info">Det finns 20 tältnöjen som innehåller en kort och karnevalistisk
-        upplevelse. För att veta mer om varje enskilt tältnöje, var god köp vårt programblad som
-        finns tillgängligt på shoppen inne på karnevalsområdet.</string>
 
 
     <string name="tombolan_place" />
 
     <string name="tombolan_question">WHAT IS THE TOMBOLA?</string>
-    <string name="tombolan_info">Tombolan sprider karnevalsglädje genom de spel och tävlingar som
-        finns på området. Vi skapar de mest fantastiska och knäppa spelbodar som Liseberg
-        aldrig sett genom musik, lampor, satir och futurism.</string>
 
 
     <string name="musik_place" />
@@ -437,34 +279,17 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="musik" >THE MUSIC</string>
 
     <string name="musik_question">WHAT IS THE MUSIC?</string>
-    <string name="musik_info">Musiksektionen ser till att det alltid strömmar ljuv musik från
-        olika platser på Karnevalsområdet och framför allt från Stora Scenen framför universitetshuset.
-        Vi har hand om alla artister som kommer för att uppträda under dagarna men även scenerna de
-        uppträder från.</string>
     <string name="small_scene_question">WHAT IS SMALL SCENE?</string>
-    <string name="small_scene_info">Lilla Scenen är stjärnan på krogområdet Foodstock. Här finns en underbar blandning av musik, mat i olika former och barer där man kan umgås, äta, lyssna på fantastisk musik och insupa den karnevalistiska andan.</string>
-
     <string name="big_scene_question">WHAT IS BIG SCENE?</string>
-    <string name="big_scene_info">Med det ståtliga Universitetshuset i bakgrunden kan du avnjuta
-        de ljuva tonerna från stora scenens fenomenala artiser. Ladda inför oförglömliga musikupplevelser!
-    </string>
     <string name="small_scene_place" />
     <string name="big_scene_place" />
 
 <string name="snaxeriet">THE SNAXERY</string>
-    <string name="snaxeriet_info">Letar du efter framtidens snacks? Du har kommit helt rätt!</string>
     <string name="snaxeriet_question"/>
-    <string name="toilets_info">Nöden har ingen lag, sägs det. Därför är Karnevalen så futural att flertalet toaletter har placerats ut runt om på området. Var du än befinner dig, kommer du inte ha långt till ett rum där du kan pudra näsan. En automatic poo remover.</string>
-    <string name="security_info">Karnevalsområdet har även en egen polisstation (se karta). Här kan du till exempel anmäla en stöld eller lämna in hittegods, och få hjälp med nästan allt som du får hjälp med på en vanlig polisstation.</string>
-    <string name="care_info">På området finns en sjukstuga (se karta) med läkare och sjuksköterskor som mer än gärna plåstrar om dig när du blir skadad, det är bara att gå dit! Utöver detta så kan du få hjälp av sjukvårdsteam som hela tiden rör sig på området.</string>
     <string name="to_traint">TO THE TRAIN</string>
-    <string name="train_info">Årets tåg består av häftiga tåg i alla dess former, en resa genom tidsrymden.\n\nFör att få veta mer var god köp programbladet som säljs i shoppen på karnevalsområdet.</string>
     <string name="train_question">WHAT IS THE TRAIN?</string>
-    <string name="shoppen_info">Här hittar du programblad, souvenirer och andra roliga saker som gör dina (kanske vaga) minnen från karnevalen ännu klarare.</string>
     <string name="shoppen_question">WHAT\'S IN THE SHOP?</string>
     <string name="trash_question">WHAT IS A TRASH CAN?</string>
-    <string name="trash_info">Här slänger du allt som inte ger dig någon karnevalist-glädje. Placerade strategiskt runt om hela området för att du inte ska behöva gå allt för långt för att bli av med sånt som kan användas till bättre saker. Tänk på att nedskräpning är dåligt och att Lund ska hålla i minst 1000 år till.</string>
-    <string name="entre_info">För att gå in på karnevalsområdet behövs en entrébiljett eller ett entréband. Engångsentré kostar 60 kr och ett entréband som gör att man kan gå in och ut obegränsat under de tre dagarna kostar 200 kr. Entrébiljett/band rekommenderas att köpas på förhand då köerna in på karnevalsområdet kan vara långa under karnevalsdagarna. Barn som är 6 år eller yngre går in gratis på området.\n\nEntrébiljetter köpta på internet måste hämtas ut i någon av biljettbodarna på Clemenstorget eller Stortorget utanför karnevalsområdet.</string>
     <string name="entre_question">WHAT DO I FIND IN THE ENTRANCE?</string>
     <string name="foodo_place">FOODSTOCK</string>
     <string name="foodo_title">FOODOO CHILD</string>
@@ -485,19 +310,12 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="nangilima_place"/>
     <string name="nangilima_title">FOODSTOCK</string>
     <string name="nangilima_question">WHAT IS FOODSTOCK?</string>
-    <string name="nangilima_info">Lundakarnevalen framtidssatsar och lanserar det helt nya området Foodstock. Vi öppnar upp en värld fylld av blommor, bin, musik, mat och nöje. På vårt nya område uppe vid Gamla Kirurgen välkomnar vi dig för ytterligare karnevalsupplevelser och förlänger känslan av karneval lite längre. Fred, kärlek och förståelse - i en tidigare oskådad symbios! Unna dig lite karnevalistiska upptåg bland våra tältnöjen eller vinn fina eller ofina priser i tombolabodarna. Vila upp dig på vår uteservering och ät av vår amerikansk-inspirerade meny eller ta dig upp till grillen och få lika god mat - fast med mer grillyta.\n\nPå scenen finns underhållning dag, kväll och natt. Under lunchtid erbjuder vi underhållning som är mer familjeanpassad, och under eftermiddag och kväll satsar vi för fullt på musik från världens alla hörn - raggae, folk, indie, hiphop och en massa annat!\n\nFramåt natten skruvar vi upp tempot för att tillsammans med några av Sveriges största inom deep- och tech-house skapa världens läckraste förfest. Vi utlovar stämning och drag som hade fått Jimi Hendrix att bli högerhänt!
-</string>
     <string name="heart_selected">You will be reminded 30 minutes before the event</string>
     <string name="info_title">INFORMATION</string>
     <string name="info" />
     <string name="psyka_deli_menu">PSYKA-DELI</string>
     <string name="foodo_child_menu">FOODOO CHILD</string>
     <string name="flour_power_menu">FLOUR POWER</string>
-    <string name="psyk_deli_food1">Meatloaf med stingig tomatglace serveras med klyftpotatis och klassisk gravy-sås</string>
-    <string name="psyka_deli_food2">Krämig Mac \'n\' cheese Serveras med syrlig kålsallad</string>
-    <string name="foodo_child_food1">Kreolsk jambalaya med korv och kyckling</string>
-    <string name="foodo_child_food2">Vetekornspilaff med grillade grönsaker</string>
-    <string name="flour_power_food1">Klassiskt brännvinsbord</string>
     <string name="gps_toast">You are out of range or has not GPS enabled</string>
     <string name="utvecklarna_place" />
     <string name="utvecklarna">UTVECKLARNA</string>
@@ -508,6 +326,57 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="utvecklarna_text">Hurra för användaren! Hurra för karnevalen! Du hittade vårt lilla gömställe!\n\nVi är Markus, Filip och Fredrik och det är vi som har skapat denna futurala app :D\n\nMan brukar säga att programmerare är en organism som omvandlar kaffe till mjukvara, men vi behöver inte kaffe eller ersättning! Vi har något större, nämligen den karnevalistiska glädjen! Resultatet av hundratals timmars kodande är inte bara en app, utan en fläskig kunskap inför framtiden. Carpe Futurum!\n\nOfficiellt är denna app släppt under en helt annan licens, men vi brukar låtsas lite i smyg att det är Beerware. Gillar du vad du ser? Vi utmanar dig att leta upp oss och dela en karnevöl!\n\nLedtråd: Markus gillar lila, Filip gillar rosa och Fredrik gillar orange.(</string>
     <string name="king_romeo">KING ROMEO</string>
     <string name="verkligheten">VERKLIGHETENS FOLK</string>
-    <string name="left_area">har tillfälligt lämnat området…</string>
+    <string name="left_area"> has momentarily left the area…</string>
+
+
+    <string name="psyk_deli_food1">Meatloaf with peppy tomatoglace is served with potato wedges and classical gravy.</string>
+    <string name="psyka_deli_food2">Creamy Mac \'n\' cheese. Served with sourish coleslaw.</string>
+    <string name="foodo_child_food1">Creole jambalaya with sausage and chicken.</string>
+    <string name="foodo_child_food2">Wheat barley pilau with grilled vegetables.</string>
+    <string name="flour_power_food1">A classical schnapps table.</string>
+    <string name="nangilima_info">Lundakarnevalen invests in the future and launches the new area Foodstock. We open up a world of flowers, bees, music and entertainments. At our new area at the Old Surgeon we welcome you to experience more Karneval and extend the feeling of Karneval. Peace, love and understanding – in a previously intact symbiosis! Treat yourself with some Karneval pranks among our Tältnöjen or win nice and not so nice prices at the Tombola shops. Rest at our open-air restaurant and enjoy our American-inspired menu or find the grill-room and get food as good – but with more grill surface.n\nOn stage there is entertainment day, evening and night. During lunch we offer a more family oriented entertainment, and during the afternoon and evening we focus fully on music from all corners of the world – reggae, folk, indie, hiphop and a lot more!\n\nAs the night continues we will increase the pace working together with some of the biggest names in the deep and tech-house to create the worlds funkiest pre-party. We promise atmosphere and a move that would had made Jimi Hendrix right handed!</string>
+    <string name="trash_info">Here you waste everything that not give you any karnevalist happiness. Placed at strategic spots around the whole area so you not have to walk to far to get rid of things that could be used for a better purpose. Think about littering as being bad and that Lund should last another 1,000 years.</string>
+    <string name="entre_info">To enter the Karneval area you will need a single ticket or an entrance ribbon. A single ticket is 60 SEK valid for one entrance. An entrance ribbon is 200 SEK and allows you to visit the Karneval area an unlimited number of times during the three Karneval Days. Single tickets/entrance ribbons are recommended to be purchased in advance as the queues to the Karneval area could be long during the Karneval days. Children who are 6 years old or younger have free admittance to the Karneval area.\n\nEntrance tickets purchased on the Internet have to be picked up at the ticket shops outside the Karneval area at Clemenstorget or Stortorget.</string>
+    <string name="shoppen_info">Here you will find programs, souvenirs and other fun stuff making your (maybe  vague) Karneval memories even clearer.</string>
+    <string name="train_info">This years tåg consists of cool tåg in all its forms, a journey through the time space.\n\nTo know more please purchase the program which is sold in Shoppen at the Karneval area.</string>
+    <string name="care_info">There is an infirmary at the premises (see map) with a doctor and nurses who are more than willing to take care of you when you’re injured – just find the place. Furthermore, you can get help from a healthcare team moving around the premises all the time.</string>
+    <string name="security_info">The Karneval area has also its own police station (see map). Here you can for instance report a theft or submit lost property, and get almost the same help you get at a regular police station.</string>
+    <string name="toilets_info">It is said that necessity knows no law. Therefore the Karneval is so futural that a number of toilets have been placed around the area. Whereever you are, you will be close to a room in which you can powder your nose. An automatic poo remover.</string>
+    <string name="snaxeriet_info">Are you looking for the snacks of the future? Then you\'ve come to the right place!</string>
+    <string name="big_scene_info">With the magnificent University building in the background you will be able to enjoy the sweet tones from phenomenal artists at Stora Scenen. Get ready for unforgettable musical experiences!</string>
+    <string name="small_scene_info">Lilla Scenen is the star at the pub area Foodstock. Here you will find a wonderful mix of music, food in various forms and bars where you can socialize, eat, listen to fantastic music and imbibe the Karneval spirit. </string>
+    <string name="musik_info">The music section ensures that it always flows sweet music from different places at the Karneval area and most of all from Stora Scenen in front of the University building. We take care of all the artists who will perform during the days but also the stages from which they perform.</string>
+    <string name="tombolan_info">Tombola is spreading Karneval happiness through the games and competitions that can be found on the premises. We create the most fantastic and wacky game shops through music, lamps, satire and futurism that Liseberg never have seen.</string>
+    <string name="taltnojen_info">There are 20 Tältnöjen which all contain a short Karneval experience. To learn more about every single Tältnöje, please purchase our program available at Shoppen within the Karneval area.</string>
+    <string name="smanojen_info">For you, who want to experience music, spontaneity and intensive laughter our Smånöjen are the perfect alternative! Tickets can be purchased at the Karneval area and the performances are shown as often as possible. Make the most of your spontaneity and allow yourself, for half an hour, to “catch the future” in our Smånöjen. </string>
+    <string name="biljetteriet_info">To enter the Karneval area you need a single ticket or an entrance ribbon. A single ticket is 60 SEK and an entrance ribbon is 200 SEK. An entrance ribbon is valid all three Karneval Days and allow you to visit the Karneval area an unlimited number of times. Single tickets and entrance ribbons are recommended to be purchased in advance as the queues to the Karneval area could be long during the Karneval Days. Children who are 6 years old or younger have free admittance to the Karneval area. Entrance tickets purchased on the Internet have to be picked up in the ticket shops outside the Karneval area at Clemenstorget or Stortorget.</string>
+    <string name="thyme_food1">CHICKEN FILLET WITH POTATO SALAD, THYME, LEMON OIL AND MANGO DRESSING</string>
+    <string name="thyme_food2">CHANTERELLES AND PIE FROM VÄSTERBOTTEN WITH LETTUCE AND RHODE ISLAND DRESSING</string>
+    <string name="lajka_food1">PAELLA</string>
+    <string name="lajka_food2">VEGETARIAN LASAGNE</string>
+    <string name="undervatten_food1">BOUILLABAISSE WITH ROUILLE</string>
+    <string name="undervatten_food2">CREAMY SALMON MIX WITH FRENCH POTATO SALAD</string>
+    <string name="undervatten_food3">FRENCH LENS SOUP</string>
+    <string name="dansen_info">A wise person once said: "Why walk through life when you can dance?" An excellent motto that Lundakarnevalen has adopted and will comply – amply! During the three Karneval nights in May Lundakarnevalen will flaunt the biggest nightclub in Sweden, Dansen, at the AF-Castle. During these nights the AF-Castle will, without comparison, be transformed into a rumbling inferno of dance. Together more than 6,000 persons will dance through the nights at Dansens four different dancing floors at Tegnérs, Stora Salen and Festvåningen, listening to our fantastic DJs and artists.</string>
+    <string name="krog_thyme_info">In Athen in the AF-Castle you will find the time machine which will take you on a culinary journey that no doubt will spice your Karneval experience. During the days it will be the starting point in the Roaring Fifties and offers you the feeling, the mood and food at an American diner, and towards the evening we dress up. Then we bend time and room and continue the time journey that lands in a bar in the true spirit of the well-known Studio 54.\n\nServes: Alcohol</string>
+    <string name="krog_undervatten_info">Years went and the polar ice melted. Scania was flooded and only the tower of the cathedral could be seen. The people shouted for well-prepared food and one pub answered. Pub Underwater can be found at the gable of Kungshuset and offers a sea inspired oasis during the Karneval Days. Sit down for a while and enjoy the lovely atmosphere and the troubadours who compliment the pub and give you a genuinely pleasant experience. We offers a manu inspired by the oceans, everything with a French touch.\n\nWelcome to Pub Underwater!</string>
+    <string name="krog_lajka_info">From1957 to 2014 Lajka has been both a dog beloved by the people and an overused Facebook button. This year is the year when Lajka takes a step away from cyberspace and wins the hearts of the Karneval visitors. With a delightful atmosphere and a big open-air pub in the middle of the Karneval chaos Pub Lajka creates your perfect Karneval hang! Join us and have a delicious paella or vegetarian lasagna, quench your thirst with a cool karnevöl at the best spot of the Karneval, opposite Stora Scenen\n\nServes: beer, wine and cider</string>
+    <string name="filmen_info">Lund University is threatened by a hidden enemy with unclear intentions. The young female student Sara, who by pure coincidence is pulled into the dramatic entanglements, happens to be the only one that can protect the University from a violent destruction. But is by pure coincidence that it is she only? While she is forced to get used to her newfound superpowers, we get to know the geeky Filip. In the company of her newfound friend we follow our heroes through hacker attacks, car chasing and finally in the decisive struggle towards the evil in the first Swedish super-hero movie …</string>
+    <string name="barneval_info">Embarrassing Dad Olsson has a pain in his tooth and is afraid of going to the dentist, even when supported by his children Pia, Cissi och Ville.  But a futural and clever invention is the start of an incredible adventure.../ nWe will join on a journey in time and mouth, among tartars and taste buds, in which our heroes fight for love and friendship with the mission to help dad’s bad tooth. We meet a mad scientist woman, singing teeth, a friendly tooth goblin and Scania’s own regional Tooth Fairy.  So, brush your teeth, don’t forget the dental floss and bring your whole family to Barnevalen. This is something you can’t miss.</string>
+    <string name="revy_info">In whatever way you twist and turn the history, the world and its inhabitants you clearly see that we watch the fairy tale about the human race’s boundless idiocy. It is almost impressive how adult, responsible people all the time destroy their own reality.  As a child we are exposed to enormous expectations, every new generation are expected to be the first sensible generation. But no, this will never happen. Man is, has always been and will always be (stay), an idiot./n Join us in the Karneval Revyn, ”Cones and Nuts” – 45 minutes with satirical, intellectual and nonsense sketches and action-packed song- and dance performances about all or nothing. A generation’s journey in which we prove every cone (=living soul), without exception, grows up to be a nut (=blockhead).</string>
+    <string name="show_info">The Karneval show 2014 invites you to The Light and the Lantern – a Day in Life. In the small pub, the Light and the Lantern, we will experience a day together with the innkeeper Rolle Rosén, who has seen and heard just about everything. From a viewers point of view we will meet visitors, customers and friends, who are all searching for a meaning. With the help of humor, singing and dancing we get closer to people, who all are carrying something around, but who not always knows about it, and constantly on the look out for something bigger. Together with a well-cooked pub menu we can promise a holistic experience that will not leave anyone indifferent.</string>
+    <string name="spexet_info"> On stage of Stora Salen in the AF-Castle you will face the Karneval Spex ’Atlantis’. In this performance you are invited to a traditional Spex from Lund, where the fairy tale about what happened to Atlantis is told with high-class humor, singing and dancing.\n The performance starts in a worn and run down Atlantis. The city is too heavy and is for sure sinking both down into the water and to destruction. The inhabitants in the city have got used to the decay, but the city mayoress has decided to get the city afloat again (both figuratively and literally!). Atlantis will return to its former days of glory – and make it snappy.</string>
+    <string name="cirkus_info">At Tegnérsplatsen, precisely south of the AF-Castle you will find Lundakarnevalens oldest and most pristine entertainment, namely the Karneval Cirkus. The Cirkus has a long history in mixing student-like humor with travesties of circus acts, as well as genuinely impressive ones.\nThis year the performance, named ”Cirkus 40 minutes”, will take the audience on a breathtaking journey across foreign locations, and offer a fresh mixture of both old and new stuff. A traditional circus is sent out on and under extremely untraditional circumstances because of a mysterious traveler from the future. Prepare for an adventure filled with excitement, humor and grace. A true pleasure for the whole family!</string>
+    <string name="kabare_info"> We are positioned in the post-apocalyptical dystopia after the big nuclear war. The world is in ruins, but Cabaret Apocalyptica is doing its best to cheer up the few that are left. It is, however, difficult to know who the guests are when you let the door wide open. A diary from the time before the war could give a perspective and sometimes history becomes very much alive.\nJoin us into a world where the futural not is what we hope it is, where the present is crazy but the experience total. </string>
+
+
+
+
+
+
+
+
+
+
 
 </resources>

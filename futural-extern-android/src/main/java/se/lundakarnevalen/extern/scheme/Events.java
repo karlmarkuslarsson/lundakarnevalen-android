@@ -329,7 +329,6 @@ public class Events {
         cal.set(Calendar.HOUR_OF_DAY, 19);
         cal.set(Calendar.MINUTE, 00);
         myDateEnd = cal.getTime();
-        //TODO
         e = new Event(context.getString(R.string.small_scene), context.getString(R.string.arts), R.drawable.arts_rounded, myDate, myDateEnd,17);
         events.add(e);
 

@@ -344,12 +344,14 @@ public class MapFragment extends LKFragment
         waitForLayout();
         float minZoom = calculateMinZoom(mMapView, picture);
         mMapView.setSvg(picture, minZoom, null);
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                clearSpinner();
-            }
-        });
+        if(getActivity()!=null) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    clearSpinner();
+                }
+            });
+        }
     }
 
     private void clearSpinner() {
@@ -372,7 +374,6 @@ public class MapFragment extends LKFragment
     private LocationTracker.LocationJSONResult.LatLng fredrik = new LocationTracker.LocationJSONResult.LatLng();
 
     public void zoomToDeveloper(float lat, float lng, int i) {
-        // TODO Check inside map...
         switch (i) {
             case 1:
                 if(mMapView.isWithinLatLngRange(markus.lat,markus.lng)) {
