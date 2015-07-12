@@ -31,7 +31,7 @@ import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.data.DataContainer;
 import se.lundakarnevalen.extern.data.DataElement;
 import se.lundakarnevalen.extern.data.DataType;
-import se.lundakarnevalen.extern._map.Marker;
+import se.lundakarnevalen.extern.map.Marker;
 import se.lundakarnevalen.extern.util.BitmapUtil;
 import se.lundakarnevalen.extern.util.Logf;
 

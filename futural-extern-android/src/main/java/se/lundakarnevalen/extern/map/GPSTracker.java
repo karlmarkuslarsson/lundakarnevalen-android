@@ -1,4 +1,4 @@
-package se.lundakarnevalen.extern._map;
+package se.lundakarnevalen.extern.map;
 
 import android.app.AlertDialog;
 import android.app.Service;

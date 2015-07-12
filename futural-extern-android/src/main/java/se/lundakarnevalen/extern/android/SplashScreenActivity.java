@@ -13,8 +13,8 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 
-import se.lundakarnevalen.extern._map.MapLoader;
-import se.lundakarnevalen.extern._map.TrainMapLoader;
+import se.lundakarnevalen.extern.map.MapLoader;
+import se.lundakarnevalen.extern.map.TrainMapLoader;
 
 import static com.nineoldandroids.view.ViewPropertyAnimator.animate;
 
