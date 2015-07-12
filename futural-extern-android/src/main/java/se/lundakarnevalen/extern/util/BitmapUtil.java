@@ -11,9 +11,6 @@ import android.graphics.Paint;
 import android.graphics.Shader;
 import android.os.Build;
 
-/**
- * Created by Filip on 2014-04-18.
- */
 public class BitmapUtil {
 
     public static final String LOG_TAG = BitmapUtil.class.getSimpleName();

@@ -11,9 +11,6 @@ import android.net.Uri;
 import se.lundakarnevalen.extern.activities.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 
-/**
- * Created by Markus on 2014-05-05.
- */
 public class SchemeAlarm extends BroadcastReceiver {
 
     @Override
@@ -24,7 +21,7 @@ public class SchemeAlarm extends BroadcastReceiver {
         Notification notification = new Notification(R.drawable.splash, "LUNDAKARNEVALEN",
                 System.currentTimeMillis());
         // The PendingIntent to launch our activity if the user selects this notification
-        // TODO Bitmap crash!
+
         Intent i = new Intent(context, ContentActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0, i, 0);

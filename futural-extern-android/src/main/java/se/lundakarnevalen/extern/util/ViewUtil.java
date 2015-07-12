@@ -4,9 +4,6 @@ import android.content.Context;
 import android.util.DisplayMetrics;
 import android.view.View;
 
-/**
- * Created by Filip on 2014-04-18.
- */
 public class ViewUtil {
 
     public static <T> T get(View parent, int id, Class<T> clz) {

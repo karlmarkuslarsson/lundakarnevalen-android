@@ -2,9 +2,6 @@ package se.lundakarnevalen.extern.widget;
 
 import se.lundakarnevalen.extern.data.DataElement;
 
-/**
- * Created by Markus on 2014-04-23.
- */
 public class LKListRow {
 
     DataElement element1;

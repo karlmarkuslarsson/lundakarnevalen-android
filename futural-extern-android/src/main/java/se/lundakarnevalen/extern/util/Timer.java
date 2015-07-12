@@ -2,9 +2,6 @@ package se.lundakarnevalen.extern.util;
 
 import android.util.Log;
 
-/**
- * Created by Filip on 2014-03-27.
- */
 public class Timer {
     private long start;
 

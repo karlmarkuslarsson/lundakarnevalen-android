@@ -21,9 +21,6 @@ import se.lundakarnevalen.extern.util.Logf;
 import static android.graphics.Matrix.MSCALE_X;
 import static se.lundakarnevalen.extern.util.ViewUtil.dpToPx;
 
-/**
- * Created by Filip on 2014-04-27.
- */
 public class LKTrainView extends SVGView {
     private static final String LOG_TAG = LKTrainView.class.getSimpleName();
 

@@ -38,9 +38,7 @@ import se.lundakarnevalen.extern.util.Logf;
 import static android.graphics.Matrix.MSCALE_X;
 import static se.lundakarnevalen.extern.util.ViewUtil.dpToPx;
 
-/**
- * Created by Filip on 2014-04-27.
- */
+
 public class LKMapView extends SVGView {
     private static final String LOG_TAG = LKMapView.class.getSimpleName();
 
@@ -72,8 +70,7 @@ public class LKMapView extends SVGView {
     }
 
     public interface OnMarkerSelectedListener {
-        /** null of unselect */
-        public void onMarkerSelected(Marker m);
+         void onMarkerSelected(Marker m);
     }
 
 
@@ -241,18 +238,6 @@ public class LKMapView extends SVGView {
             mListener.onMarkerSelected(null);
         }
         return false;
-    }
-
-    public void goToGpsMarker(int svgX, int svgY){
-
-
-        if(mFocusedMarker != null) {
-            mFocusedMarker.isFocusedInMap = false;
-        }
-        mFocusedMarker = null;
-        mListener.onMarkerSelected(null);
-
-        panTo(svgX,svgY);
     }
 
     @Override

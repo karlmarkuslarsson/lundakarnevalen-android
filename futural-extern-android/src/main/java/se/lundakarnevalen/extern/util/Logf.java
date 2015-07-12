@@ -2,9 +2,6 @@ package se.lundakarnevalen.extern.util;
 
 import android.util.Log;
 
-/**
- * Created by Filip on 2014-03-29.
- */
 public class Logf {
     public static void wtf(Object src, String fmt, Object... args) {
         Log.wtf(className(src), String.format(fmt, args));

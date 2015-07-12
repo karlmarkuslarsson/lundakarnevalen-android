@@ -16,18 +16,13 @@ import java.util.List;
 import se.lundakarnevalen.extern.activities.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.data.DataElement;
-import se.lundakarnevalen.extern.data.DataType;
 import se.lundakarnevalen.extern.fragments.LandingPageFragment;
 import se.lundakarnevalen.extern.fragments.MelodyFragment;
 import se.lundakarnevalen.extern.fragments.MusicFragment;
 import se.lundakarnevalen.extern.fragments.ParkingFragment;
 import se.lundakarnevalen.extern.fragments.SongGroupsFragment;
-import se.lundakarnevalen.extern.fragments.SongsPagerFragment;
 
 
-/**
- * Created by Markus on 2014-04-20.
- */
 public class LKListAdapter extends ArrayAdapter<LKListRow> {
 
     private final Context context;
@@ -85,8 +80,6 @@ public class LKListAdapter extends ArrayAdapter<LKListRow> {
             }
 
             ContentActivity contentActivity = ContentActivity.class.cast(activity);
-            List<DataType> types;
-
             switch (element.type) {
                 case SONG_BOOK:
                     contentActivity.loadFragmentAddingBS(new SongGroupsFragment());
