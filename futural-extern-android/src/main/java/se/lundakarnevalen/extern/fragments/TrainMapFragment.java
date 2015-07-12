@@ -25,8 +25,6 @@ import se.lundakarnevalen.extern.util.Delay;
 import se.lundakarnevalen.extern.util.Logf;
 import se.lundakarnevalen.extern.widget.LKTrainView;
 
-import static se.lundakarnevalen.extern.util.ViewUtil.get;
-
 /**
  * Created by Markus on 2014-04-16.
  */

@@ -32,8 +32,6 @@ import se.lundakarnevalen.extern.util.Delay;
 import se.lundakarnevalen.extern.util.Logf;
 import se.lundakarnevalen.extern.widget.LKMapView;
 
-import static se.lundakarnevalen.extern.util.ViewUtil.get;
-
 public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
     public static final int BOTTOM_MENU_ID = 2;
     public static final float STARTZOOM = 1.3f;

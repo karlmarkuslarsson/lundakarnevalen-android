@@ -1,7 +1,6 @@
 package se.lundakarnevalen.extern.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +11,8 @@ import java.util.List;
 
 import se.lundakarnevalen.extern.activities.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
-import se.lundakarnevalen.extern.data.DataContainer;
 import se.lundakarnevalen.extern.data.DataElement;
 import se.lundakarnevalen.extern.data.DataMultiContainer;
-import se.lundakarnevalen.extern.data.DataType;
 import se.lundakarnevalen.extern.widget.LKListAdapter;
 import se.lundakarnevalen.extern.widget.LKListRow;
 
@@ -23,7 +20,7 @@ import se.lundakarnevalen.extern.widget.LKListRow;
  * Created by Markus on 2014-04-16.
  */
 public class OtherFragment extends LKFragment{
-    private List<DataElement> other = new ArrayList<DataElement>();
+    private List<DataElement> other = new ArrayList<>();
     private final int ID = 4;
 
     // Every time you switch to this fragment.
@@ -42,7 +39,7 @@ public class OtherFragment extends LKFragment{
 
         }
 
-        ArrayList<LKListRow> items = new ArrayList<LKListRow>();
+        ArrayList<LKListRow> items = new ArrayList<>();
 
         for (int i = 0; i < other.size(); i = i+2) {
             if(i + 1 < other.size()) {

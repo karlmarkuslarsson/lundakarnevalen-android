@@ -28,8 +28,6 @@ import se.lundakarnevalen.extern.scheme.Events;
 import se.lundakarnevalen.extern.widget.BounceListView;
 import se.lundakarnevalen.extern.widget.LKSchemeAdapter;
 
-import static se.lundakarnevalen.extern.util.ViewUtil.get;
-
 /**
  * Created by Markus on 2014-04-16.
  */
