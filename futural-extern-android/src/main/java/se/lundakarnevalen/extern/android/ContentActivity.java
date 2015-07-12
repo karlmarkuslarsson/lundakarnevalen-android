@@ -36,6 +36,7 @@ import se.lundakarnevalen.extern.fragments.MapFragment;
 import se.lundakarnevalen.extern.fragments.OtherFragment;
 import se.lundakarnevalen.extern.fragments.SchemeFragment;
 import se.lundakarnevalen.extern.fragments.TrainMapFragment;
+import se.lundakarnevalen.extern.map.GPSTracker;
 import se.lundakarnevalen.extern.util.Logf;
 import se.lundakarnevalen.extern.widget.LKMapView;
 import se.lundakarnevalen.extern.widget.LKRightMenuArrayAdapter;
