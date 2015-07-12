@@ -17,12 +17,11 @@ import se.lundakarnevalen.extern.util.KarnevalistServer;
 
 public class LocationTracker extends Service {
     private static final String LOG_TAG = LocationTracker.class.getSimpleName();
-    private static final boolean DEBUG = false;
+    private static final boolean DEBUG = true;
 
     public static final int UPDATE_DELAY_MILLIS = 60000;
     public static final int INITAL_DELAY_MILLIS = 100;
 
-    private final Context mContext;
     private final KarnevalistServer mConnection;
     private final Timer mTimer;
 
@@ -46,7 +45,6 @@ public class LocationTracker extends Service {
 
 
     public LocationTracker(Context context) {
-        this.mContext = context;
         this.mConnection = new KarnevalistServer(context);
         this.mListeners = new ArrayList<>(2);
         this.mTimer = new Timer();
@@ -54,6 +52,15 @@ public class LocationTracker extends Service {
     }
 
     private void init() {
+        if (DEBUG) {
+            mLatestResult = new LocationJSONResult();
+            mLatestResult.success = true;
+            mLatestResult.train_positions.add(new LocationJSONResult.LatLng(55.704373f, 13.195548f, 1));
+            mLatestResult.train_positions.add(new LocationJSONResult.LatLng(55.706538f, 13.195652f, 11));
+            mLatestResult.train_positions.add(new LocationJSONResult.LatLng(55.705806f, 13.193780f, 21));
+            mLatestResult.train_positions.add(new LocationJSONResult.LatLng(55.704017f, 13.193914f, 31));
+        }
+
         this.mTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -64,6 +71,13 @@ public class LocationTracker extends Service {
 
     public void updateLocation() {
         try {
+            if (DEBUG) {
+                for (LocationJSONListener listener : mListeners) {
+                    listener.onNewLocationFromKarnevalist(mLatestResult);
+                }
+                return;
+            }
+
             mConnection.requestServerForText("api/train_positions", "", KarnevalistServer.RequestType.GET, new KarnevalistServer.TextResultListener() {
                 @Override
                 public void onResult(String json) {
@@ -82,7 +96,7 @@ public class LocationTracker extends Service {
     }
 
     public static class LocationJSONResult {
-        public List<LatLng> train_positions;
+        public List<LatLng> train_positions = new ArrayList<>();
         public boolean success;
 
         public LocationJSONResult() {}
@@ -93,6 +107,12 @@ public class LocationTracker extends Service {
             public int id = 0;
 
             public LatLng() {}
+
+            public LatLng(float lat, float lng, int id) {
+                this.lat = lat;
+                this.lng = lng;
+                this.id = id;
+            }
         }
     }
 
