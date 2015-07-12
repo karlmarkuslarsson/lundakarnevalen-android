@@ -1,5 +1,13 @@
 package fragments;
 
+import android.os.Bundle;
+import android.text.Html;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -8,14 +16,6 @@ import java.util.Locale;
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.fragments.LKFragment;
 import se.lundakarnevalen.extern.fragments.SongsPagerFragment;
-
-import android.os.Bundle;
-import android.text.Html;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 public class SongGroupsFragment extends LKFragment {
 	
