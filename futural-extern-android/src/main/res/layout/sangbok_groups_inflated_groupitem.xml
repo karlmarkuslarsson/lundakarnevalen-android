@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="290dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:paddingTop="10dp" >
+
+    <Button
+        android:id="@+id/sangbok_groups_inflated_groupitem_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:background="@drawable/button_selector_white"
+        android:drawableBottom="@drawable/songs_shadow"
+        android:gravity="center"
+        android:maxLines="2"
+        android:text="NAME"
+        android:textColor="@color/dark_peach"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/sangbok_groups_inflated_groupitem_nbr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/songs_page_nbr_box"
+        android:gravity="center"
+        android:text="4"
+        android:layout_alignParentRight="true"
+    	android:layout_centerVertical="true"
+        android:drawableBottom="@drawable/songs_page_nbr_shadow"
+        android:textColor="#FFF"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+
+</RelativeLayout>
