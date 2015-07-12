@@ -23,25 +23,29 @@ public class GPSTracker extends Service implements LocationListener, GpsStatus.L
     private static final boolean DEBUG = true;
     
     public static final int UPDATE_DELAY_MILLIS = 20000;
-    public static final int INITAL_DELAY_MILLIS = 1000;
+    public static final int INITAL_DELAY_MILLIS = 100;
 
     //Filter accuracy on this value in meters
     public static final int REQUERED_ACCURACY_METERS = 200;
 
     // The minimum distance to change Updates in meters
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 1; // 1 meters
+    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 100; // 1 meters
 
     // The minimum time between updates in milliseconds
-    private static final long MIN_TIME_BW_UPDATES = 2000; // 2 sec
+    private static final long MIN_TIME_BW_UPDATES = 20000; // 2 sec
 
     private final LocationManager mLocationManager;
-    private final Context mContext;
     private final Handler mHandler;
     private final Runnable mUpdateRunnable;
 
+    private List<GPSListener> mListeners;
+    private Location mLocation;
+    private double mLatitude = 55.707644;
+    private double mLongitude = 13.192707;
+
     public void invalidateMe(GPSListener listener) {
-        if(latitude > 0.0f && longitude>0.0f ) {
-            listener.onNewLocation(latitude, longitude);
+        if (mLatitude > 0.0f && mLongitude > 0.0f ) {
+            listener.onNewLocation(mLatitude, mLongitude);
         }
     }
 
@@ -49,15 +53,10 @@ public class GPSTracker extends Service implements LocationListener, GpsStatus.L
     public void onGpsStatusChanged(int event) {
         Logf.d(LOG_TAG, "onGpsStatusChanged(%d)", event);
     }
-
     public interface GPSListener {
         void onNewLocation(double lat, double lng);
-    }
 
-    List<GPSListener> mListeners;
-    Location location;
-    double latitude;
-    double longitude;
+    }
 
 
     public GPSTracker () {
@@ -69,10 +68,9 @@ public class GPSTracker extends Service implements LocationListener, GpsStatus.L
     }
 
     public GPSTracker(Context context) {
-        this.mContext = context;
-        this.mLocationManager = (LocationManager) mContext.getSystemService(LOCATION_SERVICE);
+        this.mLocationManager = (LocationManager) context.getSystemService(LOCATION_SERVICE);
         this.mListeners = new ArrayList<>(2);
-        this.mHandler = new Handler(mContext.getMainLooper());
+        this.mHandler = new Handler(context.getMainLooper());
         this.mUpdateRunnable = new Runnable() {
             @Override
             public void run() {
@@ -84,6 +82,7 @@ public class GPSTracker extends Service implements LocationListener, GpsStatus.L
     }
 
     private void init() {
+        if (DEBUG) return;
 
         Criteria criteria = new Criteria();
         criteria.setAccuracy(Criteria.ACCURACY_FINE);
@@ -95,7 +94,7 @@ public class GPSTracker extends Service implements LocationListener, GpsStatus.L
 
         mLocationManager.requestLocationUpdates(bestProvider, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
 
-        if(!LocationManager.GPS_PROVIDER.equalsIgnoreCase(bestProvider)){
+        if (!LocationManager.GPS_PROVIDER.equalsIgnoreCase(bestProvider)){
             mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
             mLocationManager.addGpsStatusListener(this);
         }
@@ -107,12 +106,12 @@ public class GPSTracker extends Service implements LocationListener, GpsStatus.L
             if (mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                 Location l = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-                if (location != l) {
-                    location = l;
-                    latitude = location.getLatitude();
-                    longitude = location.getLongitude();
-                    Logf.d(LOG_TAG, "Updated position: lat %f, lng %f, accuracy:%f", latitude, longitude, l.getAccuracy());
-                    onLocationChanged(location);
+                if (mLocation != l) {
+                    mLocation = l;
+                    mLatitude = mLocation.getLatitude();
+                    mLongitude = mLocation.getLongitude();
+                    Logf.d(LOG_TAG, "Updated position: lat %f, lng %f, accuracy:%f", mLatitude, mLongitude, l.getAccuracy());
+                    onLocationChanged(mLocation);
                 }
             } else {
                 Log.d(LOG_TAG, "LocationProvider: GPS disabled");
@@ -122,7 +121,7 @@ public class GPSTracker extends Service implements LocationListener, GpsStatus.L
             Log.wtf(LOG_TAG, "Failed to acquire location", e);
             e.printStackTrace();
         }
-        return location;
+        return mLocation;
     }
 
     /**
@@ -147,12 +146,13 @@ public class GPSTracker extends Service implements LocationListener, GpsStatus.L
         final double lat = location.getLatitude();
         final double lng = location.getLongitude();
         if (location.getAccuracy() < REQUERED_ACCURACY_METERS) {
+
             // We only care if accuracy is good enough
             Logf.d(LOG_TAG, "(%s) Posting location: lat %f, lng %f, acc:%f", location.getProvider(), lat, lng, location.getAccuracy());
-            this.location = location;
+            this.mLocation = location;
 
             for (GPSListener l : mListeners) {
-                if(DEBUG) {
+                if (DEBUG) {
                     l.onNewLocation(55.707644, 13.192707); // Push fake coordinates
                 } else {
                     l.onNewLocation(lat, lng);
