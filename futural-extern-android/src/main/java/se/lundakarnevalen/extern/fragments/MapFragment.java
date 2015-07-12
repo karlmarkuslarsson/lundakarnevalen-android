@@ -370,34 +370,34 @@ public class MapFragment extends LKFragment
     public void zoomToDeveloper(float lat, float lng, int i) {
         switch (i) {
             case 1:
-                if(mMapView.isWithinLatLngRange(markus.lat,markus.lng)) {
+                if (mMapView.isWithinLatLngRange(markus.lat,markus.lng)) {
                     addZoomHintForNextCreate(markus.lat, markus.lng, -1.0f); // will use midZoom
                 } else {
-                    addZoomHintForNextCreate(lat, lng, -1.0f); // will use midZoom
-                    Toast toast = Toast.makeText(getContext(), "Markus "+getString(R.string.left_area), Toast.LENGTH_LONG);
-                    toast.show();
+                    leftAreaToast(lat, lng, "Markus " + getString(R.string.left_area));
                 }
                 break;
             case 2:
-                if(mMapView.isWithinLatLngRange(filip.lat,filip.lng)) {
+                if (mMapView.isWithinLatLngRange(filip.lat,filip.lng)) {
                     addZoomHintForNextCreate(filip.lat, filip.lng, -1.0f); // will use midZoom
                 } else {
-                    addZoomHintForNextCreate(lat, lng, -1.0f); // will use midZoom
-                    Toast toast = Toast.makeText(getContext(), "Filip "+getString(R.string.left_area), Toast.LENGTH_LONG);
-                    toast.show();
+                    leftAreaToast(lat, lng, "Filip "+getString(R.string.left_area));
                 }
                 break;
             case 3:
-                if(mMapView.isWithinLatLngRange(fredrik.lat,fredrik.lng)) {
+                if (mMapView.isWithinLatLngRange(fredrik.lat,fredrik.lng)) {
                     addZoomHintForNextCreate(fredrik.lat, fredrik.lng, -1.0f); // will use midZoom
                 } else {
-                    addZoomHintForNextCreate(lat, lng, -1.0f); // will use midZoom
-                    Toast toast = Toast.makeText(getContext(), "Fredrik "+getString(R.string.left_area), Toast.LENGTH_LONG);
-                    toast.show();
+                    leftAreaToast(lat, lng, "Fredrik "+getString(R.string.left_area));
                 }
 
                 break;
         }
+    }
+
+    private void leftAreaToast(float lat, float lng, String text) {
+        addZoomHintForNextCreate(lat, lng, -1.0f); // will use midZoom
+        Toast toast = Toast.makeText(getContext(), text, Toast.LENGTH_LONG);
+        toast.show();
     }
 
     @Override
@@ -407,18 +407,10 @@ public class MapFragment extends LKFragment
 
         if(result.success) {
             for(LocationTracker.LocationJSONResult.LatLng p : result.train_positions) {
-                Log.d(LOG_TAG, p.id+" -  lat: "+p.lat+" lng: "+p.lng);
-                switch(p.id) {
-                    case 11:
-                        markus = p;
-                        break;
-                    case 21:
-                        filip = p;
-                        break;
-                    case 31:
-                        fredrik = p;
-                        break;
-                }
+                Log.d(LOG_TAG, p.id + " -  lat: " + p.lat + " lng: " + p.lng);
+                if (p.id == 11) markus = p;
+                if (p.id == 21) filip = p;
+                if (p.id == 31) fredrik = p;
             }
             mMapView.setDevLatLng(markus, filip, fredrik);
         }
