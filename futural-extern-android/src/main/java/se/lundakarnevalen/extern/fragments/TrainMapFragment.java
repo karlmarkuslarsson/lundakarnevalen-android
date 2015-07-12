@@ -34,6 +34,8 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
     private MediaPlayer mMediaPlayer;
     private float mGPSMarkerLng = -1.0f;
     private float mGPSMarkerLat = -1.0f;
+    private Picture mPicture;
+    private float mScale;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,20 +74,21 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
         final Runnable onSvgLoaded = new Runnable() {
             @Override
             public void run() {
+                mTrainView.setSvg(mPicture, mScale, mMatrixValues);
                 mTrainView.panTo(220f, 265f, false);
             }
         };
 
-        new AsyncTask<Void, Void, Void>(){
+        new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    Picture picture = TrainMapLoader.preload(inflater.getContext()).get(60, TimeUnit.SECONDS);
+                    mPicture = TrainMapLoader.preload(inflater.getContext()).get(60, TimeUnit.SECONDS);
                     waitForLayout();
-                    final float scale = calculateMinZoom(mTrainView, picture);
-                    mTrainView.setSvg(picture, scale, mMatrixValues);
+                    mScale = calculateMinZoom(mTrainView, mPicture);
+
                     FragmentActivity activity = getActivity();
-                    if (activity != null){ // if the activity/fragment is closed before completion
+                    if (activity != null) { // if the activity/fragment is closed before completion
                         activity.runOnUiThread(onSvgLoaded);
                     }
                 } catch (InterruptedException e) {
