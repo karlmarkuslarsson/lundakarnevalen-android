@@ -82,8 +82,6 @@ public class ContentActivity extends AppCompatActivity {
                 populateRightMenuDrawer();
             }
         }, 300);
-
-        // TODO modify design
     }
 
     private void setupDrawerLayout() {
