@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
-import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import java.util.concurrent.ExecutionException;
@@ -25,9 +24,6 @@ import se.lundakarnevalen.extern.util.Delay;
 import se.lundakarnevalen.extern.util.Logf;
 import se.lundakarnevalen.extern.widget.LKTrainView;
 
-/**
- * Created by Markus on 2014-04-16.
- */
 public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListener {
     private static final String LOG_TAG = TrainMapFragment.class.getSimpleName();
 
@@ -36,7 +32,6 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
     private float[] mMatrixValues;
     private LKTrainView mTrainView;
     private MediaPlayer mMediaPlayer;
-    private boolean isGPSWithinMap = false;
     private float mGPSMarkerLng = -1.0f;
     private float mGPSMarkerLat = -1.0f;
 
@@ -52,7 +47,6 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
         setRetainInstance(true);
     }
 
-    // Every time you switch to this fragment.
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -200,31 +194,11 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
         return fragment;
     }
 
-    public void zoomToMarker() {
-        if(isGPSWithinMap){
-            float[] dst = new float[2];
-            mTrainView.zoom(mTrainView.mMidZoom);
-            mTrainView.panToCenterFast();
-            mTrainView.getPointFromCoordinates(mGPSMarkerLat, mGPSMarkerLng, dst);
-            mTrainView.panTo(dst[0], dst[1]);
-        } else {
-            Toast.makeText(getContext(), "Du är utanför området eller har ej GPS aktiverad", Toast.LENGTH_LONG).show();
-        }
-    }
-
     @Override
     public void onNewLocation(double lat, double lng) {
         Logf.d(LOG_TAG, "onNewLocation(lat: %f, lng: %f)", lat, lng);
         mGPSMarkerLat = (float) lat;
         mGPSMarkerLng = (float) lng;
         mTrainView.setGpsMarker(mGPSMarkerLat, mGPSMarkerLng, false);
-        if(mTrainView.isWithinLatLngRange((float) lat, (float) lng)){
-            isGPSWithinMap = true;
-        } else {
-            isGPSWithinMap = false;
-        }
     }
-
-
-
 }
