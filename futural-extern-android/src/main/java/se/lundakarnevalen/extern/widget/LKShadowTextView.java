@@ -5,14 +5,10 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.graphics.RectF;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-/**
- * Created by Filip Lindqvist on 15-07-12.
- */
 public class LKShadowTextView extends TextView {
 
     public LKShadowTextView(Context context) {

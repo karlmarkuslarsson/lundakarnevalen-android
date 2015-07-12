@@ -7,9 +7,6 @@ import android.widget.Button;
 
 import se.lundakarnevalen.extern.android.R;
 
-/**
- * Created by Filip Lindqvist on 15-07-12.
- */
 public class LKButtonYellow extends Button {
     private Context context;
 

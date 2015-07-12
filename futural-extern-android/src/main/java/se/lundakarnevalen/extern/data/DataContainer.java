@@ -7,7 +7,7 @@ import java.util.List;
 import se.lundakarnevalen.extern.android.R;
 
 public class DataContainer {
-    private static List<DataElement> mData = new ArrayList<>();;
+    private static List<DataElement> mData = new ArrayList<>();
 
     public static List<DataElement> getAllData() {
         if (!mData.isEmpty()) return mData;
@@ -138,8 +138,8 @@ public class DataContainer {
                 DataType.INFO));
 
 
-        ArrayList<Integer> menu = new ArrayList<Integer>();
-        ArrayList<String> menuPrice = new ArrayList<String>();
+        ArrayList<Integer> menu = new ArrayList<>();
+        ArrayList<String> menuPrice = new ArrayList<>();
         menu.add(R.string.undervatten_food1);
         menu.add(R.string.undervatten_food2);
         menu.add(R.string.undervatten_food3);
@@ -314,7 +314,7 @@ public class DataContainer {
     }
 
     public static List<DataElement> getDataOfType(DataType type) {
-        List<DataElement> data = new ArrayList<DataElement>();
+        List<DataElement> data = new ArrayList<>();
         for (DataElement element : getAllData()) {
             if (element.type == type) {
                 data.add(element);

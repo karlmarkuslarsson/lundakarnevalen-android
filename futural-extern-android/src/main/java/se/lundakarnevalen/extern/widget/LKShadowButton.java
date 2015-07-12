@@ -8,11 +8,7 @@ import android.graphics.Rect;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.Button;
-import android.widget.TextView;
 
-/**
- * Created by Filip Lindqvist on 15-07-12.
- */
 public class LKShadowButton extends Button {
 
     public LKShadowButton(Context context) {

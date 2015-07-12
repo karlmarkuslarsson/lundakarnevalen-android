@@ -38,4 +38,6 @@
         <receiver android:process=":remote" android:name="se.lundakarnevalen.extern.util.SchemeAlarm"/>
     </application>
 
+    <service android:enabled="true" android:name="se.lundakarnevalen.extern.map.GPSTracker" />
+
 </manifest>

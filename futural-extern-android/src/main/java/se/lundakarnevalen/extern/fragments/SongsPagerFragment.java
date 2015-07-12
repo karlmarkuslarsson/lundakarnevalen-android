@@ -25,9 +25,7 @@ public class SongsPagerFragment extends LKFragment {
 	private static final String KEY_ARRAY = "array";
 	private static final String KEY_ICON = "icon";
 	private static final String KEY_SELECTED = "selected";
-	
-	private LKSwipeableViewPager mViewPager;
-	
+
 	public static SongsPagerFragment newInstance(int songsArrayId, int icon, String groupName ,int selceted) {
 		SongsPagerFragment f = new SongsPagerFragment();
 		Bundle b = new Bundle();
@@ -54,8 +52,8 @@ public class SongsPagerFragment extends LKFragment {
 		final Context c = inflater.getContext();
 		final FragmentManager fm = getChildFragmentManager();
 		int pageMargin = Math.round(LKFragment.dpToPx(PAGE_MARGIN_DP, c));
-		
-		mViewPager = get(R.id.sangbok_layout_viewpager, root, LKSwipeableViewPager.class);
+
+		LKSwipeableViewPager mViewPager = get(R.id.sangbok_layout_viewpager, root, LKSwipeableViewPager.class);
 		mViewPager.setAdapter(new MyAdapter(fm, c, songs, iconId));
 		mViewPager.setPageMargin(pageMargin);
 		mViewPager.setClipToPadding(false);
@@ -66,7 +64,7 @@ public class SongsPagerFragment extends LKFragment {
 			int w = container.getWidth();
 			int padding = (int) (w * (1.0 - 0.93));
 			Log.d("Songpager", "Padding: "+ padding + " Widht: "+ w + " PageMargin: " + pageMargin);
-			mViewPager.setPadding( padding, mViewPager.getPaddingTop(), padding - pageMargin, mViewPager.getPaddingBottom()); // Fix equal margins/paddings if only one element
+			mViewPager.setPadding(padding, mViewPager.getPaddingTop(), padding - pageMargin, mViewPager.getPaddingBottom()); // Fix equal margins/paddings if only one element
 		}
 		
 		get(R.id.sangbok_layout_backbtn, root, Button.class).setOnClickListener(new OnClickListener() {

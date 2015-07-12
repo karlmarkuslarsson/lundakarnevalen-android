@@ -110,7 +110,7 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
     }
 
     public List<DataType> selectedDataTypes(){
-        List<DataType> markerTypes = new ArrayList<DataType>();
+        List<DataType> markerTypes = new ArrayList<>();
         for (int i = 0; i < getCount(); i++) {
             final LKRightMenuListItem item = getItem(i);
             if(item.isSelected) {
@@ -121,7 +121,7 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
     }
 
     private List<LKRightMenuListItem> selectedItems(){
-        List<LKRightMenuListItem> items = new ArrayList<LKRightMenuListItem>();
+        List<LKRightMenuListItem> items = new ArrayList<>();
         for (int i = 0; i < getCount(); i++) {
             final LKRightMenuListItem item = getItem(i);
             if(item.isSelected) {
@@ -144,7 +144,7 @@ public class LKRightMenuArrayAdapter extends ArrayAdapter<LKRightMenuArrayAdapte
 
     public void ensureSelectedFilters(DataType[] types) {
         deselectEverything();
-        List<LKRightMenuListItem> items = new ArrayList<LKRightMenuListItem>();
+        List<LKRightMenuListItem> items = new ArrayList<>();
         for (int i = 0; i < getCount(); i++) {
             items.add(getItem(i));
         }

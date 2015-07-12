@@ -147,7 +147,7 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
         if(mMediaPlayer != null) {
             try{
                 mMediaPlayer.release();
-            } catch(Exception e){}
+            } catch(Exception ignored){}
         }
 
         super.onStop();

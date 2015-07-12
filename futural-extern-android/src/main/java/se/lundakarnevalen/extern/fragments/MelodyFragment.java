@@ -89,7 +89,7 @@ public class MelodyFragment extends LKFragment {
 
         if (lyrics == null) {
             Resources r = getResources();
-            String[] lyrics = {
+            this.lyrics = new String[]{
                     r.getString(R.string.playPart1),
                     r.getString(R.string.playPart2),
                     r.getString(R.string.playPart3),
@@ -160,7 +160,6 @@ public class MelodyFragment extends LKFragment {
                     r.getString(R.string.playPartRef5),
                     r.getString(R.string.playPartRef6),
                     r.getString(R.string.playPartRef7) };
-            this.lyrics = lyrics;
         }
         play = (ImageView) rootView.findViewById(R.id.countdown_playbutton);
         play.setOnClickListener(new PlayButton());
@@ -356,7 +355,7 @@ public class MelodyFragment extends LKFragment {
                 handler.postDelayed(this, 0);
             }
         }
-    };
+    }
 
     private static void rewindMarker() {
         Matrix matrix = new Matrix();
@@ -385,8 +384,7 @@ public class MelodyFragment extends LKFragment {
             mover.setImageMatrix(matrix);
             moveHandler.postDelayed(this, 500);
         }
-    };
-
+    }
 
     private void startMovingClouds(View rootView) {
         DisplayMetrics displaymetrics = new DisplayMetrics();

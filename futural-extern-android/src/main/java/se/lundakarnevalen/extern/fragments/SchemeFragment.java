@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 
@@ -198,7 +199,7 @@ public class SchemeFragment extends LKFragment {
 
         } else if (day == 1) {
             if (saturdayEvents == null) {
-                saturdayEvents = new ArrayList<Event>();
+                saturdayEvents = new ArrayList<>();
                 Events.getSaturdayEvents(saturdayEvents, getContext());
             }
             for (Event e : saturdayEvents) {
@@ -244,15 +245,12 @@ public class SchemeFragment extends LKFragment {
         String split[] = set.split(";");
         HashSet<String> activated = new HashSet<>();
 
-        for (int i = 0; i < split.length; i++) {
-            activated.add(split[i]);
-        }
+        Collections.addAll(activated, split);
         return activated;
     }
 
     private int getCurrentDay() {
         Date d = new Date();
-        Log.d("date:",""+d.getDate());
         switch(d.getDate()) {
             case 16:
                 return 0;

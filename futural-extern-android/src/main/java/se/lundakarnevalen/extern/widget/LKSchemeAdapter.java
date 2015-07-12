@@ -160,10 +160,10 @@ public class LKSchemeAdapter extends ArrayAdapter<LKSchemeAdapter.LKSchemeItem> 
         String set = sharedPref.getString(PREFERENCES_KEY_NOTIFICATIONS, "");
         String split[] = set.split(";");
         set = "";
-        for(int i = 0;i<split.length;i++) {
-            Log.d(split[i], item.getStartTime() + item.place + item.name);
-            if(!split[i].equals(item.getStartTime() + item.place + item.name)) {
-                set+=split[i]+";";
+        for (String aSplit : split) {
+            Log.d(aSplit, item.getStartTime() + item.place + item.name);
+            if (!aSplit.equals(item.getStartTime() + item.place + item.name)) {
+                set += aSplit + ";";
             }
         }
 

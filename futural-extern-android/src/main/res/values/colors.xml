@@ -18,19 +18,14 @@
     <color name="bottom_menu_shadow">#BE4233</color>
     <color name="bottom_menu_shadow_selected">#9B392B</color>
     <color name="bottom_menu_background_selected">#BF4635</color>
-    <color name="blue_green">#7DC9AD</color>
-    <color name="blue_green_shadow">#63A08A</color>
-    <color name="light_gray">#D1CDCC</color>
     <color name="blue_dark">#60617E</color>
     <color name="green_button_background">#7ACAAC</color>
-    <color name="red_button_background">#F04432</color>
     <color name="green_background">#72B89E</color>
 
     <color name="beige">#F6EAD4</color>
     <color name="beige_half_trans">#EEF6EAD4</color>
 
     <color name="transparent">#0000</color>
-    <color name="bg_map">#7DC9AD</color>
     <color name="beige_shadow">#CFCAC6</color>
     <color name="grey">#4C4C4C</color>
     <color name="blue_parking">#495293</color>
@@ -45,7 +40,6 @@
 
     <color name="song_button_white_press">#F7EAD4</color>
     <color name="song_button_white">#FFFFFF</color>
-    <color name="song_button_white_shadow">#33000000</color>
 
     <color name="song_button_yellow">#f5d408</color>
     <color name="song_button_yellow_dark">#dcbe07</color>

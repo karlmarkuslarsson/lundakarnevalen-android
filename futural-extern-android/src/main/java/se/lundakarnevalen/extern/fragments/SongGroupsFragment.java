@@ -30,7 +30,7 @@ public class SongGroupsFragment extends LKFragment {
     @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		ViewGroup root = (ViewGroup) inflater.inflate(R.layout.sangbok_groups_layout, container, false);
-		List<SongGroup> groups = new ArrayList<SongGroupsFragment.SongGroup>();
+		List<SongGroup> groups = new ArrayList<>();
 
         ViewGroup mLayout = get(R.id.sangbok_groups_layout, root, ViewGroup.class);
 		

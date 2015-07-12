@@ -19,7 +19,6 @@ import se.lundakarnevalen.extern.activities.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 
 public class MusicFragment extends LKFragment implements View.OnClickListener {
-    private View buttonPlay;
 
     private boolean play = true;
     private boolean finish = false;
@@ -46,7 +45,7 @@ public class MusicFragment extends LKFragment implements View.OnClickListener {
         playSeekBar.setMax(100);
         playSeekBar.setVisibility(View.INVISIBLE);
 
-        buttonPlay = rootView.findViewById(R.id.button);
+        View buttonPlay = rootView.findViewById(R.id.button);
         buttonPlay.setOnClickListener(this);
 
 

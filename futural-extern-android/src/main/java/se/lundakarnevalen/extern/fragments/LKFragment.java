@@ -105,9 +105,8 @@ public class LKFragment extends Fragment {
 
     public static float dpToPx(int dp, Context context) {
         Resources r = context.getResources();
-        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
                 r.getDisplayMetrics());
-        return px;
     }
 
     public Context getContext(){

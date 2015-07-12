@@ -54,7 +54,7 @@ public class LKMapView extends SVGView {
     private static final float CLOSE_THRESHOLD = 46.0f; //last 40
     private static final float BUBBLE_SIZE_MULTIPLIER = 3.0f;
 
-    private static SparseArray<Bitmap> bitmaps = new SparseArray<Bitmap>();
+    private static SparseArray<Bitmap> bitmaps = new SparseArray<>();
     private RectF mCurrentViewPort = new RectF();
 
     public static void clean() {
@@ -74,8 +74,8 @@ public class LKMapView extends SVGView {
     }
 
 
-    private Set<DataType> activeTypes = new HashSet<DataType>();
-    private List<Marker> markers = new ArrayList<Marker>();
+    private Set<DataType> activeTypes = new HashSet<>();
+    private List<Marker> markers = new ArrayList<>();
 
     private Paint mShadowInk;
     private Paint mLightBlueInk;

@@ -25,9 +25,6 @@ import static android.graphics.Matrix.MSCALE_Y;
 import static android.graphics.Matrix.MTRANS_X;
 import static android.graphics.Matrix.MTRANS_Y;
 
-/**
- * Created by Filip on 2014-04-23.
- */
 public class SVGView extends View {
     private static final String LOG_TAG = SVGView.class.getSimpleName();
 

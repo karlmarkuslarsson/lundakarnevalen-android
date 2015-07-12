@@ -7,7 +7,7 @@ import se.lundakarnevalen.extern.android.R;
 
 public class DataMultiContainer {
     public static List<DataElement> getAllFunMultiData() {
-        List<DataElement> data = new ArrayList<DataElement>();
+        List<DataElement> data = new ArrayList<>();
 
         data.add(new DataElement(
                 R.string.smanojen,
@@ -47,7 +47,7 @@ public class DataMultiContainer {
     }
 
     public static List<DataElement> getAllFoodMultiData() {
-        List<DataElement> data = new ArrayList<DataElement>();
+        List<DataElement> data = new ArrayList<>();
 
         data.add(new DataElement(
                 R.string.nangilima_place,
@@ -76,7 +76,7 @@ public class DataMultiContainer {
 
 
     public static List<DataElement> getAllOtherMultiData() {
-        List<DataElement> data = new ArrayList<DataElement>();
+        List<DataElement> data = new ArrayList<>();
 
             data.add(new DataElement(
                     R.string.song_book,
