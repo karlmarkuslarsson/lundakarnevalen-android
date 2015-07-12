@@ -39,4 +39,14 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="-81dp"
         android:src="@drawable/cloud5" />
+
+    <ImageView
+        android:scaleType="fitEnd"
+        android:id="@+id/cloud10"
+        android:layout_width="130dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="-131dp"
+        android:layout_marginBottom="80dp"
+        android:src="@drawable/cloud5" />
 </RelativeLayout>
