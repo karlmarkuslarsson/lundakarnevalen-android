@@ -13,15 +13,23 @@ public class LKTextView extends TextView {
 
     public LKTextView(Context context) {
         super(context);
+        init();
     }
 
     public LKTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init();
     }
 
     public LKTextView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        init();
     }
+
+    private void init() {
+        setTypeface(null, Typeface.NORMAL);
+    }
+
 
     @Override
     public void setTypeface(Typeface tf, int style) {

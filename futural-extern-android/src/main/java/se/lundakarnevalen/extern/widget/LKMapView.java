@@ -199,7 +199,6 @@ public class LKMapView extends SVGView {
 
     @Override
     protected boolean onClick(float xInSvg, float yInSvg) {
-        final float offsetY = -10.0f / mPreDrawScale;
         if(addExtra>0) {
             yInSvg += addExtra/mPreDrawScale;
         }

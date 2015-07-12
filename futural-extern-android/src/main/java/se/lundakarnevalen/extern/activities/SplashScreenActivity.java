@@ -88,72 +88,22 @@ public class SplashScreenActivity extends Activity {
     private void startMovingClouds(View rootView) {
         Display display = getWindowManager().getDefaultDisplay();
         int width = display.getWidth();  // deprecated
-        int height = display.getHeight();
-        ImageView cloud = (ImageView) rootView.findViewById(R.id.cloud1);
-        Animation a = new TranslateAnimation(0,width/4,0 ,0);
 
-        //Animation a2 = new TranslateAnimation(0,width+(-lp.leftMargin),0 ,0);
-        //a2.setInterpolator(new AccelerateDecelerateInterpolator());
-        //a2.setInterpolator(new LinearInterpolator());
+        moveCloud(R.id.cloud1, width / 4, 2900, rootView);
+        moveCloud(R.id.cloud2, 200 / 4, 2900, rootView);
+        moveCloud(R.id.cloud3, width / 4, 2900, rootView);
+        moveCloud(R.id.cloud4, 250 / 4, 2900, rootView);
+        moveCloud(R.id.cloud9, width / 5, 2900, rootView);
+    }
 
-        //a2.setRepeatCount(Animation.INFINITE);
-        //a2.setDuration(2800);
+    private void moveCloud(int id, int dx, int dur, View rootView) {
+        ImageView cloud = (ImageView) rootView.findViewById(id);
+        Animation a = new TranslateAnimation(0, dx, 0 , 0);
         a.setAnimationListener(new CloudStartListner(cloud));
-        a.setDuration(2900);
+        a.setDuration(dur);
         a.setFillAfter(true);
         a.setInterpolator(new LinearInterpolator());
         cloud.startAnimation(a);
-        cloud = (ImageView) rootView.findViewById(R.id.cloud2);
-        //ObjectAnimator.
-        //animX2.setDuration(3000);
-        a  = new TranslateAnimation(0,200/4,0,0);
-        a.setInterpolator(new LinearInterpolator());
-        a.setFillAfter(true);
-        a.setDuration(2900);
-        //  a2.setInterpolator(new AccelerateDecelerateInterpolator());
-       // a2.setInterpolator(new LinearInterpolator());
-
-      //  a2.setRepeatCount(Animation.INFINITE);
-      //  a2.setDuration(13000);
-        a.setAnimationListener(new CloudStartListner(cloud));
-        cloud.startAnimation(a);
-
-
-        //animX2.setRepeatCount(Animation.INFINITE);
-        //animX2.start();
-
-        cloud = (ImageView) rootView.findViewById(R.id.cloud3);
-        a = new TranslateAnimation(0,width/4,0 ,0);
-        a.setInterpolator(new LinearInterpolator());
-        a.setFillAfter(true);
-        a.setDuration(2900);
-        cloud.startAnimation(a);
-
-        cloud = (ImageView) rootView.findViewById(R.id.cloud4);
-        a  = new TranslateAnimation(0,250/4,0,0);
-        a.setInterpolator(new LinearInterpolator());
-        a.setFillAfter(true);
-        a.setDuration(2900);
-        //   a2 = new TranslateAnimation(0,width+(-lp.leftMargin),0 ,0);
-     //   a2.setInterpolator(new AccelerateDecelerateInterpolator());
-     //   a2.setInterpolator(new LinearInterpolator());
-
-      //  a2.setRepeatCount(Animation.INFINITE);
-      //  a2.setDuration(8000);
-        a.setAnimationListener(new CloudStartListner(cloud));
-        cloud.startAnimation(a);
-
-        cloud = (ImageView) rootView.findViewById(R.id.cloud9);
-        //ObjectAnimator.
-        //animX2.setDuration(3000);
-        a  = new TranslateAnimation(0,width/5,0,0);
-        a.setInterpolator(new LinearInterpolator());
-        a.setFillAfter(true);
-        a.setDuration(2900);
-        a.setAnimationListener(new CloudStartListner(cloud));
-        cloud.startAnimation(a);
-
-
     }
 
     public <T> T find(int id, Class<T> clz) {
