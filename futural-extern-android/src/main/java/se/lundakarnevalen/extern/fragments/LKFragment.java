@@ -3,13 +3,9 @@ package se.lundakarnevalen.extern.fragments;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 
@@ -21,22 +17,6 @@ public class LKFragment extends Fragment {
 
     private int onAttachMem;
 
-    public static String getAppVersion(Context context) {
-        PackageManager manager = context.getPackageManager();
-        PackageInfo info = null;
-        String version = "";
-        try {
-            info = manager.getPackageInfo(context.getPackageName(), 0);
-        } catch (NameNotFoundException e) {
-            Log.wtf(LOG_TAG, "Could not get package info.");
-        }
-        try {
-            version = info.versionName;
-        } catch (NullPointerException e) {
-            return "";
-        }
-        return version;
-    }
 
     public static <T> T get(View parent, int id, Class<T> clz) {
         return clz.cast(parent.findViewById(id));
@@ -123,15 +103,6 @@ public class LKFragment extends Fragment {
         if(DEBUG_LIFECYCLE)Logf.d(this, "onViewCreated(): Free mem: %d MB (since onAttach: %d MB)", usage, onAttachMem - usage);
     }
 
-    /**
-     * Converts dp to pixels.
-     *
-     * @param dp
-     *            The number of dp.
-     * @param context
-     *            The application context.
-     * @return The number of dp.
-     */
     public static float dpToPx(int dp, Context context) {
         Resources r = context.getResources();
         float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
