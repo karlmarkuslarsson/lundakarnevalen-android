@@ -60,7 +60,6 @@ public class GPSTracker extends Service implements LocationListener, GpsStatus.L
 
 
     public GPSTracker () {
-        this.mContext = null;
         this.mLocationManager = null;
         this.mListeners = null;
         this.mHandler = null;
