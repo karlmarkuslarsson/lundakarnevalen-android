@@ -8,22 +8,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.CycleInterpolator;
 import android.view.animation.LinearInterpolator;
-import android.view.animation.OvershootInterpolator;
 import android.view.animation.RotateAnimation;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
-
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.ObjectAnimator;
-import com.nineoldandroids.animation.ValueAnimator;
-import com.nineoldandroids.view.ViewPropertyAnimator;
 
 import java.util.Collection;
 import java.util.concurrent.ExecutionException;
@@ -34,13 +25,12 @@ import java.util.concurrent.TimeoutException;
 import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.data.DataType;
-import se.lundakarnevalen.extern.map.GPSTracker;
-import se.lundakarnevalen.extern.map.MapLoader;
-import se.lundakarnevalen.extern.map.Marker;
+import se.lundakarnevalen.extern._map.GPSTracker;
+import se.lundakarnevalen.extern._map.MapLoader;
+import se.lundakarnevalen.extern._map.Marker;
 import se.lundakarnevalen.extern.util.Delay;
 import se.lundakarnevalen.extern.util.Logf;
 import se.lundakarnevalen.extern.widget.LKMapView;
-import static com.nineoldandroids.view.ViewPropertyAnimator.animate;
 
 import static se.lundakarnevalen.extern.util.ViewUtil.get;
 

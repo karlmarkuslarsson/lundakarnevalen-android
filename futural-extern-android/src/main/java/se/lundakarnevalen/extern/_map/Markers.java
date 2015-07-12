@@ -1,4 +1,4 @@
-package se.lundakarnevalen.extern.map;
+package se.lundakarnevalen.extern._map;
 
 import java.util.List;
 

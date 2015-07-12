@@ -1,4 +1,4 @@
-package se.lundakarnevalen.extern.map;
+package se.lundakarnevalen.extern._map;
 
 import android.content.Context;
 import android.graphics.Picture;
@@ -9,7 +9,6 @@ import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
 
 import java.util.concurrent.Callable;
-import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 
 import se.lundakarnevalen.extern.android.R;

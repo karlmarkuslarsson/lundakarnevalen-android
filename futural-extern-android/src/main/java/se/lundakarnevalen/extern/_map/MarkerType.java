@@ -1,4 +1,4 @@
-package se.lundakarnevalen.extern.map;
+package se.lundakarnevalen.extern._map;
 
 /**
  * Created by Markus on 2014-04-16.

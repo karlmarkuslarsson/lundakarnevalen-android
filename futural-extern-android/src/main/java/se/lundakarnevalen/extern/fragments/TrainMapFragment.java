@@ -19,8 +19,8 @@ import java.util.concurrent.TimeoutException;
 
 import se.lundakarnevalen.extern.android.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
-import se.lundakarnevalen.extern.map.GPSTracker;
-import se.lundakarnevalen.extern.map.TrainMapLoader;
+import se.lundakarnevalen.extern._map.GPSTracker;
+import se.lundakarnevalen.extern._map.TrainMapLoader;
 import se.lundakarnevalen.extern.util.Delay;
 import se.lundakarnevalen.extern.util.Logf;
 import se.lundakarnevalen.extern.widget.LKTrainView;
