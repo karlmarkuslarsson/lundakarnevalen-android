@@ -18,14 +18,10 @@ import se.lundakarnevalen.extern.data.DataType;
 import se.lundakarnevalen.extern.widget.LKListAdapter;
 import se.lundakarnevalen.extern.widget.LKListRow;
 
-/**
- * Created by Markus on 2014-04-16.
- */
 public class OtherFragment extends LKFragment{
     private List<DataElement> other = new ArrayList<>();
     private final int ID = 4;
 
-    // Every time you switch to this fragment.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_other, container, false);
@@ -57,5 +53,4 @@ public class OtherFragment extends LKFragment{
 
         return root;
     }
-
 }
