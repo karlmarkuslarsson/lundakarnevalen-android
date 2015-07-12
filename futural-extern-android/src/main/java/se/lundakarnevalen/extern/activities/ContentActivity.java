@@ -108,8 +108,14 @@ public class ContentActivity extends AppCompatActivity {
         mDrawerLayout.setDrawerLockMode(lock ? DrawerLayout.LOCK_MODE_LOCKED_CLOSED : DrawerLayout.LOCK_MODE_UNLOCKED, Gravity.RIGHT);
     }
 
-    public void setTitle(String str) {
+    @Override
+    public void setTitle(CharSequence str) {
         find(R.id.action_bar_title, TextView.class).setText(str);
+    }
+
+    @Override
+    public void setTitle(int id) {
+        setTitle(getString(id));
     }
 
     @Override
