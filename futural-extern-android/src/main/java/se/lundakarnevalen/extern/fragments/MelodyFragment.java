@@ -1,15 +1,12 @@
 package se.lundakarnevalen.extern.fragments;
 
-/**
- * Created by Markus on 2014-04-24.
- */
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Matrix;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -64,23 +61,14 @@ public class MelodyFragment extends LKFragment {
 
     private String[] lyrics;
     private static int delay;
-    //
     private static ImageView mover;
-
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
-        final View rootView = inflater.inflate(R.layout.fragment_melody, container, false);
+       final View rootView = inflater.inflate(R.layout.fragment_melody, container, false);
 
         heart = (ImageView) rootView.findViewById(R.id.melody_heart);
-
-
-
         lyric1 = (TextView) rootView.findViewById(R.id.lyric1);
         lyric2 = (TextView) rootView.findViewById(R.id.lyric2);
         lyric3 = (TextView) rootView.findViewById(R.id.lyric4);
@@ -97,9 +85,6 @@ public class MelodyFragment extends LKFragment {
             matrix.postTranslate(move, 0);
 
             mover.setImageMatrix(matrix);
-
-
-
         }
 
         if (lyrics == null) {
@@ -217,19 +202,6 @@ public class MelodyFragment extends LKFragment {
     }
 
 
-    private void setFinish(View v, TextView tv, ImageView img) {
-        img.setVisibility(View.VISIBLE);
-
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
-
-
-
     public void startLyrics() {
 
         factory = new MySoundFactory(getContext());
@@ -294,7 +266,7 @@ public class MelodyFragment extends LKFragment {
                     startLyrics();
                     factory.start(songID);
                     started = true;
-                    taken = 0; //Resets marker
+                    taken = 0;
                 }
                 play.setImageResource(R.drawable.pause);
 
@@ -327,22 +299,14 @@ public class MelodyFragment extends LKFragment {
     }
 
     private void startMover() {
-        // WindowManager wm = (WindowManager)
-        // getContext().getSystemService(Context.WINDOW_SERVICE);
-        // Display display = wm.getDefaultDisplay();
 
         int[] img_coordinates = new int[2];
         mover.getLocationOnScreen(img_coordinates);
-		/*
-		 * Display display =
-		 * getActivity().getWindowManager().getDefaultDisplay(); DisplayMetrics
-		 * outMetrics = new DisplayMetrics (); display.getMetrics(outMetrics);
-		 * float density = getResources().getDisplayMetrics().density;
-		 */
+
         WindowManager wm = (WindowManager) getContext().getSystemService(
                 Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
-        // Display display = getWindowManager().getDefaultDisplay();
+
         @SuppressWarnings("deprecation")
         int width = display.getWidth(); // deprecated
 
@@ -351,7 +315,6 @@ public class MelodyFragment extends LKFragment {
         r2 = new moveRunnable();
 
         moveHandler.post(r2);
-        // 217 sek
     }
 
 
@@ -371,8 +334,6 @@ public class MelodyFragment extends LKFragment {
             totTime += delays[text];
             text++;
             if (text >= delays.length) {
-                //factory = new MySoundFactory(getContext());
-                //factory.createLongMedia(songID, false);
                 rewindLyrics();
 
                 started = false;
@@ -426,125 +387,17 @@ public class MelodyFragment extends LKFragment {
         }
     };
 
-    private class CloudStartListner implements Animation.AnimationListener {
-
-        ImageView view;
-        ImageView movingCloud;
-        Animation a2;
-        CloudStartListner(ImageView view) {
-            this.view = view;
-        }
-
-        public CloudStartListner(ImageView view, ImageView movingCloud, Animation a2) {
-            this.view = view;
-            this.movingCloud = movingCloud;
-            this.a2 = a2;
-        }
-
-        @Override
-        public void onAnimationStart(Animation animation) {
-
-        }
-
-        @Override
-        public void onAnimationEnd(Animation animation) {
-            view.setVisibility(View.INVISIBLE);
-            if(a2!=null)  {
-                movingCloud.startAnimation(a2);
-            }
-        }
-
-        @Override
-        public void onAnimationRepeat(Animation animation) {
-
-        }
-    }
 
     private void startMovingClouds(View rootView) {
-        Display display = getActivity().getWindowManager().getDefaultDisplay();
-        int width = display.getWidth();  // deprecated
-        int height = display.getHeight();
-        ImageView cloud = (ImageView) rootView.findViewById(R.id.cloud1);
-        Animation a = new TranslateAnimation(0,width,0 ,0);
-        ImageView movingCloud = (ImageView) rootView.findViewById(R.id.cloud5);
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        int width = displaymetrics.widthPixels;
 
-        RelativeLayout.LayoutParams lp =
-                (RelativeLayout.LayoutParams) movingCloud.getLayoutParams();
-        Animation a2 = new TranslateAnimation(0,width+(-lp.leftMargin),0 ,0);
-        a2.setInterpolator(new AccelerateDecelerateInterpolator());
-        a2.setInterpolator(new LinearInterpolator());
-
-        a2.setRepeatCount(Animation.INFINITE);
-        a2.setDuration(10000);
-        a.setAnimationListener(new CloudStartListner(cloud, movingCloud, a2));
-        a.setDuration(10000);
-        a.setInterpolator(new AccelerateDecelerateInterpolator());
-        a.setInterpolator(new LinearInterpolator());
-        cloud.startAnimation(a);
-        cloud = (ImageView) rootView.findViewById(R.id.cloud2);
-        //ObjectAnimator.
-        //animX2.setDuration(3000);
-        a  = new TranslateAnimation(0,200,0,0);
-        a.setInterpolator(new AccelerateDecelerateInterpolator());
-        a.setInterpolator(new LinearInterpolator());
-
-        a.setDuration(4000);
-        movingCloud = (ImageView) rootView.findViewById(R.id.cloud6);
-        lp =
-                (RelativeLayout.LayoutParams) movingCloud.getLayoutParams();
-        a2 = new TranslateAnimation(0,width+(-lp.leftMargin),0 ,0);
-        a2.setInterpolator(new AccelerateDecelerateInterpolator());
-        a2.setInterpolator(new LinearInterpolator());
-
-        a2.setRepeatCount(Animation.INFINITE);
-        a2.setDuration(13000);
-        a.setAnimationListener(new CloudStartListner(cloud, movingCloud, a2));
-        cloud.startAnimation(a);
-
-
-        //animX2.setRepeatCount(Animation.INFINITE);
-        //animX2.start();
-
-        cloud = (ImageView) rootView.findViewById(R.id.cloud3);
-        a = new TranslateAnimation(0,width,0 ,0);
-        a.setInterpolator(new AccelerateDecelerateInterpolator());
-        a.setInterpolator(new LinearInterpolator());
-
-        a.setDuration(13000);
-        movingCloud = (ImageView) rootView.findViewById(R.id.cloud7);
-
-        lp =
-                (RelativeLayout.LayoutParams) movingCloud.getLayoutParams();
-        a2 = new TranslateAnimation(0,width+(-lp.leftMargin),0 ,0);
-        a2.setInterpolator(new AccelerateDecelerateInterpolator());
-        a2.setInterpolator(new LinearInterpolator());
-
-        a2.setRepeatCount(Animation.INFINITE);
-        a2.setDuration(15000);
-        a.setAnimationListener(new CloudStartListner(cloud, movingCloud, a2));
-        cloud.startAnimation(a);
-
-        cloud = (ImageView) rootView.findViewById(R.id.cloud4);
-        a  = new TranslateAnimation(0,250,0,0);
-        a.setInterpolator(new AccelerateDecelerateInterpolator());
-        a.setInterpolator(new LinearInterpolator());
-
-        a.setDuration(4000);
-        movingCloud = (ImageView) rootView.findViewById(R.id.cloud8);
-        lp =
-                (RelativeLayout.LayoutParams) movingCloud.getLayoutParams();
-        a2 = new TranslateAnimation(0,width+(-lp.leftMargin),0 ,0);
-        a2.setInterpolator(new AccelerateDecelerateInterpolator());
-        a2.setInterpolator(new LinearInterpolator());
-
-        a2.setRepeatCount(Animation.INFINITE);
-        a2.setDuration(8000);
-        a.setAnimationListener(new CloudStartListner(cloud, movingCloud, a2));
-        cloud.startAnimation(a);
-
-
+        moveCloud(R.id.cloud1, R.id.cloud5, width + 200,    width, 10000,   10000, rootView);
+        moveCloud(R.id.cloud2, R.id.cloud6, 350,            width, 4000,    13000, rootView);
+        moveCloud(R.id.cloud3, R.id.cloud7, width + 100,     width, 13000,   15000, rootView);
+        moveCloud(R.id.cloud4, R.id.cloud8, 400,            width, 4000,    8000, rootView);
     }
-
 
 
 
@@ -559,6 +412,55 @@ public class MelodyFragment extends LKFragment {
         stopMusic(); rewindLyrics();
         rewindMarker();
         super.onDestroyView();
+    }
+
+    private void moveCloud(int cloud1, int cloud2, int dx1, int width, int dur1, int dur2, View rootView) {
+
+        ImageView cloud = (ImageView) rootView.findViewById(cloud1);
+        ImageView movingCloud = (ImageView) rootView.findViewById(cloud2);
+
+        Animation a = new TranslateAnimation(0, dx1, 0, 0);
+
+        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) movingCloud.getLayoutParams();
+
+        Animation a2 = new TranslateAnimation(0, width + (-lp.leftMargin),0 ,0);
+        a2.setInterpolator(new AccelerateDecelerateInterpolator());
+        a2.setInterpolator(new LinearInterpolator());
+        a2.setRepeatCount(Animation.INFINITE);
+        a2.setDuration(dur2);
+
+        a.setAnimationListener(new CloudStartListener(cloud, movingCloud, a2));
+        a.setDuration(dur1);
+        a.setInterpolator(new AccelerateDecelerateInterpolator());
+        a.setInterpolator(new LinearInterpolator());
+        cloud.startAnimation(a);
+    }
+
+    private class CloudStartListener implements Animation.AnimationListener {
+
+        private ImageView view;
+        private ImageView movingCloud;
+        private Animation anim;
+
+        public CloudStartListener(ImageView view, ImageView movingCloud, Animation anim) {
+            this.view = view;
+            this.movingCloud = movingCloud;
+            this.anim = anim;
+        }
+
+        @Override
+        public void onAnimationStart(Animation animation) {}
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+            view.setVisibility(View.INVISIBLE);
+            if(anim != null)  {
+                movingCloud.startAnimation(anim);
+            }
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {}
     }
 
 }
