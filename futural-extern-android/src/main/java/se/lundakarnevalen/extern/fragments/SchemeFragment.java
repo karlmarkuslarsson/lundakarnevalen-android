@@ -28,26 +28,22 @@ import se.lundakarnevalen.extern.scheme.Events;
 import se.lundakarnevalen.extern.widget.BounceListView;
 import se.lundakarnevalen.extern.widget.LKSchemeAdapter;
 
-/**
- * Created by Markus on 2014-04-16.
- */
+
 @SuppressWarnings("ResourceType")
 public class SchemeFragment extends LKFragment {
 
     private ViewPager vp;
     private final int ID = 3;
     private ArrayList<Event> fridayEvents;
- //   private float lastOff = 0;
     private ArrayList<Event> saturdayEvents;
 
     private int currentDay;
     private ArrayList<Event> sundayEvents;
-    RelativeLayout leftArrowLayout;
-    RelativeLayout rightArrowLayout;
+    private RelativeLayout leftArrowLayout;
+    private RelativeLayout rightArrowLayout;
     boolean myScheme;
 
 
-        // Every time you switch to this fragment.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         myScheme = false;
@@ -93,25 +89,7 @@ public class SchemeFragment extends LKFragment {
             @TargetApi(Build.VERSION_CODES.HONEYCOMB)
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                /*
-                if(Build.VERSION.SDK_INT < 11) return;
-                float absOffset = Math.abs(positionOffset);
-                if(absOffset < 0.5f) {
 
-                    if(lastOff > absOffset && header.getTag().equals(Integer.valueOf(position))) {
-                        setDayText(header, position + (positionOffset > 0 ? 1 : -1) );
-                    }
-
-                    header.setAlpha(1 - absOffset * 2);
-                }
-                if(absOffset > 0.5f) {
-                    if(lastOff < absOffset && header.getTag().equals(Integer.valueOf(position))) {
-                        setDayText(header, position + (positionOffset > 0 ? 1 : -1) );
-                   }
-                    header.setAlpha(1 - (1 - absOffset) * 2);
-                }
-                lastOff = absOffset;
-                */
             }
 
             @Override
@@ -157,12 +135,10 @@ public class SchemeFragment extends LKFragment {
         int currentItem = vp.getCurrentItem();
         if(currentItem - 1 < 0){
             arrowPlaceholder.setEnabled(false);
-            //arrowPlaceholder.setBackgroundResource(R.drawable.arrow_empty);
             leftArrowLayout.setVisibility(View.INVISIBLE);
         } else {
             leftArrowLayout.setVisibility(View.VISIBLE);
             arrowPlaceholder.setEnabled(true);
-            //arrowPlaceholder.setBackgroundResource(R.drawable.arrow_left);
         }
     }
 
@@ -172,12 +148,10 @@ public class SchemeFragment extends LKFragment {
         int currentItem = vp.getCurrentItem();
         if(currentItem + 1 == count){
             arrowPlaceholder.setEnabled(false);
-         //   arrowPlaceholder.setBackgroundResource(R.drawable.arrow_empty);
             rightArrowLayout.setVisibility(View.INVISIBLE);
         } else {
             rightArrowLayout.setVisibility(View.VISIBLE);
             arrowPlaceholder.setEnabled(true);
-           // arrowPlaceholder.setBackgroundResource(R.drawable.arrow_right);
         }
     }
 
@@ -193,20 +167,19 @@ public class SchemeFragment extends LKFragment {
         }
         header.setTag(day);
     }
+
     /**
      * Sets up the ListView in the navigationdrawer menu.
      */
     private ArrayList<LKSchemeAdapter.LKSchemeItem> getSchemeForDay(int day, boolean myScheme) {
-        //Calendar startOfScheme = getStartingDate();
-
         HashSet<String> activated = getActiveNotifications();
-        ArrayList<LKSchemeAdapter.LKSchemeItem> listItems = new ArrayList<LKSchemeAdapter.LKSchemeItem>();
+        ArrayList<LKSchemeAdapter.LKSchemeItem> listItems = new ArrayList<>();
 
         listItems.add(new LKSchemeAdapter.LKSchemeItem());
 
         if (day == 0) {
             if (fridayEvents == null) {
-                fridayEvents = new ArrayList<Event>();
+                fridayEvents = new ArrayList<>();
                 Events.getFridayEvents(fridayEvents, getContext());
             }
             for (Event e : fridayEvents) {
@@ -242,7 +215,7 @@ public class SchemeFragment extends LKFragment {
             }
         } else {
             if (sundayEvents == null) {
-                sundayEvents = new ArrayList<Event>();
+                sundayEvents = new ArrayList<>();
                 Events.getSundayEvents(sundayEvents, getContext());
             }
             for (Event e : sundayEvents) {
@@ -269,7 +242,7 @@ public class SchemeFragment extends LKFragment {
         SharedPreferences sharedPref = getContext().getSharedPreferences("lundkarnevalen", Context.MODE_PRIVATE);
         String set = sharedPref.getString("notifications", "");
         String split[] = set.split(";");
-        HashSet<String> activated = new HashSet<String>();
+        HashSet<String> activated = new HashSet<>();
 
         for (int i = 0; i < split.length; i++) {
             activated.add(split[i]);
@@ -290,9 +263,7 @@ public class SchemeFragment extends LKFragment {
             default:
                 return 0;
         }
-        //long millisNow = Calendar.getInstance().getTimeInMillis();
-        //long millisStart = startOfScheme.getTimeInMillis();
-        //return Math.max((int) ((millisNow - millisStart) % (3600000L * 24L)), 0);
+
     }
 
     @Override
@@ -382,12 +353,10 @@ public class SchemeFragment extends LKFragment {
             int pageWidth = view.getWidth();
             int pageHeight = view.getHeight();
 
-            if (position < -1) { // [-Infinity,-1)
-                // This page is way off-screen to the left.
+            if (position < -1) {
                 view.setAlpha(0);
 
-            } else if (position <= 1) { // [-1,1]
-                // Modify the default slide transition to shrink the page as well
+            } else if (position <= 1) {
                 float scaleFactor = Math.max(MIN_SCALE, 1 - Math.abs(position));
                 float vertMargin = pageHeight * (1 - scaleFactor) / 2;
                 float horzMargin = pageWidth * (1 - scaleFactor) / 2;
@@ -406,10 +375,9 @@ public class SchemeFragment extends LKFragment {
                         (scaleFactor - MIN_SCALE) /
                                 (1 - MIN_SCALE) * (1 - MIN_ALPHA));
 
-            } else { // (1,+Infinity]
-                // This page is way off-screen to the right.
+            } else {
                 view.setAlpha(0);
             }
         }
     }
-   }
+}
