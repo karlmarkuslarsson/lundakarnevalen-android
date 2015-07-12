@@ -47,11 +47,11 @@ public class OtherFragment extends LKFragment{
 
         ArrayList<LKListRow> items = new ArrayList<LKListRow>();
 
-        for(int i = 0;i< other.size();i=i+2){
+        for (int i = 0; i < other.size(); i = i+2) {
             if(i+1<other.size()) {
-                items.add(new LKListRow(other.get(i),other.get(i+1)));
+                items.add(new LKListRow(other.get(i), other.get(i+1)));
             } else {
-                items.add(new LKListRow(other.get(i),null));
+                items.add(new LKListRow(other.get(i), null));
             }
 
         }
