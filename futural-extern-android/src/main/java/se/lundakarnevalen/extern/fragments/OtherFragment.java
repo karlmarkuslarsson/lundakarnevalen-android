@@ -25,6 +25,7 @@ import se.lundakarnevalen.extern.widget.LKListRow;
 public class OtherFragment extends LKFragment{
     private List<DataElement> other = new ArrayList<DataElement>();
     private final int ID = 4;
+
     // Every time you switch to this fragment.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,11 +42,11 @@ public class OtherFragment extends LKFragment{
 
         ArrayList<LKListRow> items = new ArrayList<LKListRow>();
 
-        for(int i = 0;i< other.size();i=i+2){
-            if(i+1<other.size()) {
-                items.add(new LKListRow(other.get(i),other.get(i+1)));
+        for (int i = 0; i < other.size(); i = i+2) {
+            if(i + 1 < other.size()) {
+                items.add(new LKListRow(other.get(i), other.get(i+1)));
             } else {
-                items.add(new LKListRow(other.get(i),null));
+                items.add(new LKListRow(other.get(i), null));
             }
         }
 

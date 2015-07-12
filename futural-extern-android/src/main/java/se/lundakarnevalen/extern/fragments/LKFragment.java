@@ -6,9 +6,11 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 
 import se.lundakarnevalen.extern.util.Logf;
@@ -35,6 +37,15 @@ public class LKFragment extends Fragment {
         }
         return version;
     }
+
+    public static <T> T get(View parent, int id, Class<T> clz) {
+        return clz.cast(parent.findViewById(id));
+    }
+
+    public static <T> T get(int id, View parent, Class<T> clz) {
+        return clz.cast(parent.findViewById(id));
+    }
+
 
     public int getMemUsage(){
         ActivityManager.MemoryInfo mi = new ActivityManager.MemoryInfo();
@@ -110,6 +121,22 @@ public class LKFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         int usage = getMemUsage();
         if(DEBUG_LIFECYCLE)Logf.d(this, "onViewCreated(): Free mem: %d MB (since onAttach: %d MB)", usage, onAttachMem - usage);
+    }
+
+    /**
+     * Converts dp to pixels.
+     *
+     * @param dp
+     *            The number of dp.
+     * @param context
+     *            The application context.
+     * @return The number of dp.
+     */
+    public static float dpToPx(int dp, Context context) {
+        Resources r = context.getResources();
+        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
+                r.getDisplayMetrics());
+        return px;
     }
 
     public Context getContext(){

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/sangbok_layout_song_layout_inner"
+        android:layout_width="match_parent"
+        android:padding="20dp"
+        android:background="#FFF"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/sangbok_layout_song_layout_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:maxLines="3"
+            android:minLines="1"
+            android:textColor="@color/black"
+            android:text="Utbildning utan framtid eller “Konsten att strula till ett liv”"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/sangbok_layout_song_layout_subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/sangbok_layout_song_layout_title"
+            android:ellipsize="marquee"
+            android:maxHeight="20dp"
+            android:textColor="@color/black"
+            android:maxLines="2"
+            android:text="Melodi: Skånska slott och herresäten"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/sangbok_layout_song_layout_divider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/sangbok_layout_song_layout_subtitle"
+            android:layout_marginTop="-20dp"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:text="............................................................................"
+            android:textSize="30sp" />
+
+        <ScrollView
+            android:id="@+id/sangbok_layout_song_layout_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/sangbok_layout_song_layout_divider"
+            android:fillViewport="true" >
+
+            <TextView
+                android:id="@+id/sangbok_layout_song_layout_text"
+                android:layout_width="match_parent"
+                android:layout_height="14dp"
+                android:paddingTop="10dp"
+            android:textColor="@color/black"
+                android:textSize="16sp" />
+        </ScrollView>
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/sangbok_layout_song_layout_shadowbottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/songs_back_shadow"
+        tools:ignore="ContentDescription" />
+
+</RelativeLayout>

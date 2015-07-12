@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp"
+    android:background="@color/bg_sangbok"
+    android:gravity="center_horizontal"
+     >
+    
+    <se.lundakarnevalen.widget.LKSwipeableViewPager
+        android:gravity="center"
+        android:layout_alignParentTop="true"
+	  	android:paddingLeft="20dp"
+	  	android:paddingRight="10dp"
+	  	android:id="@+id/sangbok_layout_viewpager"
+	  	android:layout_above="@+id/sangbok_layout_backbtn"
+	  	android:layout_height="match_parent"
+        android:layout_width="match_parent" />
+
+    <se.lundakarnevalen.widget.LKButtonYellow
+        android:visibility="gone"
+        android:id="@+id/sangbok_layout_backbtn"
+        android:layout_width="wrap_content"
+        android:textSize="12sp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:text="TILLBAKA"
+        android:textStyle="bold" />
+
+</RelativeLayout>
