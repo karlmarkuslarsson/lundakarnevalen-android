@@ -14,9 +14,6 @@ import java.util.concurrent.FutureTask;
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.util.Timer;
 
-/**
-* Created by Filip on 2014-05-07.
-*/
 public class MapLoader implements Callable<Picture> {
     public static final String LOG_TAG = MapLoader.class.getSimpleName();
     private static FutureTask<Picture> preloaded = null;
@@ -29,7 +26,7 @@ public class MapLoader implements Callable<Picture> {
 
     public static FutureTask<Picture> preload(Context c) {
         if(preloaded == null){
-            preloaded = new FutureTask<Picture>(new MapLoader(c));
+            preloaded = new FutureTask<>(new MapLoader(c));
             new AsyncTask<Void,Void,Void>(){
                 @Override
                 protected Void doInBackground(Void... params) {
@@ -42,10 +39,6 @@ public class MapLoader implements Callable<Picture> {
             }.execute();
         }
         return preloaded;
-    }
-
-    public static void clean(){
-        preloaded = null;
     }
 
     @Override
