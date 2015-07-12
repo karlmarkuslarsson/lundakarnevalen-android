@@ -3,7 +3,6 @@ package se.lundakarnevalen.extern.map;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.location.Location;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -16,9 +15,6 @@ import java.util.TimerTask;
 
 import se.lundakarnevalen.extern.util.KarnevalistServer;
 
-/**
- * Created by Filip on 2014-05-07.
- */
 public class LocationTracker extends Service {
     private static final String LOG_TAG = LocationTracker.class.getSimpleName();
     private static final boolean DEBUG = false;
@@ -45,14 +41,14 @@ public class LocationTracker extends Service {
     }
 
     public interface LocationJSONListener {
-        public void onNewLocationFromKarnevalist(LocationJSONResult result);
+        void onNewLocationFromKarnevalist(LocationJSONResult result);
     }
 
 
     public LocationTracker(Context context) {
         this.mContext = context;
         this.mConnection = new KarnevalistServer(context);
-        this.mListeners = new ArrayList<LocationJSONListener>(2);
+        this.mListeners = new ArrayList<>(2);
         this.mTimer = new Timer();
         init();
     }

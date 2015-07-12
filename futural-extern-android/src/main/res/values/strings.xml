@@ -22,15 +22,12 @@
     <string name="full_list">FULL SCHEDULE</string>
     <string name="saturday">SATURDAY</string>
 
-    <string name="heart">\u2764</string>
 
     <string name="ipsum">
         Bacon ipsum dolor sit amet cow corned beef pig, biltong swine tri-tip short loin turducken strip steak meatball rump. T-bone doner salami ball tip swine leberkas ground round chuck. Short ribs pork drumstick landjaeger salami venison capicola shank filet mignon boudin. \n\n Jowl venison turducken corned beef short ribs chicken flank hamburger. Shoulder salami strip steak chuck. Pancetta rump kevin leberkas capicola salami kielbasa venison porchetta fatback turkey ham hock sirloin hamburger. Pork chop ground round capicola biltong landjaeger andouille.
         Tenderloin ham hock brisket chicken andouille capicola, cow beef ribs sausage. Flank drumstick ham prosciutto, filet mignon chuck tail landjaeger chicken cow shankle. Sausage brisket pork chop, ham turducken chicken meatloaf filet mignon doner. \n\n Chicken leberkas frankfurter shank, jowl ground round spare ribs tri-tip andouille bresaola pastrami brisket ribeye prosciutto. Ground round cow tri-tip doner porchetta ham swine. Frankfurter ribeye shank leberkas, sirloin turducken swine jerky sausage pork loin biltong spare ribs bacon ground round meatloaf.
     </string>
 
-    <string name="open">OPEN</string>
-    <string name="closed">CLOSED</string>
     <string name="card">CARD</string>
     <string name="cash">CASH</string>
     <string name="to_map">LOCATION</string>
@@ -62,15 +59,11 @@
     <string name="show_title">THE SHOW</string>
     <string name="revy_title">THE REVUE</string>
     <string name="filmen_title">THE FILM</string>
-    <string name="cocktail_question">VAD FINNS PÅ COCKTAILBAREN?</string>
     <string name="cocktail_place">FOODSTOCK</string>
     <string name="cocktail_title">PSYKA-DELI</string>
-    <string name="cocktail_info">Drinkar: (drinkmeny om ca 10 st max), karnevöl, karnevale, cider, läsk och vin.\n\nMat: Ej mat\n\nBetalning: kort och kontant. DOCK, cash is king!</string>
 
-    <string name="hipp_baren_question">VAD FINNS PÅ HIPP I BAREN?</string>
     <string name="hipp_baren_place">FOODSTOCK</string>
     <string name="hipp_baren_title">HIPP I BAREN</string>
-    <string name="hipp_baren_info">Drinkar: karnevöl, cider, läsk och eventuellt vin.\n\nMat: Ej mat\n\nBetalning: kort och kontant. DOCK, cash is king!</string>
 
 
 
@@ -78,10 +71,8 @@
     <string name="krog_undervatten_title">PUB UNDERVATTEN</string>
     <string name="krog_undervatten_question">WHAT IS PUB UNDERVATTEN?</string>
     <string name="empty" />
-    <string name="folkan_question">VAD FINNS PÅ FOLKAN?</string>
     <string name="folkan_place">FOODSTOCK</string>
     <string name="folkan_title">FOLKAN</string>
-    <string name="folkan_info">Drinkar: karnevöl, cider, läsk och eventuellt vin.\n\nMat: Ej mat\n\nBetalning: kort och kontant. DOCK, cash is king!</string>
     <string name="sousou">CISSOKO</string>
     <string name="bo_kasper">BO KASPERS</string>
     <string name="lucy_love">LUCY LOVE</string>
@@ -99,13 +90,10 @@
     <string name="sandra">SANDRA MOSH</string>
     <string name="partiet">PARTIET</string>
 
-    <string name="play">SPELA</string>
-    <string name="stop">STOPPA</string>
     <string name="content_desc_image">image</string>
     <string name="lundakarnevalen_actionbar">LUNDAKARNEVALEN</string>
     <string name="radio_title">RADIO</string>
     <string name="security_title">SECURITY</string>
-    <string name="atm_title">ATMS</string>
     <string name="parking_title">PARKING</string>
     <string name="care_title">CARE</string>
     <string name="toilets_title">TOILETS</string>
@@ -158,11 +146,8 @@
     <string name="dansen_title">THE DANCE</string>
     <string name="dansen_question">WHAT IS THE DANCE?</string>
     <string name="the_bland_band">THE BLAND BAND</string>
-    <string name="emil_och_david">EMIL AND DAVID</string>
     <string name="brothers_among_eva">BAW</string>
     <string name="picture">content=picture</string>
-    <string name="karnemel_title">KARNEVALSMELODIN</string>
-    <string name="karnemel_year">2014</string>
     <string name="krog_lajka_title">PUB LAJKA</string>
     <string name="krog_lajka_place" />
     <string name="krog_lajka_question">WHAT IS PUB LAJKA?</string>
@@ -235,7 +220,6 @@
     <string name="intergalaktisk_invandring">Intergalaktisk invandring</string>
     <string name="ett_svart_hal">Ett svart hål</string>
 
-    <string name="snacks">SNACKS</string>
     <string name="discokaffetalt">Discokaffetält</string>
     <string name="snacks_iv">SNACKS IV</string>
     <string name="lyxbrygghus">Lyxbrygghus</string>
@@ -261,20 +245,16 @@
     <string name="trash">TRASH</string>
     <string name="biljetteriet_place" />
     <string name="biljetteriet_question">WHAT IS THE TICKETERY?</string>
-    <string name="smanojen_place" />
 
     <string name="smanojen_question">WHAT IS THE MINI FUN?</string>
-    <string name="taltnojen_place" />
 
     <string name="taltnojen_question">WHAT IS THE TENT FUN?</string>
 
 
-    <string name="tombolan_place" />
 
     <string name="tombolan_question">WHAT IS THE TOMBOLA?</string>
 
 
-    <string name="musik_place" />
 
     <string name="musik" >THE MUSIC</string>
 
@@ -293,8 +273,6 @@
     <string name="entre_question">WHAT DO I FIND IN THE ENTRANCE?</string>
     <string name="foodo_place">FOODSTOCK</string>
     <string name="foodo_title">FOODOO CHILD</string>
-    <string name="foodo_info" />
-    <string name="foodo_question">WHAT IS FOODOO CHILD?</string>
     <string name="konstfiket">KONSTFIKET</string>
     <string name="moderskeppet">MODERSKEPPET</string>
     <string name="news_kast">NEWS KAST</string>
@@ -372,8 +350,6 @@
     <string name="song_book">SONG BOOK</string>
 
 
-    <!-- Songboken -->
-    <string name="sangbok_title">SONGBOOK</string>
     <!-- Songs -->
     <string-array name="sangbok_songs_group_karnmel">
         <item><![CDATA[6|Karnevalsmelodin|Melodi: Karnevalsmelodin 2014|Jag kan inte sitta still<br/>Jag får inte någon ro<br/>Nu är längtan över, sätter allt på paus<br/><br/>Det är nåt som är på gång<br/>Har aldrig känt så här förut<br/>Glömmer allt som var, det e karneval<br/><br/>Med hjärtslagen i takt till basen<br/>lyfter händerna mot taken<br/>ingen sömn på flera nätter<br/>aldrig känt mig mera vaken<br/><br/><b>BRYGGA</b><br/>Det e nu i vår det händer<br/>Det e vart fjärde år<br/>Kom möt upp med alla vänner<br/>Kom och skrik i Lundagård<br/><br/>Ljuset bländar, hjärtat bultar<br/>Nu är det fest i Lund<br/>Exploderar på en sekund<br/><br/><b>REFR</b><br/>Futu-futu<br/>-ral<br/>-karneval<br/>Futu-futu-futu<br/>-ral<br/>-karneval<br/>-futu-futu-futu<br/><br/>Ett universum fyllt av allt<br/>hundra fester på en dag<br/>Nu blir gammalt nytt<br/>och generalen har fått bröst<br/><br/>Karnevölen fyller glasen<br/>vem vet nåt om morgondagen<br/>Alla dansar Borgen skakar<br/>Aldrig känt mig mera vaken<br/><br/><b>(BRYGGA)</b><br/><br/><b>(REFR)</b><br/><br/>Vi är våren när det händer<br/>Vi är vart fjärde år<br/>Vi är allesammans vänner<br/>skriker ut i Lundagård<br/><br/>Vi ska övertyga världen<br/>att fira maj i Lund<br/>Exploderar på en sekund<br/><br/><b>||: REFR :||</b>]]></item>

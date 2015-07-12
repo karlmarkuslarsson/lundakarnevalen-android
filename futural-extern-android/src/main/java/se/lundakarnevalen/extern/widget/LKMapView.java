@@ -13,7 +13,6 @@ import android.graphics.RectF;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
@@ -39,11 +38,7 @@ import se.lundakarnevalen.extern.util.BitmapUtil;
 import se.lundakarnevalen.extern.util.Logf;
 
 import static android.graphics.Matrix.MSCALE_X;
-import static se.lundakarnevalen.extern.util.ViewUtil.dpToPx;
 
-/**
- * Created by Filip on 2014-04-27.
- */
 public class LKMapView extends SVGView {
     private static final String LOG_TAG = LKMapView.class.getSimpleName();
 
@@ -59,7 +54,7 @@ public class LKMapView extends SVGView {
     private static final float CLOSE_THRESHOLD = 14.0f; //last 40
     private static final float BUBBLE_SIZE_MULTIPLIER = 3.0f;
 
-    private static SparseArray<Bitmap> bitmaps = new SparseArray<Bitmap>();
+    private static SparseArray<Bitmap> bitmaps = new SparseArray<>();
     private RectF mCurrentViewPort = new RectF();
     private boolean mFiltersEnabled = true;
 
@@ -104,12 +99,12 @@ public class LKMapView extends SVGView {
 
     public interface OnMarkerSelectedListener {
         /** null of unselect */
-        public void onMarkerSelected(Marker m);
+        void onMarkerSelected(Marker m);
     }
 
 
-    private Set<DataType> activeTypes = new HashSet<DataType>();
-    private List<Marker> markers = new ArrayList<Marker>();
+    private Set<DataType> activeTypes = new HashSet<>();
+    private List<Marker> markers = new ArrayList<>();
 
     private Paint mShadowInk;
     private Paint mLightBlueInk;

@@ -15,7 +15,6 @@ import android.widget.ImageView;
 
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.map.MapLoader;
-import se.lundakarnevalen.extern.map.TrainMapLoader;
 
 import static com.nineoldandroids.view.ViewPropertyAnimator.animate;
 

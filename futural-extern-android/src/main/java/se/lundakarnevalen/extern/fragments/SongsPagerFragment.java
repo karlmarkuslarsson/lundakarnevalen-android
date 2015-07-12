@@ -76,11 +76,6 @@ public class SongsPagerFragment extends LKFragment {
 		return root;
 	}
 	
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-	}
-	
 	private static class MyAdapter extends FragmentPagerAdapter {
 		private final String[] songs;
 		private final int icon;

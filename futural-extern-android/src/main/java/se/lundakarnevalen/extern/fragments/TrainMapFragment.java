@@ -12,21 +12,14 @@ import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-
 import se.lundakarnevalen.extern.activities.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.map.GPSTracker;
 import se.lundakarnevalen.extern.map.LocationTracker;
-import se.lundakarnevalen.extern.map.MapLoader;
 import se.lundakarnevalen.extern.map.TrainMapLoader;
 import se.lundakarnevalen.extern.util.Delay;
 import se.lundakarnevalen.extern.util.Logf;
 import se.lundakarnevalen.extern.widget.LKTrainView;
-
-import static se.lundakarnevalen.extern.util.ViewUtil.get;
 
 public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListener,
         LocationTracker.LocationJSONListener, TrainMapLoader.MapLoaderCallback {
@@ -143,7 +136,7 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
         if(mMediaPlayer != null) {
             try{
                 mMediaPlayer.release();
-            } catch(Exception e){}
+            } catch(Exception ignored){}
         }
 
         super.onStop();

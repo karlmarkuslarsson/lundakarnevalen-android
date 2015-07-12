@@ -9,7 +9,6 @@ import android.graphics.Picture;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
@@ -59,7 +58,7 @@ public class LKTrainView extends SVGView {
     private float mTrainPosX = -100;
     private float mTrainPosY = -100;
 
-    private static SparseArray<Bitmap> bitmaps = new SparseArray<Bitmap>();
+    private static SparseArray<Bitmap> bitmaps = new SparseArray<>();
 
     public static void clean() {
         for(int i = 0; i < bitmaps.size(); i++) {

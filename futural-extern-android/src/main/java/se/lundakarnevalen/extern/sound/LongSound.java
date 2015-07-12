@@ -35,14 +35,7 @@ public class LongSound {
 		}
 		start();
 	}
-	
-	public void setLooping(boolean looping) {
-		if(mediaPlayer == null) {
-			return;
-		}
-		
-		mediaPlayer.setLooping(looping);
-	}
+
 	
 	public void start() {
 		Log.d(TAG, "Playing media recource: " + resourceId);

@@ -113,8 +113,6 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     välkända Sudio 54.\n\nServerar: Öl, vin och cider.
     </string>
 
-    <string name="open">ÖPPET</string>
-    <string name="closed">STÄNGT</string>
     <string name="card">KORT</string>
     <string name="cash">CASH</string>
     <string name="to_map">TILL KARTAN</string>
@@ -143,21 +141,14 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="krog_lajka_place" />
     <string name="krog_lajka_question">VAD ÄR KROG LAJKA?</string>
 
-
-    <string name="cocktail_question">VAD FINNS PÅ COCKTAILBAREN?</string>
     <string name="cocktail_place">FOODSTOCK</string>
     <string name="cocktail_title">PSYKA-DELI</string>
-    <string name="cocktail_info">Drinkar: (drinkmeny om ca 10 st max), karnevöl, karnevale, cider, läsk och vin.\n\nMat: Ej mat\n\nBetalning: kort och kontant. DOCK, cash is king!</string>
 
-    <string name="hipp_baren_question">VAD FINNS PÅ HIPP I BAREN?</string>
     <string name="hipp_baren_place">FOODSTOCK</string>
     <string name="hipp_baren_title">HIPP I BAREN</string>
-    <string name="hipp_baren_info">Drinkar: karnevöl, cider, läsk och eventuellt vin.\n\nMat: Ej mat\n\nBetalning: kort och kontant. DOCK, cash is king!</string>
 
-    <string name="folkan_question">VAD FINNS PÅ FOLKAN?</string>
     <string name="folkan_place">FOODSTOCK</string>
     <string name="folkan_title">FOLKAN</string>
-    <string name="folkan_info">Drinkar: karnevöl, cider, läsk och eventuellt vin.\n\nMat: Ej mat\n\nBetalning: kort och kontant. DOCK, cash is king!</string>
 
     <string name="sousou">CISSOKO</string>
     <string name="bo_kasper">BO KASPERS</string>
@@ -176,15 +167,12 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="sandra">SANDRA MOSH</string>
     <string name="partiet">PARTIET</string>
 
-    <string name="play">SPELA</string>
-    <string name="stop">STOPPA</string>
     <string name="krog_undervatten_place">FRAMFÖR AF-BORGEN</string>
     <string name="krog_undervatten_title">KROG UNDERVATTEN</string>
     <string name="krog_undervatten_question">VAD ÄR UNDERVATTEN?</string>
     <string name="lundakarnevalen_actionbar">LUNDAKARNEVALEN</string>
     <string name="radio_title">RADION</string>
     <string name="security_title">SÄKERHET</string>
-    <string name="atm_title">BANKOMATER</string>
     <string name="parking_title">PARKERING</string>
     <string name="care_title">SJUKVÅRD</string>
     <string name="toilets_title">TOALETTER</string>
@@ -243,7 +231,6 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
         23.30-04 Kevin Ohlsson]]>
     </string>
     <string name="dansen_question">VAD ÄR DANSEN?</string>
-    <string name="emil_och_david">EMIL OCH DAVID</string>
     <string name="krog_thyme_title">KROG THYME TRAVEL</string>
     <string name="krog_thyme_question">VAD ÄR KROG TYHME TRAVEL?</string>
     <string name="menu_food">MENY</string>
@@ -285,7 +272,6 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     </string>
     <string name="snaxeriet">SNAXERIET</string>
     <string name="snaxeriet_info">Letar du efter framtidens snacks? Du har kommit helt rätt!</string>
-    <string name="heart">\u2764</string>
 <string name="ipsum">
         Bacon ipsum dolor sit amet cow corned beef pig, biltong swine tri-tip short loin turducken strip steak meatball rump. T-bone doner salami ball tip swine leberkas ground round chuck. Short ribs pork drumstick landjaeger salami venison capicola shank filet mignon boudin. \n\n Jowl venison turducken corned beef short ribs chicken flank hamburger. Shoulder salami strip steak chuck. Pancetta rump kevin leberkas capicola salami kielbasa venison porchetta fatback turkey ham hock sirloin hamburger. Pork chop ground round capicola biltong landjaeger andouille.
         Tenderloin ham hock brisket chicken andouille capicola, cow beef ribs sausage. Flank drumstick ham prosciutto, filet mignon chuck tail landjaeger chicken cow shankle. Sausage brisket pork chop, ham turducken chicken meatloaf filet mignon doner. \n\n Chicken leberkas frankfurter shank, jowl ground round spare ribs tri-tip andouille bresaola pastrami brisket ribeye prosciutto. Ground round cow tri-tip doner porchetta ham swine. Frankfurter ribeye shank leberkas, sirloin turducken swine jerky sausage pork loin biltong spare ribs bacon ground round meatloaf.
@@ -334,7 +320,6 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="playPart32">VI SKA ÖVERTYGA VÄRLDEN</string>
     <string name="playPart33">ATT FIRA MAJ I LUND</string>
     <string name="playPart34">EXPLODERAR PÅ EN SEKUND</string>
-    <string name="karnemel_title">KARNEVALSMELODIN</string>
     <string name="krog_thyme_place" >ATHEN</string>
 
     <string name="sketchera">Sketchera</string>
@@ -390,15 +375,9 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="the_bland_band">THE BLAND BAND</string>
     <string name="brothers_among_eva">BAW</string>
     <string name="picture">content=picture</string>
-    <string name="karnemel_year">2014</string>
     <string name="love">FIRST LOVE</string>
-    <string name="taltnojen_place" />
-    <string name="musik_place" />
     <string name="snaxeriet_question"></string>
-    <string name="foodo_info" />
 
-
-    <string name="tombolan_place" />
 
     <string name="tombolan_question">VAD ÄR TOMBOLAN?</string>
     <string name="tombolan_info">Tombolan sprider karnevalsglädje genom de spel och tävlingar som
@@ -438,7 +417,6 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="biljetteriet">BILJETTERIET</string>
     <string name="entre">ENTRÉ</string>
 
-    <string name="snacks">SNAXERIET</string>
     <string name="trashcan">SOPTUNNA</string>
     <string name="shoppen">SHOPPEN</string>
 
@@ -447,7 +425,6 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="trash">SOPOR</string>
     <string name="biljetteriet_place" />
     <string name="biljetteriet_question">VAD ÄR BILJETTERIET?</string>
-    <string name="smanojen_place" />
     <string name="smanojen_question">VAD ÄR SMÅNÖJEN?</string>
     <string name="big_scene_question">VAD ÄR STORA SCENEN?</string>
     <string name="small_scene_place" />
@@ -466,7 +443,6 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="entre_question">VAD HITTAR JAG I ENTRÉN?</string>
     <string name="foodo_place">FOODSTOCK</string>
     <string name="foodo_title">FOODOO CHILD</string>
-    <string name="foodo_question">VAD ÄR FOODOO CHILD?</string>
     <string name="konstfiket">KONSTFIKET</string>
     <string name="moderskeppet">MODERSKEPPET</string>
     <string name="news_kast">NEWS KAST</string>

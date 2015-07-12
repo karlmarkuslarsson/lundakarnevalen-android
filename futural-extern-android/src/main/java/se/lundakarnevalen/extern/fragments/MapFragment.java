@@ -31,8 +31,6 @@ import se.lundakarnevalen.extern.util.Delay;
 import se.lundakarnevalen.extern.util.Logf;
 import se.lundakarnevalen.extern.widget.LKMapView;
 
-import static se.lundakarnevalen.extern.util.ViewUtil.get;
-
 public class MapFragment extends LKFragment
         implements GPSTracker.GPSListener, MapLoader.MapLoaderCallback,
         LocationTracker.LocationJSONListener {
@@ -311,14 +309,6 @@ public class MapFragment extends LKFragment
         outState.putFloatArray(STATE_MATRIX, mMapView.exportMatrixValues());
     }
 
-    public static MapFragment create(float lat, float lng) {
-        Bundle bundle = new Bundle();
-        bundle.putFloat("lat", lat);
-        bundle.putFloat("lng", lng);
-        MapFragment fragment = new MapFragment();
-        fragment.setArguments(bundle);
-        return fragment;
-    }
 
     public boolean zoomToMarker() {
         if(mIsGPSWithinMap){

@@ -8,7 +8,6 @@ import android.util.Log;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
 
-import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
 import se.lundakarnevalen.extern.android.R;
@@ -92,8 +91,8 @@ public class MapLoader {
     }
 
     public interface MapLoaderCallback{
-        public void postMiniMap(Picture picture);
-        public void postLargerMap(Picture picture);
+        void postMiniMap(Picture picture);
+        void postLargerMap(Picture picture);
     }
 
     public static class MapSvgLoader {

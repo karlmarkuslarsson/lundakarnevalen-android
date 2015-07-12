@@ -5,13 +5,11 @@ import java.util.List;
 
 import se.lundakarnevalen.extern.android.R;
 
-/**
- * Created by Fredrik on 2014-05-04.
- */
+
 public class DataContainer {
 
     public static List<DataElement> getAllData() {
-        List<DataElement> data = new ArrayList<DataElement>();
+        List<DataElement> data = new ArrayList<>();
         data.add(new DataElement(
                 R.string.barneval_place,
                 R.string.barneval_title,
@@ -138,8 +136,8 @@ public class DataContainer {
                 DataType.INFO));
 
 
-        ArrayList<Integer> menu = new ArrayList<Integer>();
-        ArrayList<String> menuPrice = new ArrayList<String>();
+        ArrayList<Integer> menu = new ArrayList<>();
+        ArrayList<String> menuPrice = new ArrayList<>();
         menu.add(R.string.undervatten_food1);
         menu.add(R.string.undervatten_food2);
         menu.add(R.string.undervatten_food3);
@@ -160,8 +158,8 @@ public class DataContainer {
                 "12:00-01:00", "12:00-01:00", "12:00-01:00",
                 DataType.FOOD, menu, menuPrice));
 
-        menu = new ArrayList<Integer>();
-        menuPrice = new ArrayList<String>();
+        menu = new ArrayList<>();
+        menuPrice = new ArrayList<>();
         menu.add(R.string.lajka_food1);
         menu.add(R.string.lajka_food2);
         //   menu.add("");
@@ -180,8 +178,8 @@ public class DataContainer {
                 R.string.krog_lajka_question,
                 "12:00-01:00", "12:00-01:00", "12:00-24:00",
                 DataType.FOOD, menu, menuPrice));
-        menu = new ArrayList<Integer>();
-        menuPrice = new ArrayList<String>();
+        menu = new ArrayList<>();
+        menuPrice = new ArrayList<>();
         menu.add(R.string.thyme_food1);
         menu.add(R.string.thyme_food2);
         //   menu.add("");
@@ -326,7 +324,7 @@ public class DataContainer {
     }
 
     public static List<DataElement> getDataOfType(DataType type) {
-        List<DataElement> data = new ArrayList<DataElement>();
+        List<DataElement> data = new ArrayList<>();
         for (DataElement element : getAllData()) {
             if (element.type == type) {
                 data.add(element);

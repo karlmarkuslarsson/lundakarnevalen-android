@@ -8,9 +8,6 @@ import android.util.Log;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
 
-import java.util.concurrent.Callable;
-import java.util.concurrent.Future;
-import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 
 import se.lundakarnevalen.extern.android.R;
@@ -68,7 +65,7 @@ public class TrainMapLoader {
     }
 
     public interface MapLoaderCallback {
-        public void postTrainMap(Picture picture);
+        void postTrainMap(Picture picture);
     }
 
     public static class MapSvgLoader {

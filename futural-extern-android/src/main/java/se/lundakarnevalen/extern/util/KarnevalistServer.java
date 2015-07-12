@@ -16,9 +16,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
-/**
- * Created by Markus on 2014-05-13.
- */
+
 public class KarnevalistServer {
     private static final String LOG_TAG = KarnevalistServer.class.getSimpleName();
     private static final String DEFAULT_CONTENT_TYPE = "application/json; charset=utf-8";
@@ -170,8 +168,8 @@ public class KarnevalistServer {
      * Interface for callback on text result from server call.
      */
     public interface TextResultListener {
-        public static final String LOG_TAG = TextResultListener.class.getSimpleName();
-        public void onResult(String result);
+        String LOG_TAG = TextResultListener.class.getSimpleName();
+        void onResult(String result);
     }
 
     public enum RequestType {
