@@ -87,6 +87,7 @@ public class LKTrainView extends SVGView {
         mShadowInk = new Paint(Paint.ANTI_ALIAS_FLAG);
         mShadowInk.setColor(Color.argb(128, 128, 128, 128));
         mPaint = new Paint();
+        mPaint.setAlpha(100);
         try {
             mGpsMarker = SVG.getFromResource(context, R.raw.gps_marker).renderToPicture();
             bitmaps.put(BITMAP_TRAIN, BitmapUtil.decodeSampledBitmapFromResource(context.getResources(), R.drawable.train_marker, 96, 96));
@@ -184,7 +185,7 @@ public class LKTrainView extends SVGView {
         anim.setDuration(1000);
         anim.start();
 
-        if(panToMarker) { // Will fire of async as the above animation
+        if (panToMarker) { // Will fire of async as the above animation
             panTo(x, y);
         }
     }

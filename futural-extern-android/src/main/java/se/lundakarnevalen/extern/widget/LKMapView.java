@@ -184,7 +184,7 @@ public class LKMapView extends SVGView {
         mBubbleShadowXRadius = mBubbleSize / 4.0f; //dpToPx(context, 2);
         mBubbleShadowYRadius = mBubbleSize / 8.0f; //dpToPx(context, 1);
 
-        mDevSize = 1.5f;
+        mDevSize = 7.5f;
 
         markers.clear();
         for (DataElement elm : DataContainer.getAllData()) {
@@ -194,13 +194,13 @@ public class LKMapView extends SVGView {
         Collections.sort(markers);
 
         initBitmapCache(context);
-        initZoomLimit(context);
+        initZoomLimit();
     }
 
     /**
      * We want to have difirent
      */
-    private void initZoomLimit(Context context) {
+    private void initZoomLimit() {
         final Resources r = getResources();
         if(r != null && r.getDisplayMetrics() != null) {
             final int dpi = r.getDisplayMetrics().densityDpi;
