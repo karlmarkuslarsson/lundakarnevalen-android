@@ -175,13 +175,17 @@ public class ContentActivity extends AppCompatActivity {
     private ActionBar setupActionbar() {
         ActionBar actionBar = getSupportActionBar();
 
-        actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(false);
-        ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT,
-                ActionBar.LayoutParams.MATCH_PARENT);
         View view = mActionBarView = getLayoutInflater().inflate(R.layout.action_bar_layout, null);
-        actionBar.setCustomView(view, layoutParams);
+
+        if (actionBar != null) {
+            actionBar.setDisplayShowHomeEnabled(false);
+            actionBar.setDisplayShowCustomEnabled(true);
+            actionBar.setDisplayShowTitleEnabled(false);
+            ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT,
+                    ActionBar.LayoutParams.MATCH_PARENT);
+            actionBar.setCustomView(view, layoutParams);
+        }
+
         Toolbar parent = (Toolbar) view.getParent();
         parent.setContentInsetsAbsolute(0, 0);
         return actionBar;
