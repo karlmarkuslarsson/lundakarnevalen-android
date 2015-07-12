@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -19,21 +18,13 @@ import se.lundakarnevalen.extern.activities.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.data.DataElement;
 import se.lundakarnevalen.extern.data.DataType;
-import se.lundakarnevalen.extern.widget.LKSchemeAdapter;
 
-/**
- * Created by Markus on 2014-04-16.
- */
 public class LandingPageFragment extends LKFragment{
 
-    private LKSchemeAdapter adapter;
-    private ListView list;
     private float lat;
     private float lng;
-
     public LandingPageFragment() {}
 
-    // Every time you switch to this fragment.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Bundle bundle = getArguments();
@@ -53,8 +44,6 @@ public class LandingPageFragment extends LKFragment{
         switch (c.DAY_OF_MONTH) {
             case 23:
                 get(rootView,R.id.open_info,TextView.class).setText(element.timeFriday);
-                //open(c.)
-                //if(c.)
                 break;
             case 24:
                 if(c.HOUR_OF_DAY < 6) {
@@ -77,16 +66,6 @@ public class LandingPageFragment extends LKFragment{
                     break;
         }
 
-        if(element.cash == 1) {
-           // get(rootView,R.id.cash_picture,ImageView.class).setImageResource(R.drawable.cash_true);
-        } else {
-            // get(rootView,R.id.cash_picture,ImageView.class).setImageResource(R.drawable.cash_false);
-        }
-        if(element.card==1) {
-            // get(rootView,R.id.card_picture,ImageView.class).setImageResource(R.drawable.card_true);
-        } else {
-            // get(rootView,R.id.card_picture,ImageView.class).setImageResource(R.drawable.card_false);
-        }
         lat = element.lat;
         lng = element.lng;
         final DataType type = element.type;
@@ -98,7 +77,7 @@ public class LandingPageFragment extends LKFragment{
         mapView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Set<DataType> multiContainers = new HashSet<DataType>();
+                Set<DataType> multiContainers = new HashSet<>();
                 multiContainers.add(DataType.TENT_FUN);
                 multiContainers.add(DataType.TOMBOLAN);
                 multiContainers.add(DataType.MUSIC);
@@ -114,7 +93,7 @@ public class LandingPageFragment extends LKFragment{
                     ContentActivity.class.cast(getActivity()).loadFragmentAddingBS(TrainMapFragment.create());
                 } else if (multiContainers.contains(element.type)) {
                     ContentActivity.class.cast(getActivity()).showMapAndPanTo(lat, lng);
-                    DataType[] types = new DataType[0];
+                    DataType[] types;
                     switch (element.type) {
                         case FOODSTOCK: case SNACKS:
                             types = new DataType[]{DataType.FOOD};
@@ -147,9 +126,6 @@ public class LandingPageFragment extends LKFragment{
             if (element.menu != null) {
                 get(rootView,R.id.menu,RelativeLayout.class).setVisibility(View.VISIBLE);
                 LinearLayout ll = (LinearLayout) rootView.findViewById(R.id.menu_food_list);
-
-                //LayoutInflater inflater2 = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                //View layout = inflater.inflate(R.layout.menu_food_element, parent, false);
 
                 for(int i = 0;i< element.menu.size();i++){
                     View view = inflater.inflate(R.layout.menu_food_element, ll, false);
@@ -187,8 +163,6 @@ public class LandingPageFragment extends LKFragment{
             get(rootView,R.id.cash_box,RelativeLayout.class).setVisibility(View.INVISIBLE);
             get(rootView,R.id.map_info,TextView.class).setText(R.string.to_traint);
         }
-
-
         return rootView;
     }
 
@@ -196,42 +170,17 @@ public class LandingPageFragment extends LKFragment{
     @Override
     public void onStart() {
         super.onStart();
-        //ContentActivity.class.cast(getActivity()).hideBottomMenu();
         ContentActivity.class.cast(getActivity()).allBottomsUnfocus();
-    }
-
-    @Override
-    public void onStop() {
-        //ContentActivity.class.cast(getActivity()).showBottomMenu();
-        super.onStop();
     }
 
     public static LandingPageFragment create(DataElement element) {
         LandingPageFragment fragment = new LandingPageFragment();
         Bundle bundle = new Bundle();
-    /*
-        bundle.putString("name",name);
-        bundle.putString("place",place);
-        bundle.putBoolean("cash", cash);
-        bundle.putBoolean("card", card);
-        bundle.putFloat("lat", lat);
-        bundle.putFloat("lng", lng);
-        bundle.putInt("picture", picture);
-        bundle.putInt("top_picture", topPicture);
-        bundle.putString("question", question);
-        bundle.putString("desc", desc);
-        bundle.putInt("type", type);
-        bundle.putInt("open", open);
-        bundle.putInt("close",close);
-    */
         bundle.putParcelable("element",element);
 
         fragment.setArguments(bundle);
-        // Add arguments
         return fragment;
     }
-
-
 }
 
 
