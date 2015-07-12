@@ -18,9 +18,6 @@ import java.util.List;
 
 import se.lundakarnevalen.extern.util.Logf;
 
-/**
- * Created by Filip on 2014-05-07.
- */
 public class GPSTracker extends Service implements LocationListener, GpsStatus.Listener {
     private static final String LOG_TAG = GPSTracker.class.getSimpleName();
     private static final boolean DEBUG = false;
@@ -46,10 +43,8 @@ public class GPSTracker extends Service implements LocationListener, GpsStatus.L
     }
 
     public interface GPSListener {
-        public void onNewLocation(double lat, double lng);
+        void onNewLocation(double lat, double lng);
     }
-
-    boolean canGetLocation = false;
 
     List<GPSListener> mListeners;
     Location location;
@@ -95,8 +90,6 @@ public class GPSTracker extends Service implements LocationListener, GpsStatus.L
         try {
             // if GPS Enabled get lat/long using GPS Services
             if (mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                //Log.d(LOG_TAG, "LocationProvider: GPS Enabled, polling lastKnownLocation");
-                //mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN, 0, this);
                 Location l = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
                 if (location != l) {
