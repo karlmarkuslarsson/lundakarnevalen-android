@@ -2,15 +2,14 @@ package se.lundakarnevalen.extern.fragments;
 
 import android.graphics.Picture;
 import android.media.MediaPlayer;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import java.util.concurrent.ExecutionException;
@@ -27,9 +26,7 @@ import se.lundakarnevalen.extern.util.Delay;
 import se.lundakarnevalen.extern.util.Logf;
 import se.lundakarnevalen.extern.widget.LKTrainView;
 
-
 import static se.lundakarnevalen.extern.util.ViewUtil.get;
-
 
 public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListener,
         LocationTracker.LocationJSONListener, TrainMapLoader.MapLoaderCallback {
@@ -40,10 +37,9 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
 
     private float[] mMatrixValues;
     private MediaPlayer mMediaPlayer;
+    private boolean isGPSWithinMap = false;
     private float mGPSMarkerLng = -1.0f;
     private float mGPSMarkerLat = -1.0f;
-    private Picture mPicture;
-    private float mScale;
 
     private LocationTracker.LocationJSONResult.LatLng mTrainPos = new LocationTracker.LocationJSONResult.LatLng();
 
@@ -63,12 +59,13 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
         setRetainInstance(true);
     }
 
+    // Every time you switch to this fragment.
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         final View root = inflater.inflate(R.layout.fragment_map_train, container, false);
         mViewFlipper = get(root, R.id.map_switcher, ViewFlipper.class);
-       // mSpinnerView = get(root, R.id.map_spinner, View.class);
+        // mSpinnerView = get(root, R.id.map_spinner, View.class);
         mTrainView = get(root, R.id.map_id, LKTrainView.class);
 
         Bundle bundle = getArguments();
@@ -89,32 +86,11 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
         final Runnable onSvgLoaded = new Runnable() {
             @Override
             public void run() {
-                mTrainView.setSvg(mPicture, mScale, mMatrixValues);
                 mTrainView.panTo(220f, 265f, false);
                 mViewFlipper.setDisplayedChild(VIEWFLIPPER_CHILD_MAP);
             }
         };
 
-<<<<<<< HEAD
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... params) {
-                try {
-                    mPicture = TrainMapLoader.preload(inflater.getContext()).get(60, TimeUnit.SECONDS);
-                    waitForLayout();
-                    mScale = calculateMinZoom(mTrainView, mPicture);
-
-                    FragmentActivity activity = getActivity();
-                    if (activity != null) { // if the activity/fragment is closed before completion
-                        activity.runOnUiThread(onSvgLoaded);
-                    }
-                } catch (InterruptedException e) {
-                    Log.wtf(LOG_TAG, "Future was interrupted", e);
-                } catch (ExecutionException e) {
-                    Log.wtf(LOG_TAG, "ExecutionException", e);
-                } catch (TimeoutException e) {
-                    loadMap();
-=======
         if(TrainMapLoader.hasLoadedMap()){
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -123,7 +99,6 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
                     float minZoom = calculateMinZoom(mTrainView, p);
                     mTrainView.setSvg(p, minZoom, null);
                     clearSpinner();
->>>>>>> develop
                 }
             }, 400);
         } else {
@@ -168,7 +143,7 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
         if(mMediaPlayer != null) {
             try{
                 mMediaPlayer.release();
-            } catch(Exception ignored){}
+            } catch(Exception e){}
         }
 
         super.onStop();
@@ -217,15 +192,24 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
         return fragment;
     }
 
+    public void zoomToMarker() {
+        if(isGPSWithinMap){
+            float[] dst = new float[2];
+            mTrainView.zoom(mTrainView.mMidZoom);
+            mTrainView.panToCenterFast();
+            mTrainView.getPointFromCoordinates(mGPSMarkerLat, mGPSMarkerLng, dst);
+            mTrainView.panTo(dst[0], dst[1]);
+        } else {
+            Toast.makeText(getContext(), "Du är utanför området eller har ej GPS aktiverad", Toast.LENGTH_LONG).show();
+        }
+    }
+
     @Override
     public void onNewLocation(double lat, double lng) {
         Logf.d(LOG_TAG, "onNewLocation(lat: %f, lng: %f)", lat, lng);
         mGPSMarkerLat = (float) lat;
         mGPSMarkerLng = (float) lng;
         mTrainView.setGpsMarker(mGPSMarkerLat, mGPSMarkerLng, false);
-<<<<<<< HEAD
-    }
-=======
         if (mTrainView.isWithinLatLngRange((float) lat, (float) lng)) {
             isGPSWithinMap = true;
         } else {
@@ -266,7 +250,6 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
 
     private void clearSpinner() {
         mViewFlipper.setDisplayedChild(VIEWFLIPPER_CHILD_MAP);
-      //  mSpinnerView.clearAnimation();
+        //  mSpinnerView.clearAnimation();
     }
->>>>>>> develop
 }

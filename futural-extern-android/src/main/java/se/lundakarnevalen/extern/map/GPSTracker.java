@@ -59,12 +59,6 @@ public class GPSTracker extends Service implements LocationListener, GpsStatus.L
     double latitude;
     double longitude;
 
-    // The minimum distance to change Updates in meters
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 5; // 2 meters
-
-    // The minimum time between updates in milliseconds
-    private static final long MIN_TIME_BW_UPDATES = 600000; // 60 sec
-
     public GPSTracker(Context context) {
         this.mContext = context;
         this.mLocationManager = (LocationManager) mContext.getSystemService(LOCATION_SERVICE);

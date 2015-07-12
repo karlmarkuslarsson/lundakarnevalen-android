@@ -37,11 +37,8 @@ import se.lundakarnevalen.extern.fragments.OtherFragment;
 import se.lundakarnevalen.extern.fragments.SchemeFragment;
 import se.lundakarnevalen.extern.fragments.TrainMapFragment;
 import se.lundakarnevalen.extern.map.GPSTracker;
-<<<<<<< HEAD:futural-extern-android/src/main/java/se/lundakarnevalen/extern/activities/ContentActivity.java
-=======
 import se.lundakarnevalen.extern.map.LocationTracker;
 import se.lundakarnevalen.extern.map.MapLoader;
->>>>>>> develop:futural-extern-android/src/main/java/se/lundakarnevalen/extern/android/ContentActivity.java
 import se.lundakarnevalen.extern.util.Logf;
 import se.lundakarnevalen.extern.widget.LKMapView;
 import se.lundakarnevalen.extern.widget.LKRightMenuArrayAdapter;
