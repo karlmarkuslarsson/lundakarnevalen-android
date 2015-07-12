@@ -30,7 +30,7 @@ public class TrainMapLoader implements Callable<Picture> {
 
     public static Future<Picture> preload(Context c) {
         if(preloaded == null){
-            preloaded = new FutureTask<Picture>(new TrainMapLoader(c));
+            preloaded = new FutureTask<>(new TrainMapLoader(c));
             new AsyncTask<Void,Void,Void>(){
                 @Override
                 protected Void doInBackground(Void... params) {
