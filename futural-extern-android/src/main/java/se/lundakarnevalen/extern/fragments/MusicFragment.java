@@ -29,9 +29,7 @@ public class MusicFragment extends LKFragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_music, container, false);
-       // TODO CHECK INTERNET CONNECTION....
 
         initializeUIElements(rootView);
         initializeMediaPlayer();
@@ -48,15 +46,10 @@ public class MusicFragment extends LKFragment implements View.OnClickListener {
         playSeekBar.setMax(100);
         playSeekBar.setVisibility(View.INVISIBLE);
 
-        buttonPlay = (View) rootView.findViewById(R.id.button);
+        buttonPlay = rootView.findViewById(R.id.button);
         buttonPlay.setOnClickListener(this);
 
 
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
     }
 
     public void onClick(View v) {
@@ -141,14 +134,9 @@ public class MusicFragment extends LKFragment implements View.OnClickListener {
 
         try {
             player.setDataSource("http://webradio.af.lu.se:8000/;stream/1");
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        } catch (IllegalStateException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (IllegalArgumentException | IllegalStateException | IOException e) {
             e.printStackTrace();
         }
-
 
 
     }
@@ -158,7 +146,4 @@ public class MusicFragment extends LKFragment implements View.OnClickListener {
         stopPlaying();
         super.onDestroyView();
     }
-
-
-
 }
