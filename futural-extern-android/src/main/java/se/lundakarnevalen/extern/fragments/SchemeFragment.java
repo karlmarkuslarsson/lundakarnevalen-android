@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 
-import se.lundakarnevalen.extern.android.ContentActivity;
+import se.lundakarnevalen.extern.activities.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.scheme.Event;
 import se.lundakarnevalen.extern.scheme.Events;

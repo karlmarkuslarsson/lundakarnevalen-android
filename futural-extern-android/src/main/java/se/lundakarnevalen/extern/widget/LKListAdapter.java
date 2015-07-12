@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import se.lundakarnevalen.extern.android.ContentActivity;
+import se.lundakarnevalen.extern.activities.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.data.DataElement;
 import se.lundakarnevalen.extern.data.DataType;

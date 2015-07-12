@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
-import se.lundakarnevalen.extern.android.ContentActivity;
+import se.lundakarnevalen.extern.activities.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 
 public class MusicFragment extends LKFragment implements View.OnClickListener {

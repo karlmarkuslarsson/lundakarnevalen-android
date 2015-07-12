@@ -6,7 +6,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
-import se.lundakarnevalen.extern.android.ContentActivity;
+import se.lundakarnevalen.extern.activities.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 
 public class ServiceSound extends Service {

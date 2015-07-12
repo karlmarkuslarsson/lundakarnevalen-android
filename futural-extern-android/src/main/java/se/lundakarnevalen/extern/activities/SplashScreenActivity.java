@@ -1,4 +1,4 @@
-package se.lundakarnevalen.extern.android;
+package se.lundakarnevalen.extern.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,6 +13,7 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 
+import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.map.MapLoader;
 import se.lundakarnevalen.extern.map.TrainMapLoader;
 

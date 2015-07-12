@@ -1,4 +1,4 @@
-package se.lundakarnevalen.extern.android;
+package se.lundakarnevalen.extern.activities;
 
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -29,6 +29,7 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
 import java.util.Collection;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.data.DataType;
 import se.lundakarnevalen.extern.fragments.FoodFragment;
 import se.lundakarnevalen.extern.fragments.FunFragment;
@@ -45,8 +46,8 @@ import static se.lundakarnevalen.extern.util.ViewUtil.get;
 
 public class ContentActivity extends AppCompatActivity {
     public static final String LOG_TAG = ContentActivity.class.getSimpleName();
-    public ListView mRightMenuList;
-    public MapFragment mMapFragment;
+    private ListView mRightMenuList;
+    private MapFragment mMapFragment;
 
     private FragmentManager mFragmentMgr;
     private BottomMenuClickListener mBottomMenuListener;
@@ -84,7 +85,6 @@ public class ContentActivity extends AppCompatActivity {
         }, 300);
 
         // TODO modify design
-        // createCustomDialog();
     }
 
     private void setupDrawerLayout() {
@@ -120,9 +120,6 @@ public class ContentActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        //Log.d(LOG_TAG, "onDestroy()!?  Cleaning allocated resources: MapFragment, TrainMapFragment, LKMapView");
-        //MapLoader.clean();
-        //TrainMapLoader.clean();
         LKMapView.clean();
         System.gc();
         super.onDestroy();
@@ -144,15 +141,6 @@ public class ContentActivity extends AppCompatActivity {
         }
         System.gc();
         super.onLowMemory();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        return super.onOptionsItemSelected(item);
     }
 
     private void setupTint() {
@@ -245,7 +233,6 @@ public class ContentActivity extends AppCompatActivity {
         mRightMenuList.setAdapter(adapter);
         mRightMenuList.setOnItemClickListener(adapter);
         mRightMenuList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        //mRightMenuList.setItemsCanFocus(false);
     }
 
     public void allBottomsUnfocus() {
