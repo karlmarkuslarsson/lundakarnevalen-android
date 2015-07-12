@@ -9,6 +9,8 @@ import android.support.v4.app.Fragment;
 import android.util.TypedValue;
 import android.view.View;
 
+import java.lang.reflect.Field;
+
 import se.lundakarnevalen.extern.util.Logf;
 
 public class LKFragment extends Fragment {
@@ -45,6 +47,19 @@ public class LKFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         if(DEBUG_LIFECYCLE)Logf.d(this, "onDetach(): Free mem: %d MB", getMemUsage());
+
+            try {
+                Field childFragmentManager = Fragment.class.getDeclaredField("mChildFragmentManager");
+                childFragmentManager.setAccessible(true);
+                childFragmentManager.set(this, null);
+
+            } catch (NoSuchFieldException e) {
+                throw new RuntimeException(e);
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+
+
     }
 
     @Override

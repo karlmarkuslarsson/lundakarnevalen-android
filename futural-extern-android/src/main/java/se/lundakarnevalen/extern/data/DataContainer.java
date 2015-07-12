@@ -1,6 +1,7 @@
 package se.lundakarnevalen.extern.data;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import se.lundakarnevalen.extern.android.R;
@@ -8,8 +9,12 @@ import se.lundakarnevalen.extern.android.R;
 
 public class DataContainer {
 
+    private static List<DataElement> data = new ArrayList<>();
     public static List<DataElement> getAllData() {
-        List<DataElement> data = new ArrayList<>();
+        if (!data.isEmpty()) {
+            return data;
+        }
+
         data.add(new DataElement(
                 R.string.barneval_place,
                 R.string.barneval_title,
@@ -182,7 +187,6 @@ public class DataContainer {
         menuPrice = new ArrayList<>();
         menu.add(R.string.thyme_food1);
         menu.add(R.string.thyme_food2);
-        //   menu.add("");
         menuPrice.add("70");
         menuPrice.add("70");
 
@@ -200,13 +204,6 @@ public class DataContainer {
                 DataType.FOOD,
                 menu, menuPrice));
 
-        /*
-        data.add(new DataElement(
-                R.string.atm_title,
-                R.drawable.atm_logo,
-                R.drawable.atm_logo,
-                DataType.ATM));
-        */
 
         data.add(new DataElement(R.string.biljetteriet_place,R.string.biljetteriet,R.string.biljetteriet_info,R.string.biljetteriet_question, 55.70502736279169f, 13.19517650439325f, R.drawable.header_biljetteriet,R.drawable.map_biljetteriet_icon,R.drawable.biljetteriet_logo_list, DataType.BILJETTERIET));
 
@@ -319,6 +316,7 @@ public class DataContainer {
         data.add(new DataElement(R.string.utvecklarna_place,R.string.utvecklarna,R.string.utvecklarna_text,R.string.utvecklarna_question, 55.707371322f, 13.1910161648f, 0,R.drawable.map_info,R.drawable.biljetteriet_logo_list, DataType.DEVELOPER));
 
 
+        data = Collections.unmodifiableList(data);
 
         return data;
     }

@@ -144,25 +144,8 @@ public class ContentActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    /*
-    @Override
-    public void onLowMemory() {
-        if (mBottomMenuListener.selected != null) {
-            Fragment visibleFragment = Fragment.class.cast(mBottomMenuListener.selected.getTag(R.id.bottom_menu_tag_fragment));
-            if (visibleFragment instanceof MapFragment) {
-                LKTrainView.clean();
-            } else if (visibleFragment instanceof TrainMapFragment) {
-                Log.w(LOG_TAG, "onLowMemory() called: TrainMap showing thus cleaning LKMapIcons");
-                LKMapView.clean();
-            } else {
-                Log.w(LOG_TAG, "onLowMemory() called: No map showing thus cleaning train LKMapIcons");
-                LKMapView.clean();
-            }
-        }
-        System.gc();
-        super.onLowMemory();
-    }
-    */
+
+
 
     private void setupTint() {
         SystemBarTintManager tintManager = new SystemBarTintManager(this);
