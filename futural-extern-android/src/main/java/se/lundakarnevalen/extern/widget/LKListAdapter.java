@@ -21,6 +21,8 @@ import se.lundakarnevalen.extern.fragments.LandingPageFragment;
 import se.lundakarnevalen.extern.fragments.MelodyFragment;
 import se.lundakarnevalen.extern.fragments.MusicFragment;
 import se.lundakarnevalen.extern.fragments.ParkingFragment;
+import se.lundakarnevalen.extern.fragments.SongGroupsFragment;
+import se.lundakarnevalen.extern.fragments.SongsPagerFragment;
 
 
 /**
@@ -81,9 +83,14 @@ public class LKListAdapter extends ArrayAdapter<LKListRow> {
             if (Build.VERSION.SDK_INT >= 11) {
                 view.setAlpha(0.5f);
             }
+
             ContentActivity contentActivity = ContentActivity.class.cast(activity);
             List<DataType> types;
+
             switch (element.type) {
+                case SONG_BOOK:
+                    contentActivity.loadFragmentAddingBS(new SongGroupsFragment());
+                    break;
                 case PLAYER_RADIO:
                     contentActivity.loadFragmentAddingBS(new MusicFragment());
                     break;

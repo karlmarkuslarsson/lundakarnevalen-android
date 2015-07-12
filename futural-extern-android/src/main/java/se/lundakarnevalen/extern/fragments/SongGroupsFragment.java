@@ -1,5 +1,7 @@
-package fragments;
+package se.lundakarnevalen.extern.fragments;
 
+import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -13,24 +15,24 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
+import se.lundakarnevalen.extern.activities.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
-import se.lundakarnevalen.extern.fragments.LKFragment;
-import se.lundakarnevalen.extern.fragments.SongsPagerFragment;
 
 public class SongGroupsFragment extends LKFragment {
-	
-	public static SongGroupsFragment newInstance(){
-		return new SongGroupsFragment();
-	}
-	
-	private ViewGroup mLayout;
-	
-	@Override
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        ContentActivity.class.cast(activity).allBottomsUnfocus();
+        ContentActivity.class.cast(activity).setTitle(R.string.lundakarnevalen_actionbar);
+    }
+
+    @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		ViewGroup root = (ViewGroup) inflater.inflate(R.layout.sangbok_groups_layout, container, false);
 		List<SongGroup> groups = new ArrayList<SongGroupsFragment.SongGroup>();
-		
-		mLayout = get(R.id.sangbok_groups_layout, root, ViewGroup.class);
+
+        ViewGroup mLayout = get(R.id.sangbok_groups_layout, root, ViewGroup.class);
 		
 		makeGroup(groups, "KARNEVALSMELODIN", R.drawable.songs_karnmel_box, R.drawable.songs_karnmel_shadow, R.array.sangbok_songs_group_karnmel);
 		makeGroup(groups, "ALKOHOLFRIA VISOR", R.drawable.songs_noacl_box, R.drawable.songs_noacl_shadow, R.array.sangbok_songs_group_noacl);
@@ -40,7 +42,7 @@ public class SongGroupsFragment extends LKFragment {
 		makeGroup(groups, "ÖLVISOR", R.drawable.songs_ol_box, R.drawable.songs_ol_shadow, R.array.sangbok_songs_group_ol);
 		makeGroup(groups, "ÖVRIGA VISOR", R.drawable.songs_other_box, R.drawable.songs_other_shadow, R.array.sangbok_songs_group_other);
 		
-		for(final SongGroup sg: groups){
+		for(final SongGroup sg: groups) {
 			createHeader(inflater, mLayout, sg);
 			for (int i = 0; i < sg.songs.length; i++) {
 				final int songIdx = i;
@@ -79,13 +81,10 @@ public class SongGroupsFragment extends LKFragment {
 	}
 
 	private void openSongGroup(SongGroup sg, int selected) {
-		SongsPagerFragment.newInstance(sg.songArrayId, sg.imageBox, sg.name, selected);
-		
-	}
-	
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
+        SongsPagerFragment newInstance = SongsPagerFragment.newInstance(sg.songArrayId, sg.imageBox, sg.name, selected);
+        ContentActivity contentActivity = ContentActivity.class.cast(getActivity());
+        contentActivity.loadFragmentAddingBS(newInstance);
+        contentActivity.setTitle(sg.name);
 	}
 	
 	private static class SongGroup {
@@ -95,7 +94,6 @@ public class SongGroupsFragment extends LKFragment {
 		int songArrayId;
 		String[] songs;
 		int[] songNumbers;
-		
 	}
 
 
@@ -104,7 +102,11 @@ public class SongGroupsFragment extends LKFragment {
 		get(R.id.sangbok_groups_inflated_groupitem_text, t, TextView.class).setOnClickListener(l);
 		get(R.id.sangbok_groups_inflated_groupitem_text, t, TextView.class).setText(Html.fromHtml(sg.songs[i]));
 		get(R.id.sangbok_groups_inflated_groupitem_nbr, t, TextView.class).setText(String.valueOf(sg.songNumbers[i]));
-		layout.addView(t);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            get(R.id.sangbok_groups_inflated_groupitem_nbr, t, TextView.class).setZ(10.0f);
+
+        layout.addView(t);
 	}
 
 	private void createHeader(LayoutInflater inflater, ViewGroup layout, SongGroup sg) {

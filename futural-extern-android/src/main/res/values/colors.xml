@@ -39,9 +39,15 @@
     <color name="blue_background">#484C64</color>
 
     <color name="dark_peach">#F66557</color>
-    <color name="bg_sangbok">#f6ead4</color>
+
+
+    <color name="song_bg">#f6ead4</color>
+
     <color name="song_button_white_press">#F7EAD4</color>
     <color name="song_button_white">#FFFFFF</color>
     <color name="song_button_white_shadow">#33000000</color>
+
+    <color name="song_button_yellow">#f5d408</color>
+    <color name="song_button_yellow_dark">#dcbe07</color>
 
 </resources>
