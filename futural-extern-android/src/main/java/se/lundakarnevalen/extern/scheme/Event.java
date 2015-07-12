@@ -2,9 +2,6 @@ package se.lundakarnevalen.extern.scheme;
 
 import java.util.Date;
 
-/**
- * Created by Markus on 2014-04-21.
- */
 public class Event {
     public String place;
     public String title;
@@ -21,6 +18,4 @@ public class Event {
         this.startDate = startDate;
         this.id = id;
     }
-
-
 }

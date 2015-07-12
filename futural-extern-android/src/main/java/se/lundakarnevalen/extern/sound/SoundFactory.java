@@ -7,25 +7,17 @@ import android.util.SparseArray;
 
 public class SoundFactory implements OnAudioFocusChangeListener {
 
-	private SparseArray<SoundLong> sparseArrayMediaPlayers;
+	private SparseArray<LongSound> sparseArrayMediaPlayers;
 	private Context context;
-	private static SoundShort shortMedia;
-	private boolean wakeLock;
 	
 	public SoundFactory(Context context) {
 		this.context = context;
 
-		sparseArrayMediaPlayers = new SparseArray<SoundLong>();
-		shortMedia = new SoundShort(context);
+		sparseArrayMediaPlayers = new SparseArray<>();
 	}
-	
-	/**
-	 * Resume a song from a specific resourceID
-	 * @param resourceID
-	 * @return true if successful, false if that resourceID wasn't found
-	 */
+
 	public boolean resume(int resourceID) {
-		SoundLong media = sparseArrayMediaPlayers.get(resourceID);
+		LongSound media = sparseArrayMediaPlayers.get(resourceID);
 		
 		if(media == null) {
 			return false;
@@ -34,14 +26,9 @@ public class SoundFactory implements OnAudioFocusChangeListener {
 		media.resume();
 		return true;
 	}
-	
-	/**
-	 * Pause a song from a specific resourceID
-	 * @param resourceID
-	 * @return true if successful, false if that resourceID wasn't found
-	 */
+
 	public boolean pause(int resourceID) {
-		SoundLong media = sparseArrayMediaPlayers.get(resourceID);
+		LongSound media = sparseArrayMediaPlayers.get(resourceID);
 		
 		if(media == null) {
 			return false;
@@ -50,14 +37,9 @@ public class SoundFactory implements OnAudioFocusChangeListener {
 		media.pause();
 		return true;
 	}
-	
-	/**
-	 * Start a song from a specific resourceID
-	 * @param resourceID
-	 * @return true if successful, false if that resourceID wasn't found
-	 */
+
 	public boolean start(int resourceID) {
-		SoundLong media = sparseArrayMediaPlayers.get(resourceID);
+		LongSound media = sparseArrayMediaPlayers.get(resourceID);
 		
 		if(media == null) {
 			return false;
@@ -67,32 +49,10 @@ public class SoundFactory implements OnAudioFocusChangeListener {
 		return true;
 	}
 	
-	public void createLongMediaAndStart(int resourceID, boolean looping, boolean aquireWakelock) {
-		createLongMedia(resourceID, looping, aquireWakelock);
-		start(resourceID);
-	}
-	
-	public void createLongMedia(int resourceID, boolean looping, boolean aquireWakelock) {
-		SoundLong media = new SoundLong(context, resourceID, looping, aquireWakelock);
+	public void createLongMedia(int resourceID, boolean looping) {
+		LongSound media = new LongSound(context, resourceID, looping);
 		sparseArrayMediaPlayers.put(resourceID, media);
 	}
-	
-	public static void playShortMedia(int resourceID) {
-		shortMedia.play(resourceID);
-	}
-	
-	public boolean setLooping(int resourceID, boolean looping) {
-		SoundLong media = sparseArrayMediaPlayers.get(resourceID);
-		
-		if(media == null) {
-			return false;
-		}
-		
-		media.setLooping(looping);
-		return true;
-	}
-	
-//	External Interupts
 	
 	@Override
 	public void onAudioFocusChange(int focusChange) {
@@ -118,9 +78,7 @@ public class SoundFactory implements OnAudioFocusChangeListener {
         		break;
 		}
 	}
-	
-//	Handle interrupt Events
-	
+
 	private void gainedFocus() {
 		for(int i = 0; i < sparseArrayMediaPlayers.size(); i++) {
 			sparseArrayMediaPlayers.valueAt(i).gainedFocus();
@@ -142,20 +100,6 @@ public class SoundFactory implements OnAudioFocusChangeListener {
 	private void lostFocusDuck() {
 		for(int i = 0; i < sparseArrayMediaPlayers.size(); i++) {
 			sparseArrayMediaPlayers.valueAt(i).lostFocusDuck();
-		}
-	}
-
-//	Handle music play and pauses
-	
-	public void pauseAll() {
-		for(int i = 0; i < sparseArrayMediaPlayers.size(); i++) {
-			sparseArrayMediaPlayers.valueAt(i).pause();
-		}
-	}
-
-	public void resumeAll() {
-		for(int i = 0; i < sparseArrayMediaPlayers.size(); i++) {
-			sparseArrayMediaPlayers.valueAt(i).resume();
 		}
 	}
 

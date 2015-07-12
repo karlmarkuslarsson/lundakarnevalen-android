@@ -8,9 +8,6 @@ import java.util.Date;
 
 import se.lundakarnevalen.extern.android.R;
 
-/**
- * Created by Markus on 2014-04-21.
- */
 public class Events {
 
     public static void getFridayEvents(ArrayList<Event> events, Context context) {

@@ -24,11 +24,11 @@ import android.widget.TextView;
 
 import se.lundakarnevalen.extern.activities.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
-import se.lundakarnevalen.extern.sound.MySoundFactory;
+import se.lundakarnevalen.extern.sound.SoundFactory;
 
 @SuppressLint("DefaultLocale")
 public class MelodyFragment extends LKFragment {
-    private static MySoundFactory factory;
+    private static SoundFactory factory;
     private static ImageView play;
     private static ImageView rewind;
     private static boolean playing;
@@ -204,7 +204,7 @@ public class MelodyFragment extends LKFragment {
 
     public void startLyrics() {
 
-        factory = new MySoundFactory(getContext());
+        factory = new SoundFactory(getContext());
         factory.createLongMedia(songID, false);
 
         text = 0;

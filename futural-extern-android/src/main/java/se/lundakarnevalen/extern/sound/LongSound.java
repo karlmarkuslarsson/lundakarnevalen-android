@@ -2,31 +2,22 @@ package se.lundakarnevalen.extern.sound;
 
 import android.content.Context;
 import android.media.MediaPlayer;
-import android.media.MediaPlayer.OnErrorListener;
-import android.media.MediaPlayer.OnPreparedListener;
-import android.os.PowerManager;
 import android.util.Log;
 
-public class SoundLong {
+public class LongSound {
 
-	private static final String TAG = SoundLong.class.getSimpleName();
+	private static final String TAG = LongSound.class.getSimpleName();
 	
 	private MediaPlayer mediaPlayer;
 	private int resourceId;
 	private Context context;
-	private boolean looping;
-	private boolean wakelock;
+	private Boolean looping;
 	private boolean started;
-	private boolean prepared;
 	
-	protected SoundLong(Context context, int resourceId, boolean looping, boolean wakelock) {
+	protected LongSound(Context context, int resourceId, boolean looping) {
 		this.resourceId = resourceId;
 		this.context = context;
 		this.looping = looping;
-		this.wakelock = wakelock;
-		
-		prepared = false;
-		started = false;
 		
 		initMediaPlayer();
 	}
@@ -107,43 +98,13 @@ public class SoundLong {
         	setVolume(0.1f, 0.1f);
         }
 	}
-	
-//	Private Methods
-	
+
 	private void setVolume(float low, float high) {
         mediaPlayer.setVolume(1.0f, 1.0f);
 	}
 
 	private void initMediaPlayer() {
 		mediaPlayer = MediaPlayer.create(context, resourceId);
-		
-		if(wakelock) {
-			mediaPlayer.setWakeMode(context, PowerManager.PARTIAL_WAKE_LOCK);	
-		}
-		
-		mediaPlayer.setOnPreparedListener(new ReadyListener());
-		mediaPlayer.setOnErrorListener(new ErrorListener());
-		mediaPlayer.prepareAsync();
 		mediaPlayer.setLooping(looping);
-	}
-	
-	private class ErrorListener implements OnErrorListener {
-
-		@Override
-		public boolean onError(MediaPlayer mp, int what, int extra) {
-//			TODO Decide what to do on errors.
-			return false;
-		}
-	}
-	
-	private class ReadyListener implements OnPreparedListener {
-
-		@Override
-		public void onPrepared(MediaPlayer mp) {
-			if(started) {
-				mp.start();
-			}
-			mediaPlayer = mp;
-		}
 	}
 }
