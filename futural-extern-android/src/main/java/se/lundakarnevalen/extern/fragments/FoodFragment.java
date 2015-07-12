@@ -18,15 +18,11 @@ import se.lundakarnevalen.extern.data.DataType;
 import se.lundakarnevalen.extern.widget.LKListAdapter;
 import se.lundakarnevalen.extern.widget.LKListRow;
 
-/**
- * Created by Markus on 2014-04-16.
- */
 public class FoodFragment extends LKFragment {
     private final int ID = 1;
 
-    private List<DataElement> food = new ArrayList<DataElement>();
+    private List<DataElement> food = new ArrayList<>();
 
-    // Every time you switch to this fragment.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ContentActivity activity = ContentActivity.class.cast(getActivity());
@@ -34,34 +30,12 @@ public class FoodFragment extends LKFragment {
         View root = inflater.inflate(R.layout.fragment_food, container, false);
         ListView lv = (ListView) root.findViewById(R.id.fragment_food_list);
         activity.focusBottomItem(ID);
-
-
-
-
-
-
         if (food.isEmpty()) {
             food.addAll(DataContainer.getDataOfType(DataType.FOOD));
             food.addAll(DataMultiContainer.getAllFoodMultiData());
         }
-/*
-        lv.setAdapter(new SimpleAdapter(getContext(),
-                new ArrayList<Map<String, String>>(){{
-                   for(final Food f: food) {
-                       add(new HashMap<String, String>() {{
-                           put("title",f.title);
-                           put("plats", f.place);
-                       }});
 
-                   }
-                }}, R.layout.element_listitem,
-                new String[]{ "title", "plats" },
-                new int[]{ android.R.id.text1, android.R.id.text2 }
-        ));
-  */
-
-        ArrayList<LKListRow> items = new ArrayList<LKListRow>();
-
+        ArrayList<LKListRow> items = new ArrayList<>();
         for(int i = 0;i< food.size();i=i+2){
             if(i+1<food.size()) {
                 items.add(new LKListRow(food.get(i),food.get(i+1)));
@@ -71,15 +45,6 @@ public class FoodFragment extends LKFragment {
 
         }
         lv.setAdapter(new LKListAdapter(getContext(), items,getActivity()));
-
-
         return root;
     }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
-
 }
