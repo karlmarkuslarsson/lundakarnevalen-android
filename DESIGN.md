@@ -1,6 +1,6 @@
-Struktur - Externappen
-Strukturkarta
-Nöjen
+# Struktur - Externappen
+## Strukturkarta
+### Nöjen
     Show          -> Landningssida    -> (Karta)
     Spex          -> Landningssida    -> (Karta)
     Stora Scen    -> Landningssida    -> (Karta)
@@ -12,29 +12,29 @@ Nöjen
     Filmen        -> Landningssida    -> (Karta)
     Dansen        -> Landningssida    -> (Karta)
 
-Mat 
-  Krog1           ->Landningssida    ->(Karta)
-  Krog2           ->Landningssida    ->(Karta)
-  Krog3           ->Landningssida    ->(Karta)
-  Krog4           ->Landningssida    ->(Karta)
-  Krog5           ->Landningssida    ->(Karta)
-  Snaxeriet       ->Landningssida    ->(Karta)
+### Mat
+    Krog1           -> Landningssida    -> (Karta)
+    Krog2           -> Landningssida    ->(Karta)
+    Krog3           -> Landningssida    ->(Karta)
+    Krog4           -> Landningssida    ->(Karta)
+    Krog5           -> Landningssida    ->(Karta)
+    Snaxeriet       -> Landningssida    ->(Karta)
 
     
 
-Karta
+### Karta
     Karta(Filter)
 
-Schema
+### Schema
     Stora Scenen        -> Landningssida    ->(Karta)
     Lilla Scenen        -> Landningssida    ->(Karta)
     Öppning av Parken    
     Stängning av Parken
     Invigning
-    Tåget               ->Landningssida    ->(GoogleKarta)
+    Tåget               -> Landningssida    ->(GoogleKarta)
     
 
-Övrigt
+### Övrigt
     Bankomater              ->    Karta
     Toaletter               ->    Karta
     Kaffe                   ->    Karta
@@ -44,14 +44,13 @@ Schema
     Parkering               ->     Karta
     Tåget                   ->     Tåget (Google Karta)
 
-Vyer
+#Vyer
 
 De olika vyerna som vi kommer använda oss utav
-
-List-vy
-Landningssida
-Karta
-Schema-vy
-Övrigt-vy
-(Google maps)
-(Radiospelare)
+ * List-vy
+ * Landningssida
+ * Karta
+ * Schema-vy
+ * Övrigt-vy
+ * (Google maps)
+ * (Radiospelare)
