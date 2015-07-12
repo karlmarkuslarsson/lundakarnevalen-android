@@ -1,9 +1,9 @@
 Lundakarnevalen 2014 - Android
 ======================
 
-Den externa Andriod applikationen för Lundakarnevalen 2014!
+The external Android application for Lundakarnevalen 2014!
 
-## Play Store Listing
+## Google Play listing
 The application was published on [Google Play Store](https://play.google.com/store/apps/details?id=se.lundakarnevalen.extern.android)
 
 ## Screenshots
@@ -15,3 +15,5 @@ Screenshots from Google Play
 ## Contibutions
 The application was written during 1-2 weeks during Q2 2014. Filip Lindqvist (tkhduracell), Markus Larsson (karlmarkuslarsson) and some parts by Fredrik Persson.
 
+## Design documents
+[See more](DESIGN.md)
