@@ -38,6 +38,8 @@ public class OtherFragment extends LKFragment{
 
         if (other.isEmpty()) {
             other.addAll(DataMultiContainer.getAllOtherMultiData());
+            other.addAll(DataContainer.getDataOfType(DataType.BILJETTERIET));
+
         }
 
         ArrayList<LKListRow> items = new ArrayList<LKListRow>();
