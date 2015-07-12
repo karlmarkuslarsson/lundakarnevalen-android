@@ -12,6 +12,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -46,7 +48,7 @@ import se.lundakarnevalen.extern.widget.LKRightMenuArrayAdapter;
 
 import static se.lundakarnevalen.extern.util.ViewUtil.get;
 
-public class ContentActivity extends ActionBarActivity {
+public class ContentActivity extends AppCompatActivity {
     public static final String LOG_TAG = ContentActivity.class.getSimpleName();
     public ListView mRightMenuList;
     public MapFragment mMapFragment;
@@ -105,26 +107,6 @@ public class ContentActivity extends ActionBarActivity {
 
     public void lockFilterDrawer(boolean lock){
         mDrawerLayout.setDrawerLockMode(lock ? DrawerLayout.LOCK_MODE_LOCKED_CLOSED : DrawerLayout.LOCK_MODE_UNLOCKED, Gravity.RIGHT);
-    }
-
-    private void createCustomDialog() {
-        final Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.welcome_dialog);
-        dialog.setTitle("WELCOME");
-        // set the custom dialog components - text, image and button
-        TextView text = (TextView) dialog.findViewById(R.id.text);
-        text.setText("Android custom dialog example!");
-
-        Button dialogButton = (Button) dialog.findViewById(R.id.okButton);
-        // if button is clicked, close the custom dialog
-        dialogButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-        dialog.show();
     }
 
     @Override
@@ -188,13 +170,16 @@ public class ContentActivity extends ActionBarActivity {
 
     private ActionBar setupActionbar() {
         ActionBar actionBar = getSupportActionBar();
+
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View view = mActionBarView = inflater.inflate(R.layout.action_bar_layout, null);
-        actionBar.setCustomView(view);
+        ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT,
+                ActionBar.LayoutParams.MATCH_PARENT);
+        View view = mActionBarView = getLayoutInflater().inflate(R.layout.action_bar_layout, null);
+        actionBar.setCustomView(view, layoutParams);
+        Toolbar parent = (Toolbar) view.getParent();
+        parent.setContentInsetsAbsolute(0, 0);
         return actionBar;
     }
 

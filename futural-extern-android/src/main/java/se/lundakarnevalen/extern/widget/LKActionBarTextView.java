@@ -5,28 +5,26 @@ import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-/**
- * Custom textview with custom font. 
- *
- */
 public class LKActionBarTextView extends TextView {
 
     public LKActionBarTextView(Context context) {
         super(context);
+        init();
     }
 
     public LKActionBarTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init();
     }
 
     public LKActionBarTextView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        init();
     }
 
-    @Override
-    public void setTypeface(Typeface tf, int style) {
+    public void init() {
         if(isInEditMode()) return;
-        super.setTypeface(Typeface.createFromAsset(super.getContext().getAssets(), "fonts/Robot!Head.ttf"));
+        setTypeface(Typeface.createFromAsset(getContext().getAssets(), "fonts/karneval_font.ttf"));
 
 
     }
