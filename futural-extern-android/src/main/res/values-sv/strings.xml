@@ -113,6 +113,8 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     välkända Sudio 54.\n\nServerar: Öl, vin och cider.
     </string>
 
+    <string name="open">ÖPPET</string>
+    <string name="closed">STÄNGT</string>
     <string name="card">KORT</string>
     <string name="cash">CASH</string>
     <string name="to_map">TILL KARTAN</string>
@@ -142,14 +144,20 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="krog_lajka_question">VAD ÄR KROG LAJKA?</string>
 
 
+    <string name="cocktail_question">VAD FINNS PÅ COCKTAILBAREN?</string>
     <string name="cocktail_place">FOODSTOCK</string>
     <string name="cocktail_title">PSYKA-DELI</string>
+    <string name="cocktail_info">Drinkar: (drinkmeny om ca 10 st max), karnevöl, karnevale, cider, läsk och vin.\n\nMat: Ej mat\n\nBetalning: kort och kontant. DOCK, cash is king!</string>
 
+    <string name="hipp_baren_question">VAD FINNS PÅ HIPP I BAREN?</string>
     <string name="hipp_baren_place">FOODSTOCK</string>
     <string name="hipp_baren_title">HIPP I BAREN</string>
+    <string name="hipp_baren_info">Drinkar: karnevöl, cider, läsk och eventuellt vin.\n\nMat: Ej mat\n\nBetalning: kort och kontant. DOCK, cash is king!</string>
 
+    <string name="folkan_question">VAD FINNS PÅ FOLKAN?</string>
     <string name="folkan_place">FOODSTOCK</string>
     <string name="folkan_title">FOLKAN</string>
+    <string name="folkan_info">Drinkar: karnevöl, cider, läsk och eventuellt vin.\n\nMat: Ej mat\n\nBetalning: kort och kontant. DOCK, cash is king!</string>
 
     <string name="sousou">CISSOKO</string>
     <string name="bo_kasper">BO KASPERS</string>
@@ -168,16 +176,19 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="sandra">SANDRA MOSH</string>
     <string name="partiet">PARTIET</string>
 
+    <string name="play">SPELA</string>
+    <string name="stop">STOPPA</string>
     <string name="krog_undervatten_place">FRAMFÖR AF-BORGEN</string>
     <string name="krog_undervatten_title">KROG UNDERVATTEN</string>
     <string name="krog_undervatten_question">VAD ÄR UNDERVATTEN?</string>
     <string name="lundakarnevalen_actionbar">LUNDAKARNEVALEN</string>
     <string name="radio_title">RADION</string>
     <string name="security_title">SÄKERHET</string>
+    <string name="atm_title">BANKOMATER</string>
     <string name="parking_title">PARKERING</string>
     <string name="care_title">SJUKVÅRD</string>
     <string name="toilets_title">TOALETTER</string>
-    <string name="no_internet">Kontroller din internetanslutning!</string>
+    <string name="no_internet">Kontrollera din internetanslutning!</string>
     <string name="dansen_place">AF BORGEN</string>
     <string name="dansen_title">DANSEN</string>
     <string name="dansen_info" ><![CDATA[En vis person sa en gång ”Varför gå genom livet när du kan dansa?”.
@@ -232,6 +243,7 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
         23.30-04 Kevin Ohlsson]]>
     </string>
     <string name="dansen_question">VAD ÄR DANSEN?</string>
+    <string name="emil_och_david">EMIL OCH DAVID</string>
     <string name="krog_thyme_title">KROG THYME TRAVEL</string>
     <string name="krog_thyme_question">VAD ÄR KROG TYHME TRAVEL?</string>
     <string name="menu_food">MENY</string>
@@ -273,6 +285,7 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     </string>
     <string name="snaxeriet">SNAXERIET</string>
     <string name="snaxeriet_info">Letar du efter framtidens snacks? Du har kommit helt rätt!</string>
+    <string name="heart">\u2764</string>
 <string name="ipsum">
         Bacon ipsum dolor sit amet cow corned beef pig, biltong swine tri-tip short loin turducken strip steak meatball rump. T-bone doner salami ball tip swine leberkas ground round chuck. Short ribs pork drumstick landjaeger salami venison capicola shank filet mignon boudin. \n\n Jowl venison turducken corned beef short ribs chicken flank hamburger. Shoulder salami strip steak chuck. Pancetta rump kevin leberkas capicola salami kielbasa venison porchetta fatback turkey ham hock sirloin hamburger. Pork chop ground round capicola biltong landjaeger andouille.
         Tenderloin ham hock brisket chicken andouille capicola, cow beef ribs sausage. Flank drumstick ham prosciutto, filet mignon chuck tail landjaeger chicken cow shankle. Sausage brisket pork chop, ham turducken chicken meatloaf filet mignon doner. \n\n Chicken leberkas frankfurter shank, jowl ground round spare ribs tri-tip andouille bresaola pastrami brisket ribeye prosciutto. Ground round cow tri-tip doner porchetta ham swine. Frankfurter ribeye shank leberkas, sirloin turducken swine jerky sausage pork loin biltong spare ribs bacon ground round meatloaf.
@@ -381,7 +394,7 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="love">FIRST LOVE</string>
     <string name="taltnojen_place" />
     <string name="musik_place" />
-    <string name="snaxeriet_question"/>
+    <string name="snaxeriet_question"></string>
     <string name="foodo_info" />
 
 
@@ -466,7 +479,7 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="futuautomat">FUTUAUTOMAT</string>
     <string name="tidsmaskin">TIDSMASKIN</string>
     <string name="music_title">MUSIK</string>
-    <string name="nangilima_place"/>
+    <string name="nangilima_place"></string>
     <string name="nangilima_title">FOODSTOCK</string>
     <string name="nangilima_question">VAD ÄR FOODSTOCK?</string>
     <string name="nangilima_info">Lundakarnevalen framtidssatsar och lanserar det helt nya området Foodstock. Vi öppnar upp en värld fylld av blommor, bin, musik, mat och nöje. På vårt nya område uppe vid Gamla Kirurgen välkomnar vi dig för ytterligare karnevalsupplevelser och förlänger känslan av karneval lite längre. Fred, kärlek och förståelse - i en tidigare oskådad symbios! Unna dig lite karnevalistiska upptåg bland våra tältnöjen eller vinn fina eller ofina priser i tombolabodarna. Vila upp dig på vår uteservering och ät av vår amerikansk-inspirerade meny eller ta dig upp till grillen och få lika god mat - fast med mer grillyta.\n\nPå scenen finns underhållning dag, kväll och natt. Under lunchtid erbjuder vi underhållning som är mer familjeanpassad, och under eftermiddag och kväll satsar vi för fullt på musik från världens alla hörn - raggae, folk, indie, hiphop och en massa annat!\n\nFramåt natten skruvar vi upp tempot för att tillsammans med några av Sveriges största inom deep- och tech-house skapa världens läckraste förfest. Vi utlovar stämning och drag som hade fått Jimi Hendrix att bli högerhänt!
@@ -484,6 +497,14 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="foodo_child_food2">Vetekornspilaff med grillade grönsaker</string>
     <string name="flour_power_food1">Klassiskt brännvinsbord</string>
     <string name="gps_toast">Du är utanför området eller har ej GPS aktiverad</string>
-    <string name="song_book">SÅNGBOK</string>
-
+    <string name="utvecklarna_place" />
+    <string name="utvecklarna">UTVECKLARNA</string>
+    <string name="to_markus">TILL MARKUS</string>
+    <string name="to_filip">TILL FILIP</string>
+    <string name="to_fredrik">TILL FREDRIK</string>
+    <string name="utvecklarna_question">VILKA ÄR UTVECKLARNA?</string>
+    <string name="utvecklarna_text">Hurra för användaren! Hurra för karnevalen! Du hittade vårt lilla gömställe!\n\nVi är Markus, Filip och Fredrik och det är vi som har skapat denna futurala app :D\n\nMan brukar säga att programmerare är en organism som omvandlar kaffe till mjukvara, men vi behöver inte kaffe eller ersättning! Vi har något större, nämligen den karnevalistiska glädjen! Resultatet av hundratals timmars kodande är inte bara en app, utan en fläskig kunskap inför framtiden. Carpe Futurum!\n\nOfficiellt är denna app släppt under en helt annan licens, men vi brukar låtsas lite i smyg att det är Beerware. Gillar du vad du ser? Vi utmanar dig att leta upp oss och dela en karnevöl!\n\nLedtråd: Markus gillar lila, Filip gillar rosa och Fredrik gillar orange.</string>
+    <string name="king_romeo">KING ROMEO</string>
+    <string name="verkligheten">VERKLIGHETENS FOLK</string>
+    <string name="left_area">har tillfälligt lämnat området…</string>
 </resources>

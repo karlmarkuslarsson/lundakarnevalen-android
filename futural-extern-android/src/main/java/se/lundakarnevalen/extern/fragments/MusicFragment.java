@@ -129,12 +129,27 @@ public class MusicFragment extends LKFragment implements View.OnClickListener {
 
             }
         });
+        player.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+            @Override
+            public boolean onError(MediaPlayer mediaPlayer, int i, int i2) {
+                Context context = getActivity().getApplicationContext();
+                CharSequence text = context.getString(R.string.no_internet);
+                int duration = Toast.LENGTH_LONG;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+                stopPlaying();
+
+                return false;
+            }
+        });
 
 
         try {
             player.setDataSource("http://webradio.af.lu.se:8000/;stream/1");
         } catch (IllegalArgumentException | IllegalStateException | IOException e) {
             e.printStackTrace();
+
         }
 
 

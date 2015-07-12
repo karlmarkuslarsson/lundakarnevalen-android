@@ -65,27 +65,5 @@ public class BitmapUtil {
         return BitmapFactory.decodeResource(res, resId, options);
     }
 
-    public static Bitmap getRoundedShape(Bitmap bitmap) {
-        final int width = bitmap.getWidth();
-        final int height = bitmap.getHeight();
-        final int borderWidth = width/15;
-
-        Bitmap canvasBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_4444);
-        BitmapShader shader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
-        Paint paint = new Paint();
-        paint.setAntiAlias(true);
-        paint.setShader(shader);
-
-        Canvas canvas = new Canvas(canvasBitmap);
-        float radius = width > height ? ((float) height) / 2f : ((float) width) / 2f;
-        canvas.drawCircle(width / 2, height / 2, radius, paint);
-        paint.setShader(null);
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setColor(Color.WHITE);
-        paint.setStrokeWidth(borderWidth);
-        canvas.drawCircle(width / 2, height / 2, radius - borderWidth / 2, paint);
-
-        return canvasBitmap;
-    }
 
 }

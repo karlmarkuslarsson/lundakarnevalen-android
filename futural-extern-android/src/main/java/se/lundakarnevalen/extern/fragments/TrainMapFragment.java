@@ -4,6 +4,7 @@ import android.graphics.Picture;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,23 +20,36 @@ import java.util.concurrent.TimeoutException;
 import se.lundakarnevalen.extern.activities.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.map.GPSTracker;
+import se.lundakarnevalen.extern.map.LocationTracker;
+import se.lundakarnevalen.extern.map.MapLoader;
 import se.lundakarnevalen.extern.map.TrainMapLoader;
 import se.lundakarnevalen.extern.util.Delay;
 import se.lundakarnevalen.extern.util.Logf;
 import se.lundakarnevalen.extern.widget.LKTrainView;
 
-public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListener {
+
+import static se.lundakarnevalen.extern.util.ViewUtil.get;
+
+
+public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListener,
+        LocationTracker.LocationJSONListener, TrainMapLoader.MapLoaderCallback {
     private static final String LOG_TAG = TrainMapFragment.class.getSimpleName();
 
     private static final String STATE_MATRIX = "matrix";
+    private static final int VIEWFLIPPER_CHILD_MAP = 1;
 
     private float[] mMatrixValues;
-    private LKTrainView mTrainView;
     private MediaPlayer mMediaPlayer;
     private float mGPSMarkerLng = -1.0f;
     private float mGPSMarkerLat = -1.0f;
     private Picture mPicture;
     private float mScale;
+
+    private LocationTracker.LocationJSONResult.LatLng mTrainPos = new LocationTracker.LocationJSONResult.LatLng();
+
+    private LKTrainView mTrainView;
+    private ViewFlipper mViewFlipper;
+    //private View mSpinnerView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,7 +67,8 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         final View root = inflater.inflate(R.layout.fragment_map_train, container, false);
-        final ViewFlipper flipper = get(root, R.id.map_switcher, ViewFlipper.class);
+        mViewFlipper = get(root, R.id.map_switcher, ViewFlipper.class);
+       // mSpinnerView = get(root, R.id.map_spinner, View.class);
         mTrainView = get(root, R.id.map_id, LKTrainView.class);
 
         Bundle bundle = getArguments();
@@ -76,9 +91,11 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
             public void run() {
                 mTrainView.setSvg(mPicture, mScale, mMatrixValues);
                 mTrainView.panTo(220f, 265f, false);
+                mViewFlipper.setDisplayedChild(VIEWFLIPPER_CHILD_MAP);
             }
         };
 
+<<<<<<< HEAD
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
@@ -97,33 +114,34 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
                     Log.wtf(LOG_TAG, "ExecutionException", e);
                 } catch (TimeoutException e) {
                     loadMap();
+=======
+        if(TrainMapLoader.hasLoadedMap()){
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Picture p = TrainMapLoader.getMapTrain();
+                    float minZoom = calculateMinZoom(mTrainView, p);
+                    mTrainView.setSvg(p, minZoom, null);
+                    clearSpinner();
+>>>>>>> develop
                 }
-                return null;
-            }
+            }, 400);
+        } else {
+            TrainMapLoader.startPreLoading(getContext());
+            new TrainMapLoader.MapSvgLoader(this).startWait(); // Wait for maps async
+        }
 
-            private void loadMap() {
-                try{
-                    Picture picture = new TrainMapLoader(inflater.getContext()).call();
-                    waitForLayout();
-                    final float scale = calculateMinZoom(mTrainView, picture);
-                    mTrainView.setSvg(picture, scale, mMatrixValues);
-                    getActivity().runOnUiThread(onSvgLoaded);
-                } catch (Exception ex){
-                    Log.wtf(LOG_TAG, "Failed to load image after timeout", ex);
-                }
-            }
+        mViewFlipper.setAnimateFirstView(true);
+        mViewFlipper.setInAnimation(AnimationUtils.loadAnimation(inflater.getContext(), R.anim.abc_fade_in));
+        mViewFlipper.setOutAnimation(AnimationUtils.loadAnimation(inflater.getContext(), R.anim.abc_fade_out));
 
+        new Handler().postDelayed(new Runnable() {
             @Override
-            protected void onPostExecute(Void aVoid) {
-                flipper.showNext();
+            public void run() {
+                mTrainView.setGpsMarker(mGPSMarkerLat, mGPSMarkerLng, false);
+                mTrainView.setTrainLocation(mTrainPos);
             }
-        }.execute();
-
-        flipper.setAnimateFirstView(true);
-        flipper.setInAnimation(AnimationUtils.loadAnimation(inflater.getContext(), R.anim.abc_fade_in));
-        flipper.setOutAnimation(AnimationUtils.loadAnimation(inflater.getContext(), R.anim.abc_fade_out));
-
-        mTrainView.setGpsMarker(mGPSMarkerLat, mGPSMarkerLng, false);
+        }, 300);
 
         return root;
     }
@@ -146,7 +164,7 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
     @Override
     public void onStop() {
         ContentActivity.class.cast(getActivity()).inactivateTrainButton();
-        ContentActivity.class.cast(getActivity()).unregisterForLocationUpdates(this);
+        ContentActivity.class.cast(getActivity()).unregisterForLocationUpdates(this, this);
         if(mMediaPlayer != null) {
             try{
                 mMediaPlayer.release();
@@ -158,7 +176,7 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
 
     @Override
     public void onStart() {
-        ContentActivity.class.cast(getActivity()).registerForLocationUpdates(this);
+        ContentActivity.class.cast(getActivity()).registerForLocationUpdates(this, this);
         ContentActivity.class.cast(getActivity()).activateMapButton();
         super.onStart();
     }
@@ -179,7 +197,9 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         Log.d(LOG_TAG, "onSaveInstanceState() called");
-        outState.putFloatArray(STATE_MATRIX, mTrainView.exportMatrixValues());
+        if(mTrainView!=null) {
+            outState.putFloatArray(STATE_MATRIX, mTrainView.exportMatrixValues());
+        }
     }
 
     public static TrainMapFragment create(boolean startSound) {
@@ -203,5 +223,50 @@ public class TrainMapFragment extends LKFragment implements GPSTracker.GPSListen
         mGPSMarkerLat = (float) lat;
         mGPSMarkerLng = (float) lng;
         mTrainView.setGpsMarker(mGPSMarkerLat, mGPSMarkerLng, false);
+<<<<<<< HEAD
     }
+=======
+        if (mTrainView.isWithinLatLngRange((float) lat, (float) lng)) {
+            isGPSWithinMap = true;
+        } else {
+            isGPSWithinMap = false;
+        }
+    }
+
+    @Override
+    public void onNewLocationFromKarnevalist(LocationTracker.LocationJSONResult json) {
+        if (json == null) return;
+        Log.d(LOG_TAG, "Result: " + json.toString());
+        if(json.success) {
+            for(LocationTracker.LocationJSONResult.LatLng p : json.train_positions) {
+                switch(p.id) {
+                    case 1:
+                        Log.d(LOG_TAG, p.id+" - lat: "+p.lat+" lng: "+p.lng);
+                        mTrainPos = p;
+                        mTrainView.setTrainLocation(p);
+                        break;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void postTrainMap(Picture picture) {
+        waitForLayout();
+        float minZoom = calculateMinZoom(mTrainView, picture);
+        mTrainView.setSvg(picture, minZoom, null);
+        if(getActivity()==null) return;
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                clearSpinner();
+            }
+        });
+    }
+
+    private void clearSpinner() {
+        mViewFlipper.setDisplayedChild(VIEWFLIPPER_CHILD_MAP);
+      //  mSpinnerView.clearAnimation();
+    }
+>>>>>>> develop
 }

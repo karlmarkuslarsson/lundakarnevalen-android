@@ -1,6 +1,7 @@
 package se.lundakarnevalen.extern.fragments;
 
 import android.graphics.Picture;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,24 +18,28 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import java.util.Collection;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 import se.lundakarnevalen.extern.activities.ContentActivity;
 import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.data.DataType;
 import se.lundakarnevalen.extern.map.GPSTracker;
+import se.lundakarnevalen.extern.map.LocationTracker;
 import se.lundakarnevalen.extern.map.MapLoader;
 import se.lundakarnevalen.extern.map.Marker;
 import se.lundakarnevalen.extern.util.Delay;
 import se.lundakarnevalen.extern.util.Logf;
 import se.lundakarnevalen.extern.widget.LKMapView;
 
-public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
+import static se.lundakarnevalen.extern.util.ViewUtil.get;
+
+public class MapFragment extends LKFragment
+        implements GPSTracker.GPSListener, MapLoader.MapLoaderCallback,
+        LocationTracker.LocationJSONListener {
+
     public static final int BOTTOM_MENU_ID = 2;
     public static final float STARTZOOM = 1.3f;
+    public static final int VIEWFLIPPER_CHILD_MAP = 1;
 
     private float mGpsMarkerLat = -1;
     private float mGpsMarkerLng = -1;
@@ -46,9 +51,12 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
     private static final String LOG_TAG = MapFragment.class.getSimpleName();
     private static final String STATE_MATRIX = "matrix";
 
+    private boolean mIsGPSWithinMap;
     private float[] mMatrixValues;
-    private LKMapView mapView;
-    private boolean isGPSWithinMap;
+
+    private ViewFlipper mViewFlipper;
+    private LKMapView mMapView;
+    private View mSpinnerView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,64 +75,41 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_map, container, false);
 
-        mapView = get(root, R.id.map_id, LKMapView.class);
-        ContentActivity activity = ContentActivity.class.cast(getActivity());
+        mSpinnerView = get(root, R.id.map_spinner, View.class);
+        final RotateAnimation a = new RotateAnimation(
+                0.0f, 3 * 360.0f,
+                Animation.RELATIVE_TO_SELF, 0.5f,
+                Animation.RELATIVE_TO_SELF, 0.5f);
+        a.setDuration(3400);
+        a.setInterpolator(new LinearInterpolator());
+        a.setRepeatCount(Animation.INFINITE);
+        a.setRepeatMode(Animation.RESTART);
+        mSpinnerView.startAnimation(a);
+
+        final ContentActivity activity = ContentActivity.class.cast(getActivity());
+
+        mMapView = get(root, R.id.map_id, LKMapView.class);
+
         activity.allBottomsUnfocus();
         activity.focusBottomItem(BOTTOM_MENU_ID);
 
         get(root, R.id.map_pull_out, View.class).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            ContentActivity.class.cast(getActivity()).toggleShowFilterDrawer();
+                ContentActivity.class.cast(getActivity()).toggleShowFilterDrawer();
             }
         });
+        mViewFlipper = get(root, R.id.map_switcher, ViewFlipper.class);
+        mViewFlipper.setAnimateFirstView(true);
+        mViewFlipper.setInAnimation(AnimationUtils.loadAnimation(inflater.getContext(), R.anim.abc_fade_in));
+        mViewFlipper.setOutAnimation(AnimationUtils.loadAnimation(inflater.getContext(), R.anim.abc_fade_out));
 
-        final ViewFlipper flipper = get(root, R.id.map_switcher, ViewFlipper.class);
-
-        new AsyncTask<Void, Void, Void>(){
-            @Override
-            protected Void doInBackground(Void... params) {
-                try {
-                    Future<Picture> preload = MapLoader.preload(inflater.getContext());
-                    Picture picture = preload.get(60, TimeUnit.SECONDS);
-                    waitForLayout();
-                    float minZoom = calculateMinZoom(mapView, picture);
-                    mapView.setSvg(picture, minZoom, mMatrixValues);
-                } catch (InterruptedException e) {
-                    Log.wtf(LOG_TAG, "Future was interrupted", e);
-                } catch (ExecutionException e) {
-                    Log.wtf(LOG_TAG, "ExecutionException", e);
-                } catch (TimeoutException e) {
-                    reloadMap();
-                }
-                return null;
-            }
-
-            private void reloadMap() {
-                try{
-                    Log.d(LOG_TAG, "MapLoader timed out, restarting");
-                    Picture picture = new MapLoader(inflater.getContext()).call();
-                    waitForLayout();
-                    float minZoom = calculateMinZoom(mapView, picture);
-                    mapView.setSvg(picture, minZoom, mMatrixValues);
-                } catch (Exception ex){
-                    Log.wtf(LOG_TAG, "Failed to load image after timeout", ex);
-                }
-            }
-
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                flipper.showNext();
-            }
-        }.execute();
-
-        flipper.setAnimateFirstView(true);
-        flipper.setInAnimation(AnimationUtils.loadAnimation(inflater.getContext(), R.anim.abc_fade_in));
-        flipper.setOutAnimation(AnimationUtils.loadAnimation(inflater.getContext(), R.anim.abc_fade_out));
-
-        mapView.setListener(new LKMapView.OnMarkerSelectedListener() {
+        mMapView.setListener(new LKMapView.OnMarkerSelectedListener() {
             @Override
             public void onMarkerSelected(final Marker m) {
+                if(isDetached()) {
+                    return;
+                }
                 final boolean wasSelected = (m != null);
                 final ViewGroup layout = get(root, R.id.map_info_layout, ViewGroup.class);
                 layout.setVisibility(wasSelected ? View.VISIBLE : View.GONE);
@@ -141,7 +126,7 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
                         layout.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                            ContentActivity.class.cast(getActivity()).loadFragmentAddingBS(LandingPageFragment.create(m.element));
+                                ContentActivity.class.cast(getActivity()).loadFragmentAddingBS(LandingPageFragment.create(m.element));
                             }
                         });
                     } else if(m.element.isRadio()) {
@@ -172,23 +157,58 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
                 }
             }, 1000);
         }
-        mapView.setGpsMarker(mGpsMarkerLat, mGpsMarkerLng, (savedInstanceState != null));
+        mMapView.setGpsMarker(mGpsMarkerLat, mGpsMarkerLng, (savedInstanceState != null));
 
-        final View view = get(root, R.id.map_spinner, View.class);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                final RotateAnimation a = new RotateAnimation(
-                        0.0f, 3 * 360.0f,
-                        Animation.RELATIVE_TO_SELF, 0.5f,
-                        Animation.RELATIVE_TO_SELF, 0.5f);
-                a.setDuration(3400);
-                a.setInterpolator(new LinearInterpolator());
-                a.setRepeatCount(Animation.INFINITE);
-                a.setRepeatMode(Animation.RESTART);
-                view.startAnimation(a);
-            }
-        }, 500);
+        if(MapLoader.hasLoadedMapLarge()){
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Picture p = MapLoader.getMapLarge();
+                    float minZoom = calculateMinZoom(mMapView, p);
+                    mMapView.setSvg(p, minZoom, null);
+                    clearSpinner();
+
+                }
+            }, 400);
+        } else if (MapLoader.hasLoadedMapMini()) {
+            final MapFragment mapFragment = this;
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Picture p = MapLoader.getMapMini();
+                    float minZoom = calculateMinZoom(mMapView, p);
+
+                    mMapView.setSvg(p, minZoom, null);
+                    clearSpinner();
+
+                    new AsyncTask<Void, Void, Void>(){
+                        @Override
+                        protected Void doInBackground(Void... params) {
+                            while (!MapLoader.hasLoadedMapLarge()) try {
+                                TimeUnit.MILLISECONDS.sleep(500);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            Log.d(LOG_TAG, "posting LargeMap");
+                            Picture p = MapLoader.getMapLarge();
+                            //float minZoom = calculateMinZoom(mMapView, p);
+                            //mMapView.setSvg(p, minZoom, null);
+                            mMapView.switchToSvg(p);
+                            return null;
+                        }
+
+                        @Override
+                        protected void onPostExecute(Void aVoid) {}
+                    }.execute();
+
+
+                }
+            }, 400);
+        } else {
+            new MapLoader.MapSvgLoader(this).startWait(); // Wait for maps async
+        }
+
         return root;
     }
 
@@ -196,23 +216,24 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
     public void onResume() {
         super.onResume();
         if(mMatrixValues != null) {
-            mapView.importMatrixValues(mMatrixValues);
+            mMapView.importMatrixValues(mMatrixValues);
         }
         final ContentActivity contentActivity = ContentActivity.class.cast(getActivity());
         contentActivity.focusBottomItem(BOTTOM_MENU_ID);
         contentActivity.triggerFilterUpdate();
+        mMapView.updateViewLimitBounds();
     }
 
     @Override
     public void onPause() {
-        mMatrixValues = mapView.exportMatrixValues();
+        mMatrixValues = mMapView.exportMatrixValues();
         super.onPause();
     }
 
     @Override
     public void onStop() {
         final ContentActivity activity = ContentActivity.class.cast(getActivity());
-        activity.unregisterForLocationUpdates(this);
+        activity.unregisterForLocationUpdates(this, this);
         activity.lockFilterDrawer(true);
         activity.inactivateTrainButton();
         super.onStop();
@@ -224,49 +245,54 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
         final ContentActivity activity = ContentActivity.class.cast(getActivity());
         activity.lockFilterDrawer(false);
         activity.activateTrainButton();
-        activity.registerForLocationUpdates(this);
+        activity.registerForLocationUpdates(this, this);
         super.onStart();
     }
 
 
     private void waitForLayout() {
         int counter = 0;
-        while (mapView.getMeasuredHeight() == 0 && counter++ < 100) Delay.ms(100); //Wait for layout
-        mapView.updateViewLimitBounds();
+        while (mMapView.getMeasuredHeight() == 0 && counter++ < 100) Delay.ms(100); //Wait for layout
+        mMapView.updateViewLimitBounds();
     }
 
     private float calculateMinZoom(View root, Picture pic) {
         // We assume that the svg image is 512x512 for now
         return STARTZOOM * Math.max(
-                    root.getMeasuredHeight() * 1.0f / pic.getHeight(),
-                    root.getMeasuredWidth() * 1.0f / pic.getWidth());
+                root.getMeasuredHeight() * 1.0f / pic.getHeight(),
+                root.getMeasuredWidth() * 1.0f / pic.getWidth());
     }
 
     public void setActiveType(Collection<DataType> types) {
-        mapView.setActiveTypes(types);
+        mMapView.setActiveTypes(types);
     }
 
     private void showItem(final float lat, final float lng, float showOnNextCreateScale) {
         if(showOnNextCreateScale > 0.0f){
-            mapView.zoom(showOnNextCreateScale * 0.99f);
+            mMapView.zoom(showOnNextCreateScale * 0.99f);
         } else {
-            mapView.zoom(mapView.mMidZoom);
+            mMapView.zoom(mMapView.mMidZoom);
         }
+
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(isDetached()) return; // Do nothing if fragment has been detached
+                if (isDetached()) return; // Do nothing if fragment has been detached
                 final float[] dst = new float[2];
-                mapView.getPointFromCoordinates(lat, lng, dst);
-                mapView.panTo(dst[0], dst[1]);
+                mMapView.getPointFromCoordinates(lat, lng, dst);
+                mMapView.panTo(dst[0], dst[1]);
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                    if(isDetached()) return; // Do nothing if fragment has been detached
-                    mapView.getPointFromCoordinates(lat, lng, dst);
-                    mapView.triggerClick(dst[0], dst[1]);
-                    }
+                        if (isDetached()) return; // Do nothing if fragment has been detached
+                        try {
+                            mMapView.getPointFromCoordinates(lat, lng, dst);
+                            mMapView.triggerClick(dst[0], dst[1]);
+                        } catch (Throwable e) {
+                            Log.wtf(LOG_TAG,"Crashed in handler",e);
+                        }
+                        }
                 }, 700);
             }
         }, 100);
@@ -282,7 +308,7 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         Log.d(LOG_TAG, "onSaveInstanceState() called");
-        outState.putFloatArray(STATE_MATRIX, mapView.exportMatrixValues());
+        outState.putFloatArray(STATE_MATRIX, mMapView.exportMatrixValues());
     }
 
     public static MapFragment create(float lat, float lng) {
@@ -294,15 +320,17 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
         return fragment;
     }
 
-    public void zoomToMarker() {
-        if(isGPSWithinMap){
+    public boolean zoomToMarker() {
+        if(mIsGPSWithinMap){
             float[] dst = new float[2];
-            mapView.zoom(mapView.mMidZoom);
-            mapView.panToCenterFast();
-            mapView.getPointFromCoordinates(mGpsMarkerLat, mGpsMarkerLng, dst);
-            mapView.panTo(dst[0], dst[1]);
+            mMapView.zoom(mMapView.mMidZoom);
+            mMapView.panToCenterFast();
+            mMapView.getPointFromCoordinates(mGpsMarkerLat, mGpsMarkerLng, dst);
+            mMapView.panTo(dst[0], dst[1]);
+            return true;
         } else {
             Toast.makeText(getContext(), R.string.gps_toast, Toast.LENGTH_LONG).show();
+            return false;
         }
     }
 
@@ -311,11 +339,98 @@ public class MapFragment extends LKFragment implements GPSTracker.GPSListener {
         Logf.d(LOG_TAG, "onNewLocation(lat: %f, lng: %f)", lat, lng);
         mGpsMarkerLat = (float) lat;
         mGpsMarkerLng = (float) lng;
-        mapView.setGpsMarker(mGpsMarkerLat, mGpsMarkerLng, false);
-        if(mapView.isWithinLatLngRange((float) lat, (float) lng)){
-            isGPSWithinMap = true;
-        } else {
-            isGPSWithinMap = false;
+        mIsGPSWithinMap = mMapView.isWithinLatLngRange((float) lat, (float) lng);
+        mMapView.setGpsMarker(mGpsMarkerLat, mGpsMarkerLng, false);
+    }
+
+    @Override
+    public void postMiniMap(Picture picture) {
+        waitForLayout();
+        float minZoom = calculateMinZoom(mMapView, picture);
+        mMapView.setSvg(picture, minZoom, null);
+        if(getActivity()!=null) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    clearSpinner();
+                }
+            });
+        }
+    }
+
+    private void clearSpinner() {
+        mViewFlipper.setDisplayedChild(VIEWFLIPPER_CHILD_MAP);
+        mSpinnerView.clearAnimation();
+    }
+
+
+    @Override
+    public void postLargerMap(Picture picture) {
+        waitForLayout();
+        if (picture != null) {
+            //float minZoom = calculateMinZoom(mMapView, picture);
+            mMapView.switchToSvg(picture);
+        }
+    }
+
+    private LocationTracker.LocationJSONResult.LatLng markus = new LocationTracker.LocationJSONResult.LatLng();
+    private LocationTracker.LocationJSONResult.LatLng filip = new LocationTracker.LocationJSONResult.LatLng();
+    private LocationTracker.LocationJSONResult.LatLng fredrik = new LocationTracker.LocationJSONResult.LatLng();
+
+    public void zoomToDeveloper(float lat, float lng, int i) {
+        switch (i) {
+            case 1:
+                if(mMapView.isWithinLatLngRange(markus.lat,markus.lng)) {
+                    addZoomHintForNextCreate(markus.lat, markus.lng, -1.0f); // will use midZoom
+                } else {
+                    addZoomHintForNextCreate(lat, lng, -1.0f); // will use midZoom
+                    Toast toast = Toast.makeText(getContext(), "Markus "+getString(R.string.left_area), Toast.LENGTH_LONG);
+                    toast.show();
+                }
+                break;
+            case 2:
+                if(mMapView.isWithinLatLngRange(filip.lat,filip.lng)) {
+                    addZoomHintForNextCreate(filip.lat, filip.lng, -1.0f); // will use midZoom
+                } else {
+                    addZoomHintForNextCreate(lat, lng, -1.0f); // will use midZoom
+                    Toast toast = Toast.makeText(getContext(), "Filip "+getString(R.string.left_area), Toast.LENGTH_LONG);
+                    toast.show();
+                }
+                break;
+            case 3:
+                if(mMapView.isWithinLatLngRange(fredrik.lat,fredrik.lng)) {
+                    addZoomHintForNextCreate(fredrik.lat, fredrik.lng, -1.0f); // will use midZoom
+                } else {
+                    addZoomHintForNextCreate(lat, lng, -1.0f); // will use midZoom
+                    Toast toast = Toast.makeText(getContext(), "Fredrik "+getString(R.string.left_area), Toast.LENGTH_LONG);
+                    toast.show();
+                }
+
+                break;
+        }
+    }
+
+    @Override
+    public void onNewLocationFromKarnevalist(LocationTracker.LocationJSONResult result) {
+        if (result == null) return;
+        Log.d(LOG_TAG, "Result: " + result.toString());
+
+        if(result.success) {
+            for(LocationTracker.LocationJSONResult.LatLng p : result.train_positions) {
+                Log.d(LOG_TAG, p.id+" -  lat: "+p.lat+" lng: "+p.lng);
+                switch(p.id) {
+                    case 11:
+                        markus = p;
+                        break;
+                    case 21:
+                        filip = p;
+                        break;
+                    case 31:
+                        fredrik = p;
+                        break;
+                }
+            }
+            mMapView.setDevLatLng(markus, filip, fredrik);
         }
     }
 }

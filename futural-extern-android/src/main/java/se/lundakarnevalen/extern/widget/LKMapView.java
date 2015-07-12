@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Picture;
 import android.graphics.PointF;
@@ -12,6 +13,7 @@ import android.graphics.RectF;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
@@ -31,6 +33,7 @@ import se.lundakarnevalen.extern.android.R;
 import se.lundakarnevalen.extern.data.DataContainer;
 import se.lundakarnevalen.extern.data.DataElement;
 import se.lundakarnevalen.extern.data.DataType;
+import se.lundakarnevalen.extern.map.LocationTracker;
 import se.lundakarnevalen.extern.map.Marker;
 import se.lundakarnevalen.extern.util.BitmapUtil;
 import se.lundakarnevalen.extern.util.Logf;
@@ -38,7 +41,9 @@ import se.lundakarnevalen.extern.util.Logf;
 import static android.graphics.Matrix.MSCALE_X;
 import static se.lundakarnevalen.extern.util.ViewUtil.dpToPx;
 
-
+/**
+ * Created by Filip on 2014-04-27.
+ */
 public class LKMapView extends SVGView {
     private static final String LOG_TAG = LKMapView.class.getSimpleName();
 
@@ -51,11 +56,24 @@ public class LKMapView extends SVGView {
     private static final float diffLon = endLonMap - startLonMap;
     private static final float diffLat = endLatMap - startLatMap;
 
-    private static final float CLOSE_THRESHOLD = 46.0f; //last 40
+    private static final float CLOSE_THRESHOLD = 14.0f; //last 40
     private static final float BUBBLE_SIZE_MULTIPLIER = 3.0f;
 
-    private static SparseArray<Bitmap> bitmaps = new SparseArray<>();
+    private static SparseArray<Bitmap> bitmaps = new SparseArray<Bitmap>();
     private RectF mCurrentViewPort = new RectF();
+    private boolean mFiltersEnabled = true;
+
+    private float mDevMarkusX = -1.0f;
+    private float mDevMarkusY = -1.0f;
+    private float mDevFilipX = -1.0f;
+    private float mDevFilipY = -1.0f;
+    private float mDevFredrikX = -1.0f;
+    private float mDevFredrikY = -1.0f;
+    private float mDevSize;
+
+    private Paint mMarkusInk;
+    private Paint mFilipInk;
+    private Paint mFredrikInk;
 
     public static void clean() {
         for(int i = 0; i < bitmaps.size(); i++) {
@@ -69,13 +87,29 @@ public class LKMapView extends SVGView {
                 (startLonMap < lng && lng < endLonMap);
     }
 
+    public void setDevLatLng(LocationTracker.LocationJSONResult.LatLng markus,
+                             LocationTracker.LocationJSONResult.LatLng filip,
+                             LocationTracker.LocationJSONResult.LatLng fredrik) {
+        float[] xy = new float[2];
+        getPointFromCoordinates(markus.lat, markus.lng, xy);
+        mDevMarkusX = xy[0];
+        mDevMarkusY = xy[1];
+        getPointFromCoordinates(filip.lat, filip.lng, xy);
+        mDevFilipX = xy[0];
+        mDevFilipY = xy[1];
+        getPointFromCoordinates(fredrik.lat, fredrik.lng, xy);
+        mDevFredrikX = xy[0];
+        mDevFredrikY = xy[1];
+    }
+
     public interface OnMarkerSelectedListener {
-         void onMarkerSelected(Marker m);
+        /** null of unselect */
+        public void onMarkerSelected(Marker m);
     }
 
 
-    private Set<DataType> activeTypes = new HashSet<>();
-    private List<Marker> markers = new ArrayList<>();
+    private Set<DataType> activeTypes = new HashSet<DataType>();
+    private List<Marker> markers = new ArrayList<Marker>();
 
     private Paint mShadowInk;
     private Paint mLightBlueInk;
@@ -122,8 +156,17 @@ public class LKMapView extends SVGView {
         mShadowInk = new Paint(Paint.ANTI_ALIAS_FLAG);
         mShadowInk.setColor(Color.argb(128, 128, 128, 128));
 
-        mBlueInk = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mBlueInk.setColor(Color.rgb(74, 139, 244));
+        mMarkusInk = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mMarkusInk.setColor(Color.rgb(212,0,255));
+        //mMarkusInk.setShadowLayer(1.5f, 0f, 0f, Color.BLACK);
+
+        mFilipInk = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mFilipInk.setColor(Color.rgb(255, 85, 170));
+        //mFilipInk.setShadowLayer(1.5f, 0f, 0f, Color.BLACK);
+
+        mFredrikInk = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mFredrikInk.setColor(Color.rgb(255, 165, 0));
+        //mFredrikInk.setShadowLayer(1.5f, 0f, 0f, Color.BLACK);
 
         mLightBlueInk = new Paint(Paint.ANTI_ALIAS_FLAG);
         mLightBlueInk.setColor(Color.rgb(97, 157, 229));
@@ -136,13 +179,17 @@ public class LKMapView extends SVGView {
             e.printStackTrace();
         }
 
-        mGpsMarkerSize = dpToPx(context, 80);
-        mGpsShadowXRadius = dpToPx(context, 10);
-        mGpsShadowYRadius = dpToPx(context, 6);
+        /** Will be recalculated in updateViewLimitBounds() */
+        mGpsMarkerSize = 34.0f; //dpToPx(context, 80);
+        mGpsShadowXRadius = mGpsMarkerSize / 6.0f;//dpToPx(context, 10);
+        mGpsShadowYRadius = mGpsMarkerSize / 12.0f; //dpToPx(context, 6);
 
-        mBubbleSize = 14.0f;//dpToPx(context, 8);
-        mBubbleShadowXRadius = mBubbleSize/4.0f; //dpToPx(context, 2);
-        mBubbleShadowYRadius = mBubbleSize/8.0f; //dpToPx(context, 1);
+        /** Will be recalculated in updateViewLimitBounds() */
+        mBubbleSize = 14.0f; //dpToPx(context, 8);
+        mBubbleShadowXRadius = mBubbleSize / 4.0f; //dpToPx(context, 2);
+        mBubbleShadowYRadius = mBubbleSize / 8.0f; //dpToPx(context, 1);
+
+        mDevSize = 1.5f;
 
         markers.clear();
         for (DataElement elm : DataContainer.getAllData()) {
@@ -163,13 +210,14 @@ public class LKMapView extends SVGView {
         if(r != null && r.getDisplayMetrics() != null) {
             final int dpi = r.getDisplayMetrics().densityDpi;
             switch (dpi){
-                case DisplayMetrics.DENSITY_XXXHIGH: setMaxZoom(12.0f); break;
-                case DisplayMetrics.DENSITY_XXHIGH: setMaxZoom(11.0f); break;
+                case DisplayMetrics.DENSITY_XXXHIGH: setMaxZoom(14.0f); break;
+                case DisplayMetrics.DENSITY_XXHIGH: setMaxZoom(12.0f); break;
                 case DisplayMetrics.DENSITY_XHIGH: setMaxZoom(10.0f); break;
-                case DisplayMetrics.DENSITY_HIGH: setMaxZoom(9.0f); break;
-                case DisplayMetrics.DENSITY_MEDIUM: setMaxZoom(8.0f); break;
-                case DisplayMetrics.DENSITY_LOW: setMaxZoom(7.0f); break;
-                default: setMaxZoom(7.0f); break;
+                case DisplayMetrics.DENSITY_HIGH: setMaxZoom(6.0f); break;
+                case DisplayMetrics.DENSITY_MEDIUM: setMaxZoom(5.0f); break;
+                case DisplayMetrics.DENSITY_LOW: setMaxZoom(5.0f); break;
+
+                default: setMaxZoom(5.5f); break;
             }
         }
     }
@@ -187,6 +235,7 @@ public class LKMapView extends SVGView {
                 bitmaps.put(m.picture, BitmapUtil.decodeSampledBitmapFromResource(context.getResources(), m.picture, hw, hw));
             }
         }
+
     }
 
     public void setListener(OnMarkerSelectedListener listener) {
@@ -199,9 +248,23 @@ public class LKMapView extends SVGView {
 
     @Override
     protected boolean onClick(float xInSvg, float yInSvg) {
-        if(addExtra>0) {
+
+        if(xInSvg + yInSvg < 100 && mListener != null) {
+            for (Marker m : markers) {
+                if(m.element.type == DataType.DEVELOPER){
+                    panTo(m.x, m.y);
+                    mFocusedMarker = m;
+                    m.isFocusedInMap = true;
+                    mListener.onMarkerSelected(m);
+                    return true;
+                }
+            }
+        }
+
+        if(addExtra > 0) {
             yInSvg += addExtra/mPreDrawScale;
         }
+
         float min = Float.MAX_VALUE;
         Marker closest = null;
         for (Marker m : markers) {
@@ -219,7 +282,7 @@ public class LKMapView extends SVGView {
         }
 
         boolean found = (closest != null && min < CLOSE_THRESHOLD * mPreDrawScale);
-        Logf.d(LOG_TAG, "click(%f, %f, %f) => Dist: %f, Closest: %s", xInSvg, yInSvg, mPreDrawScale, min, (closest != null) ? closest.element.title : closest);
+        Logf.d(LOG_TAG, "click(x:%f, y:%f, scale: %f) => Dist: %f, Closest: %s", xInSvg, yInSvg, mPreDrawScale, min, closest);
 
         if(mFocusedMarker != null) {
             mFocusedMarker.isFocusedInMap = false;
@@ -239,6 +302,18 @@ public class LKMapView extends SVGView {
         return false;
     }
 
+    public void goToGpsMarker(int svgX, int svgY){
+
+
+        if(mFocusedMarker != null) {
+            mFocusedMarker.isFocusedInMap = false;
+        }
+        mFocusedMarker = null;
+        mListener.onMarkerSelected(null);
+
+        panTo(svgX,svgY);
+    }
+
     @Override
     protected void onDrawObjects(Canvas canvas) {
         super.onDrawObjects(canvas); // Must be called to draw map
@@ -249,7 +324,7 @@ public class LKMapView extends SVGView {
 
         for (Marker m:markers) {
             if(activeTypes.contains(m.element.type)) {
-                if (m.x == -1) {
+                if (m.x == -1.0f) {
                     getPointFromCoordinates(m);
                 }
 
@@ -265,17 +340,21 @@ public class LKMapView extends SVGView {
 
         dst.set(mGpsMarkerPos.x,
                 mGpsMarkerPos.y,
-                mGpsMarkerPos.x + 2.0f * mGpsShadowXRadius / mPreDrawScale,
-                mGpsMarkerPos.y + 2.0f * mGpsShadowYRadius / mPreDrawScale);
+                mGpsMarkerPos.x + 2.0f * mGpsShadowXRadius,
+                mGpsMarkerPos.y + 2.0f * mGpsShadowYRadius);
         normalizeToMidpointBottom(dst);
         canvas.drawOval(dst, mShadowInk);
 
         dst.set(mGpsMarkerPos.x,
                 mGpsMarkerPos.y,
-                mGpsMarkerPos.x + mGpsMarkerSize / mPreDrawScale,
-                mGpsMarkerPos.y + mGpsMarkerSize / mPreDrawScale);
+                mGpsMarkerPos.x + mGpsMarkerSize,
+                mGpsMarkerPos.y + mGpsMarkerSize);
         normalizeToMidpointBottom(dst);
         canvas.drawPicture(mGpsMarker, dst);
+
+        canvas.drawCircle(mDevMarkusX, mDevMarkusY, mDevSize / mPreDrawScale, mMarkusInk);
+        canvas.drawCircle(mDevFilipX, mDevFilipY, mDevSize / mPreDrawScale, mFilipInk);
+        canvas.drawCircle(mDevFredrikX, mDevFredrikY, mDevSize / mPreDrawScale, mFredrikInk);
     }
 
     private void paintMarker(Canvas canvas, Marker m) {
@@ -368,6 +447,13 @@ public class LKMapView extends SVGView {
         setGpsMarker((int) tmp[AXIS_X], (int) tmp[AXIS_Y], panToMarker); // (int) is important to avoid recursion
     }
 
+    @Override
+    protected void filterMatrix(Matrix matrix) {
+        if (mFiltersEnabled) {
+            super.filterMatrix(matrix);
+        }
+    }
+
     public void setGpsMarker(int x, int y, boolean panToMarker) {
         Logf.d(LOG_TAG, "GPSMarker moved to (%d, %d)", x, y);
         PropertyValuesHolder xh = PropertyValuesHolder.ofFloat("x", mGpsMarkerPos.x, x);
@@ -390,6 +476,20 @@ public class LKMapView extends SVGView {
         }
     }
 
+
+    private final float[] mRotationTmp = new float[2];
+
+    public void setRotationLatLng(float lat, float lng, float degree) {
+        getPointFromCoordinates(lat, lng, mRotationTmp);
+        setRotation(mRotationTmp[AXIS_X], mRotationTmp[AXIS_Y], degree);
+    }
+
+    public void setRotation(float x, float y, float degree) {
+        panTo(x, y, false);
+        mMatrix.postRotate(degree, x, y);
+        postInvalidate();
+    }
+
     public void setActiveTypes(Collection<DataType> types) {
         activeTypes.clear();
         activeTypes.addAll(types);
@@ -403,6 +503,9 @@ public class LKMapView extends SVGView {
             mBubbleSize = (mViewEndPoint[AXIS_X] * 0.04f)/mMinZoom;//dpToPx(context, 8);
             mBubbleShadowXRadius = mBubbleSize/4.0f; //dpToPx(context, 2);
             mBubbleShadowYRadius = mBubbleSize/8.0f; //dpToPx(context, 1);
+            mGpsMarkerSize = (mViewEndPoint[AXIS_X] * 0.08f)/mMinZoom;//dpToPx(context, 8);
+            mGpsShadowXRadius = mBubbleSize/4.0f; //dpToPx(context, 2);
+            mGpsShadowYRadius = mBubbleSize/8.0f; //dpToPx(context, 1);
         }
         return hasLayoutAndBounds;
     }

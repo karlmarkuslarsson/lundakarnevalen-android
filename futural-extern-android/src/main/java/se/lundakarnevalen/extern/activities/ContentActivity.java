@@ -37,22 +37,31 @@ import se.lundakarnevalen.extern.fragments.OtherFragment;
 import se.lundakarnevalen.extern.fragments.SchemeFragment;
 import se.lundakarnevalen.extern.fragments.TrainMapFragment;
 import se.lundakarnevalen.extern.map.GPSTracker;
+<<<<<<< HEAD:futural-extern-android/src/main/java/se/lundakarnevalen/extern/activities/ContentActivity.java
+=======
+import se.lundakarnevalen.extern.map.LocationTracker;
+import se.lundakarnevalen.extern.map.MapLoader;
+>>>>>>> develop:futural-extern-android/src/main/java/se/lundakarnevalen/extern/android/ContentActivity.java
 import se.lundakarnevalen.extern.util.Logf;
 import se.lundakarnevalen.extern.widget.LKMapView;
 import se.lundakarnevalen.extern.widget.LKRightMenuArrayAdapter;
+import se.lundakarnevalen.extern.widget.LKTrainView;
 
 import static se.lundakarnevalen.extern.util.ViewUtil.get;
 
 public class ContentActivity extends AppCompatActivity {
     public static final String LOG_TAG = ContentActivity.class.getSimpleName();
-    private ListView mRightMenuList;
-    private MapFragment mMapFragment;
+
+
+    public ListView mRightMenuList;
+    public MapFragment mMapFragment;
 
     private FragmentManager mFragmentMgr;
     private BottomMenuClickListener mBottomMenuListener;
     private View mActionBarView;
     private DrawerLayout mDrawerLayout;
     private GPSTracker mGpsTracker;
+    private LocationTracker mLocationTracker;
 
     public <T> T find(int id, Class<T> clz) {
         return clz.cast(findViewById(id));
@@ -65,8 +74,9 @@ public class ContentActivity extends AppCompatActivity {
         setupActionbar();
         setupDrawerLayout();
         setupTint();
-
         mFragmentMgr = getSupportFragmentManager();
+        popFragmentStack();
+        MapLoader.startPreLoading(getApplicationContext());
 
         mMapFragment = new MapFragment();
         loadFragmentReplaceBS(mMapFragment);
@@ -108,11 +118,15 @@ public class ContentActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         mGpsTracker = new GPSTracker(this);
+        mLocationTracker = new LocationTracker(this);
         super.onStart();
     }
 
     @Override
     protected void onStop() {
+        if(mLocationTracker != null){
+            mLocationTracker.stopUpdates();
+        }
         if (mGpsTracker != null) {
             mGpsTracker.stopUsingGPS();
         }
@@ -122,16 +136,18 @@ public class ContentActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         LKMapView.clean();
+        LKTrainView.clean();
         System.gc();
         super.onDestroy();
     }
 
+    /*
     @Override
     public void onLowMemory() {
         if (mBottomMenuListener.selected != null) {
             Fragment visibleFragment = Fragment.class.cast(mBottomMenuListener.selected.getTag(R.id.bottom_menu_tag_fragment));
             if (visibleFragment instanceof MapFragment) {
-                // Do nothing
+                LKTrainView.clean();
             } else if (visibleFragment instanceof TrainMapFragment) {
                 Log.w(LOG_TAG, "onLowMemory() called: TrainMap showing thus cleaning LKMapIcons");
                 LKMapView.clean();
@@ -143,6 +159,7 @@ public class ContentActivity extends AppCompatActivity {
         System.gc();
         super.onLowMemory();
     }
+    */
 
     private void setupTint() {
         SystemBarTintManager tintManager = new SystemBarTintManager(this);
@@ -257,15 +274,20 @@ public class ContentActivity extends AppCompatActivity {
         loadFragmentAddingBS(mMapFragment);
     }
 
-    public void registerForLocationUpdates(GPSTracker.GPSListener listener) {
-        Logf.d(LOG_TAG, "registerForLocationUpdates(%s)", listener);
-        mGpsTracker.addListener(listener);
-        mGpsTracker.invalidateMe(listener);
+    public void registerForLocationUpdates(GPSTracker.GPSListener gpsListener, LocationTracker.LocationJSONListener jsonListener) {
+        Logf.d(LOG_TAG, "registerForLocationUpdates(%s)", gpsListener);
+
+        mGpsTracker.addListener(gpsListener);
+        mLocationTracker.addListener(jsonListener);
+
+        mGpsTracker.invalidateMe(gpsListener);
+        mLocationTracker.invalidateMe(jsonListener);
     }
 
-    public void unregisterForLocationUpdates(GPSTracker.GPSListener listener) {
-        Logf.d(LOG_TAG, "unregisterForLocationUpdates(%s)", listener);
-        mGpsTracker.removeListener(listener);
+    public void unregisterForLocationUpdates(GPSTracker.GPSListener gpsListener, LocationTracker.LocationJSONListener jsonListener) {
+        Logf.d(LOG_TAG, "unregisterForLocationUpdates(%s)", gpsListener);
+        mGpsTracker.removeListener(gpsListener);
+        mLocationTracker.removeListener(jsonListener);
     }
 
     public void triggerFilterUpdate() {
@@ -281,18 +303,19 @@ public class ContentActivity extends AppCompatActivity {
         b.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-            loadFragmentAddingBS(TrainMapFragment.create(true));
+                loadFragmentAddingBS(TrainMapFragment.create(true));
             }
         });
         b.setVisibility(View.VISIBLE);
-        b = get(mActionBarView, R.id.gps_marker, ImageButton.class);
-        b.setOnClickListener(new OnClickListener() {
+        final ImageButton gps = get(mActionBarView, R.id.gps_marker, ImageButton.class);
+        gps.setImageResource(R.drawable.gps_menu_marker);
+        gps.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 mMapFragment.zoomToMarker();
             }
         });
-        b.setVisibility(View.VISIBLE);
+        gps.setVisibility(View.VISIBLE);
     }
 
     public void activateMapButton() {
@@ -301,7 +324,7 @@ public class ContentActivity extends AppCompatActivity {
         b.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-            loadFragmentAddingBS(mMapFragment);
+                loadFragmentAddingBS(mMapFragment);
             }
         });
         b.setVisibility(View.VISIBLE);
@@ -317,6 +340,12 @@ public class ContentActivity extends AppCompatActivity {
     public void ensureSelectedFilters(DataType[] types) {
         LKRightMenuArrayAdapter adapter = LKRightMenuArrayAdapter.class.cast(mRightMenuList.getAdapter());
         adapter.ensureSelectedFilters(types);
+    }
+
+    public void showMapAndPanDeveloper(float lat, float lng, int i) {
+        focusBottomItem(MapFragment.BOTTOM_MENU_ID);
+        mMapFragment.zoomToDeveloper(lat,lng,i);
+        loadFragmentAddingBS(mMapFragment);
     }
 
     private class BottomMenuClickListener implements OnClickListener {
@@ -367,4 +396,5 @@ public class ContentActivity extends AppCompatActivity {
             }
         }
     }
+
 }

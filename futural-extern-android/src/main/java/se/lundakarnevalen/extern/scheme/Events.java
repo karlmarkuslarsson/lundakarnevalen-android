@@ -264,6 +264,23 @@ public class Events {
         e = new Event(context.getString(R.string.small_scene), context.getString(R.string.roth), R.drawable.syskonenroth_rounded, myDate, myDateEnd,14);
         events.add(e);
 
+
+            /*
+        Lördag:
+        Verkligheten, stora scenen 15:30
+        Lat: 55°42'20.53"N Long: 13°11'37.55"O
+        */
+        cal.set(Calendar.MINUTE, 30);
+        cal.set(Calendar.HOUR_OF_DAY, 15);
+        myDate = cal.getTime();
+        cal.set(Calendar.HOUR_OF_DAY, 17);
+        cal.set(Calendar.MINUTE, 15);
+        myDateEnd = cal.getTime();
+
+        e = new Event(context.getString(R.string.big_scene), context.getString(R.string.verkligheten), R.drawable.verkligheten_rounded, myDate, myDateEnd,36);
+        events.add(e);
+
+
                    /*
         Lördag:
         first love, lilla scenen 16:00
@@ -309,7 +326,6 @@ public class Events {
         cal.set(Calendar.HOUR_OF_DAY, 19);
         cal.set(Calendar.MINUTE, 00);
         myDateEnd = cal.getTime();
-        //TODO
         e = new Event(context.getString(R.string.small_scene), context.getString(R.string.arts), R.drawable.arts_rounded, myDate, myDateEnd,17);
         events.add(e);
 
@@ -328,20 +344,6 @@ public class Events {
         myDateEnd = cal.getTime();
 
         e = new Event(context.getString(R.string.big_scene), context.getString(R.string.hurricane), R.drawable.hurricanelove_rounded_corners, myDate, myDateEnd,18);
-        events.add(e);
-/*
-        Lördag:
-        Linnea, stora scenen 21:00
-        Lat: 55°42'20.53"N Long: 13°11'37.55"O
-        */
-        cal.set(Calendar.MINUTE, 0);
-        cal.set(Calendar.HOUR_OF_DAY, 21);
-        myDate = cal.getTime();
-        cal.set(Calendar.HOUR_OF_DAY, 23);
-        cal.set(Calendar.MINUTE, 0);
-        myDateEnd = cal.getTime();
-
-        e = new Event(context.getString(R.string.big_scene), context.getString(R.string.linnea), R.drawable.linneahenrikssonsquare_rounded_corners, myDate, myDateEnd,19);
         events.add(e);
 
 
@@ -375,6 +377,22 @@ public class Events {
         myDateEnd = cal.getTime();
 
         e = new Event(context.getString(R.string.small_scene), context.getString(R.string.emil), R.drawable.emil_icon_rounded_corners, myDate, myDateEnd,21);
+        events.add(e);
+
+
+        /*
+        Lördag:
+        Linnea, stora scenen 21:00
+        Lat: 55°42'20.53"N Long: 13°11'37.55"O
+        */
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.HOUR_OF_DAY, 21);
+        myDate = cal.getTime();
+        cal.set(Calendar.HOUR_OF_DAY, 23);
+        cal.set(Calendar.MINUTE, 0);
+        myDateEnd = cal.getTime();
+
+        e = new Event(context.getString(R.string.big_scene), context.getString(R.string.linnea), R.drawable.linneahenrikssonsquare_rounded_corners, myDate, myDateEnd,19);
         events.add(e);
 
 
@@ -430,6 +448,23 @@ public class Events {
 
         /*
         Söndag:
+        The bland band, lilla scenen 14:30
+            Lat: 55°42'26.07"N  Long:  13°11'45.45"O
+            55.7072417f, 13.195958333333333f
+        */
+        cal.set(Calendar.MINUTE, 30);
+        cal.set(Calendar.HOUR_OF_DAY, 12);
+        myDate = cal.getTime();
+        cal.set(Calendar.HOUR_OF_DAY, 14);
+        cal.set(Calendar.MINUTE, 30);
+        myDateEnd = cal.getTime();
+
+        Event e = new Event(context.getString(R.string.small_scene), context.getString(R.string.king_romeo), R.drawable.romeo_rounded, myDate, myDateEnd,35);
+        events.add(e);
+
+
+        /*
+        Söndag:
 
         Tåget avgår 13:00, åter ca 15:00
         Se tågväg bifogad om ni vill lägga in den i appen i någon kartfunktion
@@ -443,7 +478,7 @@ public class Events {
         cal.set(Calendar.HOUR_OF_DAY, 15);
         myDateEnd = cal.getTime();
 
-        Event e = new Event(context.getString(R.string.place_train), context.getString(R.string.train), R.drawable.train_logo_white, myDate, myDateEnd,24);
+        e = new Event(context.getString(R.string.place_train), context.getString(R.string.train), R.drawable.train_logo_white, myDate, myDateEnd,24);
         events.add(e);
 
         /*

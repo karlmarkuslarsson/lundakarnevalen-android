@@ -1,18 +1,18 @@
 package se.lundakarnevalen.extern.data;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import se.lundakarnevalen.extern.android.R;
 
+/**
+ * Created by Fredrik on 2014-05-04.
+ */
 public class DataContainer {
-    private static List<DataElement> mData = new ArrayList<>();
 
     public static List<DataElement> getAllData() {
-        if (!mData.isEmpty()) return mData;
-
-        mData.add(new DataElement(
+        List<DataElement> data = new ArrayList<DataElement>();
+        data.add(new DataElement(
                 R.string.barneval_place,
                 R.string.barneval_title,
                 R.string.barneval_info,
@@ -23,18 +23,18 @@ public class DataContainer {
                 R.string.barneval_question,
                 "14:00-20:00", "14:00-21:00", "14:00-20:00", DataType.FUN));
 
-        mData.add(new DataElement(
+        data.add(new DataElement(
                 R.string.cirkus_place,
                 R.string.cirkus_title,
                 R.string.cirkus_info,
-                55.70479f, 13.195393f,
+                55.70479f,13.195393f,
                 R.drawable.header_cirkusen,
                 R.drawable.map_cirkusen_logo,
                 R.drawable.cirkusen_logo,
                 R.string.cirkus_question,
                 "15:00-22:00", "15:00-23:00", "15:00-22:00", DataType.FUN));
 
-        mData.add(new DataElement(
+        data.add(new DataElement(
                 R.string.filmen_place,
                 R.string.filmen_title,
                 R.string.filmen_info,
@@ -45,7 +45,7 @@ public class DataContainer {
                 R.string.filmen_question,
                 "14:00-23:00", "14:00-00:00", "14:00-23:00", DataType.FUN));
 
-        mData.add(new DataElement(
+        data.add(new DataElement(
                 R.string.kabare_place,
                 R.string.kabare_title,
                 R.string.kabare_info,
@@ -56,7 +56,7 @@ public class DataContainer {
                 R.string.kabare_question,
                 "15:30-22:30", "15:30-23:30", "15:30-22:30", DataType.FUN));
 
-        mData.add(new DataElement(
+        data.add(new DataElement(
                 R.string.revy_place,
                 R.string.revy_title,
                 R.string.revy_info,
@@ -67,7 +67,7 @@ public class DataContainer {
                 R.string.revy_question,
                 "15:30-22:30", "15:30-23:30", "15:30-22:30", DataType.FUN));
 
-        mData.add(new DataElement(
+        data.add(new DataElement(
                 R.string.showen_place,
                 R.string.show_title,
                 R.string.show_info,
@@ -78,7 +78,7 @@ public class DataContainer {
                 R.string.showen_question,
                 "14:00-21:30", "14:00-21:30", "14:00-21:30", DataType.FUN));
 
-        mData.add(new DataElement(
+        data.add(new DataElement(
                 R.string.spexet_place,
                 R.string.spexet_title,
                 R.string.spexet_info,
@@ -89,7 +89,7 @@ public class DataContainer {
                 R.string.spexet_question,
                 "14:00-21:00", "14:00-21:00", "14:00-21:00", DataType.FUN));
 
-        mData.add(new DataElement(
+        data.add(new DataElement(
                 R.string.dansen_place,
                 R.string.dansen_title,
                 R.string.dansen_info,
@@ -100,15 +100,15 @@ public class DataContainer {
                 R.string.dansen_question,
                 "23:00-04:00", "23:00-04:00", "23:00-04:00", DataType.FUN));
 
-        mData.add(new DataElement(
+        data.add(new DataElement(
                 R.string.cocktail_place,
                 R.string.cocktail_title,
-                55.706444f, 13.195143f,
+                55.706444f,13.195143f,
                 R.drawable.map_nagilima_logo,
                 DataType.FOODSTOCK
         ));
 
-        mData.add(new DataElement(
+        data.add(new DataElement(
                 R.string.hipp_baren_place,
                 R.string.hipp_baren_title,
                 55.706504880685f, 13.19547491457354f,
@@ -116,30 +116,30 @@ public class DataContainer {
                 DataType.FOODSTOCK));
 
 
-        mData.add(new DataElement(
+        data.add(new DataElement(
                 R.string.folkan_place,
                 R.string.folkan_title,
-                55.7069f, 13.196176f,
+                55.7069f,13.196176f,
                 R.drawable.map_nagilima_logo,
                 DataType.FOODSTOCK));
 
-        mData.add(new DataElement(
+        data.add(new DataElement(
                 R.string.foodo_place,
                 R.string.foodo_title,
-                55.706837f, 13.195646f,
+                55.706837f,13.195646f,
                 R.drawable.map_nagilima_logo,
                 DataType.FOODSTOCK));
 
-        mData.add(new DataElement(
+        data.add(new DataElement(
                 R.string.info,
                 R.string.info_title,
-                55.70512f, 13.194211f,
+                55.70516f,13.194045f,
                 R.drawable.map_info,
                 DataType.INFO));
 
 
-        ArrayList<Integer> menu = new ArrayList<>();
-        ArrayList<String> menuPrice = new ArrayList<>();
+        ArrayList<Integer> menu = new ArrayList<Integer>();
+        ArrayList<String> menuPrice = new ArrayList<String>();
         menu.add(R.string.undervatten_food1);
         menu.add(R.string.undervatten_food2);
         menu.add(R.string.undervatten_food3);
@@ -148,7 +148,7 @@ public class DataContainer {
         menuPrice.add("50");
         menuPrice.add("50");
 
-        mData.add(new DataElement(
+        data.add(new DataElement(
                 R.string.krog_undervatten_place,
                 R.string.krog_undervatten_title,
                 R.string.krog_undervatten_info,
@@ -160,43 +160,40 @@ public class DataContainer {
                 "12:00-01:00", "12:00-01:00", "12:00-01:00",
                 DataType.FOOD, menu, menuPrice));
 
-        menu = new ArrayList<>();
-        menuPrice = new ArrayList<>();
+        menu = new ArrayList<Integer>();
+        menuPrice = new ArrayList<String>();
         menu.add(R.string.lajka_food1);
         menu.add(R.string.lajka_food2);
-
+        //   menu.add("");
         menuPrice.add("50");
         menuPrice.add("50");
 
-        //TODO check time
-        mData.add(new DataElement(
-            R.string.krog_lajka_place,
-            R.string.krog_lajka_title,
-            R.string.krog_lajka_info,
-            55.70573799412114f, 13.19474001701577f,
-            R.drawable.header_undervatten,
-            R.drawable.map_lajka_icon,
-            R.drawable.lajka_icon,
-            R.string.krog_lajka_question,
-            "12:00-01:00", "12:00-01:00", "12:00-24:00",
-            DataType.FOOD, menu, menuPrice));
+        data.add(new DataElement(
 
-
-        menu = new ArrayList<>();
-        menuPrice = new ArrayList<>();
-
+                R.string.krog_lajka_place,
+                R.string.krog_lajka_title,
+                R.string.krog_lajka_info,
+                55.70573799412114f, 13.19474001701577f,
+                R.drawable.header_undervatten,
+                R.drawable.map_lajka_icon,
+                R.drawable.lajka_icon,
+                R.string.krog_lajka_question,
+                "12:00-01:00", "12:00-01:00", "12:00-24:00",
+                DataType.FOOD, menu, menuPrice));
+        menu = new ArrayList<Integer>();
+        menuPrice = new ArrayList<String>();
         menu.add(R.string.thyme_food1);
         menu.add(R.string.thyme_food2);
-
+        //   menu.add("");
         menuPrice.add("70");
         menuPrice.add("70");
 
 
-        mData.add(new DataElement(
+        data.add(new DataElement(
                 R.string.krog_thyme_place,
                 R.string.krog_thyme_title,
                 R.string.krog_thyme_info,
-                55.705185f, 13.195687f,
+                55.705185f,13.195687f,
                 R.drawable.header_undervatten,
                 R.drawable.map_thyme_travel,
                 R.drawable.thyme_travel_logo,
@@ -205,116 +202,131 @@ public class DataContainer {
                 DataType.FOOD,
                 menu, menuPrice));
 
-        mData.add(new DataElement(R.string.smanojen, R.string.undergangen, 55.70460881490317f, 13.19352521597889f, R.drawable.bubble_smanojen, DataType.SMALL_FUN));
-        mData.add(new DataElement(R.string.smanojen, R.string.sketchera, 55.70483928999759f, 13.19305851161833f, R.drawable.bubble_smanojen, DataType.SMALL_FUN));
-        mData.add(new DataElement(R.string.smanojen, R.string.futuralfuneral, 55.70450982359015f, 13.19322614967337f, R.drawable.bubble_smanojen, DataType.SMALL_FUN));
+        /*
+        data.add(new DataElement(
+                R.string.atm_title,
+                R.drawable.atm_logo,
+                R.drawable.atm_logo,
+                DataType.ATM));
+        */
 
-        mData.add(new DataElement(R.string.taltnojen, R.string.studenthistoriska_riksmuseet, 55.705053732349f, 13.1930051727718f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
-        mData.add(new DataElement(R.string.taltnojen, R.string.babe_gone_bad, 55.70670843454561f, 13.19557811034903f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
-        mData.add(new DataElement(R.string.taltnojen, R.string.vem_vet_sex, 55.7066857659761f, 13.1956639410537f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
-        mData.add(new DataElement(R.string.taltnojen, R.string.ga_pa_vatten_med_jesus, 55.70497849657609f, 13.19363857294538f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
-        mData.add(new DataElement(R.string.taltnojen, R.string.the_moon_exhibition, 55.70496791748455f, 13.19374988460371f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
-        mData.add(new DataElement(R.string.taltnojen, R.string.future, 55.70487490800033f, 13.19361516583629f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
-        mData.add(new DataElement(R.string.taltnojen, R.string.radda_lundagard, 55.70477162149118f, 13.19366770773009f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
-        mData.add(new DataElement(R.string.taltnojen, R.string.futurel, 55.70474327928672f, 13.19386755037008f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
-        mData.add(new DataElement(R.string.taltnojen, R.string.gudtyckligt, 55.70487120205509f, 13.19399670036882f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
-        mData.add(new DataElement(R.string.taltnojen, R.string.robotic_orchestra, 55.70491716219782f, 13.19410953667312f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
-        mData.add(new DataElement(R.string.taltnojen, R.string.ristorante_del_futuro, 55.70460616403029f, 13.19484501185647f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
-        mData.add(new DataElement(R.string.taltnojen, R.string.framtidens_foto, 55.70460846205428f, 13.1940932229268f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
-        mData.add(new DataElement(R.string.taltnojen, R.string.max_iv, 55.70477698351564f, 13.19424548398832f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
-        mData.add(new DataElement(R.string.taltnojen, R.string.siartaltet, 55.70471570305888f, 13.19412313135794f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
-        mData.add(new DataElement(R.string.taltnojen, R.string.the_day_after_tomorrow, 55.70464216642544f, 13.1939776676648f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
-        mData.add(new DataElement(R.string.taltnojen, R.string.futural_sjukcentral, 55.70455254336257f, 13.19378734132492f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
-        mData.add(new DataElement(R.string.taltnojen, R.string.moocs, 55.70445066216406f, 13.19348825390201f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
-        mData.add(new DataElement(R.string.taltnojen, R.string.tidsresorse, 55.70437865703956f, 13.19333871179819f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
-        mData.add(new DataElement(R.string.taltnojen, R.string.lunara_nationen, 55.70434433369048f, 13.19434999518406f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
-        mData.add(new DataElement(R.string.taltnojen, R.string.bucket_list, 55.70440176403623f, 13.1943178086826f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
-        mData.add(new DataElement(R.string.taltnojen, R.string.karneroj, 55.704453f, 13.194302f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
-        mData.add(new DataElement(R.string.taltnojen, R.string.konstfiket, 55.70527f, 13.195593f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
-
-
-        mData.add(new DataElement(R.string.barnevalen, R.string.festtaltet, 55.70418149695015f, 13.19458440352848f, R.drawable.map_barnevalen_logo, DataType.BARNEVALEN));
-        mData.add(new DataElement(R.string.barnevalen, R.string.gassimulator_3000, 55.7040650548606f, 13.19468165205387f, R.drawable.map_barnevalen_logo, DataType.BARNEVALEN));
-        mData.add(new DataElement(R.string.barnevalen, R.string.cafe_kosmos, 55.70409508582605f, 13.19495755442542f, R.drawable.map_barnevalen_logo, DataType.BARNEVALEN));
-        mData.add(new DataElement(R.string.barnevalen, R.string.forbjudna_taltet, 55.70399958255682f, 13.19495661742418f, R.drawable.map_barnevalen_logo, DataType.BARNEVALEN));
-        mData.add(new DataElement(R.string.barnevalen, R.string.bak_och_framtidsresan, 55.7039678443762f, 13.19482518919924f, R.drawable.map_barnevalen_logo, DataType.BARNEVALEN));
-        mData.add(new DataElement(R.string.barnevalen, R.string.astronautakademin, 55.7038136872786f, 13.19461463574077f, R.drawable.map_barnevalen_logo, DataType.BARNEVALEN));
-
-        mData.add(new DataElement(R.string.toilets_title, R.string.toilets_title, 55.70648780072795f, 13.1958402043337f, R.drawable.map_toilets_logo, DataType.TOILETS));
-        mData.add(new DataElement(R.string.toilets_title, R.string.toilets_title, 55.70603133250371f, 13.19404062814232f, R.drawable.map_toilets_logo, DataType.TOILETS));
-        mData.add(new DataElement(R.string.toilets_title, R.string.toilets_title, 55.70485187667411f, 13.19570665852305f, R.drawable.map_toilets_logo, DataType.TOILETS));
-        mData.add(new DataElement(R.string.toilets_title, R.string.toilets_title, 55.705228407599f, 13.19285637404313f, R.drawable.map_toilets_logo, DataType.TOILETS));
-        mData.add(new DataElement(R.string.toilets_title, R.string.toilets_title, 55.70372639868275f, 13.19470515375246f, R.drawable.map_toilets_logo, DataType.TOILETS));
-        mData.add(new DataElement(R.string.toilets_title, R.string.toilets_title, 55.70531936414573f, 13.19419428089188f, R.drawable.map_toilets_logo, DataType.TOILETS));
-        mData.add(new DataElement(R.string.toilets_title, R.string.toilets_title, 55.70438108228282f, 13.19472544482855f, R.drawable.map_toilets_logo, DataType.TOILETS));
-
-
-        mData.add(new DataElement(R.string.care_title, R.string.care_title, 55.70589745349834f, 13.195349039021f, R.drawable.map_health_logo, DataType.CARE));
-
-        mData.add(new DataElement(R.string.biljetteriet_place, R.string.biljetteriet, R.string.biljetteriet_info, R.string.biljetteriet_question, 55.70502736279169f, 13.19517650439325f, R.drawable.header_biljetteriet, R.drawable.map_biljetteriet_icon, R.drawable.biljetteriet_logo_list, DataType.BILJETTERIET));
-
-        mData.add(new DataElement(R.string.police, R.string.police, 55.70566708948963f, 13.19601302178581f, R.drawable.map_security_logo, DataType.POLICE));
-        mData.add(new DataElement(R.string.police, R.string.police, 55.7052602564826f, 13.19401040144301f, R.drawable.map_security_logo, DataType.POLICE));
-
-        mData.add(new DataElement(R.string.radio, R.string.radio, 55.705383f, 13.194872f, R.drawable.map_radio_logo, DataType.RADIO));
-
-        mData.add(new DataElement(R.string.entre, R.string.en_lundensares_guide_till_galaxen, 55.705772f, 13.192751f, R.drawable.map_entrance_icon, DataType.ENTRANCE));
-        mData.add(new DataElement(R.string.entre, R.string.futopia, 55.70612f, 13.195738f, R.drawable.map_entrance_icon, DataType.ENTRANCE));
-        mData.add(new DataElement(R.string.entre, R.string.botaniska_ar_3014, 55.705173f, 13.192679f, R.drawable.map_entrance_icon, DataType.ENTRANCE));
-        mData.add(new DataElement(R.string.entre, R.string.futuralteleportal, 55.704327f, 13.192934f, R.drawable.map_entrance_icon, DataType.ENTRANCE));
-        mData.add(new DataElement(R.string.entre, R.string.intergalaktisk_invandring, 55.7037410100921f, 13.19423114265037f, R.drawable.map_entrance_icon, DataType.ENTRANCE));
-        mData.add(new DataElement(R.string.entre, R.string.ett_svart_hal, 55.70448f, 13.1958f, R.drawable.map_entrance_icon, DataType.ENTRANCE));
-
-        mData.add(new DataElement(R.string.discokaffetalt_snacks, R.string.discokaffetalt, 55.70519298937666f, 13.19317860493478f, R.drawable.map_snaxeriet_logo, DataType.SNACKS));
-        mData.add(new DataElement(R.string.snacks_iv_snacks, R.string.snacks_iv, 55.70585795050108f, 13.1943144945812f, R.drawable.map_snaxeriet_logo, DataType.SNACKS));
-        mData.add(new DataElement(R.string.lyxbrygghus_snacks, R.string.lyxbrygghus, 55.70547249304708f, 13.19451161073117f, R.drawable.map_snaxeriet_logo, DataType.SNACKS));
-        mData.add(new DataElement(R.string.lyxbrygghus_snacks, R.string.lyxbrygghus, 55.70479839152454f, 13.19472215029551f, R.drawable.map_snaxeriet_logo, DataType.SNACKS));
-        mData.add(new DataElement(R.string.kungliga_snacksboden_estrelle_snacks, R.string.kungliga_snacksboden_estrelle, 55.70520990752672f, 13.19387434532636f, R.drawable.map_snaxeriet_logo, DataType.SNACKS));
-        mData.add(new DataElement(R.string.bacon_oriley_snacks, R.string.bacon_oriley, 55.70642208831894f, 13.1957497314886f, R.drawable.map_snaxeriet_logo, DataType.SNACKS));
-        mData.add(new DataElement(R.string.moderskeppet_snacks, R.string.moderskeppet, 55.705112f, 13.193658f, R.drawable.map_snaxeriet_logo, DataType.SNACKS));
-
-
-        mData.add(new DataElement(R.string.tombolan, R.string.putins_bodega_put_in_putin, 55.70652897496141f, 13.19567109412686f, R.drawable.bubble_tombolan, DataType.TOMBOLAN));
-        mData.add(new DataElement(R.string.tombolan, R.string.rysk_roulette, 55.70598296464737f, 13.19420818471242f, R.drawable.bubble_tombolan, DataType.TOMBOLAN));
-        mData.add(new DataElement(R.string.tombolan, R.string.hipster_eller_hobo, 55.70597691961526f, 13.19425780556136f, R.drawable.bubble_tombolan, DataType.TOMBOLAN));
-        mData.add(new DataElement(R.string.tombolan, R.string.ligga_i_lund, 55.7052623716287f, 13.1933726994219f, R.drawable.bubble_tombolan, DataType.TOMBOLAN));
-        mData.add(new DataElement(R.string.tombolan, R.string.war_of_karnewall_street, 55.70497261402468f, 13.19400101442841f, R.drawable.bubble_tombolan, DataType.TOMBOLAN));
-        mData.add(new DataElement(R.string.tombolan, R.string.tillbaka_till_samtiden, 55.7046899767097f, 13.19470679837929f, R.drawable.bubble_tombolan, DataType.TOMBOLAN));
-        mData.add(new DataElement(R.string.tombolan, R.string.strike_for_the_future, 55.7045492497648f, 13.19459512816178f, R.drawable.bubble_tombolan, DataType.TOMBOLAN));
-        mData.add(new DataElement(R.string.tombolan, R.string.futuralbucks, 55.7046234675636f, 13.19465534628458f, R.drawable.bubble_tombolan, DataType.TOMBOLAN));
-        mData.add(new DataElement(R.string.tombolan, R.string.news_kast, 55.705296f, 13.1936455f, R.drawable.bubble_tombolan, DataType.TOMBOLAN));
-
-        mData.add(new DataElement(R.string.tidsmaskin, R.string.futuautomat, 55.7055f, 13.194731f, R.drawable.map_futuautomat, DataType.AUTOMAT));
+        data.add(new DataElement(R.string.biljetteriet_place,R.string.biljetteriet,R.string.biljetteriet_info,R.string.biljetteriet_question, 55.70502736279169f, 13.19517650439325f, R.drawable.header_biljetteriet,R.drawable.map_biljetteriet_icon,R.drawable.biljetteriet_logo_list, DataType.BILJETTERIET));
 
 
 
-        mData.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.70688332580387f, 13.19570738052719f, R.drawable.map_soptunna_icon, DataType.TRASHCAN));
-        mData.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.70521696656937f, 13.19372387921223f, R.drawable.map_soptunna_icon, DataType.TRASHCAN));
-        mData.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.7039572412542f, 13.19453665220126f, R.drawable.map_soptunna_icon, DataType.TRASHCAN));
-        mData.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.70457677586199f, 13.19544640504312f, R.drawable.map_soptunna_icon, DataType.TRASHCAN));
-        mData.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.70556189423078f, 13.19477811180374f, R.drawable.map_soptunna_icon, DataType.TRASHCAN));
-        mData.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.7048783266619f, 13.19446443948018f, R.drawable.map_soptunna_icon, DataType.TRASHCAN));
-        mData.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.7046984808458f, 13.19383546152834f, R.drawable.map_soptunna_icon, DataType.TRASHCAN));
 
-        mData.add(new DataElement(R.string.shoppen, R.string.shoppen, 55.704273f, 13.194829f, R.drawable.bubble_shoppen, DataType.SHOPPEN));
-        mData.add(new DataElement(R.string.shoppen, R.string.shoppen, 55.70557904967363f, 13.19512260551833f, R.drawable.bubble_shoppen, DataType.SHOPPEN));
+        data.add(new DataElement(R.string.smanojen, R.string.undergangen, 55.70460881490317f, 13.19352521597889f, R.drawable.bubble_smanojen, DataType.SMALL_FUN));
+        data.add(new DataElement(R.string.smanojen, R.string.sketchera, 55.70483928999759f, 13.19305851161833f, R.drawable.bubble_smanojen, DataType.SMALL_FUN));
+        data.add(new DataElement(R.string.smanojen, R.string.futuralfuneral, 55.70450982359015f, 13.19322614967337f, R.drawable.bubble_smanojen, DataType.SMALL_FUN));
 
-        mData.add(new DataElement(R.string.music_title, R.string.music_title, 55.70587f, 13.193985f, R.drawable.map_music_logo, DataType.MUSIC));
-        mData.add(new DataElement(R.string.music_title, R.string.music_title, 55.705444f, 13.193072f, R.drawable.map_music_logo, DataType.MUSIC));
+        data.add(new DataElement(R.string.taltnojen, R.string.studenthistoriska_riksmuseet, 55.705193f,13.193072f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.babe_gone_bad, 55.70670843454561f, 13.19557811034903f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.vem_vet_sex, 55.7066857659761f, 13.1956639410537f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.ga_pa_vatten_med_jesus, 55.70497849657609f, 13.19363857294538f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.the_moon_exhibition, 55.70496791748455f, 13.19374988460371f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.future, 55.70487490800033f, 13.19361516583629f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.radda_lundagard, 55.70477162149118f, 13.19366770773009f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.futurel, 55.70474327928672f, 13.19386755037008f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.gudtyckligt, 55.70487120205509f, 13.19399670036882f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.robotic_orchestra, 55.70491716219782f, 13.19410953667312f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.ristorante_del_futuro, 55.70460616403029f, 13.19484501185647f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.framtidens_foto, 55.70460846205428f, 13.1940932229268f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.max_iv, 55.70477698351564f, 13.19424548398832f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.siartaltet, 55.70471570305888f, 13.19412313135794f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.the_day_after_tomorrow, 55.70464216642544f, 13.1939776676648f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.futural_sjukcentral, 55.70455254336257f, 13.19378734132492f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.moocs, 55.70445066216406f, 13.19348825390201f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.tidsresorse, 55.70437865703956f, 13.19333871179819f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.lunara_nationen, 55.70434433369048f, 13.19434999518406f, R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.bucket_list,55.70440176403623f, 13.1943178086826f , R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.karneroj,55.704453f,13.194302f , R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
+        data.add(new DataElement(R.string.taltnojen, R.string.konstfiket,55.70527f,13.195593f , R.drawable.map_taltnojen_logo, DataType.TENT_FUN));
+
+
+        data.add(new DataElement(R.string.barnevalen, R.string.festtaltet, 55.70418149695015f, 13.19458440352848f, R.drawable.map_barnevalen_logo, DataType.BARNEVALEN));
+        data.add(new DataElement(R.string.barnevalen, R.string.gassimulator_3000, 55.7040650548606f, 13.19468165205387f, R.drawable.map_barnevalen_logo, DataType.BARNEVALEN));
+        data.add(new DataElement(R.string.barnevalen, R.string.cafe_kosmos, 55.70409508582605f, 13.19495755442542f, R.drawable.map_barnevalen_logo, DataType.BARNEVALEN));
+        data.add(new DataElement(R.string.barnevalen, R.string.forbjudna_taltet, 55.70399958255682f, 13.19495661742418f, R.drawable.map_barnevalen_logo, DataType.BARNEVALEN));
+        data.add(new DataElement(R.string.barnevalen, R.string.bak_och_framtidsresan, 55.7039678443762f, 13.19482518919924f, R.drawable.map_barnevalen_logo, DataType.BARNEVALEN));
+        data.add(new DataElement(R.string.barnevalen, R.string.astronautakademin, 55.7038136872786f, 13.19461463574077f, R.drawable.map_barnevalen_logo, DataType.BARNEVALEN));
+
+        data.add(new DataElement(R.string.toilets_title, R.string.toilets_title, 55.70648780072795f, 13.1958402043337f, R.drawable.map_toilets_logo, DataType.TOILETS));
+        data.add(new DataElement(R.string.toilets_title, R.string.toilets_title, 55.70603133250371f, 13.19404062814232f, R.drawable.map_toilets_logo, DataType.TOILETS));
+        data.add(new DataElement(R.string.toilets_title, R.string.toilets_title, 55.70485187667411f, 13.19570665852305f, R.drawable.map_toilets_logo, DataType.TOILETS));
+        data.add(new DataElement(R.string.toilets_title, R.string.toilets_title, 55.705228407599f, 13.19285637404313f, R.drawable.map_toilets_logo, DataType.TOILETS));
+        data.add(new DataElement(R.string.toilets_title, R.string.toilets_title, 55.70372639868275f, 13.19470515375246f, R.drawable.map_toilets_logo, DataType.TOILETS));
+        data.add(new DataElement(R.string.toilets_title, R.string.toilets_title, 55.70531936414573f, 13.19419428089188f, R.drawable.map_toilets_logo, DataType.TOILETS));
+        data.add(new DataElement(R.string.toilets_title, R.string.toilets_title, 55.70438108228282f, 13.19472544482855f, R.drawable.map_toilets_logo, DataType.TOILETS));
 
 
 
-        mData.add(new DataElement(R.string.small_scene_place, R.string.small_scene, R.string.small_scene_info, R.string.small_scene_question, 55.7071037170697f, 13.19599227169824f, R.drawable.header_lillascenen, R.drawable.map_scene_logo, R.drawable.scene_logo_list, DataType.SCENE));
-        mData.add(new DataElement(R.string.big_scene_place, R.string.big_scene, R.string.big_scene_info, R.string.big_scene_question, 55.70558532232642f, 13.19365336887898f, R.drawable.header_storascenen, R.drawable.map_scene_logo, R.drawable.scene_logo_list, DataType.SCENE));
+        data.add(new DataElement(R.string.care_title, R.string.care_title, 55.70589745349834f, 13.195349039021f, R.drawable.map_health_logo, DataType.CARE));
 
-        // Lock down!
-        mData = Collections.unmodifiableList(mData);
 
-        return mData;
+
+        data.add(new DataElement(R.string.police, R.string.police, 55.70566708948963f, 13.19601302178581f, R.drawable.map_security_logo, DataType.POLICE));
+        data.add(new DataElement(R.string.police, R.string.police, 55.7052602564826f, 13.19401040144301f, R.drawable.map_security_logo, DataType.POLICE));
+
+        data.add(new DataElement(R.string.radio, R.string.radio, 55.705383f,13.194872f, R.drawable.map_radio_logo, DataType.RADIO));
+
+        data.add(new DataElement(R.string.entre, R.string.en_lundensares_guide_till_galaxen, 55.705772f,13.192751f, R.drawable.map_entrance_icon, DataType.ENTRANCE));
+        data.add(new DataElement(R.string.entre, R.string.futopia, 55.70612f,13.195738f, R.drawable.map_entrance_icon, DataType.ENTRANCE));
+        data.add(new DataElement(R.string.entre, R.string.botaniska_ar_3014, 55.705173f,13.192679f, R.drawable.map_entrance_icon, DataType.ENTRANCE));
+        data.add(new DataElement(R.string.entre, R.string.futuralteleportal, 55.704327f,13.192934f, R.drawable.map_entrance_icon, DataType.ENTRANCE));
+        data.add(new DataElement(R.string.entre, R.string.intergalaktisk_invandring, 55.7037410100921f, 13.19423114265037f, R.drawable.map_entrance_icon, DataType.ENTRANCE));
+        data.add(new DataElement(R.string.entre, R.string.ett_svart_hal, 55.70448f,13.1958f, R.drawable.map_entrance_icon, DataType.ENTRANCE));
+
+        data.add(new DataElement(R.string.discokaffetalt_snacks, R.string.discokaffetalt, 55.70519298937666f, 13.19317860493478f, R.drawable.map_snaxeriet_logo, DataType.SNACKS));
+        data.add(new DataElement(R.string.snacks_iv_snacks, R.string.snacks_iv, 55.70585795050108f, 13.1943144945812f, R.drawable.map_snaxeriet_logo, DataType.SNACKS));
+        data.add(new DataElement(R.string.lyxbrygghus_snacks, R.string.lyxbrygghus, 55.70547249304708f, 13.19451161073117f, R.drawable.map_snaxeriet_logo, DataType.SNACKS));
+        data.add(new DataElement(R.string.lyxbrygghus_snacks, R.string.lyxbrygghus, 55.70479839152454f, 13.19472215029551f, R.drawable.map_snaxeriet_logo, DataType.SNACKS));
+        data.add(new DataElement(R.string.kungliga_snacksboden_estrelle_snacks, R.string.kungliga_snacksboden_estrelle, 55.70520990752672f, 13.19387434532636f, R.drawable.map_snaxeriet_logo, DataType.SNACKS));
+        data.add(new DataElement(R.string.bacon_oriley_snacks, R.string.bacon_oriley, 55.70642208831894f, 13.1957497314886f, R.drawable.map_snaxeriet_logo, DataType.SNACKS));
+        data.add(new DataElement(R.string.moderskeppet_snacks, R.string.moderskeppet, 55.705112f,13.193658f, R.drawable.map_snaxeriet_logo, DataType.SNACKS));
+
+
+        data.add(new DataElement(R.string.tombolan, R.string.putins_bodega_put_in_putin, 55.70652897496141f, 13.19567109412686f, R.drawable.bubble_tombolan, DataType.TOMBOLAN));
+        data.add(new DataElement(R.string.tombolan, R.string.rysk_roulette, 55.70598296464737f, 13.19420818471242f, R.drawable.bubble_tombolan, DataType.TOMBOLAN));
+        data.add(new DataElement(R.string.tombolan, R.string.hipster_eller_hobo, 55.70597691961526f, 13.19425780556136f, R.drawable.bubble_tombolan, DataType.TOMBOLAN));
+        data.add(new DataElement(R.string.tombolan, R.string.ligga_i_lund, 55.7052623716287f, 13.1933726994219f, R.drawable.bubble_tombolan, DataType.TOMBOLAN));
+        data.add(new DataElement(R.string.tombolan, R.string.war_of_karnewall_street, 55.70497261402468f, 13.19400101442841f, R.drawable.bubble_tombolan, DataType.TOMBOLAN));
+        data.add(new DataElement(R.string.tombolan, R.string.tillbaka_till_samtiden, 55.7046899767097f, 13.19470679837929f, R.drawable.bubble_tombolan, DataType.TOMBOLAN));
+        data.add(new DataElement(R.string.tombolan, R.string.strike_for_the_future, 55.7045492497648f, 13.19459512816178f, R.drawable.bubble_tombolan, DataType.TOMBOLAN));
+        data.add(new DataElement(R.string.tombolan, R.string.futuralbucks, 55.7046234675636f, 13.19465534628458f, R.drawable.bubble_tombolan, DataType.TOMBOLAN));
+        data.add(new DataElement(R.string.tombolan, R.string.news_kast, 55.705296f,13.1936455f, R.drawable.bubble_tombolan, DataType.TOMBOLAN));
+
+        data.add(new DataElement(R.string.tidsmaskin, R.string.futuautomat,  55.7055f,13.194731f, R.drawable.map_futuautomat, DataType.AUTOMAT));
+
+
+
+        data.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.70688332580387f, 13.19570738052719f, R.drawable.map_soptunna_icon, DataType.TRASHCAN));
+        data.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.70521696656937f, 13.19372387921223f, R.drawable.map_soptunna_icon, DataType.TRASHCAN));
+        data.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.7039572412542f, 13.19453665220126f, R.drawable.map_soptunna_icon, DataType.TRASHCAN));
+        data.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.70457677586199f, 13.19544640504312f, R.drawable.map_soptunna_icon, DataType.TRASHCAN));
+        data.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.70556189423078f, 13.19477811180374f, R.drawable.map_soptunna_icon, DataType.TRASHCAN));
+        data.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.7048783266619f, 13.19446443948018f, R.drawable.map_soptunna_icon, DataType.TRASHCAN));
+        data.add(new DataElement(R.string.trashcan, R.string.trashcan, 55.7046984808458f, 13.19383546152834f, R.drawable.map_soptunna_icon, DataType.TRASHCAN));
+
+        data.add(new DataElement(R.string.shoppen, R.string.shoppen, 55.704273f,13.194829f, R.drawable.bubble_shoppen, DataType.SHOPPEN));
+        data.add(new DataElement(R.string.shoppen, R.string.shoppen, 55.70557904967363f, 13.19512260551833f, R.drawable.bubble_shoppen, DataType.SHOPPEN));
+
+        data.add(new DataElement(R.string.music_title, R.string.music_title, 55.70587f,13.193985f, R.drawable.map_music_logo, DataType.MUSIC));
+        data.add(new DataElement(R.string.music_title, R.string.music_title, 55.705444f,13.193072f, R.drawable.map_music_logo, DataType.MUSIC));
+
+
+
+        data.add(new DataElement(R.string.small_scene_place,R.string.small_scene,R.string.small_scene_info, R.string.small_scene_question, 55.7071037170697f, 13.19599227169824f, R.drawable.header_lillascenen, R.drawable.map_scene_logo, R.drawable.scene_logo_list,DataType.SCENE));
+        data.add(new DataElement(R.string.big_scene_place,R.string.big_scene, R.string.big_scene_info,R.string.big_scene_question, 55.70558532232642f, 13.19365336887898f, R.drawable.header_storascenen, R.drawable.map_scene_logo,R.drawable.scene_logo_list, DataType.SCENE));
+
+        data.add(new DataElement(R.string.utvecklarna_place,R.string.utvecklarna,R.string.utvecklarna_text,R.string.utvecklarna_question, 55.707371322f, 13.1910161648f, 0,R.drawable.map_info,R.drawable.biljetteriet_logo_list, DataType.DEVELOPER));
+
+
+
+        return data;
     }
 
     public static List<DataElement> getDataOfType(DataType type) {
-        List<DataElement> data = new ArrayList<>();
+        List<DataElement> data = new ArrayList<DataElement>();
         for (DataElement element : getAllData()) {
             if (element.type == type) {
                 data.add(element);

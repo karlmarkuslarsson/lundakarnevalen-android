@@ -51,21 +51,28 @@ public class SchemeFragment extends LKFragment {
         ContentActivity activity = ContentActivity.class.cast(getActivity());
 
         View view = inflater.inflate(R.layout.fragment_scheme, container, false);
+        vp = get(view, R.id.scheme_viewpager, ViewPager.class);
+
         final RelativeLayout rl = get(view,R.id.heartText,RelativeLayout.class);
         rl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                currentDay = vp.getCurrentItem();
                 if(myScheme){
                     get(rl,R.id.myScheme,TextView.class).setText(R.string.my_scheme);
+                    get(rl,R.id.myScheme,TextView.class).setTextColor(getResources().getColor(R.color.red));
+                    get(rl,R.id.heartText,RelativeLayout.class).setBackgroundColor(getResources().getColor(R.color.white));
+                    get(rl,R.id.myHeart,ImageView.class).setImageResource(R.drawable.heart_clicked);
                     vp.setAdapter(new SchemeViewAdapter());
                     vp.setCurrentItem(currentDay);
-
                     myScheme = false;
                 } else {
                     get(rl,R.id.myScheme,TextView.class).setText(R.string.full_list);
+                    get(rl,R.id.myScheme,TextView.class).setTextColor(getResources().getColor(R.color.white));
+                    get(rl,R.id.heartText,RelativeLayout.class).setBackgroundColor(getResources().getColor(R.color.red));
+                    get(rl,R.id.myHeart,ImageView.class).setImageResource(R.drawable.heart_not_clicked);
                     vp.setAdapter(new MySchemeViewAdapter());
                     vp.setCurrentItem(currentDay);
-
                     myScheme = true;
                 }
            }
@@ -77,7 +84,6 @@ public class SchemeFragment extends LKFragment {
         leftArrowLayout = get(view, R.id.left_arrow, RelativeLayout.class);
         rightArrowLayout = get(view, R.id.right_arrow, RelativeLayout.class);
         final TextView header = get(view, R.id.dayText, TextView.class);
-        vp = get(view, R.id.scheme_viewpager, ViewPager.class);
 
         currentDay = getCurrentDay();
         vp.setBackgroundColor(Color.TRANSPARENT);

@@ -1,6 +1,7 @@
 package se.lundakarnevalen.extern.widget;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -8,6 +9,8 @@ import android.graphics.Picture;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.util.SparseArray;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.caverock.androidsvg.SVG;
@@ -16,6 +19,8 @@ import com.nineoldandroids.animation.PropertyValuesHolder;
 import com.nineoldandroids.animation.ValueAnimator;
 
 import se.lundakarnevalen.extern.android.R;
+import se.lundakarnevalen.extern.map.LocationTracker;
+import se.lundakarnevalen.extern.util.BitmapUtil;
 import se.lundakarnevalen.extern.util.Logf;
 
 import static android.graphics.Matrix.MSCALE_X;
@@ -34,6 +39,8 @@ public class LKTrainView extends SVGView {
     private static final float diffLat = endLatMap - startLatMap;
     private static final float diffLon = endLonMap - startLonMap;
 
+    private static final int BITMAP_TRAIN = 123;
+
     private Paint mShadowInk;
     private Picture mGpsMarker;
 
@@ -43,9 +50,23 @@ public class LKTrainView extends SVGView {
 
     private PointF mGpsMarkerPos = new PointF(0,0);
 
+    private Paint mPaint;
     private RectF dst = new RectF();
     private float mPreDrawScale;
 
+    private float mTrainMarkerSize;
+
+    private float mTrainPosX = -100;
+    private float mTrainPosY = -100;
+
+    private static SparseArray<Bitmap> bitmaps = new SparseArray<Bitmap>();
+
+    public static void clean() {
+        for(int i = 0; i < bitmaps.size(); i++) {
+            bitmaps.valueAt(i).recycle();
+        }
+        bitmaps.clear();
+    }
 
     public LKTrainView(Context context) {
         super(context);
@@ -66,9 +87,10 @@ public class LKTrainView extends SVGView {
         if(isInEditMode()) return;
         mShadowInk = new Paint(Paint.ANTI_ALIAS_FLAG);
         mShadowInk.setColor(Color.argb(128, 128, 128, 128));
-
+        mPaint = new Paint();
         try {
             mGpsMarker = SVG.getFromResource(context, R.raw.gps_marker).renderToPicture();
+            bitmaps.put(BITMAP_TRAIN, BitmapUtil.decodeSampledBitmapFromResource(context.getResources(), R.drawable.train_marker, 96, 96));
         } catch (SVGParseException e) {
             e.printStackTrace();
         }
@@ -76,7 +98,10 @@ public class LKTrainView extends SVGView {
         mGpsMarkerSize = dpToPx(context, 80);
         mGpsShadowXRadius = dpToPx(context, 10);
         mGpsShadowYRadius = dpToPx(context, 6);
+        mTrainMarkerSize = dpToPx(context, 40);
     }
+
+
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -112,14 +137,21 @@ public class LKTrainView extends SVGView {
                 mGpsMarkerPos.y + mGpsMarkerSize / mPreDrawScale);
         normalizeToMidpointBottom(dst);
         canvas.drawPicture(mGpsMarker, dst);
+
+        dst.set(mTrainPosX,
+                mTrainPosY,
+                mTrainPosX + mTrainMarkerSize / mPreDrawScale,
+                mTrainPosY + mTrainMarkerSize / mPreDrawScale);
+        normalizeToMidpointBottom(dst);
+        canvas.drawBitmap(bitmaps.get(BITMAP_TRAIN), null, dst, mPaint);
     }
 
     public void getPointFromCoordinates(float lat, float lon, float[] dst) {
         float lat1 = (lat - startLatMap) / diffLat;
         float lon1 = (lon - startLonMap) / diffLon;
         if(mPictureEndPoint[AXIS_X] == -1) {
-            dst[AXIS_X] = lon1 * 512;
-            dst[AXIS_Y] = lat1 * 512;
+            dst[AXIS_X] = lon1 * 1080;
+            dst[AXIS_Y] = lat1 * 1368;
         } else {
             dst[AXIS_X] = lon1 * mPictureEndPoint[AXIS_X];
             dst[AXIS_Y] = lat1 * mPictureEndPoint[AXIS_Y];
@@ -161,5 +193,13 @@ public class LKTrainView extends SVGView {
     public boolean isWithinLatLngRange(float lat, float lng) {
         return  (startLatMap > lat && lat > endLatMap) &&
                 (startLonMap < lng && lng < endLonMap);
+    }
+
+    public void setTrainLocation(LocationTracker.LocationJSONResult.LatLng latLng) {
+        float[] xy = new float[2];
+        getPointFromCoordinates(latLng.lat, latLng.lng, xy);
+        mTrainPosX = xy[0];
+        mTrainPosY = xy[1];
+        Logf.d(LOG_TAG, "New Train pos: %f, %f => %f, %f",latLng.lat, latLng.lng, xy[0], xy[1]);
     }
 }

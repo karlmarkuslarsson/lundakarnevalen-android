@@ -22,7 +22,7 @@ import static com.nineoldandroids.view.ViewPropertyAnimator.animate;
 public class SplashScreenActivity extends Activity {
     private static final String LOG_TAG = SplashScreenActivity.class.getSimpleName();
 
-    private static final int TOTAL_SPLASH_TIME_OUT = 3400;
+    private static final int TOTAL_SPLASH_TIME_OUT = 2500;
     private static final int POST_ANIMATION_DELAY = 300;
     public static final int PRE_ANIMATION_DELAY = 100;
 
@@ -51,20 +51,14 @@ public class SplashScreenActivity extends Activity {
             .start();
 
         startMovingClouds(findViewById(android.R.id.content));
-        MapLoader.preload(this);
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                TrainMapLoader.preload(SplashScreenActivity.this);
-            }
-        }, 5000);
+        MapLoader.startPreLoading(getApplicationContext());
     }
 
 
     private class CloudStartListner implements Animation.AnimationListener {
 
-        ImageView view;
+        private ImageView view;
+
         public CloudStartListner(ImageView view) {
             this.view = view;
         }
@@ -104,7 +98,7 @@ public class SplashScreenActivity extends Activity {
         a.setFillAfter(true);
         a.setInterpolator(new LinearInterpolator());
         cloud.startAnimation(a);
-    }
+}
 
     public <T> T find(int id, Class<T> clz) {
         return clz.cast(findViewById(id));
