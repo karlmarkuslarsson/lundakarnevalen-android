@@ -499,5 +499,6 @@ I Athen på AF-borgen hittar du tidsmaskinen som tar dig på en kulinarisk tidsr
     <string name="foodo_child_food2">Vetekornspilaff med grillade grönsaker</string>
     <string name="flour_power_food1">Klassiskt brännvinsbord</string>
     <string name="gps_toast">You are out of range or has not GPS enabled</string>
+    <string name="song_book">SONG BOOK</string>
 
 </resources>

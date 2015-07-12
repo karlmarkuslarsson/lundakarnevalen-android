@@ -5,9 +5,6 @@ import java.util.List;
 
 import se.lundakarnevalen.extern.android.R;
 
-/**
- * Created by Fredrik on 2014-05-04.
- */
 public class DataContainer {
 
     public static List<DataElement> getAllData() {

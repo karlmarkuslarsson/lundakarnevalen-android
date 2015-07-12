@@ -5,9 +5,6 @@ import java.util.List;
 
 import se.lundakarnevalen.extern.android.R;
 
-/**
- * Created by Markus on 2014-05-07.
- */
 public class DataMultiContainer {
     public static List<DataElement> getAllFunMultiData() {
         List<DataElement> data = new ArrayList<DataElement>();
@@ -81,6 +78,11 @@ public class DataMultiContainer {
     public static List<DataElement> getAllOtherMultiData() {
         List<DataElement> data = new ArrayList<DataElement>();
 
+            data.add(new DataElement(
+                    R.string.song_book,
+                    R.drawable.songs_logo_other,
+                    R.drawable.songs_logo_other,
+                    DataType.SONG_BOOK));
 
         data.add(new DataElement(
                 R.string.karne_name,

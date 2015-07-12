@@ -7,9 +7,6 @@ import java.util.ArrayList;
 
 import se.lundakarnevalen.extern.android.R;
 
-/**
- * Created by Markus on 2014-04-23.
- */
 public class DataElement implements Parcelable {
     public String timeFriday = "00:00-00:00";
     public String timeSaturday = "00:00-00:00";

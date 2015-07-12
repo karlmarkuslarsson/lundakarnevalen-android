@@ -1,6 +1,7 @@
 package se.lundakarnevalen.extern.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,13 +36,6 @@ public class OtherFragment extends LKFragment{
         activity.focusBottomItem(ID);
 
         if (other.isEmpty()) {
-            other.addAll(DataContainer.getDataOfType(DataType.PLAYER_FUTURAL));
-            other.addAll(DataContainer.getDataOfType(DataType.TRAIN));
-            other.addAll(DataContainer.getDataOfType(DataType.PLAYER_RADIO));
-            other.addAll(DataContainer.getDataOfType(DataType.BILJETTERIET));
-            other.addAll(DataContainer.getDataOfType(DataType.ATM));
-            other.addAll(DataContainer.getDataOfType(DataType.PARKING));
-            other.addAll(DataContainer.getDataOfType(DataType.SECURITY));
             other.addAll(DataMultiContainer.getAllOtherMultiData());
         }
 
@@ -53,7 +47,6 @@ public class OtherFragment extends LKFragment{
             } else {
                 items.add(new LKListRow(other.get(i),null));
             }
-
         }
 
         lv.setAdapter(new LKListAdapter(getContext(), items,getActivity()));
